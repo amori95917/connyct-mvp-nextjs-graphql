@@ -1,0 +1,1 @@
+export { CompanyRecommendation } from './CompanyRecommendation';

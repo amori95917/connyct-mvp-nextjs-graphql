@@ -1,0 +1,1 @@
+export { CompanyLayout } from './CompanyLayout';

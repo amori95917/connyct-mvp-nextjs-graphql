@@ -1,7 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-}
+	reactStrictMode: true,
+	swcMinify: true,
+	images: {
+		domains: ['i.pravatar.cc', 'cdn.shopify.com'],
+	},
+	experimental: {
+		fontLoaders: [{ loader: '@next/font/google', options: { subsets: ['latin'] } }],
+	},
+	typescript: {
+		ignoreBuildErrors: true,
+	},
+	webpack(config) {
+		config.module.rules.push({
+			test: /\.svg$/,
+			use: ['@svgr/webpack'],
+		});
 
-module.exports = nextConfig
+		return config;
+	},
+};
+
+module.exports = nextConfig;

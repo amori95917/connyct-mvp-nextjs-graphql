@@ -1,0 +1,1 @@
+export { ProductPostForm } from './ProductPostForm';

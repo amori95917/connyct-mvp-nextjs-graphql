@@ -1,0 +1,1 @@
+export { LoaderDataComponent } from './LoaderDataComponent';

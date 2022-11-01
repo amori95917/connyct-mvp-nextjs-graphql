@@ -1,0 +1,1 @@
+export { CommunityHead } from './CommunityHead';

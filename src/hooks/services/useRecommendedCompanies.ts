@@ -1,0 +1,63 @@
+import { useEffect, useState, useRef } from 'react';
+import { useLazyQuery } from '@apollo/client';
+import produce from 'immer';
+
+import { SUGGESTION_COMPANIES } from '@/graphql/company';
+import { Query } from '@/generated/graphql';
+
+export function useRecommendedCompanies() {
+	const observerRef = useRef<any>(null);
+	const [buttonRef, setButtonRef] = useState<any>(null);
+	const [loadRecommendedCompanies, { loading, data, fetchMore }] =
+		useLazyQuery(SUGGESTION_COMPANIES);
+	useEffect(() => {
+		loadRecommendedCompanies({
+			variables: {
+				first: 10,
+			},
+		});
+	}, []);
+
+	const response = data?.companiesSuggestions?.edges ?? [];
+	const hasNextPage = data?.companiesSuggestions?.pageInfo?.hasNextPage;
+	const after = data?.companiesSuggestions?.pageInfo?.endCursor;
+
+	useEffect(() => {
+		const currentObserver = observerRef?.current;
+		if (buttonRef) {
+			currentObserver?.observe(document.querySelector('#buttonLoadMore'));
+		}
+	}, [buttonRef]);
+
+	const onLoadMore = () => {
+		if (fetchMore) {
+			fetchMore({
+				variables: {
+					after,
+				},
+				updateQuery: (prev, { fetchMoreResult }: any) => {
+					if (!fetchMoreResult) return prev;
+					const connection = fetchMoreResult.companiesSuggestions;
+					return produce(prev, (draft: Pick<Query, 'companiesSuggestions'>) => {
+						if (draft?.companiesSuggestions?.totalCount) {
+							draft.companiesSuggestions = {
+								pageInfo: connection.pageInfo,
+								edges: draft?.companiesSuggestions?.edges?.concat(connection.edges),
+								totalCount: connection.totalCount,
+								// eslint-disable-next-line no-underscore-dangle
+								__typename: draft?.companiesSuggestions?.__typename,
+							};
+						}
+					});
+				},
+			});
+		}
+	};
+
+	return {
+		response,
+		loading,
+		hasNextPage,
+		onLoadMore,
+	};
+}

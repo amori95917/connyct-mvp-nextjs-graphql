@@ -1,0 +1,1 @@
+export { SIGNUP_MUTATION, LOGIN_MUTATION } from './resolver'
