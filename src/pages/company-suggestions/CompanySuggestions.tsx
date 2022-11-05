@@ -1,9 +1,12 @@
+import React from 'react';
 import { useRecommendedCompanies } from '@/hooks/services/useRecommendedCompanies';
 import { Box } from '@/components/atoms/box';
 import { CompanyEdge } from '@/generated/graphql';
+import { LoaderDataComponent } from '@/shared-components/loader-data-component';
 import { InfiniteScroller } from '@/shared-components/infinite-scroller';
-import CompanySuggestion from './CompanySuggestion';
 import useCompanySuggestion from './hooks';
+
+const CompanySuggestion = React.lazy(() => import('./CompanySuggestion'));
 
 const CompanySuggestions = () => {
 	const { response, loading, onLoadMore, hasNextPage } = useRecommendedCompanies();
@@ -91,24 +94,26 @@ const CompanySuggestions = () => {
 							</div>
 							<div className='bg-slate-100 h-px'></div>
 							<div className='mx-auto'></div>
-							<InfiniteScroller
-								loading={loading}
-								scrollableTop={true}
-								hasNextPage={hasNextPage}
-								onLoadMore={onLoadMore}>
-								{(response || []).map((suggestedCompany: CompanyEdge) => {
-									const { node: company } = suggestedCompany;
-									return (
-										<CompanySuggestion
-											key={company?.id}
-											company={company}
-											followedCompanies={followedCompanies}
-											handleFollow={handleFollow}
-											handleUnfollow={handleUnfollow}
-										/>
-									);
-								})}
-							</InfiniteScroller>
+							<LoaderDataComponent isLoading={loading} data={response}>
+								<InfiniteScroller
+									loading={loading}
+									scrollableTop={true}
+									hasNextPage={hasNextPage}
+									onLoadMore={onLoadMore}>
+									{(response || []).map((suggestedCompany: CompanyEdge) => {
+										const { node: company } = suggestedCompany;
+										return (
+											<CompanySuggestion
+												key={company?.id}
+												company={company}
+												followedCompanies={followedCompanies}
+												handleFollow={handleFollow}
+												handleUnfollow={handleUnfollow}
+											/>
+										);
+									})}
+								</InfiniteScroller>
+							</LoaderDataComponent>
 						</Box>
 					</div>
 				</div>
