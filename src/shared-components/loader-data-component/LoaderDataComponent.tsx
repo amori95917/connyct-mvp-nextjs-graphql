@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
-import { EmptyComponent } from '@/components/atoms/empty-component';
-import { Loader } from '@/components/atoms/loader';
+import { EmptyComponent } from '@/ui-elements/atoms/empty-component';
+import { Loader } from '@/ui-elements/atoms/loader';
 
 type LoaderDataComponentProps = {
 	isLoading?: boolean;
@@ -9,6 +9,7 @@ type LoaderDataComponentProps = {
 	children: React.ReactNode;
 	fallback?: React.ReactNode;
 	emptyComponent?: React.ReactNode;
+	isSuspense?: boolean;
 };
 
 export const LoaderDataComponent = (props: LoaderDataComponentProps) => {
@@ -18,9 +19,15 @@ export const LoaderDataComponent = (props: LoaderDataComponentProps) => {
 		children,
 		data,
 		emptyComponent = <EmptyComponent />,
+		isSuspense = false,
 	} = props;
+	const render = useCallback(() => {
+		return data?.length ? children : emptyComponent;
+	}, [children, data?.length, emptyComponent]);
 	if (isLoading) return <>{fallback}</>;
-	return (
-		<React.Suspense fallback={fallback}>{data?.length ? children : emptyComponent}</React.Suspense>
-	);
+	if (isSuspense) {
+		return <React.Suspense fallback={fallback}>{render()}</React.Suspense>;
+	} else {
+		return <>{render()}</>;
+	}
 };

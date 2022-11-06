@@ -17,10 +17,12 @@ const FeedActions = (props: FeedActionProps) => {
 		setShowHideReaction(!showHideReaction);
 	};
 	return (
-		<div className='p-5'>
+		<div className='overflow-scroll'>
 			<div className='flex items-center justify-between'>
 				<div className='flex items-center relative'>
-					<span className='cursor-pointer flex items-center' onClick={handleReactionClick}>
+					<span
+						className='cursor-pointer flex items-center whitespace-nowrap'
+						onClick={handleReactionClick}>
 						{/* {showHideReaction && <Reaction postId={postId} />} */}
 						<LikeIcon />
 						<span className='ml-2 text-muted'>
@@ -29,7 +31,7 @@ const FeedActions = (props: FeedActionProps) => {
 					</span>
 				</div>
 				<div className='flex items-center'>
-					<button className='flex items-center' onClick={onCommentClickHandler}>
+					<button className='flex items-center whitespace-nowrap' onClick={onCommentClickHandler}>
 						<CommentIcon />
 						<span className='ml-2 text-muted'> comments {commentLength}</span>
 					</button>

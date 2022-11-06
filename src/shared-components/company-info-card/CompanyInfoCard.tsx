@@ -18,7 +18,7 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 
 	const isVerified = false;
 	return (
-		<div className='flex flex-col h-screen items-center mr-5 no-scrollbar overflow-y-scroll rounded-md sticky top-24'>
+		<div className='flex flex-col items-center mr-5 no-scrollbar overflow-y-scroll rounded-md md:h-screen md:sticky md:top-24'>
 			<div className='bg-white rounded-md w-full'>
 				<div className='p-5'>
 					<div className='bg-gray-100 flex flex-col p-3 rounded-md'>
@@ -59,10 +59,10 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 						</div>
 					</div>
 				</div>
-				<div className='actions ml-5 mr-5 py-4'>
-					<div className='align-center flex justify-around'>
-						<button className='bg-gray-100 font-semibold px-14 py-3'>Contact</button>
-						<button className='bg-primary font-semibold px-14 py-3 text-white'>Connect</button>
+				<div className='actions ml-5 mr-5 py-2'>
+					<div className='align-center flex justify-between'>
+						<button className='bg-gray-100 font-semibold px-10 py-3'>Contact</button>
+						<button className='bg-primary font-semibold px-10 py-3 text-white'>Connect</button>
 					</div>
 				</div>
 				<div className='py-4 rating-section'>

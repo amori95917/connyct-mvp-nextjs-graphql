@@ -3,7 +3,7 @@ import Image from 'next/image';
 const CompanyRecommendation = () => {
 	return (
 		<>
-			<div className='bg-white grow ml-5 mt-5 pb-2 rounded-md sticky top'>
+			<div className='bg-white grow mt-5 pb-2 rounded-md sticky top'>
 				<p className='font-bold mt-2 pl-5 text-xl'>Recommended for you</p>
 				<div className='bg-slate-300 h-px ml-5 mr-5 mt-3'></div>
 				<div className='flex items-center ml-5 mt-3'>

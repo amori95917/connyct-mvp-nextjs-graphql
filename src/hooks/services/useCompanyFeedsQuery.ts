@@ -1,30 +1,21 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useState, useEffect, useRef } from 'react';
+import { useQuery } from '@apollo/client';
 import { produce } from 'immer';
 
 import { Query } from '@/generated/graphql';
 import { GET_COMPANY_POST } from '@/graphql/feeds';
-import { getCookie } from '@/utils/cookies';
 
-export function useCompanyFeedsQuery(companySlug: string) {
+export function useCompanyFeedsQuery(companySlug: string, first: number = 10) {
 	const observerRef = useRef<any>(null);
 	const [buttonRef, setButtonRef] = useState<any>(null);
-	const { company } = getCookie('CONNYCT_USER') ?? {};
 
-	const [loadFeeds, { data, fetchMore, loading }] = useLazyQuery(GET_COMPANY_POST, {
+	const { data, fetchMore, loading } = useQuery(GET_COMPANY_POST, {
 		fetchPolicy: 'cache-and-network',
+		variables: {
+			id: companySlug,
+			first: first,
+		},
 	});
-
-	useEffect(() => {
-		if (companySlug || company) {
-			loadFeeds({
-				variables: {
-					id: companySlug || company[0].id,
-					first: 3,
-				},
-			});
-		}
-	}, []);
 
 	// const feeds = useMemo(() => data?.postsByCompanyId?.edges ?? [], [data]);
 	const feeds = data?.postsByCompanyId?.edges ?? [];
@@ -42,7 +33,7 @@ export function useCompanyFeedsQuery(companySlug: string) {
 		if (fetchMore) {
 			fetchMore({
 				variables: {
-					id: companySlug || company[0].id,
+					id: companySlug,
 					after,
 				},
 				updateQuery: (prev, { fetchMoreResult }: any) => {

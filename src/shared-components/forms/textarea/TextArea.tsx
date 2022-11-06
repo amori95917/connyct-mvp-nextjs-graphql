@@ -3,8 +3,8 @@ import get from 'lodash.get';
 
 import { RegisterOptions, DeepMap, FieldError, UseFormRegister, Path } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { TextAreaProps } from '@/components/atoms/forms';
-import { FormTextArea } from '@/components/molecules/forms';
+import { TextAreaProps } from 'src/ui-elements/atoms/forms';
+import { FormTextArea } from 'src/ui-elements/molecules/forms';
 import { FormErrorMessage } from '../form-error-message';
 
 export type FormInputProps<TFormValues> = {

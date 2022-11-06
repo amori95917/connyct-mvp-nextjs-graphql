@@ -12,11 +12,11 @@ const Menus = props => {
 	const slug = data?.getCompanyById?.id;
 	return (
 		<>
-			<div className='bg-white flex w-full'>
+			<div className='bg-white flex justify-center overflow-scroll w-full'>
 				<Link href={`/company/${slug}/about-us`} passHref className='mr-6'>
 					<button className={downMenusButtonClassNames}>
 						<SiAboutdotme size={25} fill={'#00E0FF'} />
-						<span className='ml-5'>About us</span>
+						<span className='ml-5 whitespace-nowrap'>About us</span>
 					</button>
 				</Link>
 				<Link href={`/company/${slug}/feeds`} passHref className='mr-6'>

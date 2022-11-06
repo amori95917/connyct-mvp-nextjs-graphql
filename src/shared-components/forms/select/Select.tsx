@@ -1,5 +1,5 @@
 import { Controller, useFormState } from 'react-hook-form';
-import { FormSelect } from '@/components/molecules/forms';
+import { FormSelect } from 'src/ui-elements/molecules/forms';
 
 export default function FormSelectField({
 	disabled,
@@ -99,7 +99,7 @@ export default function FormSelectField({
 							isMulti={isMulti}
 							isCreateable={isCreateable}
 							options={options}
-							id={id}
+							labelId={id}
 							name={name}
 							helperText={helperText}
 							label={label}

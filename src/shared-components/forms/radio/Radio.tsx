@@ -2,8 +2,8 @@ import get from 'lodash.get';
 import { DeepMap, FieldError, UseFormRegister, Path } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { classNames } from '@/utils/classnames';
-import { RadioProps } from '@/components/atoms/forms';
-import { FormRadio } from '@/components/molecules/forms';
+import { RadioProps } from 'src/ui-elements/atoms/forms';
+import { FormRadio } from 'src/ui-elements/molecules/forms';
 import { FormErrorMessage } from '../form-error-message';
 
 export type FormRadioProps<TFormValues> = {

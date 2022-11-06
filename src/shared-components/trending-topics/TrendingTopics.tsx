@@ -5,7 +5,7 @@ import { AiOutlineDown } from 'react-icons/ai';
 import { LoaderDataComponent } from '@/shared-components/loader-data-component';
 import { GET_TAGS } from '@/graphql/tags';
 import { BRAND_ROUTES } from '@/constants/routes';
-import { EmptyComponent } from '@/components/atoms/empty-component';
+import { EmptyComponent } from 'src/ui-elements/atoms/empty-component';
 
 const TrendingTopics = () => {
 	const { data, loading } = useQuery(GET_TAGS);

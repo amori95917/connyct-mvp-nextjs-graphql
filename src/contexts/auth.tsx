@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 		// unauthenticateAPI();
 		setUser(null);
 		setIsLoading(false);
-		router.push(redirectLocation || '/login');
+		router.push(redirectLocation || 'account/login');
 	};
 
 	const authenticate = async token => {

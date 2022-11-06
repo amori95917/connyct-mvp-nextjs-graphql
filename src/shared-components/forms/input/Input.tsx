@@ -3,8 +3,8 @@ import get from 'lodash.get';
 
 import { RegisterOptions, DeepMap, FieldError, UseFormRegister, Path } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { InputProps } from '@/components/atoms/forms';
-import { FormInput } from '@/components/molecules/forms';
+import { InputProps } from 'src/ui-elements/atoms/forms';
+import { FormInput } from 'src/ui-elements/molecules/forms';
 import { classNames } from '@/utils/classnames';
 import { FormErrorMessage } from '../form-error-message';
 

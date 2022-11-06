@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecommendedCompanies } from '@/hooks/services/useRecommendedCompanies';
-import { Box } from '@/components/atoms/box';
+import { Box } from 'src/ui-elements/atoms/box';
 import { CompanyEdge } from '@/generated/graphql';
 import { LoaderDataComponent } from '@/shared-components/loader-data-component';
 import { InfiniteScroller } from '@/shared-components/infinite-scroller';

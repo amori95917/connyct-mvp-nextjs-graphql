@@ -4,8 +4,8 @@ import { RegisterOptions, DeepMap, FieldError, UseFormRegister, Path } from 'rea
 import { ErrorMessage } from '@hookform/error-message';
 import get from 'lodash.get';
 
-import { FormInput } from '@/components/molecules/forms';
-import { InputProps } from '@/components/atoms/forms';
+import { FormInput } from 'src/ui-elements/molecules/forms';
+import { InputProps } from 'src/ui-elements/atoms/forms';
 import { PasswordLock, PasswordUnlock } from '@/shared-components/icons';
 import { classNames } from '@/utils/classnames';
 import { FormErrorMessage } from '../form-error-message';

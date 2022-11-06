@@ -1,8 +1,8 @@
 import get from 'lodash.get';
 import { DeepMap, FieldError, UseFormRegister, Path } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { CheckboxProps } from '@/components/atoms/forms';
-import { FormCheckbox } from '@/components/molecules/forms';
+import { CheckboxProps } from 'src/ui-elements/atoms/forms';
+import { FormCheckbox } from 'src/ui-elements/molecules/forms';
 import { FormErrorMessage } from '../form-error-message';
 import { classNames } from '@/utils/classnames';
 

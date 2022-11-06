@@ -16,6 +16,7 @@
     "@hookform/error-message": "^2.0.0",
     "@hookform/resolvers": "^2.9.10",
     "@next/font": "^13.0.0",
+    "@types/fslightbox-react": "^1.4.2",
     "@types/uuid": "^8.3.4",
     "apollo-upload-client": "^17.0.0",
     "classnames": "^2.3.2",
@@ -35,6 +36,7 @@
     "react-hook-form": "^7.38.0",
     "react-icons": "^4.6.0",
     "react-select": "^5.5.7",
+    "react-simple-image-viewer": "^1.2.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {

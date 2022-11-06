@@ -50,7 +50,7 @@ const Signin = () => {
 				};
 				setCookie('CONNYCT_USER', cookieToSet);
 				console.timeEnd();
-				company ? router.push(`/company/${company[0].id}/feeds`) : router.push(`/feeds`);
+				company ? router.push(`/company/${company[0].id}/edit`) : router.push(`/company-suggestions`);
 			}
 		} catch (e) {
 			setError({ message: e.message, code: 'INVALID_USERNAME_PASSWORD' });

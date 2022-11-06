@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
 #__next {
   display: flex;
   flex-direction: column;
@@ -497,3 +499,8 @@ main .container .left .profile {
     transform: scale(1);
   }
 }
+
+.low_image_brightness{
+  filter: brightness(25%);
+  }
+  

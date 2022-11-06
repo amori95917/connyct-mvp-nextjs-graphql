@@ -22,9 +22,9 @@ const CompanyLayout = (props: CompanyLayoutProps) => {
 		<main className='p-2 relative top-16'>
 			<section className='container flex flex-col mx-auto pt-1'>
 				<Menus data={data} />
-				<div className='grid grid-cols-3 pt-4'>
+				<div className='grid pt-4 md:grid-cols-4'>
 					<CompanyInfoCard companySlug={companySlug || ''} data={data} />
-					<section className='col-span-2'>{children}</section>
+					<section className='pt-4 md:col-span-3 md:pt-0'>{children}</section>
 				</div>
 			</section>
 		</main>

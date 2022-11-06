@@ -1,4 +1,4 @@
-import { Input } from '@/components/atoms/forms/input';
+import { Input } from 'src/ui-elements/atoms/forms/input';
 import { ProfileCard } from '@/shared-components/profile-card';
 
 export const CommunityMembers = () => {

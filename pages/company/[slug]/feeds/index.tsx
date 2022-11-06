@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import { Navbar } from '@/shared-components/navbar';
 import { CompanyLayout } from '@/shared-components/layouts';
-import { Feeds as CompanyFeeds } from '@/pages/company/feeds';
+import { Feeds as CompanyFeeds } from '@/shared-components/feeds';
 
 function getSlug(slug: string | string[] | undefined) {
 	if (slug === undefined) return '';
