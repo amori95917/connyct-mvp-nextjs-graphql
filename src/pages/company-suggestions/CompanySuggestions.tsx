@@ -9,7 +9,7 @@ import useCompanySuggestion from './hooks';
 const CompanySuggestion = React.lazy(() => import('./CompanySuggestion'));
 
 const CompanySuggestions = () => {
-	const { response, loading, onLoadMore, hasNextPage } = useRecommendedCompanies();
+	const { response, loading, onLoadMore, hasNextPage } = useRecommendedCompanies(20);
 	const { onFollow, onUnfollow, onContinue, onSkip, followedCompanies } = useCompanySuggestion();
 
 	const handleFollow = async (companyId: string) => {

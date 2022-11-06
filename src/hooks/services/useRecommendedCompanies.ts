@@ -1,23 +1,18 @@
 import { useEffect, useState, useRef } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import produce from 'immer';
 
 import { SUGGESTION_COMPANIES } from '@/graphql/company';
 import { Query } from '@/generated/graphql';
 
-export function useRecommendedCompanies() {
+export function useRecommendedCompanies(first: number = 10) {
 	const observerRef = useRef<any>(null);
 	const [buttonRef, setButtonRef] = useState<any>(null);
-	const [loadRecommendedCompanies, { loading, data, fetchMore }] =
-		useLazyQuery(SUGGESTION_COMPANIES);
-	useEffect(() => {
-		loadRecommendedCompanies({
-			variables: {
-				first: 10,
-			},
-		});
-	}, []);
-
+	const { data, loading, fetchMore } = useQuery(SUGGESTION_COMPANIES, {
+		variables: {
+			first: first,
+		},
+	});
 	const response = data?.companiesSuggestions?.edges ?? [];
 	const hasNextPage = data?.companiesSuggestions?.pageInfo?.hasNextPage;
 	const after = data?.companiesSuggestions?.pageInfo?.endCursor;

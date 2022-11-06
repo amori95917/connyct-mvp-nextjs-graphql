@@ -9,10 +9,11 @@ interface Props {
 	hasNextPage: boolean;
 	scrollableTop?: boolean;
 	loading: boolean;
+	loadingComponent?: React.ReactNode;
 }
 
 const InfiniteScroller = (props: Props) => {
-	const { children, onLoadMore, hasNextPage, loading } = props;
+	const { children, onLoadMore, hasNextPage, loading, loadingComponent } = props;
 	const elementRef = useRef<HTMLDivElement | null>(null);
 	const [isVisible, entry] = useIntersectionObserver({
 		elementRef,
@@ -38,11 +39,12 @@ const InfiniteScroller = (props: Props) => {
 				<>
 					<div className='top-content'>{children}</div>
 					<div className='top-loading' ref={elementRef} onClick={loadMoreData} />
+					<div className='loading-indicator'>{loading && (loadingComponent || <p>loading...</p>)}</div>
 				</>
 			) : (
 				<>
 					<div className='bottom-loading' ref={elementRef} onClick={loadMoreData}>
-						{loading && <p>loading...</p>}
+						{loading && (loadingComponent || <p>loading...</p>)}
 					</div>
 
 					<div className='content'>{children}</div>
