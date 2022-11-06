@@ -47,7 +47,9 @@ export default function App({ Component, pageProps }: CustomAppProps) {
 			</Head>
 			<ApolloProvider client={apolloClient}>
 				<AuthProvider>
-					<Component {...pageProps} />
+					<div className={`${poppins.className}`}>
+						<Component {...pageProps} />
+					</div>
 				</AuthProvider>
 			</ApolloProvider>
 		</>
