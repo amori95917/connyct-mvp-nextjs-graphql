@@ -11,7 +11,7 @@ type LoaderDataComponentProps = {
 	emptyComponent?: React.ReactNode;
 };
 
-export const LoaderDataComponent: React.FC<LoaderDataComponentProps> = props => {
+export const LoaderDataComponent = (props: LoaderDataComponentProps) => {
 	const {
 		isLoading,
 		fallback = <Loader />,
@@ -19,7 +19,7 @@ export const LoaderDataComponent: React.FC<LoaderDataComponentProps> = props => 
 		data,
 		emptyComponent = <EmptyComponent />,
 	} = props;
-	if (isLoading) return fallback;
+	if (isLoading) return <>{fallback}</>;
 	return (
 		<React.Suspense fallback={fallback}>{data?.length ? children : emptyComponent}</React.Suspense>
 	);
