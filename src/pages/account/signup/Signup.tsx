@@ -43,7 +43,6 @@ const Signup = () => {
 					},
 				},
 			});
-			console.log('response', response);
 			if (response?.data?.signup) {
 				const { accessToken, refreshToken, company, user } = response.data.signup;
 				setCookie('CONNYCT_USER', {
@@ -59,7 +58,7 @@ const Signup = () => {
 			setErrorUserAlreadyExists(err.message);
 		}
 	});
-
+	console.log('watch', watch('accountType'));
 	return (
 		<>
 			<div className='flex items-center justify-center min-h-screen min-w-screen px-5 py-5'>

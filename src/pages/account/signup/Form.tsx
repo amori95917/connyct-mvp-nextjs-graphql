@@ -43,7 +43,7 @@ const Form: React.FC<FormProps> = ({
 							name='accountType'
 							value={'individual'}
 							label='Individual'
-							className='mb-4 mr-2'
+							className='mr-2'
 							register={register}
 							errors={errors}
 						/>
@@ -54,7 +54,7 @@ const Form: React.FC<FormProps> = ({
 							name='accountType'
 							value={'company'}
 							label='Company'
-							className='mb-4 mr-2'
+							className='mr-2'
 							register={register}
 							errors={errors}
 						/>
@@ -68,7 +68,8 @@ const Form: React.FC<FormProps> = ({
 								id='legalName'
 								label='Legal Name*'
 								type='text'
-								className='mb-4 mr-2'
+								className='mr-2'
+								helperText='Legal name of your company'
 								register={register}
 								errors={errors}
 							/>
@@ -82,7 +83,8 @@ const Form: React.FC<FormProps> = ({
 							id='fullName'
 							label={accountType === 'company' ? 'Full Name' : 'Full Name *'}
 							type='text'
-							className='mb-4 mr-2'
+							className='mr-2'
+							helperText={accountType === 'company' ? 'Full name of account holder' : ''}
 							register={register}
 							errors={errors}
 						/>
@@ -95,7 +97,7 @@ const Form: React.FC<FormProps> = ({
 							id='email'
 							label='Email *'
 							type='text'
-							className='mb-4 mr-2'
+							className='mr-2'
 							register={register}
 							errors={errors}
 						/>

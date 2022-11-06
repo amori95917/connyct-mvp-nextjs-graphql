@@ -19,7 +19,7 @@ export const FormRadio: React.FC<FormRadioProps> = forwardRef<HTMLInputElement, 
 					className
 				)}
 				aria-live='polite'>
-				<Radio id={id} name={name} className={classNames('', inputClassName)} {...props} />
+				<Radio id={id} name={name} ref={ref} className={classNames('', inputClassName)} {...props} />
 				{label && <Label id={id} className={labelClassName} label={label} />}
 				{helperText && typeof helperText === 'string' ? (
 					<p className='italic text-gray-600 text-xs'>{helperText}</p>
