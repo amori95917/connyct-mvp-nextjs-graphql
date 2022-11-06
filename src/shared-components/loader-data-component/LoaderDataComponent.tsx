@@ -8,15 +8,19 @@ type LoaderDataComponentProps = {
 	data: any;
 	children: React.ReactNode;
 	fallback?: React.ReactNode;
+	emptyComponent?: React.ReactNode;
 };
 
 export const LoaderDataComponent: React.FC<LoaderDataComponentProps> = props => {
-	const { isLoading, fallback = <Loader />, children, data } = props;
+	const {
+		isLoading,
+		fallback = <Loader />,
+		children,
+		data,
+		emptyComponent = <EmptyComponent />,
+	} = props;
 	if (isLoading) return fallback;
-	console.log('data length', data?.length, isLoading);
 	return (
-		<React.Suspense fallback={fallback}>
-			{data?.length ? children : <EmptyComponent />}
-		</React.Suspense>
+		<React.Suspense fallback={fallback}>{data?.length ? children : emptyComponent}</React.Suspense>
 	);
 };
