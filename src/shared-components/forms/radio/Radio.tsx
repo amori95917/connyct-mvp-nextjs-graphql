@@ -12,6 +12,8 @@ export type FormRadioProps<TFormValues> = {
 	helperText?: string | React.ReactNode;
 	errors?: Partial<DeepMap<TFormValues, FieldError>>;
 	inputClassName?: string;
+	labelClassName?: string;
+	wrapperClassName?: string;
 	register?: UseFormRegister<TFormValues>;
 } & Omit<RadioProps, 'name'>;
 
@@ -24,6 +26,8 @@ export const FormRadioField = <TFormValues extends Record<string, unknown>>({
 	register,
 	className,
 	inputClassName,
+	labelClassName,
+	wrapperClassName = '',
 	...props
 }: FormRadioProps<TFormValues>): JSX.Element => {
 	const errorMessages = get(errors, name);
@@ -36,7 +40,9 @@ export const FormRadioField = <TFormValues extends Record<string, unknown>>({
 				label={label}
 				helperText={helperText}
 				aria-invalid={hasError}
-				className={classNames({ '': hasError }, inputClassName)}
+				labelClassName={labelClassName}
+				wrapperClassName={wrapperClassName}
+				inputClassName={classNames({ '': hasError }, inputClassName)}
 				{...props}
 				{...(register && register(name))}
 			/>

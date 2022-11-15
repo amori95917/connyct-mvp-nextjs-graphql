@@ -8,6 +8,7 @@ module.exports = {
 				// primary: '#165A71',
 				'icon-color': '#00E0FF',
 				primary: '#2599c0',
+				primaryv2: '#0fabc1',
 				'primary-hover': 'rgb(26, 145, 218)',
 				dark: 'rgb(21, 32, 43)',
 				'dark-lighter': 'rgb(25, 39, 52)',

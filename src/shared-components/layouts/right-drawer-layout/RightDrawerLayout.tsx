@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from 'react';
 import { ConnyctLogo } from '@/shared-components/icons';
-import { ProductPostForm } from './product-post-form';
 
 // need to make this component reusable if any more drawers are needed
 type ProductPostDrawerType = {
@@ -9,7 +8,7 @@ type ProductPostDrawerType = {
 	setIsOpen: (isOpen: boolean) => void;
 };
 
-export const ProductPostDrawer: FC<ProductPostDrawerType> = ({ children, isOpen, setIsOpen }) => {
+export const RightDrawerLayout: FC<ProductPostDrawerType> = ({ children, isOpen, setIsOpen }) => {
 	const onCloseHandler = () => {
 		setIsOpen(false);
 	};
@@ -50,9 +49,7 @@ export const ProductPostDrawer: FC<ProductPostDrawerType> = ({ children, isOpen,
 								</svg>
 							</button>
 						</div>
-						<div className='h-full'>
-							<ProductPostForm />
-						</div>
+						<div className='h-full'>{children}</div>
 					</div>
 				</div>
 				<div className='cursor-pointer h-full w-screen' onClick={onCloseHandler}></div>

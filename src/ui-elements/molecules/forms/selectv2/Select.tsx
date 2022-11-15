@@ -20,6 +20,7 @@ const ReactSelect = forwardRef(
 			isCreateable = false,
 			selectStyles,
 			isMulti = true,
+			setValue,
 			...rest
 		},
 		ref
@@ -117,6 +118,7 @@ const ReactSelect = forwardRef(
 							options={options}
 							styles={styles}
 							className={className}
+							onChange={value => setValue(name, value)}
 							{...rest}
 						/>
 					)}

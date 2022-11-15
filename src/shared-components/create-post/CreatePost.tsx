@@ -9,7 +9,8 @@ import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { getCookie } from '@/utils/cookies';
 import { PostPopup } from '../post-popup';
-import { ProductPostDrawer } from '../product-post-drawer';
+import { RightDrawerLayout } from '../layouts/right-drawer-layout';
+import { ProductPostForm } from './product-post-form';
 
 const CreatePost = props => {
 	const { visitedCompany } = props;
@@ -38,7 +39,11 @@ const CreatePost = props => {
 					visitedCompany={visitedCompany}
 				/>
 			)}
-			{<ProductPostDrawer isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} />}
+			{
+				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
+					<ProductPostForm />
+				</RightDrawerLayout>
+			}
 			<div className='bg-white flex flex-col p-5 rounded-md w-full'>
 				<div className='flex'>
 					<div>

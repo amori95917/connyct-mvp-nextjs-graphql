@@ -8,25 +8,37 @@ export type FormRadioProps = {
 	helperText?: string | React.ReactNode;
 	inputClassName?: string;
 	labelClassName?: string;
+	wrapperClassName?: string;
 } & Omit<RadioProps, 'name'>;
 
 export const FormRadio: React.FC<FormRadioProps> = forwardRef<HTMLInputElement, FormRadioProps>(
-	({ id, name, label, helperText, className, inputClassName, labelClassName, ...props }, ref) => {
+	(
+		{ id, name, label, helperText, wrapperClassName, inputClassName, labelClassName, ...props },
+		ref
+	) => {
 		return (
-			<div
-				className={classNames(
-					'appearance-none border border-gray-300 flex h-full items-center rounded-sm w-full',
-					className
-				)}
-				aria-live='polite'>
-				<Radio id={id} name={name} ref={ref} className={classNames('', inputClassName)} {...props} />
-				{label && <Label id={id} className={labelClassName} label={label} />}
+			<>
+				<div
+					className={classNames(
+						'appearance-none border border-gray-300 flex h-full items-center rounded-sm w-full',
+						wrapperClassName
+					)}
+					aria-live='polite'>
+					<Radio
+						id={id}
+						name={name}
+						ref={ref}
+						inputClassName={classNames('', inputClassName)}
+						{...props}
+					/>
+					{label && <Label id={id} className={labelClassName} label={label} />}
+				</div>
 				{helperText && typeof helperText === 'string' ? (
 					<p className='italic text-gray-600 text-xs'>{helperText}</p>
 				) : (
 					helperText
 				)}
-			</div>
+			</>
 		);
 	}
 );

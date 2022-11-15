@@ -18,6 +18,7 @@ const CompanyLayout = (props: CompanyLayoutProps) => {
 	const { data } = useQuery(GET_COMPANY, {
 		variables: { id: companySlug || (!!company ? company[0]?.id : '') },
 	});
+
 	return (
 		<main className='p-2 relative top-16'>
 			<section className='container flex flex-col mx-auto pt-1'>

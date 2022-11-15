@@ -1,5 +1,9 @@
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
+import { CommunityForm } from './community-form';
 
 const COMMUNITIES = [
 	{
@@ -14,15 +18,22 @@ const COMMUNITIES = [
 	},
 ];
 const Communities = ({ companySlug }: { companySlug: string }) => {
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
 	return (
 		<>
+			{
+				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
+					<CommunityForm />
+				</RightDrawerLayout>
+			}
 			<div className='heading'>
 				<div className='flex justify-between'>
 					<div className='flex flex-col'>
 						<h1 className='font-bold text-lg'>Connyct's Communities</h1>
 						<p className='text-gray-400'>2 communities created</p>
 					</div>
-					<div className='action'>
+					<div className='action' onClick={handleDrawerToggle}>
 						<button className='bg-primary px-10 py-2 text-lg text-white'>Create a new community</button>
 					</div>
 				</div>

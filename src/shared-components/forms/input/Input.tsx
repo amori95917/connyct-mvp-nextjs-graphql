@@ -35,14 +35,14 @@ export const FormInputField = <TFormValues extends Record<string, unknown>>({
 	const errorMessages = get(errors, name);
 	const hasError = !!(errors && errorMessages);
 	return (
-		<>
+		<div className='flex flex-col w-full'>
 			<FormInput
 				type={type}
 				id={id}
 				name={name}
 				label={label}
 				helperText={helperText}
-				className={classNames({ '': hasError })}
+				className={classNames({ ' ': hasError })}
 				inputClassName={inputClassName}
 				labelClassName={labelClassName}
 				aria-invalid={hasError}
@@ -54,6 +54,6 @@ export const FormInputField = <TFormValues extends Record<string, unknown>>({
 				name={name as any}
 				render={({ message }) => <FormErrorMessage className=''>{message}</FormErrorMessage>}
 			/>
-		</>
+		</div>
 	);
 };

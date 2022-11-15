@@ -13,8 +13,10 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 // import { GET_USER } from '@/graphql/user';
 import { deleteCookie, getCookie } from '@/utils/cookies';
 
-export const ProfileDropdown = React.forwardRef(({}, ref) => {
+export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 	const { company, user } = getCookie('CONNYCT_USER');
+
+	const slug = data?.getCompanyById?.id;
 
 	const [classes, setClasses] = useState({
 		main: '',
@@ -194,7 +196,7 @@ export const ProfileDropdown = React.forwardRef(({}, ref) => {
 						<span className='bold ml-5 text-2xl'>Manage</span>
 					</span>
 					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
-						<Link href={'/brand/edit'} passHref>
+						<Link href={`/company/${slug}/edit/business-information/general`} passHref>
 							<button className='flex'>
 								<MdOutlineSettings size={25} fill='#00E0FF' />
 								<span className='ml-5'>Edit Profile</span>

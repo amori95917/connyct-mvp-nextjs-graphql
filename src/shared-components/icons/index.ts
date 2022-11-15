@@ -4,3 +4,4 @@ export { ConnyctLogo } from './Connyct';
 export { LikeIcon } from './Like';
 export { CommentIcon } from './Comment';
 export { ShareIcon } from './Share';
+export { ConferenceIcon } from './Conference';

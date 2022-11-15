@@ -9,6 +9,7 @@ export type FormInputProps = {
 	helperText?: string | React.ReactNode;
 	inputClassName?: string;
 	labelClassName?: string;
+	id?: string;
 } & Omit<InputProps, 'name'>;
 
 export const FormInput: FC<FormInputProps> = forwardRef<HTMLInputElement, FormInputProps>(
@@ -17,7 +18,7 @@ export const FormInput: FC<FormInputProps> = forwardRef<HTMLInputElement, FormIn
 		ref
 	) => {
 		return (
-			<div className={classNames('relative', className)} aria-live='polite'>
+			<div className={classNames('relative w-full', className)} aria-live='polite'>
 				{label && <Label id={id} className={labelClassName} label={label} />}
 				<Input
 					id={id}

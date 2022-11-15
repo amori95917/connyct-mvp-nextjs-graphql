@@ -6,11 +6,18 @@ import { ConnyctLogo } from '@/shared-components/icons';
 import { ProfileDropdown } from '@/shared-components/profile-dropdown';
 
 import { useClickOutside } from '@/hooks/useClickOutside';
+import { getCookie } from '@/utils/cookies';
+import { useQuery } from '@apollo/client';
+import { GET_COMPANY } from '@/graphql/company';
 
 export const Navbar = () => {
 	const [showDropdown, setShowDropDown] = useState(false);
-
 	const { ref, isClose, setIsClose } = useClickOutside();
+	const cookie = getCookie('CONNYCT_USER');
+	const { company } = cookie ?? {};
+	const { data } = useQuery(GET_COMPANY, {
+		variables: { id: !!company ? company[0]?.id : '' },
+	});
 
 	const handleDropdown = () => {
 		setShowDropDown(!showDropdown);
@@ -46,7 +53,7 @@ export const Navbar = () => {
 					</div>
 				</div>
 			</nav>
-			{showDropdown && isClose && <ProfileDropdown ref={ref} />}
+			{showDropdown && isClose && <ProfileDropdown data={data} ref={ref} />}
 		</div>
 	);
 };
