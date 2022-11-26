@@ -9,11 +9,10 @@ const downMenusButtonClassNames = 'flex items-center p-4 w-full hover:bg-primary
 
 const Menus = props => {
 	const { data } = props;
-	console.log(props);
 	const slug = data?.getCompanyById?.id;
 	return (
 		<>
-			<div className='bg-white flex no-scrollbar overflow-scroll w-full md:justify-center'>
+			<div className='bg-slate-100 flex no-scrollbar overflow-scroll w-full md:justify-center'>
 				<Link href={`/company/${slug}/about-us`} passHref className='mr-6'>
 					<button className={downMenusButtonClassNames}>
 						<SiAboutdotme size={25} fill={'#00E0FF'} />
@@ -36,12 +35,6 @@ const Menus = props => {
 					<button className={downMenusButtonClassNames}>
 						<MdOutlineExplore size={25} width={1} fill={'#00E0FF'} />
 						<span className='ml-5'>Communities</span>
-					</button>
-				</Link>
-				<Link href={`/company/${slug}/communities`} passHref className='mr-6'>
-					<button className={downMenusButtonClassNames}>
-						<BsCalendar4Event size={25} fill={'#00E0FF'} />
-						<span className='ml-5'>Events</span>
 					</button>
 				</Link>
 				<Link href={`/company/${slug}/discussions`} passHref>

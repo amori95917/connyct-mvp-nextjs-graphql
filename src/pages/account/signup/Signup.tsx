@@ -52,9 +52,7 @@ const Signup = () => {
 					company,
 				});
 				// may need to do https://nextjs.org/docs/routing/shallow-routing
-				company
-					? router.push(`/company/${company[0].id}/edit`)
-					: router.push(`/company/company-suggestions`);
+				company ? router.push(`/company/${company[0].id}/edit`) : router.push(`/company-suggestions`);
 			}
 		} catch (err: any) {
 			setErrorUserAlreadyExists(err.message);

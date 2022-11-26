@@ -123,6 +123,7 @@ export const DocumentsForm = ({ data, setIsDrawerOpen }) => {
 							/>
 						</div>
 						<span className='italic text-gray-600 text-xs'>Upload a clear photo of your document.</span>
+						<p className='bold italic text-gray-600 text-md'>Citizenship Front</p>
 						<p className='block text-left text-red-600 text-sm'>{errors?.citizenshipFront?.message}</p>
 					</>
 				)}
@@ -139,6 +140,7 @@ export const DocumentsForm = ({ data, setIsDrawerOpen }) => {
 							/>
 						</div>
 						<span className='italic text-gray-600 text-xs'>Upload a clear photo of your document.</span>
+						<p className='bold italic text-gray-600 text-md'>Citizenship Back</p>
 						<p className='block text-left text-red-600 text-sm'>{errors?.citizenshipBack?.message}</p>
 					</>
 				)}

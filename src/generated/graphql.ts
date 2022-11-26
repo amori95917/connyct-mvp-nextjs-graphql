@@ -22,6 +22,7 @@ export type Auth = {
   accessToken?: Maybe<Scalars['String']>;
   company?: Maybe<Array<Company>>;
   errors?: Maybe<Array<CustomError>>;
+  otp?: Maybe<Otp>;
   /** JWT refresh token */
   refreshToken?: Maybe<Scalars['String']>;
   role?: Maybe<Scalars['String']>;
@@ -178,6 +179,7 @@ export enum CompaniesOrderBy {
 
 export type Company = {
   __typename?: 'Company';
+  accountStatus?: Maybe<Scalars['String']>;
   addresses?: Maybe<Scalars['JSON']>;
   avatar?: Maybe<Scalars['String']>;
   branches?: Maybe<Array<Branch>>;
@@ -197,12 +199,18 @@ export type Company = {
   numberOfemployees?: Maybe<Scalars['Float']>;
   ownerId?: Maybe<Scalars['String']>;
   ownership?: Maybe<Scalars['String']>;
+  reason?: Maybe<Scalars['String']>;
   registrationNumber?: Maybe<Scalars['String']>;
   slogan?: Maybe<Scalars['String']>;
   transactions?: Maybe<Scalars['Float']>;
   updatedAt: Scalars['DateTime'];
   vision?: Maybe<Scalars['String']>;
   website?: Maybe<Scalars['String']>;
+};
+
+export type CompanyAccountStatus = {
+  accountStatus: Scalars['String'];
+  reason?: InputMaybe<Scalars['String']>;
 };
 
 export type CompanyBranchEditInput = {
@@ -229,6 +237,69 @@ export type CompanyBranchInput = {
   street2?: InputMaybe<Scalars['String']>;
   type: BranchType;
   zipCode?: InputMaybe<Scalars['String']>;
+};
+
+export type CompanyDiscussion = {
+  __typename?: 'CompanyDiscussion';
+  company?: Maybe<Company>;
+  companyId?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  createdBy?: Maybe<CreatedBy>;
+  description?: Maybe<Scalars['String']>;
+  discussionAnswer?: Maybe<DiscussionAnswerPaginated>;
+  discussionVote?: Maybe<Array<DiscussionVote>>;
+  id: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  upVote?: Maybe<Scalars['Float']>;
+  updatedAt: Scalars['DateTime'];
+  user: User;
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type CompanyDiscussionDiscussionAnswerArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderListDiscussionAnswer>;
+};
+
+export type CompanyDiscussionDeletePayload = {
+  __typename?: 'CompanyDiscussionDeletePayload';
+  errors?: Maybe<Array<CustomError>>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
+};
+
+export type CompanyDiscussionEdge = {
+  __typename?: 'CompanyDiscussionEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<CompanyDiscussion>;
+};
+
+export type CompanyDiscussionInput = {
+  companyId: Scalars['String'];
+  description: Scalars['String'];
+  title: Scalars['String'];
+};
+
+export type CompanyDiscussionPageInfo = {
+  __typename?: 'CompanyDiscussionPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type CompanyDiscussionPayload = {
+  __typename?: 'CompanyDiscussionPayload';
+  companyDiscussion?: Maybe<CompanyDiscussion>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type CompanyDiscussionUpdateInput = {
+  description: Scalars['String'];
+  title: Scalars['String'];
 };
 
 export type CompanyEdge = {
@@ -322,6 +393,13 @@ export type CreatePostPayload = {
   tags?: Maybe<Array<Tag>>;
 };
 
+export type CreatedBy = {
+  __typename?: 'CreatedBy';
+  fullName?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+};
+
 export type CustomError = {
   __typename?: 'CustomError';
   code?: Maybe<Scalars['String']>;
@@ -333,6 +411,177 @@ export type DeletePostPayload = {
   __typename?: 'DeletePostPayload';
   errors?: Maybe<Array<CustomError>>;
   isDeleteSuccessful?: Maybe<Scalars['Boolean']>;
+};
+
+export type DiscussionAnswer = {
+  __typename?: 'DiscussionAnswer';
+  answer?: Maybe<Scalars['String']>;
+  answerReply?: Maybe<DiscussionAnswerReplyPaginated>;
+  createdAt: Scalars['DateTime'];
+  discussion?: Maybe<CompanyDiscussion>;
+  discussionId?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
+  user: User;
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type DiscussionAnswerAnswerReplyArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderListDiscussionAnswer>;
+};
+
+export type DiscussionAnswerDeletePayload = {
+  __typename?: 'DiscussionAnswerDeletePayload';
+  errors?: Maybe<Array<CustomError>>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
+};
+
+export type DiscussionAnswerEdge = {
+  __typename?: 'DiscussionAnswerEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<DiscussionAnswer>;
+};
+
+export type DiscussionAnswerInput = {
+  answer: Scalars['String'];
+  discussionId: Scalars['String'];
+};
+
+/** Order by:createdAt */
+export enum DiscussionAnswerOrderBy {
+  CreatedAt = 'createdAt'
+}
+
+export type DiscussionAnswerPageInfo = {
+  __typename?: 'DiscussionAnswerPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type DiscussionAnswerPaginated = {
+  __typename?: 'DiscussionAnswerPaginated';
+  edges?: Maybe<Array<DiscussionAnswerEdge>>;
+  pageInfo?: Maybe<DiscussionAnswerPageInfo>;
+  totalCount: Scalars['Float'];
+};
+
+export type DiscussionAnswerPayload = {
+  __typename?: 'DiscussionAnswerPayload';
+  discussionAnswer?: Maybe<DiscussionAnswer>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type DiscussionAnswerReply = {
+  __typename?: 'DiscussionAnswerReply';
+  answer?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  discussion?: Maybe<CompanyDiscussion>;
+  discussionId?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parentAnswer?: Maybe<DiscussionAnswer>;
+  repliedToAnswerId?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+  user: User;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type DiscussionAnswerReplyEdge = {
+  __typename?: 'DiscussionAnswerReplyEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<DiscussionAnswerReply>;
+};
+
+export type DiscussionAnswerReplyPageInfo = {
+  __typename?: 'DiscussionAnswerReplyPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type DiscussionAnswerReplyPaginated = {
+  __typename?: 'DiscussionAnswerReplyPaginated';
+  edges?: Maybe<Array<DiscussionAnswerReplyEdge>>;
+  pageInfo?: Maybe<DiscussionAnswerReplyPageInfo>;
+  totalCount: Scalars['Float'];
+};
+
+export type DiscussionAnswerReplyPayload = {
+  __typename?: 'DiscussionAnswerReplyPayload';
+  discussionAnswerReply?: Maybe<DiscussionAnswerReply>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type DiscussionAnswerUpdateInput = {
+  answer: Scalars['String'];
+};
+
+export type DiscussionAnswerVote = {
+  __typename?: 'DiscussionAnswerVote';
+  createdAt: Scalars['DateTime'];
+  discussion?: Maybe<CompanyDiscussion>;
+  discussionAnswer?: Maybe<DiscussionAnswer>;
+  discussionId?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['String']>;
+  vote?: Maybe<Scalars['String']>;
+};
+
+export type DiscussionAnswerVoteInput = {
+  discussionAnswerId: Scalars['String'];
+  discussionId: Scalars['String'];
+  vote: Scalars['String'];
+};
+
+export type DiscussionAnswerVotePayload = {
+  __typename?: 'DiscussionAnswerVotePayload';
+  discussionAnswerVote?: Maybe<DiscussionAnswerVote>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+/** Order by:createdAt */
+export enum DiscussionOrderBy {
+  CreatedAt = 'createdAt'
+}
+
+export type DiscussionPaginated = {
+  __typename?: 'DiscussionPaginated';
+  edges?: Maybe<Array<CompanyDiscussionEdge>>;
+  pageInfo?: Maybe<CompanyDiscussionPageInfo>;
+  totalCount: Scalars['Float'];
+};
+
+export type DiscussionVote = {
+  __typename?: 'DiscussionVote';
+  createdAt: Scalars['DateTime'];
+  discussion?: Maybe<CompanyDiscussion>;
+  discussionId?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
+  user?: Maybe<Array<User>>;
+  userId?: Maybe<Scalars['String']>;
+  vote?: Maybe<Scalars['String']>;
+};
+
+export type DiscussionVoteInput = {
+  discussionId: Scalars['String'];
+  vote: Scalars['String'];
+};
+
+export type DiscussionVotePayload = {
+  __typename?: 'DiscussionVotePayload';
+  discussionVote?: Maybe<DiscussionVote>;
+  errors?: Maybe<Array<CustomError>>;
+  removeVote?: Maybe<Scalars['Boolean']>;
 };
 
 export type FilterListCompanies = {
@@ -459,15 +708,27 @@ export type Mutation = {
   commentReaction: CommentReactionsPayload;
   commentReply: ReplyToCommentPayload;
   commentToPost: NewReplyPayload;
+  companyAccountStatus: CompanyPayload;
+  companyDiscussion: CompanyDiscussionPayload;
+  companyDiscussionDelete: CompanyDiscussionDeletePayload;
+  companyDiscussionUpdate: CompanyDiscussionPayload;
   confirmEmail: Token;
   createCompany: Company;
   createCompanyBranch: Branch;
   createCompanyGeneralInfo: Company;
+  createDiscussionAnswer: DiscussionAnswerPayload;
   createEmployee: User;
   createIndustry: IndustryPayload;
   createLikes: LikesPayload;
   deleteCompanyBranch: Branch;
   deleteIndustry: IndustryPayload;
+  discussionAnswerDelete: DiscussionAnswerDeletePayload;
+  discussionAnswerDownvote: DiscussionAnswerVotePayload;
+  discussionAnswerReply: DiscussionAnswerReplyPayload;
+  discussionAnswerUpdate: DiscussionAnswerPayload;
+  discussionAnswerVote: DiscussionAnswerVotePayload;
+  discussionDownvote: DiscussionVotePayload;
+  discussionVote: DiscussionVotePayload;
   downvoteComment: RatePayload;
   downvotePost: RatePayload;
   editCompany: CompanyPayload;
@@ -479,6 +740,7 @@ export type Mutation = {
   login: Auth;
   loginLinkAccess: Scalars['Boolean'];
   logout: Scalars['Boolean'];
+  otpVerification: OtpPayload;
   post: CreatePostPayload;
   postDelete: DeletePostPayload;
   postUpdate: UpdatePostPayload;
@@ -489,6 +751,7 @@ export type Mutation = {
   replyToReply: RepliesToRepliesPayload;
   requestConfirmEmail: Scalars['Boolean'];
   requestResetPassword: Scalars['Boolean'];
+  resendOtp: OtpPayload;
   resetPassword: Token;
   signup: Auth;
   unfollowCompany: Scalars['String'];
@@ -530,6 +793,28 @@ export type MutationCommentToPostArgs = {
 };
 
 
+export type MutationCompanyAccountStatusArgs = {
+  companyId: Scalars['String'];
+  data: CompanyAccountStatus;
+};
+
+
+export type MutationCompanyDiscussionArgs = {
+  input: CompanyDiscussionInput;
+};
+
+
+export type MutationCompanyDiscussionDeleteArgs = {
+  id: Scalars['String'];
+};
+
+
+export type MutationCompanyDiscussionUpdateArgs = {
+  discussionId: Scalars['String'];
+  input: CompanyDiscussionUpdateInput;
+};
+
+
 export type MutationConfirmEmailArgs = {
   token: Scalars['String'];
 };
@@ -548,6 +833,11 @@ export type MutationCreateCompanyBranchArgs = {
 
 export type MutationCreateCompanyGeneralInfoArgs = {
   data: CreateCompanyGeneralInput;
+};
+
+
+export type MutationCreateDiscussionAnswerArgs = {
+  answer: DiscussionAnswerInput;
 };
 
 
@@ -574,6 +864,42 @@ export type MutationDeleteCompanyBranchArgs = {
 
 export type MutationDeleteIndustryArgs = {
   id: Scalars['String'];
+};
+
+
+export type MutationDiscussionAnswerDeleteArgs = {
+  id: Scalars['String'];
+};
+
+
+export type MutationDiscussionAnswerDownvoteArgs = {
+  input: DiscussionAnswerVoteInput;
+};
+
+
+export type MutationDiscussionAnswerReplyArgs = {
+  input: ReplyToAnswerInput;
+};
+
+
+export type MutationDiscussionAnswerUpdateArgs = {
+  answerId: Scalars['String'];
+  updateAnswer: DiscussionAnswerUpdateInput;
+};
+
+
+export type MutationDiscussionAnswerVoteArgs = {
+  input: DiscussionAnswerVoteInput;
+};
+
+
+export type MutationDiscussionDownvoteArgs = {
+  input: DiscussionVoteInput;
+};
+
+
+export type MutationDiscussionVoteArgs = {
+  input: DiscussionVoteInput;
 };
 
 
@@ -628,6 +954,11 @@ export type MutationLoginArgs = {
 
 export type MutationLoginLinkAccessArgs = {
   data: LoginLinkAccessInput;
+};
+
+
+export type MutationOtpVerificationArgs = {
+  otp: Scalars['Float'];
 };
 
 
@@ -743,6 +1074,23 @@ export type NewReplyPayload = MutationPayload & {
   errors?: Maybe<Array<UserError>>;
 };
 
+export type Otp = {
+  __typename?: 'OTP';
+  createdAt: Scalars['DateTime'];
+  expirationDate?: Maybe<Scalars['DateTime']>;
+  id: Scalars['ID'];
+  otp?: Maybe<Scalars['Float']>;
+  updatedAt: Scalars['DateTime'];
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type OtpPayload = {
+  __typename?: 'OTPPayload';
+  errors?: Maybe<Array<CustomError>>;
+  otp?: Maybe<Otp>;
+  otpCheck?: Maybe<Scalars['Boolean']>;
+};
+
 export type OrderCommentsList = {
   direction: OrderDirection;
   orderBy: CommentOrderBy;
@@ -762,6 +1110,16 @@ export type OrderFollowedCompanyList = {
 export type OrderListCompanies = {
   direction: OrderDirection;
   orderBy: CompaniesOrderBy;
+};
+
+export type OrderListDiscussion = {
+  direction: OrderDirection;
+  orderBy: DiscussionOrderBy;
+};
+
+export type OrderListDiscussionAnswer = {
+  direction: OrderDirection;
+  orderBy: DiscussionAnswerOrderBy;
 };
 
 export type OrderListUsers = {
@@ -845,9 +1203,14 @@ export type Query = {
   companies: CompanyPaginated;
   companiesSuggestions: CompanyPaginated;
   companyPostsFollowedByUser?: Maybe<PostPagination>;
+  discussionVoteCount: Scalars['Float'];
   getBranchesByCompanyId: Array<Branch>;
   getCompanyById: Company;
+  getCompanyDiscussion: DiscussionPaginated;
+  getCompanyDiscussionById: CompanyDiscussion;
+  getCompanyDiscussionByUser: Array<CompanyDiscussion>;
   getCompanysFollowedByUser?: Maybe<CompanyPaginated>;
+  getDiscussionAnswerByDiscussionId: DiscussionAnswerPaginated;
   getIndustry: IndustryPayload;
   getLikesByPost: ReactionsPagination;
   getReactions: Array<Reactions>;
@@ -906,6 +1269,11 @@ export type QueryCompanyPostsFollowedByUserArgs = {
 };
 
 
+export type QueryDiscussionVoteCountArgs = {
+  discussionId: Scalars['String'];
+};
+
+
 export type QueryGetBranchesByCompanyIdArgs = {
   id: Scalars['String'];
 };
@@ -916,12 +1284,37 @@ export type QueryGetCompanyByIdArgs = {
 };
 
 
+export type QueryGetCompanyDiscussionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  companyId: Scalars['String'];
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderListDiscussion>;
+};
+
+
+export type QueryGetCompanyDiscussionByIdArgs = {
+  discussionId: Scalars['String'];
+};
+
+
 export type QueryGetCompanysFollowedByUserArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   order?: InputMaybe<OrderFollowedCompanyList>;
+};
+
+
+export type QueryGetDiscussionAnswerByDiscussionIdArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  discussionId: Scalars['String'];
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderListDiscussionAnswer>;
 };
 
 
@@ -1093,6 +1486,12 @@ export type RepliesToRepliesPayload = {
   replies?: Maybe<RepliesToReplies>;
 };
 
+export type ReplyToAnswerInput = {
+  answer: Scalars['String'];
+  discussionId: Scalars['String'];
+  repliedToAnswerId: Scalars['String'];
+};
+
 export type ReplyToCommentPayload = {
   __typename?: 'ReplyToCommentPayload';
   errors?: Maybe<Array<CustomError>>;
@@ -1200,10 +1599,12 @@ export type User = {
   fullName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   isAdmin: Scalars['Boolean'];
+  isEmailVerified?: Maybe<Scalars['Boolean']>;
   isSuperuser?: Maybe<Scalars['Boolean']>;
   isValid?: Maybe<Scalars['Boolean']>;
   posts?: Maybe<Array<Post>>;
   updatedAt: Scalars['DateTime'];
+  userProfile?: Maybe<UserProfile>;
   username?: Maybe<Scalars['String']>;
 };
 

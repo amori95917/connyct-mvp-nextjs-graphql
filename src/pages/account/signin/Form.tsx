@@ -12,7 +12,7 @@ const Form: React.FC<FormProps> = ({ onSubmit, register, errors, formError }) =>
 				<p>Enter your information to login</p>
 			</div>
 			{formError?.message && (
-				<div className='bg-red-400 mb-4 p-2 rounded-md w-72'>
+				<div className='bg-red-400 mb-4 mx-auto p-2 rounded-md w-72'>
 					<span className='leading-4 text-justify text-white w-full'>
 						Sorry, we couldn&apos;t find an account with that username. Can we help you recover your{' '}
 						<span className='underline'>

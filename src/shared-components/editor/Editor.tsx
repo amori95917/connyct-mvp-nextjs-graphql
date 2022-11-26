@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
 
 // import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
 import { Label } from '@/ui-elements/atoms/forms';
 
 const Editor = dynamic(() => import('react-draft-wysiwyg').then(mod => mod.Editor), { ssr: false });
@@ -20,13 +19,18 @@ type EditorProps = {
 	value: EditorState;
 	label?: string | React.ReactNode;
 	helperText?: string | React.ReactNode;
-	onEditorStateChange: (editorState: EditorState) => void;
+	onChange: (stringifyEditor: string) => void;
 };
+
+// let htmlToDraft = null;
+// if (typeof window === 'object') {
+// 	htmlToDraft = require('html-to-draftjs').default;
+// }
 
 const ContentEditor = (props: EditorProps) => {
 	const {
 		value,
-		onEditorStateChange,
+		onChange,
 		wrapperClassName = '',
 		editorWrapperClassName = '',
 		editorClassName = '',
@@ -36,20 +40,42 @@ const ContentEditor = (props: EditorProps) => {
 		label,
 		id,
 	} = props;
-	// const [editorState, setEditorState] = useState(EditorState.createEmpty());
-	// const handleEditorStateChange = (editorState: EditorState) => {
-	// 	setEditorState(editorState);
-	// };
+	const [editorState, setEditorState] = useState(EditorState.createEmpty());
+	const [updated, setUpdated] = useState(false);
+	useEffect(() => {
+		if (!updated) {
+			const htmlToDraft = require('html-to-draftjs').default;
+			const defaultValue = value ? value : '';
+			const blocksFromHtml = htmlToDraft(defaultValue);
+			const contentState = ContentState.createFromBlockArray(
+				blocksFromHtml.contentBlocks,
+				blocksFromHtml.entityMap
+			);
+			const newEditorState = EditorState.createWithContent(contentState);
+			setEditorState(newEditorState);
+		}
+	}, [updated, value]);
+	// const { setValue } = useForm();
+	const handleEditorStateChange = (editorState: EditorState) => {
+		setUpdated(true);
+		setEditorState(editorState);
+		return onChange(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+	};
+	const wrapperClassNames = `border border-gray-300 border-solid ${editorWrapperClassName}`;
+	const editorClassNames = `shadow-sm rounded py-4 px-4 ${editorClassName}`;
 	return (
 		<>
 			<div className={wrapperClassName}>
 				{label && <Label id={id} className={labelClassName} label={label} />}
 				<Editor
-					editorState={value}
-					wrapperClassName={editorWrapperClassName}
-					editorClassName={editorClassName}
-					onEditorStateChange={onEditorStateChange}
+					editorState={editorState}
+					wrapperClassName={wrapperClassNames}
+					editorClassName={editorClassNames}
+					toolbarClassName='shadow-sm'
+					onEditorStateChange={handleEditorStateChange}
 					placeholder={placeholder}
+					toolbar={toolbar}
+					// className="border-gray-300"
 				/>
 			</div>
 			{helperText && typeof helperText === 'string' ? (
@@ -65,3 +91,22 @@ const ContentEditor = (props: EditorProps) => {
 export default ContentEditor;
 
 ContentEditor.displayName = 'ContentEditor';
+
+const toolbar = {
+	options: ['inline', 'blockType', 'list'],
+	inline: {
+		inDropdown: false,
+		className: undefined,
+		component: undefined,
+		dropdownClassName: undefined,
+		options: ['bold', 'italic', 'underline', 'strikethrough'],
+	},
+	blockType: {
+		inDropdown: true,
+		options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
+	},
+	list: {
+		inDrodown: false,
+		options: ['unordered', 'ordered'],
+	},
+};

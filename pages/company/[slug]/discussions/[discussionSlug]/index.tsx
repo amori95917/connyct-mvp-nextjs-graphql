@@ -1,14 +1,29 @@
-import DiscussionByID from '@/components/brand/community/each-discussion';
-import BrandMenusLayout from 'app/layout';
+import { useRouter } from 'next/router';
 
-export const EachDiscussion = () => {
+import { CompanyLayout } from '@/shared-components/layouts';
+import { Navbar } from '@/shared-components/navbar';
+import { getSlug } from '@/utils/getSlug';
+import { DiscussionLayout } from '@/shared-components/layouts/discussion-layout/DiscussionLayout';
+import { DiscussionForm } from '@/pages/company/discussions/discussion-form';
+import { DiscussionDetail } from '@/pages/company/discussions/discussion-detail/DiscussionDetail';
+
+export const DiscussionPage = () => {
+	const router = useRouter();
+	const { slug, discussionSlug: discussionSlugVal } = router.query;
+	let companySlug = getSlug(slug);
+	let discussionSlug = getSlug(discussionSlugVal) || '';
+
 	return (
 		<>
-			<BrandMenusLayout>
-				<DiscussionByID />
-			</BrandMenusLayout>
+			<Navbar />
+			<CompanyLayout companySlug={companySlug || ''}>
+				<DiscussionLayout companySlug={companySlug || ''} DiscussionForm={DiscussionForm}>
+					<DiscussionDetail companySlug={companySlug || ''} discussionSlug={discussionSlug} />
+				</DiscussionLayout>
+			</CompanyLayout>
 		</>
 	);
 };
-EachDiscussion.auth = true;
-export default EachDiscussion;
+
+DiscussionPage.auth = true;
+export default DiscussionPage;

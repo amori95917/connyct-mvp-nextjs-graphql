@@ -1,25 +1,75 @@
 import { useForm } from 'react-hook-form';
+import produce from 'immer';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@apollo/client';
 
+import { CREATE_DISCUSSION } from '@/graphql/discussion';
 import { FormInput, FormEditor } from '@/shared-components/forms';
 import { schema } from './schema';
 import { initialValues } from './initialValues';
 import { DiscussionFormFields } from './types';
+import { GET_DISCUSSION } from '@/graphql/discussion/resolver';
 
-const DiscussionForm = () => {
+const DiscussionForm = ({
+	companySlug,
+	setIsOpen,
+}: {
+	companySlug: string;
+	setIsOpen: (prevState: boolean) => void;
+}) => {
 	const {
 		register,
 		control,
 		handleSubmit,
-		formState: { errors },
+		reset,
+		formState: { errors, touchedFields },
 	} = useForm<DiscussionFormFields>({
-		mode: 'onSubmit',
+		mode: 'onChange',
 		resolver: yupResolver(schema),
 		defaultValues: initialValues,
 	});
 
-	const onSubmit = handleSubmit(input => {
-		console.log('input', input);
+	const [createDiscussion, { loading }] = useMutation(CREATE_DISCUSSION);
+
+	const onSubmit = handleSubmit(async input => {
+		try {
+			const response = await createDiscussion({
+				variables: {
+					input: { ...input, companyId: companySlug },
+				},
+				update: (cache, { data: { companyDiscussion } }) => {
+					const discussionQuery: any = cache.readQuery({
+						query: GET_DISCUSSION,
+						variables: { companyId: companySlug, first: 10 },
+					});
+
+					// TODO need to correct this cache update of discussion
+
+					const updatedDiscussion = produce(discussionQuery, (draft: any) => {
+						if (draft?.getCompanyDiscussion) {
+							draft.getCompanyDiscussion.edges.push({
+								...draft.getCompanyDiscussion.edges.node,
+							});
+						}
+					});
+					cache.writeQuery({
+						query: GET_DISCUSSION,
+						variables: {
+							companyId: companySlug,
+							first: 10,
+						},
+						data: updatedDiscussion,
+					});
+				},
+			});
+
+			if (response) {
+				setIsOpen(false);
+				reset();
+			}
+		} catch (e) {
+			console.log(e, '####');
+		}
 	});
 
 	return (
@@ -46,6 +96,11 @@ const DiscussionForm = () => {
 						control={control}
 						errors={errors}
 					/>
+				</div>
+				<div className='absolute bottom-10 flex justify-center pr-5 w-11/12'>
+					<button className='bg-primary p-3 rounded-md text-white text-xl w-full'>
+						Submit Discussion
+					</button>
 				</div>
 			</form>
 		</>

@@ -2,14 +2,14 @@ import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
-import { Poppins } from '@next/font/google';
+import { Raleway } from '@next/font/google';
 
 import { AuthProvider } from '@/contexts/auth';
 import '@/styles/tailwind.css';
 import '@/styles/global.css';
 import { useApollo } from '../lib/apollo';
 
-const poppins = Poppins({ weight: '400' });
+const poppins = Raleway({ weight: '400' });
 
 type CustomPage = NextPage & {
 	requiresAuth?: boolean;

@@ -41,7 +41,7 @@ const Editor = <TFormValues extends Record<string, unknown>>({
 					<ContentEditor
 						id={id}
 						value={value}
-						onEditorStateChange={onChange}
+						onChange={onChange}
 						label={label}
 						labelClassName={labelClassName}
 						helperText={helperText}

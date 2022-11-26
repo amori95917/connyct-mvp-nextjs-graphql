@@ -16,12 +16,12 @@ const CompanySuggestion = (props: CompanySuggestionProps) => {
 				<>
 					<div key={company.id} className='flex items-center justify-between mt-5 w-full'>
 						<div className='flex items-center w-full'>
-							<div className='flex h-16 overflow-hidden relative rounded-full w-16'>
+							<div className='h-16 overflow-hidden relative rounded-full w-16'>
 								<Image
+									className='h-16 rounded-full w-16'
 									src={`https://i.pravatar.cc/`}
 									alt='Sunset in the mountains'
-									width='30'
-									height='30'
+									fill
 								/>
 							</div>
 							<div className='ml-5'>

@@ -20,10 +20,10 @@ const CompanyLayout = (props: CompanyLayoutProps) => {
 	});
 
 	return (
-		<main className='p-2 relative top-16'>
-			<section className='container flex flex-col mx-auto pt-1'>
+		<main className='relative top-16'>
+			<section className='flex flex-col'>
 				<Menus data={data} />
-				<div className='grid pt-4 md:grid-cols-4'>
+				<div className='bg-slate-50 container grid mx-auto pt-4 md:grid-cols-4'>
 					<CompanyInfoCard companySlug={companySlug || ''} data={data} />
 					<section className='pt-4 md:col-span-3 md:pt-0'>{children}</section>
 				</div>

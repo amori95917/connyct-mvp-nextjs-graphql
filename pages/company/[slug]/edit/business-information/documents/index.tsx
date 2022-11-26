@@ -15,7 +15,7 @@ const BusinessDocumentEditPage = () => {
 			<Navbar />
 			<CompanyEditLayout companySlug={companySlug || ''} type='business-information'>
 				{data => {
-					return <Documents key='documents' data={data} />;
+					return <Documents key='documents' data={data} companySlug={companySlug} />;
 				}}
 			</CompanyEditLayout>
 		</>
