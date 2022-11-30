@@ -10,6 +10,7 @@ import { FeedLoader } from '@/shared-components/skeleton-loader/FeedLoader';
 
 export const Feeds = ({ companySlug = '' }: { companySlug: string }) => {
 	const { feeds, loading, hasNextPage, onLoadMore } = useCompanyFeedsQuery(companySlug);
+
 	return (
 		<>
 			<div className='gap-4 grid md:grid-cols-3'>
@@ -24,6 +25,7 @@ export const Feeds = ({ companySlug = '' }: { companySlug: string }) => {
 								onLoadMore={onLoadMore}>
 								{(feeds || []).map((postNode: PostEdge) => {
 									const { node } = postNode;
+									console.log(node);
 									return (
 										<Feed
 											key={node?.id}

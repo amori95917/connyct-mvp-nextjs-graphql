@@ -9,8 +9,8 @@ type CommunityHeadProps = {
 	communityName: string;
 	groupStatus: string;
 	members: string;
-	companySlug: string;
-	communitySlug: string;
+	companySlug: string | undefined;
+	communitySlug: string | undefined;
 };
 export const CommunityHead = (props: CommunityHeadProps) => {
 	const NavButtonClassName = 'cursor-pointer p-2 pr-6 hover:bg-gray-200 rounded-md';

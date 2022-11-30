@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { AiOutlinePlus } from 'react-icons/ai';
+
 import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
 import { CommunityForm } from './community-form';
 
@@ -33,8 +35,13 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 						<h1 className='font-bold text-lg'>Connyct's Communities</h1>
 						<p className='text-gray-400'>2 communities created</p>
 					</div>
-					<div className='action' onClick={handleDrawerToggle}>
-						<button className='bg-primary px-10 py-2 text-lg text-white'>Create a new community</button>
+					<div className='px-5'>
+						<button
+							className='bg-primaryv2 flex font-bold gap-1 items-center justify-center p-4 rounded-md text-white w-full hover:bg-primary'
+							onClick={handleDrawerToggle}>
+							<AiOutlinePlus fill='#FFFFFF' size={20} />
+							<span>Create a new community</span>
+						</button>
 					</div>
 				</div>
 				<div className='gap-4 grid grid-cols-3 pt-4'>
