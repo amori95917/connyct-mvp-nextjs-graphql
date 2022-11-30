@@ -3,38 +3,89 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { useDropzone } from 'react-dropzone';
+import { useMutation } from '@apollo/client';
 
 import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
+import { verifyFile } from '@/utils/verifyFile';
+import { acceptedImagesFileTypes } from '@/constants/acceptedFileTypes';
+import { COMPANY_AVATAR_MUTATION, GET_COMPANY } from '@/graphql/company/resolver';
 
-import { DocumentsForm } from './DocumentsForm';
-import CitizenshipUploadForm from './CitizenshipUploadForm';
+import { RegistrationUploadForm } from './RegistrationUploadForm';
+import { PanOrVatUploadFrom } from './PanOrVatUploadFrom';
 import { buttonClass, disabledButtonClass } from '../../common/constants';
+import { DocumentsProps } from '../types';
 
-const Documents = ({ data, companySlug }) => {
+const uploadFormTypes = {
+	citizenship: 'citizenshipDoc',
+	registration: 'registrationDoc',
+	panOrVat: 'panOrVatDoc',
+};
+
+const Documents: React.FC<DocumentsProps> = props => {
+	const { companySlug, submitCompletedRoute, data, setSubmitCompletedRoute } = props;
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-	const [showCitizenshipUploadForm, setShowCitizenshipUploadForm] = useState<boolean>(false);
+	const [showFormType, setShowFormType] = useState<string>('');
+	const [avatarFile, setAvatarFile] = useState();
+	const [avatarFileError, setAvatarFileError] = useState('');
 
-	const onDrop = (file: []) => {};
+	const [avatarCreate, { loading, error }] = useMutation(COMPANY_AVATAR_MUTATION);
+
+	const onDrop = async (files: []) => {
+		if (files && files.length > 0) {
+			const isVerifiedFile = verifyFile(files, acceptedImagesFileTypes, 5000000);
+			if (isVerifiedFile) {
+				setAvatarFile(files?.[0]);
+				try {
+					const response = await avatarCreate({
+						variables: {
+							companyId: companySlug,
+							avatar: files?.[0],
+						},
+						refetchQueries: [{ query: GET_COMPANY, variables: { id: companySlug } }],
+					});
+					if (response?.data) {
+						console.log(response);
+					}
+				} catch (err: any) {
+					console.log(err);
+				}
+			} else {
+				setAvatarFileError('Image must be valid a Image and size must be less than 5 MB');
+			}
+		}
+	};
+
 	const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-	const onRegistrationUploadClickHandler = () => {
+	const onClickHandler = (formType: string) => {
 		setIsDrawerOpen(!isDrawerOpen);
-		setShowCitizenshipUploadForm(false);
+		setShowFormType(formType);
 	};
 
-	const onCitizenshipUploadClickHandler = () => {
-		setIsDrawerOpen(true);
-		setShowCitizenshipUploadForm(true);
+	const getProfilePicture = () => {
+		if (avatarFile) {
+			return URL.createObjectURL(avatarFile);
+		} else if (data?.getCompanyById?.avatar) {
+			return data.getCompanyById.avatar;
+		} else {
+			return 'https://i.pravatar.cc';
+		}
 	};
 
-	const profilePicture = 'https://i.pravatar.cc';
+	console.log(data, 'data');
+
 	return (
 		<>
 			<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
-				{showCitizenshipUploadForm ? (
-					<CitizenshipUploadForm data={data} setIsDrawerOpen={setIsDrawerOpen} />
-				) : (
-					<DocumentsForm data={data} setIsDrawerOpen={setIsDrawerOpen} />
+				{showFormType === uploadFormTypes.panOrVat && (
+					<PanOrVatUploadFrom data={data} setIsDrawerOpen={setIsDrawerOpen} companySlug={companySlug} />
+				)}
+				{showFormType === uploadFormTypes.registration && (
+					<RegistrationUploadForm
+						companySlug={companySlug}
+						data={data}
+						setIsDrawerOpen={setIsDrawerOpen}
+					/>
 				)}
 			</RightDrawerLayout>
 
@@ -44,7 +95,7 @@ const Documents = ({ data, companySlug }) => {
 				<div className='mt-6 upload-section'>
 					<div className='flex uploads-row md:flex-row'>
 						<div
-							onClick={onRegistrationUploadClickHandler}
+							onClick={() => onClickHandler(uploadFormTypes.panOrVat)}
 							className='bg-light-bg cursor-pointer flex flex-col items-center p-10 rounded text-center w-full md:w-1/4'>
 							<svg
 								className='h-6 mr-1 text-current-50 w-6'
@@ -61,14 +112,24 @@ const Documents = ({ data, companySlug }) => {
 							</svg>
 							<p className='mt-2 text-gray-600'>Click to upload your document like PAN or VAT</p>
 						</div>
-						<div className='bg-white cursor-pointer flex flex-col items-center p-10 rounded shadow-md text-center w-full md:ml-6 md:w-1/4'></div>
+						{data?.getCompanyById?.companyDocument?.map(aDocument => {
+							const { id, document, type } = aDocument;
+							if (type === 'VAT')
+								return (
+									<div
+										key={id}
+										className='bg-white flex flex-col items-center p-10 relative rounded shadow-md text-center w-full md:ml-6 md:w-1/4'>
+										<Image src={document || ''} alt={'doc'} fill />
+									</div>
+								);
+						})}
 					</div>
 				</div>
-				<p className='mt-1 mt-10 mt-5 text-gray-400'>Upload Citizenship</p>
+				<p className='mt-1 mt-10 mt-5 text-gray-400'>Upload Company Registration</p>
 				<div className='mt-6 upload-section'>
 					<div className='flex uploads-row md:flex-row'>
 						<div
-							onClick={onCitizenshipUploadClickHandler}
+							onClick={() => onClickHandler(uploadFormTypes.registration)}
 							className='bg-light-bg cursor-pointer flex flex-col items-center p-10 rounded text-center w-full md:w-1/4'>
 							<svg
 								className='h-6 mr-1 text-current-50 w-6'
@@ -83,10 +144,19 @@ const Documents = ({ data, companySlug }) => {
 									d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'
 								/>
 							</svg>
-							<p className='mt-2 text-gray-600'>Upload proprietor Citizenship</p>
+							<p className='mt-2 text-gray-600'>Upload registration Document</p>
 						</div>
-						<div className='bg-white cursor-pointer flex flex-col items-center p-10 rounded shadow-md text-center w-full md:ml-6 md:w-1/4'></div>
-						<div className='bg-white cursor-pointer flex flex-col items-center p-10 rounded shadow-md text-center w-full md:ml-6 md:w-1/4'></div>
+						{data?.getCompanyById?.companyDocument?.map(aDocument => {
+							const { id, document, type } = aDocument;
+							if (type === 'COMPANY_REGISTRATION')
+								return (
+									<div
+										key={id}
+										className='bg-white flex flex-col items-center p-10 relative rounded shadow-md text-center w-full md:ml-6 md:w-1/4'>
+										<Image src={document || ''} alt={'doc'} fill />
+									</div>
+								);
+						})}
 					</div>
 				</div>
 			</div>
@@ -96,19 +166,19 @@ const Documents = ({ data, companySlug }) => {
 				<div className='mt-6 upload-section'>
 					<form>
 						<div
-							className='bg-gray-100 h-40 relative rounded-full w-40 hover:brightness-50'
+							className='bg-gray-100 h-40 overflow-hidden relative rounded-full w-40 hover:brightness-50'
 							{...getRootProps()}>
-							{profilePicture && <Image src={profilePicture} className='rounded-full' alt='Image' fill />}
+							<Image src={getProfilePicture()} alt='Image' fill />
 							<input
 								className='bg-light-bg cursor-pointer flex h-full items-center justify-center rounded-full w-full'
 								{...getInputProps()}
 							/>
-							<div className='flex flex h-full items-center justify-center rounded-md w-full'>
+							<div className='flex h-full items-center justify-center rounded-md w-full'>
 								<AiOutlineCloudUpload size={25} />
 							</div>
 						</div>
 					</form>
-
+					{avatarFileError && <p className='text-red-400'>{avatarFileError}</p>}
 					<div className='flex gap-2 justify-end mb-5 mt-4 w-full'>
 						<Link href={`/company/${companySlug}/edit/business-information/general`}>
 							<button type='button' className={buttonClass}>

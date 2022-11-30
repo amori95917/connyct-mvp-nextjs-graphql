@@ -1,22 +1,45 @@
 import { Controller, useFormState } from 'react-hook-form';
 import { FormSelect } from 'src/ui-elements/molecules/forms';
 
-export default function FormSelectField({
-	disabled,
-	label,
-	helperText,
-	name,
-	placeholder,
-	options,
-	defaultValue,
-	id,
-	className,
-	labelClassName,
-	wrapperClassName,
-	isCreateable = false,
-	isMulti = true,
-	control,
-}) {
+type Option = {
+	label: string;
+	value: string;
+};
+
+type FormSelectProps = {
+	disabled?: boolean;
+	label?: string;
+	helperText?: string;
+	name: string;
+	placeholder?: string;
+	options: Option[];
+	defaultValue?: Option;
+	id?: string;
+	className?: string;
+	labelClassName?: string;
+	wrapperClassName?: string;
+	isCreateable?: boolean;
+	isMulti?: boolean;
+	control: any;
+};
+
+export default function FormSelectField(props: FormSelectProps) {
+	const {
+		disabled = false,
+		label,
+		helperText = '',
+		name,
+		placeholder,
+		options,
+		defaultValue,
+		id,
+		className,
+		labelClassName = '',
+		wrapperClassName = '',
+		isCreateable = false,
+		isMulti = true,
+		control,
+	} = props;
 	const customStyles = {
 		control: (styles, state) => ({
 			...styles,
@@ -80,6 +103,7 @@ export default function FormSelectField({
 	});
 
 	const getDefaultValues = values => {
+		console.log('values', values);
 		if (values && values.length) {
 			return values[0];
 		} else return values;
@@ -100,7 +124,6 @@ export default function FormSelectField({
 							isCreateable={isCreateable}
 							options={options}
 							labelId={id}
-							name={name}
 							helperText={helperText}
 							label={label}
 							className={className}

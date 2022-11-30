@@ -4,7 +4,7 @@ export const generalFormValidationSchema = yup.object({
 	name: yup.string().required('Company name is required').min(2).max(20).nullable(),
 	registrationNumber: yup.string().required('Registration number is required').nullable(),
 	establishedDate: yup.string().required('Established date is required').nullable(),
-	registrationType: yup.string().oneOf(['vat', 'pan'], 'one of required'),
+	registrationNumberType: yup.string().oneOf(['PAN', 'VAT'], 'one of required'),
 });
 
 export const documentsFormValidationSchema = yup.object({

@@ -23,6 +23,14 @@ export const Navbar = () => {
 		setShowDropDown(!showDropdown);
 		setIsClose(true);
 	};
+
+	const getAvatar = () => {
+		if (data?.getCompanyById?.avatar) {
+			return data.getCompanyById.avatar;
+		} else {
+			return 'https://i.pravatar.cc/300';
+		}
+	};
 	return (
 		<div className='flex flex-col'>
 			<nav className='bg-white fixed h-18 pl-5 pr-5 py-3 top-0 w-full z-10'>
@@ -48,7 +56,7 @@ export const Navbar = () => {
 						<button
 							onClick={handleDropdown}
 							className='aspect-square overflow-hidden relative rounded-full w-10'>
-							<Image src='https://i.pravatar.cc/300' alt='profile-photo' width='40' height='40' />
+							<Image src={getAvatar()} alt='profile-photo' fill />
 						</button>
 					</div>
 				</div>

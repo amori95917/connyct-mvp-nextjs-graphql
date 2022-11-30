@@ -1,4 +1,5 @@
 export const generalFromInitialValues = (data: any) => {
+	console.log(data, 'initial value of general section');
 	const {
 		name,
 		legalName,
@@ -6,7 +7,7 @@ export const generalFromInitialValues = (data: any) => {
 		registrationNumber = '',
 		establishedDate = '',
 		slogan = '',
-		registrationType = 'vat' as const,
+		registrationNumberType = 'VAT' as const,
 		companyStage = '',
 	} = data;
 	return {
@@ -15,15 +16,31 @@ export const generalFromInitialValues = (data: any) => {
 		slogan,
 		description: description || '',
 		registrationNumber,
-		companyStage,
+		companyStage: getCompanyStage(companyStage),
 		establishedDate: establishedDate?.split('T')[0] || '',
-		registrationType: registrationType,
+		registrationNumberType,
 	};
 };
 
 export const documentsFormInitialValues = (data: any) => {
-	const registrationType = data?.registrationType;
-	return { documentType: registrationType || 'VAT', documentFile: null };
+	const registrationNumberType = data?.registrationNumberType;
+	return { documentType: registrationNumberType || 'VAT', documentFile: null };
+};
+export const documentsRegistrationFormInitialValues = (data: any) => {
+	const registrationNumberType = data?.registrationNumberType;
+	return { documentType: registrationNumberType || 'COMPANY_REGISTRATION', documentFile: null };
 };
 
-export const CitizenshipUploadInitialValues = {};
+function getCompanyStage(companyStage: string | null) {
+	console.log(companyStage, ' ##');
+	if (!companyStage) {
+		return '';
+	} else {
+		if (companyStage === 'STARTUP') {
+			return { label: 'Start up', value: 'STARTUP' };
+		}
+		if (companyStage === 'SCALEUP') {
+			return { label: 'Scale up', value: 'SCALEUP' };
+		}
+	}
+}

@@ -17,8 +17,8 @@ const CompanyEditLayout = (props: CompanyEditLayoutProps) => {
 	/** TODO: Proper implementation of react clone element to call the children to provide data  */
 
 	return (
-		<main className='p-2 relative top-16'>
-			<section className='container flex flex-col mx-auto pt-1'>
+		<main className='px-2 relative top-16'>
+			<section className='flex flex-col'>
 				<Menus data={data} />
 				<section className='md:pt-0'>
 					<EditMenu companySlug={companySlug} data={data} type={type}>

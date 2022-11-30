@@ -1,18 +1,17 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/router';
 
-import { FormInput, FormRadio } from '@/shared-components/forms';
+import { FormInput, FormRadio, FormEditor, FormSelect } from '@/shared-components/forms';
+import { COMPANY_GENERAL_EDIT, GET_COMPANY } from '@/graphql/company/resolver';
+import { COMPANY_STAGE } from '@/constants/select';
 import { GeneralFormFields } from '../types';
 import { generalFromInitialValues } from '../initialValues';
 import { generalFormValidationSchema } from '../validationSchema';
-import { FormSelect } from '@/ui-elements/molecules/forms/selectv2';
-import { COMPANY_STAGE } from '@/constants/select';
-import { useQuery } from '@apollo/client';
-import { useEffect, useState } from 'react';
-import { Router, useRouter } from 'next/router';
 
-const disabledButtonClass =
-	'bg-gray-300 block font-semibold  px-3 py-3 rounded-lg hover:cursor-not-allowed text-white ';
+// const disabledButtonClass =
+// 	'bg-gray-300 block font-semibold  px-3 py-3 rounded-lg hover:cursor-not-allowed text-white ';
 
 const buttonClass =
 	'bg-primary block font-semibold  px-3 py-3 rounded-lg text-white  hover:bg-primary focus:bg-primary';
@@ -29,18 +28,44 @@ const GeneralInfoForm = props => {
 		setValue,
 		formState: { errors },
 	} = useForm<GeneralFormFields>({
-		// mode: 'onSubmit',
+		mode: 'onSubmit',
 		defaultValues: generalFromInitialValues(data.getCompanyById) ?? {},
 		resolver: yupResolver(generalFormValidationSchema),
 	});
 
+	const [generalEdit, { loading, error }] = useMutation(COMPANY_GENERAL_EDIT);
+
 	const onSubmit = handleSubmit(async input => {
-		if (!submitCompletedRoute.includes('general')) {
-			setSubmitCompletedRoute((prevState: string[]) => [...prevState, 'general']);
+		console.log(input, 'inputs');
+		console.log(submitCompletedRoute, 'submit completed route');
+
+		const { companyStage, ...restInput } = input;
+
+		try {
+			const response = await generalEdit({
+				variables: {
+					companyId: companySlug,
+					data: {
+						...restInput,
+						companyStage: companyStage?.value,
+					},
+				},
+				refetchQueries: [{ query: GET_COMPANY, variables: { id: companySlug } }],
+			});
+
+			if (response?.data) {
+				console.log(response);
+				router.push(`/company/${companySlug}/edit/business-information/documents`);
+			}
+		} catch (err: any) {
+			console.log(err);
 		}
 
-		router.push(`/company/${companySlug}/edit/business-information/documents`);
+		if (submitCompletedRoute?.includes('general')) {
+			setSubmitCompletedRoute((prevState: string[]) => [...prevState, 'general']);
+		}
 	});
+
 	return (
 		<>
 			<form onSubmit={onSubmit}>
@@ -65,30 +90,32 @@ const GeneralInfoForm = props => {
 						label='Legal Name*'
 						placeholder='Legal Name'
 						className='grow mr-2'
+						disabled={true}
 						register={register}
 						errors={errors}
 					/>
 				</div>
+
 				<div className='mt-3'>
-					<FormInput
-						id='description'
-						type='text'
-						name='description'
-						label='Description'
-						helperText='Short description of what your business does.'
-						placeholder='Write a description about product'
-						className='mr-2'
-						register={register}
-						errors={errors}
-					/>
+					<div className='w-full md:pt-6'>
+						<FormEditor
+							id='description'
+							name={`description`}
+							label='Description'
+							placeholder={'Write description about your company'}
+							helperText={'Short description of what your business does.'}
+							control={control}
+							errors={errors}
+						/>
+					</div>
 					<label className='block font-bold mb-2 mt-5 text-gray-700 text-sm tracking-wide uppercase'>
 						Registration Type*
 					</label>
 					<div className='flex gap-3 justify-between'>
 						<FormRadio
 							id='pan'
-							name='registrationType'
-							value={'pan'}
+							name='registrationNumberType'
+							value={'PAN'}
 							label='PAN'
 							className='mr-2'
 							labelClassName='mb-0'
@@ -97,9 +124,9 @@ const GeneralInfoForm = props => {
 							errors={errors}
 						/>
 						<FormRadio
-							id='registration-type'
-							name='registrationType'
-							value={'vat'}
+							id='vat'
+							name='registrationNumberType'
+							value={'VAT'}
 							label='VAT'
 							className='mr-2'
 							labelClassName='mb-0'
@@ -133,6 +160,18 @@ const GeneralInfoForm = props => {
 						/>
 					</div>
 				</div>
+				<div className='mt-5 pr-2 w-full'>
+					<FormSelect
+						id='companyStage'
+						name='companyStage'
+						label='Company Stage'
+						placeholder='Company Stage'
+						setValue={setValue}
+						options={COMPANY_STAGE}
+						helperText=''
+						control={control}
+					/>
+				</div>
 				<div className='mb-2 mt-4 w-full'>
 					<FormInput
 						name='slogan'
@@ -145,25 +184,7 @@ const GeneralInfoForm = props => {
 						errors={errors}
 					/>
 				</div>
-
-				<div className='pr-2 w-full'>
-					<FormSelect
-						name='companyStage'
-						label='Company Stage'
-						placeholder='Company Stage'
-						options={COMPANY_STAGE}
-						helperText=''
-						setValue={setValue}
-						errors={errors}
-						register={register}
-						control={control}
-					/>
-				</div>
-
 				<div className='flex gap-2 justify-end mb-5 mt-4 w-full'>
-					<button type='button' className={disabledButtonClass}>
-						Previous
-					</button>
 					<button type='submit' className={buttonClass}>
 						Continue
 					</button>

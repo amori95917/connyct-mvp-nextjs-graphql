@@ -9,12 +9,24 @@ export type FormInputProps = {
 	helperText?: string | React.ReactNode;
 	inputClassName?: string;
 	labelClassName?: string;
+	helperTextClassName?: string;
 	id?: string;
 } & Omit<InputProps, 'name'>;
 
 export const FormInput: FC<FormInputProps> = forwardRef<HTMLInputElement, FormInputProps>(
 	(
-		{ id, name, label, helperText, className, inputClassName, labelClassName, type, ...props },
+		{
+			id,
+			name,
+			label,
+			helperText,
+			className,
+			inputClassName,
+			labelClassName,
+			helperTextClassName = '',
+			type,
+			...props
+		},
 		ref
 	) => {
 		return (
@@ -32,7 +44,7 @@ export const FormInput: FC<FormInputProps> = forwardRef<HTMLInputElement, FormIn
 					{...props}
 				/>
 				{helperText && typeof helperText === 'string' ? (
-					<p className='italic text-gray-600 text-xs'>{helperText}</p>
+					<p className={classNames('italic text-gray-600 text-xs', helperTextClassName)}>{helperText}</p>
 				) : (
 					helperText
 				)}

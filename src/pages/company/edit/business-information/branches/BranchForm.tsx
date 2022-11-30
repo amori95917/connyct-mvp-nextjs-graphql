@@ -1,29 +1,93 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-
-import { FormInput, FormRadio } from '@/shared-components/forms';
+import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
+
+import { FormInput, FormRadio, FormSelect } from '@/shared-components/forms';
+import {
+	COMPANY_BRANCH_CREATE_MUTATION,
+	COMPANY_BRANCH_EDIT_MUTATION,
+	GET_BRANCH_BY_COMPANY_ID,
+} from '@/graphql/company/resolver';
+import COUNTRIES from '@/constants/countries.json';
 import { schema } from './schema';
 import { initialValues } from './initialValues';
 import { BranchFormFields } from './types';
 import { buttonClass } from '../../common/constants';
 
-const BranchForm = () => {
+const BranchForm = ({
+	companySlug,
+	isOpen,
+	setIsOpen,
+	currentBranch,
+}: {
+	companySlug: string | undefined;
+}) => {
 	const {
 		register,
 		control,
-		watch,
+		reset,
 		handleSubmit,
-		getValues,
 		formState: { errors },
 	} = useForm<BranchFormFields>({
-		mode: 'onSubmit',
+		mode: 'onChange',
 		resolver: yupResolver(schema),
-		defaultValues: initialValues,
 	});
 
-	const onSubmit = handleSubmit(input => {
-		console.log('input', input);
+	useEffect(() => {
+		reset(initialValues(currentBranch));
+	}, [currentBranch]);
+
+	const [editBranch, { loading: editLoading, error: editError }] = useMutation(
+		COMPANY_BRANCH_EDIT_MUTATION
+	);
+	const [createBranch, { loading: createLoading, error: createError }] = useMutation(
+		COMPANY_BRANCH_CREATE_MUTATION
+	);
+
+	const onSubmit = handleSubmit(async input => {
+		const { branchName: name, zipcode: zipCode, email, country, phoneNumber, ...restInput } = input;
+
+		console.log(currentBranch?.id, 'branch id');
+		try {
+			if (currentBranch?.id) {
+				const response = await editBranch({
+					variables: {
+						id: currentBranch.id,
+						data: {
+							country: country?.value,
+							contactNumber: phoneNumber,
+							contactEmail: email,
+							zipCode,
+							...restInput,
+						},
+					},
+					refetchQueries: [{ query: GET_BRANCH_BY_COMPANY_ID, variables: { id: companySlug } }],
+				});
+				if (response?.data) {
+					setIsOpen(!isOpen);
+				}
+			} else {
+				const response = await createBranch({
+					variables: {
+						id: companySlug,
+						data: {
+							country: country?.value,
+							contactNumber: phoneNumber,
+							contactEmail: email,
+							zipCode,
+							...restInput,
+						},
+					},
+					refetchQueries: [{ query: GET_BRANCH_BY_COMPANY_ID, variables: { id: companySlug } }],
+				});
+				if (response?.data) {
+					setIsOpen(!isOpen);
+				}
+			}
+		} catch (err: any) {
+			console.log(err);
+		}
 	});
 
 	return (
@@ -40,9 +104,10 @@ const BranchForm = () => {
 								<FormRadio
 									id='headquarter'
 									name='type'
-									value={'headquarter'}
+									value={'HEADQUARTER'}
 									label='HQ'
 									className='mr-2'
+									labelClassName='mb-0'
 									inputClassName='bg-gray-200'
 									register={register}
 									errors={errors}
@@ -52,9 +117,10 @@ const BranchForm = () => {
 								<FormRadio
 									id='branch'
 									name='type'
-									value={'branch'}
+									value={'BRANCH_OFFICE'}
 									label='Branch'
 									className='mr-2'
+									labelClassName='mb-0'
 									inputClassName='bg-gray-200'
 									register={register}
 									errors={errors}
@@ -63,12 +129,23 @@ const BranchForm = () => {
 						</div>
 					</div>
 					<div className='px-3'>
-						<FormInput
-							name={`country`}
-							id='country-id'
+						<FormSelect
+							disabled={true}
+							id='country'
+							name='country'
 							label='Country*'
-							className='mt-5 pr-5'
 							placeholder='Country'
+							options={COUNTRIES}
+							control={control}
+						/>
+					</div>
+					<div className='px-3'>
+						<FormInput
+							name={`branchName`}
+							id='branch-id'
+							label='Branch Name'
+							className='mt-5 pr-5'
+							placeholder='Branch Name'
 							register={register}
 							errors={errors}
 						/>
@@ -109,12 +186,12 @@ const BranchForm = () => {
 						errors={errors}
 					/>
 				</div>
-				<div className='px-3'>
+				<div className='flex px-3'>
 					<FormInput
 						name={`street`}
 						id='street-id'
 						label='Street'
-						className='pr-5'
+						className='mr-5 pr-5'
 						placeholder='Street'
 						register={register}
 						errors={errors}

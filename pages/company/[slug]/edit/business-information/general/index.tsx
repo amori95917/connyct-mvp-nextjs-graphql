@@ -13,11 +13,13 @@ const BusinessGeneralEditPage = () => {
 	return (
 		<>
 			<Navbar />
-			<CompanyEditLayout companySlug={companySlug || 'sample-id'} type='business-information'>
-				{(data: any) => {
-					if (data) return <GeneralInfoForm data={data} />;
-				}}
-			</CompanyEditLayout>
+			{companySlug && (
+				<CompanyEditLayout companySlug={companySlug} type='business-information'>
+					{(data: any) => {
+						if (data) return <GeneralInfoForm data={data} />;
+					}}
+				</CompanyEditLayout>
+			)}
 		</>
 	);
 };

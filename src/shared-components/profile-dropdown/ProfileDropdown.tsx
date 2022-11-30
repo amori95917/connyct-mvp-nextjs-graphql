@@ -69,6 +69,12 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 		}
 	};
 
+	const getAvatar = () => {
+		if (data?.getCompanyById?.avatar) {
+			return data.getCompanyById.avatar;
+		}
+	};
+
 	const buttonClass =
 		'bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300';
 
@@ -79,16 +85,16 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 				ref={ref}
 				className={`bg-gray-50 fixed flex ${classes.mainHeight} duration-200 ease-in-out  no-scrollbar  overflow-hidden p-3 right-5 rounded-md shadow-lg top-16 w-80`}>
 				<div className={`ml-1 ${classes.main} absolute w-72`}>
-					<div className='bg-primary flex flex-col h-32 items-center rounded-md shadow-sm'>
-						<span className='mt-5'>
+					<div className='bg-primary flex flex-col items-center rounded-md shadow-sm'>
+						<div className='bg-white h-24 mt-5 overflow-hidden relative rounded-full w-24'>
 							<Image
-								src='https://i.pravatar.cc/300'
+								src={getAvatar()}
 								alt='profile-photo'
-								width={60}
-								height={60}
+								fill
+								objectFit='cover'
 								className={'rounded-full'}
 							/>
-						</span>
+						</div>
 						<span className='font-semibold text-white text-xl'>
 							{company ? company[0]?.legalName : user.email}
 						</span>
@@ -145,48 +151,6 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 						</span>
 						<span className='text-2xl'>{'>'}</span>
 					</button>
-					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
-						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
-							<span className='ml-5'>Settings</span>
-						</span>
-						<span className='text-2xl'>{'>'}</span>
-					</button>
-					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
-						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
-							<span className='ml-5'>Settings</span>
-						</span>
-						<span className='text-2xl'>{'>'}</span>
-					</button>
-					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
-						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
-							<span className='ml-5'>Settings</span>
-						</span>
-						<span className='text-2xl'>{'>'}</span>
-					</button>
-					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
-						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
-							<span className='ml-5'>Settings</span>
-						</span>
-						<span className='text-2xl'>{'>'}</span>
-					</button>
-					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
-						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
-							<span className='ml-5'>Settings</span>
-						</span>
-						<span className='text-2xl'>{'>'}</span>
-					</button>
-					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
-						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
-							<span className='ml-5'>Settings</span>
-						</span>
-						<span className='text-2xl'>{'>'}</span>
-					</button>
 				</div>
 				<div className={` ${classes.manage} absolute duration-200 ease-in-out ml-5`}>
 					<span className='flex items-center ml-5'>
@@ -202,14 +166,6 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 								<span className='ml-5'>Edit Profile</span>
 							</button>
 						</Link>
-						<span className='text-2xl'>{'>'}</span>
-					</button>
-					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
-						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
-							<span className='ml-5'>Manage</span>
-						</span>
-						<span className='text-2xl'>{'>'}</span>
 					</button>
 					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
 						<span className='flex'>
@@ -231,21 +187,6 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 							<MdOutlineSettings size={25} fill='#00E0FF' />
 							<span className='ml-5'>Other</span>
 						</span>
-						<span className='text-2xl'>{'>'}</span>
-					</button>
-					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
-						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
-							<span className='ml-5'>Other</span>
-						</span>
-						<span className='text-2xl'>{'>'}</span>
-					</button>
-					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
-						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
-							<span className='ml-5'>Other</span>
-						</span>
-						<span className='text-2xl'>{'>'}</span>
 					</button>
 				</div>
 			</div>

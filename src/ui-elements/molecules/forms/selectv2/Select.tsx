@@ -14,6 +14,7 @@ const ReactSelect = forwardRef(
 			labelId,
 			placeholder,
 			options,
+			initialValue,
 			className,
 			labelClassName,
 			wrapperClassName,
@@ -115,6 +116,7 @@ const ReactSelect = forwardRef(
 							name={name}
 							isDisabled={disabled}
 							placeholder={placeholder}
+							defaultInputValue={initialValue}
 							options={options}
 							styles={styles}
 							className={className}

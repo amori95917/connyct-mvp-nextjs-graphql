@@ -8,10 +8,13 @@ const EditMenu: React.FC<EditMenuProps> = props => {
 	const router = useRouter();
 
 	const { companySlug, children, type, data } = props;
+	const [submitCompletedRoute, setSubmitCompletedRoute] = useState([]);
 
 	const childrenWithProps = React.Children.map(children, (child, i) => {
 		return React.cloneElement(child, {
 			companySlug,
+			submitCompletedRoute,
+			setSubmitCompletedRoute,
 		});
 	});
 
@@ -19,7 +22,7 @@ const EditMenu: React.FC<EditMenuProps> = props => {
 		<>
 			<div className='flex flex-col mt-0 md:flex-row md:gap-3'>
 				<div className='bg-primaryv2 p-4 text-white w-full md:basis-1/6'>
-					<Link href={`/company/${companySlug}/edit/business-information/general`} passHref>
+					<Link href={`/company/${companySlug}/edit/business-information/general`}>
 						<button className='mt-4 pb-4 text-left text-lg w-full whitespace-nowrap hover:font-bold'>
 							Business Information
 						</button>
@@ -34,7 +37,7 @@ const EditMenu: React.FC<EditMenuProps> = props => {
 				{type === 'business-information' && (
 					<div className='mt-4 text-left w-full md:basis-1/4'>
 						{/** TODO: find which button is active and activate the sub-menus accordingly */}
-						<Link href={`/company/${companySlug}/edit/business-information/general`} passHref>
+						<Link href={`/company/${companySlug}/edit/business-information/general`}>
 							<button className='font-bold p-2 text-gray-600 text-left text-md w-full'>General</button>
 							<p className='p-2 text-gray-400'>
 								Fill out the general information which is must for better visibility
@@ -47,10 +50,11 @@ const EditMenu: React.FC<EditMenuProps> = props => {
 								className={`flex font-bold items-center p-2 text-gray-600 text-left text-md w-full ${
 									isEnabled(data) ? '' : 'text-slate-300'
 								}`}>
-								Documents
+								Uploads
 							</button>
 							<p className='p-2 text-gray-400'>
-								Fill out the document information so that we can list you as a verified company
+								Fill out the document information so that we can list you as a verified company and a
+								profile picture of your brand is highly recommended
 							</p>
 						</Link>
 						<Link
@@ -69,7 +73,7 @@ const EditMenu: React.FC<EditMenuProps> = props => {
 						</Link>
 					</div>
 				)}
-				<div className='bg-white mt-4 p-10 pt-2 w-full'>{childrenWithProps}</div>
+				<div className='bg-white p-10 pt-4 w-full'>{childrenWithProps}</div>
 			</div>
 		</>
 	);

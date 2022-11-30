@@ -49,7 +49,7 @@ const Discussion = (props: DiscussionProps) => {
 							<div className='flex gap-2 items-center'>
 								<div className='cursor-pointer h-8 relative rounded-full w-8'>
 									<Image
-										src='https://i.pravatar.cc/100'
+										src={discussion.createdBy?.image || 'https://i.pravatar.cc/'}
 										alt=''
 										className='rounded-full'
 										width='50'

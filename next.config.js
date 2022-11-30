@@ -3,7 +3,7 @@ const nextConfig = {
 	reactStrictMode: true,
 	swcMinify: true,
 	images: {
-		domains: ['i.pravatar.cc', 'cdn.shopify.com'],
+		domains: ['i.pravatar.cc', 'res.cloudinary.com'],
 	},
 	experimental: {
 		fontLoaders: [{ loader: '@next/font/google', options: { subsets: ['latin'] } }],

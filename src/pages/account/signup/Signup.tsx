@@ -52,13 +52,16 @@ const Signup = () => {
 					company,
 				});
 				// may need to do https://nextjs.org/docs/routing/shallow-routing
-				company ? router.push(`/company/${company[0].id}/edit`) : router.push(`/company-suggestions`);
+				// create a constant for redirection routes like REDIRECTION_TO_COMPANY_AFTER_SIGNUP
+				// REDIRECTION_TO_USER_AFTER_SIGNUP
+				company
+					? router.push(`/company/${company[0].id}/edit/business-information/general`)
+					: router.push(`/company-suggestions`);
 			}
 		} catch (err: any) {
 			setErrorUserAlreadyExists(err.message);
 		}
 	});
-	console.log('watch', watch('accountType'));
 	return (
 		<>
 			<div className='flex items-center justify-center min-h-screen min-w-screen px-5 py-5'>

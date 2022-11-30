@@ -37,7 +37,7 @@ export const DiscussionView = ({ discussion }) => {
 				<CreatorContainer
 					fullName={discussion?.createdBy?.fullName}
 					createdAt={discussion?.createdAt}
-					avatar={''}
+					avatar={discussion.createdBy?.image}
 				/>
 				<div className='mb-5'>
 					<button

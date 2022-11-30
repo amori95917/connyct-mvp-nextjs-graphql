@@ -13,11 +13,13 @@ const BusinessDocumentEditPage = () => {
 	return (
 		<>
 			<Navbar />
-			<CompanyEditLayout companySlug={companySlug || ''} type='business-information'>
-				{data => {
-					return <Documents key='documents' data={data} companySlug={companySlug} />;
-				}}
-			</CompanyEditLayout>
+			{slug && (
+				<CompanyEditLayout companySlug={companySlug || ''} type='business-information'>
+					{data => {
+						return <Documents key='documents' data={data} companySlug={companySlug} />;
+					}}
+				</CompanyEditLayout>
+			)}
 		</>
 	);
 };

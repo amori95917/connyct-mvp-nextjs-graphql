@@ -13,11 +13,13 @@ const CompanyBranchesPage = () => {
 	return (
 		<>
 			<Navbar />
-			<CompanyEditLayout companySlug={companySlug || ''} type='business-information'>
-				{data => {
-					return <Branches data={data} />;
-				}}
-			</CompanyEditLayout>
+			{slug && (
+				<CompanyEditLayout companySlug={companySlug || ''} type='business-information'>
+					{data => {
+						return <Branches data={data} />;
+					}}
+				</CompanyEditLayout>
+			)}
 		</>
 	);
 };

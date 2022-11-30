@@ -1,0 +1,1360 @@
+[
+    {
+        "label": "Afghanistan",
+        "value": "Afghanistan",
+        "flag": "🇦🇫",
+        "code": "93",
+        "cca2": "AF"
+    },
+    {
+        "label": "Angola",
+        "value": "Angola",
+        "flag": "🇦🇴",
+        "code": "244",
+        "cca2": "AO"
+    },
+    {
+        "label": "Albania",
+        "value": "Albania",
+        "flag": "🇦🇱",
+        "code": "355",
+        "cca2": "AL"
+    },
+    {
+        "label": "Andorra",
+        "value": "Andorra",
+        "flag": "🇦🇩",
+        "code": "376",
+        "cca2": "AD"
+    },
+    {
+        "label": "United Arab Emirates",
+        "value": "United Arab Emirates",
+        "flag": "🇦🇪",
+        "code": "971",
+        "cca2": "AE"
+    },
+    {
+        "label": "Argentina",
+        "value": "Argentina",
+        "flag": "🇦🇷",
+        "code": "54",
+        "cca2": "AR"
+    },
+    {
+        "label": "Armenia",
+        "value": "Armenia",
+        "flag": "🇦🇲",
+        "code": "374",
+        "cca2": "AM"
+    },
+    {
+        "label": "Antigua and Barbuda",
+        "value": "Antigua and Barbuda",
+        "flag": "🇦🇬",
+        "code": "1268",
+        "cca2": "AG"
+    },
+    {
+        "label": "Australia",
+        "value": "Australia",
+        "flag": "🇦🇺",
+        "code": "61",
+        "cca2": "AU"
+    },
+    {
+        "label": "Austria",
+        "value": "Austria",
+        "flag": "🇦🇹",
+        "code": "43",
+        "cca2": "AT"
+    },
+    {
+        "label": "Azerbaijan",
+        "value": "Azerbaijan",
+        "flag": "🇦🇿",
+        "code": "994",
+        "cca2": "AZ"
+    },
+    {
+        "label": "Burundi",
+        "value": "Burundi",
+        "flag": "🇧🇮",
+        "code": "257",
+        "cca2": "BI"
+    },
+    {
+        "label": "Belgium",
+        "value": "Belgium",
+        "flag": "🇧🇪",
+        "code": "32",
+        "cca2": "BE"
+    },
+    {
+        "label": "Benin",
+        "value": "Benin",
+        "flag": "🇧🇯",
+        "code": "229",
+        "cca2": "BJ"
+    },
+    {
+        "label": "Burkina Faso",
+        "value": "Burkina Faso",
+        "flag": "🇧🇫",
+        "code": "226",
+        "cca2": "BF"
+    },
+    {
+        "label": "Bangladesh",
+        "value": "Bangladesh",
+        "flag": "🇧🇩",
+        "code": "880",
+        "cca2": "BD"
+    },
+    {
+        "label": "Bulgaria",
+        "value": "Bulgaria",
+        "flag": "🇧🇬",
+        "code": "359",
+        "cca2": "BG"
+    },
+    {
+        "label": "Bahrain",
+        "value": "Bahrain",
+        "flag": "🇧🇭",
+        "code": "973",
+        "cca2": "BH"
+    },
+    {
+        "label": "Bahamas",
+        "value": "Bahamas",
+        "flag": "🇧🇸",
+        "code": "1242",
+        "cca2": "BS"
+    },
+    {
+        "label": "Bosnia and Herzegovina",
+        "value": "Bosnia and Herzegovina",
+        "flag": "🇧🇦",
+        "code": "387",
+        "cca2": "BA"
+    },
+    {
+        "label": "Belarus",
+        "value": "Belarus",
+        "flag": "🇧🇾",
+        "code": "375",
+        "cca2": "BY"
+    },
+    {
+        "label": "Belize",
+        "value": "Belize",
+        "flag": "🇧🇿",
+        "code": "501",
+        "cca2": "BZ"
+    },
+    {
+        "label": "Bolivia",
+        "value": "Bolivia",
+        "flag": "🇧🇴",
+        "code": "591",
+        "cca2": "BO"
+    },
+    {
+        "label": "Brazil",
+        "value": "Brazil",
+        "flag": "🇧🇷",
+        "code": "55",
+        "cca2": "BR"
+    },
+    {
+        "label": "Barbados",
+        "value": "Barbados",
+        "flag": "🇧🇧",
+        "code": "1246",
+        "cca2": "BB"
+    },
+    {
+        "label": "Brunei",
+        "value": "Brunei",
+        "flag": "🇧🇳",
+        "code": "673",
+        "cca2": "BN"
+    },
+    {
+        "label": "Bhutan",
+        "value": "Bhutan",
+        "flag": "🇧🇹",
+        "code": "975",
+        "cca2": "BT"
+    },
+    {
+        "label": "Botswana",
+        "value": "Botswana",
+        "flag": "🇧🇼",
+        "code": "267",
+        "cca2": "BW"
+    },
+    {
+        "label": "Central African Republic",
+        "value": "Central African Republic",
+        "flag": "🇨🇫",
+        "code": "236",
+        "cca2": "CF"
+    },
+    {
+        "label": "Canada",
+        "value": "Canada",
+        "flag": "🇨🇦",
+        "code": "1",
+        "cca2": "CA"
+    },
+    {
+        "label": "Switzerland",
+        "value": "Switzerland",
+        "flag": "🇨🇭",
+        "code": "41",
+        "cca2": "CH"
+    },
+    {
+        "label": "Chile",
+        "value": "Chile",
+        "flag": "🇨🇱",
+        "code": "56",
+        "cca2": "CL"
+    },
+    {
+        "label": "China",
+        "value": "China",
+        "flag": "🇨🇳",
+        "code": "86",
+        "cca2": "CN"
+    },
+    {
+        "label": "Ivory Coast",
+        "value": "Ivory Coast",
+        "flag": "🇨🇮",
+        "code": "225",
+        "cca2": "CI"
+    },
+    {
+        "label": "Cameroon",
+        "value": "Cameroon",
+        "flag": "🇨🇲",
+        "code": "237",
+        "cca2": "CM"
+    },
+    {
+        "label": "DR Congo",
+        "value": "DR Congo",
+        "flag": "🇨🇩",
+        "code": "243",
+        "cca2": "CD"
+    },
+    {
+        "label": "Republic of the Congo",
+        "value": "Republic of the Congo",
+        "flag": "🇨🇬",
+        "code": "242",
+        "cca2": "CG"
+    },
+    {
+        "label": "Colombia",
+        "value": "Colombia",
+        "flag": "🇨🇴",
+        "code": "57",
+        "cca2": "CO"
+    },
+    {
+        "label": "Comoros",
+        "value": "Comoros",
+        "flag": "🇰🇲",
+        "code": "269",
+        "cca2": "KM"
+    },
+    {
+        "label": "Cape Verde",
+        "value": "Cape Verde",
+        "flag": "🇨🇻",
+        "code": "238",
+        "cca2": "CV"
+    },
+    {
+        "label": "Costa Rica",
+        "value": "Costa Rica",
+        "flag": "🇨🇷",
+        "code": "506",
+        "cca2": "CR"
+    },
+    {
+        "label": "Cuba",
+        "value": "Cuba",
+        "flag": "🇨🇺",
+        "code": "53",
+        "cca2": "CU"
+    },
+    {
+        "label": "Cyprus",
+        "value": "Cyprus",
+        "flag": "🇨🇾",
+        "code": "357",
+        "cca2": "CY"
+    },
+    {
+        "label": "Czechia",
+        "value": "Czechia",
+        "flag": "🇨🇿",
+        "code": "420",
+        "cca2": "CZ"
+    },
+    {
+        "label": "Germany",
+        "value": "Germany",
+        "flag": "🇩🇪",
+        "code": "49",
+        "cca2": "DE"
+    },
+    {
+        "label": "Djibouti",
+        "value": "Djibouti",
+        "flag": "🇩🇯",
+        "code": "253",
+        "cca2": "DJ"
+    },
+    {
+        "label": "Dominica",
+        "value": "Dominica",
+        "flag": "🇩🇲",
+        "code": "1767",
+        "cca2": "DM"
+    },
+    {
+        "label": "Denmark",
+        "value": "Denmark",
+        "flag": "🇩🇰",
+        "code": "45",
+        "cca2": "DK"
+    },
+    {
+        "label": "Dominican Republic",
+        "value": "Dominican Republic",
+        "flag": "🇩🇴",
+        "code": "1809",
+        "cca2": "DO"
+    },
+    {
+        "label": "Algeria",
+        "value": "Algeria",
+        "flag": "🇩🇿",
+        "code": "213",
+        "cca2": "DZ"
+    },
+    {
+        "label": "Ecuador",
+        "value": "Ecuador",
+        "flag": "🇪🇨",
+        "code": "593",
+        "cca2": "EC"
+    },
+    {
+        "label": "Egypt",
+        "value": "Egypt",
+        "flag": "🇪🇬",
+        "code": "20",
+        "cca2": "EG"
+    },
+    {
+        "label": "Eritrea",
+        "value": "Eritrea",
+        "flag": "🇪🇷",
+        "code": "291",
+        "cca2": "ER"
+    },
+    {
+        "label": "Spain",
+        "value": "Spain",
+        "flag": "🇪🇸",
+        "code": "34",
+        "cca2": "ES"
+    },
+    {
+        "label": "Estonia",
+        "value": "Estonia",
+        "flag": "🇪🇪",
+        "code": "372",
+        "cca2": "EE"
+    },
+    {
+        "label": "Ethiopia",
+        "value": "Ethiopia",
+        "flag": "🇪🇹",
+        "code": "251",
+        "cca2": "ET"
+    },
+    {
+        "label": "Finland",
+        "value": "Finland",
+        "flag": "🇫🇮",
+        "code": "358",
+        "cca2": "FI"
+    },
+    {
+        "label": "Fiji",
+        "value": "Fiji",
+        "flag": "🇫🇯",
+        "code": "679",
+        "cca2": "FJ"
+    },
+    {
+        "label": "France",
+        "value": "France",
+        "flag": "🇫🇷",
+        "code": "33",
+        "cca2": "FR"
+    },
+    {
+        "label": "Micronesia",
+        "value": "Micronesia",
+        "flag": "🇫🇲",
+        "code": "691",
+        "cca2": "FM"
+    },
+    {
+        "label": "Gabon",
+        "value": "Gabon",
+        "flag": "🇬🇦",
+        "code": "241",
+        "cca2": "GA"
+    },
+    {
+        "label": "United Kingdom",
+        "value": "United Kingdom",
+        "flag": "🇬🇧",
+        "code": "44",
+        "cca2": "GB"
+    },
+    {
+        "label": "Georgia",
+        "value": "Georgia",
+        "flag": "🇬🇪",
+        "code": "995",
+        "cca2": "GE"
+    },
+    {
+        "label": "Ghana",
+        "value": "Ghana",
+        "flag": "🇬🇭",
+        "code": "233",
+        "cca2": "GH"
+    },
+    {
+        "label": "Guinea",
+        "value": "Guinea",
+        "flag": "🇬🇳",
+        "code": "224",
+        "cca2": "GN"
+    },
+    {
+        "label": "Gambia",
+        "value": "Gambia",
+        "flag": "🇬🇲",
+        "code": "220",
+        "cca2": "GM"
+    },
+    {
+        "label": "Guinea-Bissau",
+        "value": "Guinea-Bissau",
+        "flag": "🇬🇼",
+        "code": "245",
+        "cca2": "GW"
+    },
+    {
+        "label": "Equatorial Guinea",
+        "value": "Equatorial Guinea",
+        "flag": "🇬🇶",
+        "code": "240",
+        "cca2": "GQ"
+    },
+    {
+        "label": "Greece",
+        "value": "Greece",
+        "flag": "🇬🇷",
+        "code": "30",
+        "cca2": "GR"
+    },
+    {
+        "label": "Grenada",
+        "value": "Grenada",
+        "flag": "🇬🇩",
+        "code": "1473",
+        "cca2": "GD"
+    },
+    {
+        "label": "Guatemala",
+        "value": "Guatemala",
+        "flag": "🇬🇹",
+        "code": "502",
+        "cca2": "GT"
+    },
+    {
+        "label": "Guyana",
+        "value": "Guyana",
+        "flag": "🇬🇾",
+        "code": "592",
+        "cca2": "GY"
+    },
+    {
+        "label": "Honduras",
+        "value": "Honduras",
+        "flag": "🇭🇳",
+        "code": "504",
+        "cca2": "HN"
+    },
+    {
+        "label": "Croatia",
+        "value": "Croatia",
+        "flag": "🇭🇷",
+        "code": "385",
+        "cca2": "HR"
+    },
+    {
+        "label": "Haiti",
+        "value": "Haiti",
+        "flag": "🇭🇹",
+        "code": "509",
+        "cca2": "HT"
+    },
+    {
+        "label": "Hungary",
+        "value": "Hungary",
+        "flag": "🇭🇺",
+        "code": "36",
+        "cca2": "HU"
+    },
+    {
+        "label": "Indonesia",
+        "value": "Indonesia",
+        "flag": "🇮🇩",
+        "code": "62",
+        "cca2": "ID"
+    },
+    {
+        "label": "India",
+        "value": "India",
+        "flag": "🇮🇳",
+        "code": "91",
+        "cca2": "IN"
+    },
+    {
+        "label": "Ireland",
+        "value": "Ireland",
+        "flag": "🇮🇪",
+        "code": "353",
+        "cca2": "IE"
+    },
+    {
+        "label": "Iran",
+        "value": "Iran",
+        "flag": "🇮🇷",
+        "code": "98",
+        "cca2": "IR"
+    },
+    {
+        "label": "Iraq",
+        "value": "Iraq",
+        "flag": "🇮🇶",
+        "code": "964",
+        "cca2": "IQ"
+    },
+    {
+        "label": "Iceland",
+        "value": "Iceland",
+        "flag": "🇮🇸",
+        "code": "354",
+        "cca2": "IS"
+    },
+    {
+        "label": "Israel",
+        "value": "Israel",
+        "flag": "🇮🇱",
+        "code": "972",
+        "cca2": "IL"
+    },
+    {
+        "label": "Italy",
+        "value": "Italy",
+        "flag": "🇮🇹",
+        "code": "39",
+        "cca2": "IT"
+    },
+    {
+        "label": "Jamaica",
+        "value": "Jamaica",
+        "flag": "🇯🇲",
+        "code": "1876",
+        "cca2": "JM"
+    },
+    {
+        "label": "Jordan",
+        "value": "Jordan",
+        "flag": "🇯🇴",
+        "code": "962",
+        "cca2": "JO"
+    },
+    {
+        "label": "Japan",
+        "value": "Japan",
+        "flag": "🇯🇵",
+        "code": "81",
+        "cca2": "JP"
+    },
+    {
+        "label": "Kazakhstan",
+        "value": "Kazakhstan",
+        "flag": "🇰🇿",
+        "code": "76",
+        "cca2": "KZ"
+    },
+    {
+        "label": "Kenya",
+        "value": "Kenya",
+        "flag": "🇰🇪",
+        "code": "254",
+        "cca2": "KE"
+    },
+    {
+        "label": "Kyrgyzstan",
+        "value": "Kyrgyzstan",
+        "flag": "🇰🇬",
+        "code": "996",
+        "cca2": "KG"
+    },
+    {
+        "label": "Cambodia",
+        "value": "Cambodia",
+        "flag": "🇰🇭",
+        "code": "855",
+        "cca2": "KH"
+    },
+    {
+        "label": "Kiribati",
+        "value": "Kiribati",
+        "flag": "🇰🇮",
+        "code": "686",
+        "cca2": "KI"
+    },
+    {
+        "label": "Saint Kitts and Nevis",
+        "value": "Saint Kitts and Nevis",
+        "flag": "🇰🇳",
+        "code": "1869",
+        "cca2": "KN"
+    },
+    {
+        "label": "South Korea",
+        "value": "South Korea",
+        "flag": "🇰🇷",
+        "code": "82",
+        "cca2": "KR"
+    },
+    {
+        "label": "Kuwait",
+        "value": "Kuwait",
+        "flag": "🇰🇼",
+        "code": "965",
+        "cca2": "KW"
+    },
+    {
+        "label": "Laos",
+        "value": "Laos",
+        "flag": "🇱🇦",
+        "code": "856",
+        "cca2": "LA"
+    },
+    {
+        "label": "Lebanon",
+        "value": "Lebanon",
+        "flag": "🇱🇧",
+        "code": "961",
+        "cca2": "LB"
+    },
+    {
+        "label": "Liberia",
+        "value": "Liberia",
+        "flag": "🇱🇷",
+        "code": "231",
+        "cca2": "LR"
+    },
+    {
+        "label": "Libya",
+        "value": "Libya",
+        "flag": "🇱🇾",
+        "code": "218",
+        "cca2": "LY"
+    },
+    {
+        "label": "Saint Lucia",
+        "value": "Saint Lucia",
+        "flag": "🇱🇨",
+        "code": "1758",
+        "cca2": "LC"
+    },
+    {
+        "label": "Liechtenstein",
+        "value": "Liechtenstein",
+        "flag": "🇱🇮",
+        "code": "423",
+        "cca2": "LI"
+    },
+    {
+        "label": "Sri Lanka",
+        "value": "Sri Lanka",
+        "flag": "🇱🇰",
+        "code": "94",
+        "cca2": "LK"
+    },
+    {
+        "label": "Lesotho",
+        "value": "Lesotho",
+        "flag": "🇱🇸",
+        "code": "266",
+        "cca2": "LS"
+    },
+    {
+        "label": "Lithuania",
+        "value": "Lithuania",
+        "flag": "🇱🇹",
+        "code": "370",
+        "cca2": "LT"
+    },
+    {
+        "label": "Luxembourg",
+        "value": "Luxembourg",
+        "flag": "🇱🇺",
+        "code": "352",
+        "cca2": "LU"
+    },
+    {
+        "label": "Latvia",
+        "value": "Latvia",
+        "flag": "🇱🇻",
+        "code": "371",
+        "cca2": "LV"
+    },
+    {
+        "label": "Morocco",
+        "value": "Morocco",
+        "flag": "🇲🇦",
+        "code": "212",
+        "cca2": "MA"
+    },
+    {
+        "label": "Monaco",
+        "value": "Monaco",
+        "flag": "🇲🇨",
+        "code": "377",
+        "cca2": "MC"
+    },
+    {
+        "label": "Moldova",
+        "value": "Moldova",
+        "flag": "🇲🇩",
+        "code": "373",
+        "cca2": "MD"
+    },
+    {
+        "label": "Madagascar",
+        "value": "Madagascar",
+        "flag": "🇲🇬",
+        "code": "261",
+        "cca2": "MG"
+    },
+    {
+        "label": "Maldives",
+        "value": "Maldives",
+        "flag": "🇲🇻",
+        "code": "960",
+        "cca2": "MV"
+    },
+    {
+        "label": "Mexico",
+        "value": "Mexico",
+        "flag": "🇲🇽",
+        "code": "52",
+        "cca2": "MX"
+    },
+    {
+        "label": "Marshall Islands",
+        "value": "Marshall Islands",
+        "flag": "🇲🇭",
+        "code": "692",
+        "cca2": "MH"
+    },
+    {
+        "label": "Macedonia",
+        "value": "Macedonia",
+        "flag": "🇲🇰",
+        "code": "389",
+        "cca2": "MK"
+    },
+    {
+        "label": "Mali",
+        "value": "Mali",
+        "flag": "🇲🇱",
+        "code": "223",
+        "cca2": "ML"
+    },
+    {
+        "label": "Malta",
+        "value": "Malta",
+        "flag": "🇲🇹",
+        "code": "356",
+        "cca2": "MT"
+    },
+    {
+        "label": "Myanmar",
+        "value": "Myanmar",
+        "flag": "🇲🇲",
+        "code": "95",
+        "cca2": "MM"
+    },
+    {
+        "label": "Montenegro",
+        "value": "Montenegro",
+        "flag": "🇲🇪",
+        "code": "382",
+        "cca2": "ME"
+    },
+    {
+        "label": "Mongolia",
+        "value": "Mongolia",
+        "flag": "🇲🇳",
+        "code": "976",
+        "cca2": "MN"
+    },
+    {
+        "label": "Mozambique",
+        "value": "Mozambique",
+        "flag": "🇲🇿",
+        "code": "258",
+        "cca2": "MZ"
+    },
+    {
+        "label": "Mauritania",
+        "value": "Mauritania",
+        "flag": "🇲🇷",
+        "code": "222",
+        "cca2": "MR"
+    },
+    {
+        "label": "Mauritius",
+        "value": "Mauritius",
+        "flag": "🇲🇺",
+        "code": "230",
+        "cca2": "MU"
+    },
+    {
+        "label": "Malawi",
+        "value": "Malawi",
+        "flag": "🇲🇼",
+        "code": "265",
+        "cca2": "MW"
+    },
+    {
+        "label": "Malaysia",
+        "value": "Malaysia",
+        "flag": "🇲🇾",
+        "code": "60",
+        "cca2": "MY"
+    },
+    {
+        "label": "Namibia",
+        "value": "Namibia",
+        "flag": "🇳🇦",
+        "code": "264",
+        "cca2": "NA"
+    },
+    {
+        "label": "Niger",
+        "value": "Niger",
+        "flag": "🇳🇪",
+        "code": "227",
+        "cca2": "NE"
+    },
+    {
+        "label": "Nigeria",
+        "value": "Nigeria",
+        "flag": "🇳🇬",
+        "code": "234",
+        "cca2": "NG"
+    },
+    {
+        "label": "Nicaragua",
+        "value": "Nicaragua",
+        "flag": "🇳🇮",
+        "code": "505",
+        "cca2": "NI"
+    },
+    {
+        "label": "Netherlands",
+        "value": "Netherlands",
+        "flag": "🇳🇱",
+        "code": "31",
+        "cca2": "NL"
+    },
+    {
+        "label": "Norway",
+        "value": "Norway",
+        "flag": "🇳🇴",
+        "code": "47",
+        "cca2": "NO"
+    },
+    {
+        "label": "Nepal",
+        "value": "Nepal",
+        "flag": "🇳🇵",
+        "code": "977",
+        "cca2": "NP"
+    },
+    {
+        "label": "Nauru",
+        "value": "Nauru",
+        "flag": "🇳🇷",
+        "code": "674",
+        "cca2": "NR"
+    },
+    {
+        "label": "New Zealand",
+        "value": "New Zealand",
+        "flag": "🇳🇿",
+        "code": "64",
+        "cca2": "NZ"
+    },
+    {
+        "label": "Oman",
+        "value": "Oman",
+        "flag": "🇴🇲",
+        "code": "968",
+        "cca2": "OM"
+    },
+    {
+        "label": "Pakistan",
+        "value": "Pakistan",
+        "flag": "🇵🇰",
+        "code": "92",
+        "cca2": "PK"
+    },
+    {
+        "label": "Panama",
+        "value": "Panama",
+        "flag": "🇵🇦",
+        "code": "507",
+        "cca2": "PA"
+    },
+    {
+        "label": "Peru",
+        "value": "Peru",
+        "flag": "🇵🇪",
+        "code": "51",
+        "cca2": "PE"
+    },
+    {
+        "label": "Philippines",
+        "value": "Philippines",
+        "flag": "🇵🇭",
+        "code": "63",
+        "cca2": "PH"
+    },
+    {
+        "label": "Palau",
+        "value": "Palau",
+        "flag": "🇵🇼",
+        "code": "680",
+        "cca2": "PW"
+    },
+    {
+        "label": "Papua New Guinea",
+        "value": "Papua New Guinea",
+        "flag": "🇵🇬",
+        "code": "675",
+        "cca2": "PG"
+    },
+    {
+        "label": "Poland",
+        "value": "Poland",
+        "flag": "🇵🇱",
+        "code": "48",
+        "cca2": "PL"
+    },
+    {
+        "label": "North Korea",
+        "value": "North Korea",
+        "flag": "🇰🇵",
+        "code": "850",
+        "cca2": "KP"
+    },
+    {
+        "label": "Portugal",
+        "value": "Portugal",
+        "flag": "🇵🇹",
+        "code": "351",
+        "cca2": "PT"
+    },
+    {
+        "label": "Paraguay",
+        "value": "Paraguay",
+        "flag": "🇵🇾",
+        "code": "595",
+        "cca2": "PY"
+    },
+    {
+        "label": "Qatar",
+        "value": "Qatar",
+        "flag": "🇶🇦",
+        "code": "974",
+        "cca2": "QA"
+    },
+    {
+        "label": "Romania",
+        "value": "Romania",
+        "flag": "🇷🇴",
+        "code": "40",
+        "cca2": "RO"
+    },
+    {
+        "label": "Russia",
+        "value": "Russia",
+        "flag": "🇷🇺",
+        "code": "7",
+        "cca2": "RU"
+    },
+    {
+        "label": "Rwanda",
+        "value": "Rwanda",
+        "flag": "🇷🇼",
+        "code": "250",
+        "cca2": "RW"
+    },
+    {
+        "label": "Saudi Arabia",
+        "value": "Saudi Arabia",
+        "flag": "🇸🇦",
+        "code": "966",
+        "cca2": "SA"
+    },
+    {
+        "label": "Sudan",
+        "value": "Sudan",
+        "flag": "🇸🇩",
+        "code": "249",
+        "cca2": "SD"
+    },
+    {
+        "label": "Senegal",
+        "value": "Senegal",
+        "flag": "🇸🇳",
+        "code": "221",
+        "cca2": "SN"
+    },
+    {
+        "label": "Singapore",
+        "value": "Singapore",
+        "flag": "🇸🇬",
+        "code": "65",
+        "cca2": "SG"
+    },
+    {
+        "label": "Solomon Islands",
+        "value": "Solomon Islands",
+        "flag": "🇸🇧",
+        "code": "677",
+        "cca2": "SB"
+    },
+    {
+        "label": "Sierra Leone",
+        "value": "Sierra Leone",
+        "flag": "🇸🇱",
+        "code": "232",
+        "cca2": "SL"
+    },
+    {
+        "label": "El Salvador",
+        "value": "El Salvador",
+        "flag": "🇸🇻",
+        "code": "503",
+        "cca2": "SV"
+    },
+    {
+        "label": "San Marino",
+        "value": "San Marino",
+        "flag": "🇸🇲",
+        "code": "378",
+        "cca2": "SM"
+    },
+    {
+        "label": "Somalia",
+        "value": "Somalia",
+        "flag": "🇸🇴",
+        "code": "252",
+        "cca2": "SO"
+    },
+    {
+        "label": "Serbia",
+        "value": "Serbia",
+        "flag": "🇷🇸",
+        "code": "381",
+        "cca2": "RS"
+    },
+    {
+        "label": "South Sudan",
+        "value": "South Sudan",
+        "flag": "🇸🇸",
+        "code": "211",
+        "cca2": "SS"
+    },
+    {
+        "label": "São Tomé and Príncipe",
+        "value": "São Tomé and Príncipe",
+        "flag": "🇸🇹",
+        "code": "239",
+        "cca2": "ST"
+    },
+    {
+        "label": "Suriname",
+        "value": "Suriname",
+        "flag": "🇸🇷",
+        "code": "597",
+        "cca2": "SR"
+    },
+    {
+        "label": "Slovakia",
+        "value": "Slovakia",
+        "flag": "🇸🇰",
+        "code": "421",
+        "cca2": "SK"
+    },
+    {
+        "label": "Slovenia",
+        "value": "Slovenia",
+        "flag": "🇸🇮",
+        "code": "386",
+        "cca2": "SI"
+    },
+    {
+        "label": "Sweden",
+        "value": "Sweden",
+        "flag": "🇸🇪",
+        "code": "46",
+        "cca2": "SE"
+    },
+    {
+        "label": "Swaziland",
+        "value": "Swaziland",
+        "flag": "🇸🇿",
+        "code": "268",
+        "cca2": "SZ"
+    },
+    {
+        "label": "Seychelles",
+        "value": "Seychelles",
+        "flag": "🇸🇨",
+        "code": "248",
+        "cca2": "SC"
+    },
+    {
+        "label": "Syria",
+        "value": "Syria",
+        "flag": "🇸🇾",
+        "code": "963",
+        "cca2": "SY"
+    },
+    {
+        "label": "Chad",
+        "value": "Chad",
+        "flag": "🇹🇩",
+        "code": "235",
+        "cca2": "TD"
+    },
+    {
+        "label": "Togo",
+        "value": "Togo",
+        "flag": "🇹🇬",
+        "code": "228",
+        "cca2": "TG"
+    },
+    {
+        "label": "Thailand",
+        "value": "Thailand",
+        "flag": "🇹🇭",
+        "code": "66",
+        "cca2": "TH"
+    },
+    {
+        "label": "Tajikistan",
+        "value": "Tajikistan",
+        "flag": "🇹🇯",
+        "code": "992",
+        "cca2": "TJ"
+    },
+    {
+        "label": "Turkmenistan",
+        "value": "Turkmenistan",
+        "flag": "🇹🇲",
+        "code": "993",
+        "cca2": "TM"
+    },
+    {
+        "label": "Timor-Leste",
+        "value": "Timor-Leste",
+        "flag": "🇹🇱",
+        "code": "670",
+        "cca2": "TL"
+    },
+    {
+        "label": "Tonga",
+        "value": "Tonga",
+        "flag": "🇹🇴",
+        "code": "676",
+        "cca2": "TO"
+    },
+    {
+        "label": "Trinidad and Tobago",
+        "value": "Trinidad and Tobago",
+        "flag": "🇹🇹",
+        "code": "1868",
+        "cca2": "TT"
+    },
+    {
+        "label": "Tunisia",
+        "value": "Tunisia",
+        "flag": "🇹🇳",
+        "code": "216",
+        "cca2": "TN"
+    },
+    {
+        "label": "Turkey",
+        "value": "Turkey",
+        "flag": "🇹🇷",
+        "code": "90",
+        "cca2": "TR"
+    },
+    {
+        "label": "Tuvalu",
+        "value": "Tuvalu",
+        "flag": "🇹🇻",
+        "code": "688",
+        "cca2": "TV"
+    },
+    {
+        "label": "Tanzania",
+        "value": "Tanzania",
+        "flag": "🇹🇿",
+        "code": "255",
+        "cca2": "TZ"
+    },
+    {
+        "label": "Uganda",
+        "value": "Uganda",
+        "flag": "🇺🇬",
+        "code": "256",
+        "cca2": "UG"
+    },
+    {
+        "label": "Ukraine",
+        "value": "Ukraine",
+        "flag": "🇺🇦",
+        "code": "380",
+        "cca2": "UA"
+    },
+    {
+        "label": "Uruguay",
+        "value": "Uruguay",
+        "flag": "🇺🇾",
+        "code": "598",
+        "cca2": "UY"
+    },
+    {
+        "label": "United States",
+        "value": "United States",
+        "flag": "🇺🇸",
+        "code": "1",
+        "cca2": "US"
+    },
+    {
+        "label": "Uzbekistan",
+        "value": "Uzbekistan",
+        "flag": "🇺🇿",
+        "code": "998",
+        "cca2": "UZ"
+    },
+    {
+        "label": "Vatican City",
+        "value": "Vatican City",
+        "flag": "🇻🇦",
+        "code": "3906698",
+        "cca2": "VA"
+    },
+    {
+        "label": "Saint Vincent and the Grenadines",
+        "value": "Saint Vincent and the Grenadines",
+        "flag": "🇻🇨",
+        "code": "1784",
+        "cca2": "VC"
+    },
+    {
+        "label": "Venezuela",
+        "value": "Venezuela",
+        "flag": "🇻🇪",
+        "code": "58",
+        "cca2": "VE"
+    },
+    {
+        "label": "Vietnam",
+        "value": "Vietnam",
+        "flag": "🇻🇳",
+        "code": "84",
+        "cca2": "VN"
+    },
+    {
+        "label": "Vanuatu",
+        "value": "Vanuatu",
+        "flag": "🇻🇺",
+        "code": "678",
+        "cca2": "VU"
+    },
+    {
+        "label": "Samoa",
+        "value": "Samoa",
+        "flag": "🇼🇸",
+        "code": "685",
+        "cca2": "WS"
+    },
+    {
+        "label": "Yemen",
+        "value": "Yemen",
+        "flag": "🇾🇪",
+        "code": "967",
+        "cca2": "YE"
+    },
+    {
+        "label": "South Africa",
+        "value": "South Africa",
+        "flag": "🇿🇦",
+        "code": "27",
+        "cca2": "ZA"
+    },
+    {
+        "label": "Zambia",
+        "value": "Zambia",
+        "flag": "🇿🇲",
+        "code": "260",
+        "cca2": "ZM"
+    },
+    {
+        "label": "Zimbabwe",
+        "value": "Zimbabwe",
+        "flag": "🇿🇼",
+        "code": "263",
+        "cca2": "ZW"
+    }
+]

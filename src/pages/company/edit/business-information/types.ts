@@ -1,9 +1,11 @@
+import { Company, Maybe } from '@/generated/graphql';
+
 export type GeneralFormFields = {
 	name: string;
 	legalName: string;
 	description: string;
 	registrationNumber: string;
-	registrationType: string;
+	registrationNumberType: string;
 	establishedDate: string;
 	slogan: string;
 	companyStage: string;
@@ -14,6 +16,13 @@ export type GeneralFormFields = {
 }
 
 // export type GeneralFormFields = Maybe<CompanyEditInput>;
+
+export type DocumentsProps = {
+	companySlug: string;
+	data: { getCompanyById: Maybe<Company> };
+	submitCompletedRoute: string[] | undefined;
+	setSubmitCompletedRoute: (submitCompletedRoute: string[]) => void;
+};
 
 export type DocumentsFormFields = {
 	documentType: any;

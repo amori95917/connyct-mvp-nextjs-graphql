@@ -3,18 +3,26 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiOutlineClose } from 'react-icons/ai';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@apollo/client';
 
+import { FormInput } from '@/shared-components/forms';
 import { FormDropFile } from '@/shared-components/forms/drop-file/FormDropFIle';
 import { verifyFile } from '@/utils/verifyFile';
 import { acceptedImagesFileTypes } from '@/constants/acceptedFileTypes';
+import { DOCUMENT_MUTATION, GET_COMPANY } from '@/graphql/company/resolver';
 
+import { DocumentUploadProps } from './types';
 import { DocumentsFormFields } from '../types';
 import { documentsFormInitialValues } from '../initialValues';
 import { documentsFormValidationSchema } from '../validationSchema';
-import { FormInput } from '@/shared-components/forms';
 
-export const DocumentsForm = ({ data, setIsDrawerOpen }) => {
+export const PanOrVatUploadFrom: React.FC<DocumentUploadProps> = ({
+	companySlug,
+	data,
+	setIsDrawerOpen,
+}) => {
 	const [rerender, setRerender] = useState(false);
+	const [docError, setDocError] = useState('');
 
 	const {
 		register,
@@ -31,26 +39,48 @@ export const DocumentsForm = ({ data, setIsDrawerOpen }) => {
 		resolver: yupResolver(documentsFormValidationSchema),
 	});
 
-	const onDrop = files => {
+	const onDrop = (files: File[]) => {
 		if (files && files.length > 0) {
-			const isVerifiedFile = verifyFile(files, acceptedImagesFileTypes, 1000000);
+			const isVerifiedFile = verifyFile(files, acceptedImagesFileTypes, 5000000);
 			if (isVerifiedFile) {
 				const currentFile = files;
 				setValue('documentFile', currentFile);
 				setRerender(!rerender);
+			} else {
+				setDocError('File type must be image and size must less then 5 mb');
 			}
 		}
 	};
 
+	const [panOrVat, { loading, error }] = useMutation(DOCUMENT_MUTATION);
+
 	const onSubmit = handleSubmit(async input => {
-		setIsDrawerOpen(false);
-		console.log(input, 'input');
+		try {
+			const response = await panOrVat({
+				// TODO document type is required update after api updates
+				variables: {
+					input: {
+						companyId: companySlug,
+						type: input.documentType,
+					},
+					document: input.documentFile,
+				},
+				refetchQueries: [{ query: GET_COMPANY, variables: { id: companySlug } }],
+			});
+			if (response?.data) {
+				setIsDrawerOpen(false);
+			}
+		} catch (err: any) {
+			console.log(err);
+		}
 		reset();
 	});
 
 	const onSelectedImageRemoveHandler = removedImage => {
 		reset();
 	};
+
+	console.log(data, 'data');
 
 	const buttonClass =
 		'bg-primary block font-semibold  px-3 py-3 rounded-lg text-white  absolute bottom-10 right-10 hover:bg-primary focus:bg-primary';
@@ -117,5 +147,3 @@ export const DocumentsForm = ({ data, setIsDrawerOpen }) => {
 		</>
 	);
 };
-
-export default DocumentsForm;

@@ -11,10 +11,8 @@ import { acceptedImagesFileTypes } from '@/constants/acceptedFileTypes';
 import { CitizenshipUploadFields } from '../types';
 import { CitizenshipUploadInitialValues } from '../initialValues';
 import { CitizenshipUploadValidationSchema } from '../validationSchema';
-import { FormInput } from '@/shared-components/forms';
-import { useRouter } from 'next/router';
 
-export const DocumentsForm = ({ data, setIsDrawerOpen }) => {
+export const CitizenshipUploadForm = ({ data, setIsDrawerOpen }) => {
 	const [rerender, setRerender] = useState(false);
 
 	const {
@@ -151,5 +149,3 @@ export const DocumentsForm = ({ data, setIsDrawerOpen }) => {
 		</>
 	);
 };
-
-export default DocumentsForm;

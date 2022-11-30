@@ -12,7 +12,6 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: any;
-  JSON: any;
   Upload: any;
 };
 
@@ -39,8 +38,7 @@ export type Branch = {
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
   state?: Maybe<Scalars['String']>;
-  street1?: Maybe<Scalars['String']>;
-  street2?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
   type: BranchType;
   updatedAt: Scalars['DateTime'];
   zipCode?: Maybe<Scalars['String']>;
@@ -49,7 +47,7 @@ export type Branch = {
 /** The branch type can be CORPORATE and BRANCH_OFFICE */
 export enum BranchType {
   BranchOffice = 'BRANCH_OFFICE',
-  Corporate = 'CORPORATE'
+  Headquarter = 'HEADQUARTER'
 }
 
 export type ChangePasswordInput = {
@@ -82,6 +80,12 @@ export type CommentRepliesArgs = {
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   order?: InputMaybe<OrderCommentsList>;
+};
+
+export type CommentDeletePayload = {
+  __typename?: 'CommentDeletePayload';
+  errors?: Maybe<Array<UserError>>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
 };
 
 export type CommentEdge = {
@@ -170,6 +174,53 @@ export type CommentReactionsPayload = {
   isDisliked?: Maybe<Scalars['Boolean']>;
 };
 
+export type Community = {
+  __typename?: 'Community';
+  communityRole?: Maybe<Array<CommunityRole>>;
+  company?: Maybe<Company>;
+  companyId?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  creatorId?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+  user?: Maybe<User>;
+};
+
+export type CommunityEditInput = {
+  description: Scalars['String'];
+  name: Scalars['String'];
+  type: Scalars['String'];
+};
+
+export type CommunityInput = {
+  companyId: Scalars['String'];
+  description: Scalars['String'];
+  name: Scalars['String'];
+  type: Scalars['String'];
+};
+
+export type CommunityPayload = {
+  __typename?: 'CommunityPayload';
+  community?: Maybe<Community>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type CommunityRole = {
+  __typename?: 'CommunityRole';
+  community?: Maybe<Community>;
+  communityId?: Maybe<Scalars['String']>;
+  company?: Maybe<Company>;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  role?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['String']>;
+};
+
 /** Order by: name, legalName, createdAt */
 export enum CompaniesOrderBy {
   CreatedAt = 'createdAt',
@@ -180,9 +231,9 @@ export enum CompaniesOrderBy {
 export type Company = {
   __typename?: 'Company';
   accountStatus?: Maybe<Scalars['String']>;
-  addresses?: Maybe<Scalars['JSON']>;
   avatar?: Maybe<Scalars['String']>;
   branches?: Maybe<Array<Branch>>;
+  companyDocument?: Maybe<Array<CompanyDocument>>;
   companyStage?: Maybe<Scalars['String']>;
   contactEmail?: Maybe<Scalars['String']>;
   contactNumber?: Maybe<Scalars['String']>;
@@ -193,7 +244,7 @@ export type Company = {
   id: Scalars['ID'];
   isActive?: Maybe<Scalars['Boolean']>;
   isVerified?: Maybe<Scalars['Boolean']>;
-  legalName: Scalars['String'];
+  legalName?: Maybe<Scalars['String']>;
   mission?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   numberOfemployees?: Maybe<Scalars['Float']>;
@@ -201,6 +252,7 @@ export type Company = {
   ownership?: Maybe<Scalars['String']>;
   reason?: Maybe<Scalars['String']>;
   registrationNumber?: Maybe<Scalars['String']>;
+  registrationNumberType?: Maybe<Scalars['String']>;
   slogan?: Maybe<Scalars['String']>;
   transactions?: Maybe<Scalars['Float']>;
   updatedAt: Scalars['DateTime'];
@@ -213,15 +265,19 @@ export type CompanyAccountStatus = {
   reason?: InputMaybe<Scalars['String']>;
 };
 
+export type CompanyBranchDeletePayload = {
+  __typename?: 'CompanyBranchDeletePayload';
+  errors?: Maybe<Array<CustomError>>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
+};
+
 export type CompanyBranchEditInput = {
   city?: InputMaybe<Scalars['String']>;
   contactEmail?: InputMaybe<Scalars['String']>;
   contactNumber?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
   state?: InputMaybe<Scalars['String']>;
-  street1?: InputMaybe<Scalars['String']>;
-  street2?: InputMaybe<Scalars['String']>;
+  street?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<BranchType>;
   zipCode?: InputMaybe<Scalars['String']>;
 };
@@ -231,12 +287,16 @@ export type CompanyBranchInput = {
   contactEmail: Scalars['String'];
   contactNumber: Scalars['String'];
   country?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
   state?: InputMaybe<Scalars['String']>;
-  street1?: InputMaybe<Scalars['String']>;
-  street2?: InputMaybe<Scalars['String']>;
+  street?: InputMaybe<Scalars['String']>;
   type: BranchType;
   zipCode?: InputMaybe<Scalars['String']>;
+};
+
+export type CompanyBranchPayload = {
+  __typename?: 'CompanyBranchPayload';
+  branch?: Maybe<Branch>;
+  errors?: Maybe<Array<CustomError>>;
 };
 
 export type CompanyDiscussion = {
@@ -302,6 +362,33 @@ export type CompanyDiscussionUpdateInput = {
   title: Scalars['String'];
 };
 
+export type CompanyDocument = {
+  __typename?: 'CompanyDocument';
+  company?: Maybe<Company>;
+  companyId?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  document?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  type?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type CompanyDocumentEditInput = {
+  type: Scalars['String'];
+};
+
+export type CompanyDocumentEditPayload = {
+  __typename?: 'CompanyDocumentEditPayload';
+  company?: Maybe<Company>;
+  companyDocument?: Maybe<CompanyDocument>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type CompanyDocumentInput = {
+  companyId: Scalars['String'];
+  type: Scalars['String'];
+};
+
 export type CompanyEdge = {
   __typename?: 'CompanyEdge';
   cursor?: Maybe<Scalars['String']>;
@@ -310,20 +397,13 @@ export type CompanyEdge = {
 
 export type CompanyEditInput = {
   companyStage?: InputMaybe<Scalars['String']>;
-  contactEmail: Scalars['String'];
-  contactNumber?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   establishedDate: Scalars['DateTime'];
   legalName?: InputMaybe<Scalars['String']>;
-  mission?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
-  numberOfemployees?: InputMaybe<Scalars['Float']>;
-  ownership?: InputMaybe<Scalars['String']>;
   registrationNumber: Scalars['String'];
+  registrationNumberType?: InputMaybe<Scalars['String']>;
   slogan?: InputMaybe<Scalars['String']>;
-  transactions?: InputMaybe<Scalars['Float']>;
-  vision?: InputMaybe<Scalars['String']>;
-  website?: InputMaybe<Scalars['String']>;
 };
 
 export type CompanyPageInfo = {
@@ -344,6 +424,7 @@ export type CompanyPaginated = {
 export type CompanyPayload = {
   __typename?: 'CompanyPayload';
   company?: Maybe<Company>;
+  companyDocument?: Maybe<Array<CompanyDocument>>;
   errors?: Maybe<Array<CustomError>>;
 };
 
@@ -418,9 +499,12 @@ export type DiscussionAnswer = {
   answer?: Maybe<Scalars['String']>;
   answerReply?: Maybe<DiscussionAnswerReplyPaginated>;
   createdAt: Scalars['DateTime'];
+  createdBy?: Maybe<CreatedBy>;
   discussion?: Maybe<CompanyDiscussion>;
   discussionId?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  mentions?: Maybe<Array<User>>;
+  upVote?: Maybe<Scalars['Float']>;
   updatedAt: Scalars['DateTime'];
   user: User;
   userId?: Maybe<Scalars['String']>;
@@ -450,6 +534,7 @@ export type DiscussionAnswerEdge = {
 export type DiscussionAnswerInput = {
   answer: Scalars['String'];
   discussionId: Scalars['String'];
+  mentionIds?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** Order by:createdAt */
@@ -482,11 +567,13 @@ export type DiscussionAnswerReply = {
   __typename?: 'DiscussionAnswerReply';
   answer?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
+  createdBy?: Maybe<CreatedBy>;
   discussion?: Maybe<CompanyDiscussion>;
   discussionId?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parentAnswer?: Maybe<DiscussionAnswer>;
   repliedToAnswerId?: Maybe<Scalars['String']>;
+  upVote?: Maybe<Scalars['Float']>;
   updatedAt: Scalars['DateTime'];
   user: User;
   userId?: Maybe<Scalars['String']>;
@@ -521,6 +608,7 @@ export type DiscussionAnswerReplyPayload = {
 
 export type DiscussionAnswerUpdateInput = {
   answer: Scalars['String'];
+  mentionIds?: InputMaybe<Array<Scalars['String']>>;
 };
 
 export type DiscussionAnswerVote = {
@@ -546,6 +634,7 @@ export type DiscussionAnswerVotePayload = {
   __typename?: 'DiscussionAnswerVotePayload';
   discussionAnswerVote?: Maybe<DiscussionAnswerVote>;
   errors?: Maybe<Array<CustomError>>;
+  removeVote?: Maybe<Scalars['Boolean']>;
 };
 
 /** Order by:createdAt */
@@ -623,6 +712,18 @@ export type FollowUserToUserInput = {
 export enum FollowedCompanyOrderBy {
   CreatedAt = 'createdAt'
 }
+
+export type GetCommunityPayload = {
+  __typename?: 'GetCommunityPayload';
+  community?: Maybe<Array<Community>>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type GetCompanyBranchPayload = {
+  __typename?: 'GetCompanyBranchPayload';
+  branches?: Maybe<Array<Branch>>;
+  errors?: Maybe<Array<CustomError>>;
+};
 
 export type Industry = {
   __typename?: 'Industry';
@@ -705,22 +806,30 @@ export type Mutation = {
   __typename?: 'Mutation';
   activeOrDeactiveIndustry: IndustryPayload;
   changePassword: User;
+  commentDelete: CommentDeletePayload;
   commentReaction: CommentReactionsPayload;
   commentReply: ReplyToCommentPayload;
   commentToPost: NewReplyPayload;
+  commentUpdate: NewReplyPayload;
   companyAccountStatus: CompanyPayload;
+  companyAvatar: CompanyPayload;
+  companyCommunity: CommunityPayload;
+  companyCommunityEdit: CommunityPayload;
   companyDiscussion: CompanyDiscussionPayload;
   companyDiscussionDelete: CompanyDiscussionDeletePayload;
   companyDiscussionUpdate: CompanyDiscussionPayload;
+  companyDocumentCreate: CompanyPayload;
+  companyDocumentEdit: CompanyDocumentEditPayload;
+  companyGeneralInfoEdit: CompanyPayload;
   confirmEmail: Token;
   createCompany: Company;
-  createCompanyBranch: Branch;
+  createCompanyBranch: CompanyBranchPayload;
   createCompanyGeneralInfo: Company;
   createDiscussionAnswer: DiscussionAnswerPayload;
   createEmployee: User;
   createIndustry: IndustryPayload;
   createLikes: LikesPayload;
-  deleteCompanyBranch: Branch;
+  deleteCompanyBranch: CompanyBranchDeletePayload;
   deleteIndustry: IndustryPayload;
   discussionAnswerDelete: DiscussionAnswerDeletePayload;
   discussionAnswerDownvote: DiscussionAnswerVotePayload;
@@ -731,8 +840,7 @@ export type Mutation = {
   discussionVote: DiscussionVotePayload;
   downvoteComment: RatePayload;
   downvotePost: RatePayload;
-  editCompany: CompanyPayload;
-  editCompanyBranch: Branch;
+  editCompanyBranch: CompanyBranchPayload;
   editUserProfile: UserProfilePayload;
   followCompany: FollowCompany;
   followUserToUser: FollowUserToUser;
@@ -774,6 +882,11 @@ export type MutationChangePasswordArgs = {
 };
 
 
+export type MutationCommentDeleteArgs = {
+  commentId: Scalars['String'];
+};
+
+
 export type MutationCommentReactionArgs = {
   input: CommentReactionsInput;
 };
@@ -793,9 +906,34 @@ export type MutationCommentToPostArgs = {
 };
 
 
+export type MutationCommentUpdateArgs = {
+  commentId: Scalars['String'];
+  input: CreateCommentInput;
+  mention?: InputMaybe<CreateMentionsInput>;
+};
+
+
 export type MutationCompanyAccountStatusArgs = {
   companyId: Scalars['String'];
   data: CompanyAccountStatus;
+};
+
+
+export type MutationCompanyAvatarArgs = {
+  avatar: Scalars['Upload'];
+  companyId: Scalars['String'];
+};
+
+
+export type MutationCompanyCommunityArgs = {
+  input: CommunityInput;
+  profile: Scalars['Upload'];
+};
+
+
+export type MutationCompanyCommunityEditArgs = {
+  communityId: Scalars['String'];
+  input: CommunityEditInput;
 };
 
 
@@ -812,6 +950,26 @@ export type MutationCompanyDiscussionDeleteArgs = {
 export type MutationCompanyDiscussionUpdateArgs = {
   discussionId: Scalars['String'];
   input: CompanyDiscussionUpdateInput;
+};
+
+
+export type MutationCompanyDocumentCreateArgs = {
+  document: Array<Scalars['Upload']>;
+  input: CompanyDocumentInput;
+};
+
+
+export type MutationCompanyDocumentEditArgs = {
+  companyId: Scalars['String'];
+  document: Scalars['Upload'];
+  documentId: Scalars['String'];
+  editDocument: CompanyDocumentEditInput;
+};
+
+
+export type MutationCompanyGeneralInfoEditArgs = {
+  companyId: Scalars['String'];
+  data: CompanyEditInput;
 };
 
 
@@ -910,13 +1068,6 @@ export type MutationDownvoteCommentArgs = {
 
 export type MutationDownvotePostArgs = {
   postId: Scalars['Int'];
-};
-
-
-export type MutationEditCompanyArgs = {
-  data: CompanyEditInput;
-  file?: InputMaybe<Scalars['Upload']>;
-  id: Scalars['String'];
 };
 
 
@@ -1200,11 +1351,12 @@ export type Query = {
   __typename?: 'Query';
   commentReactions: CommentReactionPaginationPayload;
   comments: CommentPaginationPayload;
+  community: GetCommunityPayload;
   companies: CompanyPaginated;
   companiesSuggestions: CompanyPaginated;
   companyPostsFollowedByUser?: Maybe<PostPagination>;
   discussionVoteCount: Scalars['Float'];
-  getBranchesByCompanyId: Array<Branch>;
+  getBranchesByCompanyId: GetCompanyBranchPayload;
   getCompanyById: Company;
   getCompanyDiscussion: DiscussionPaginated;
   getCompanyDiscussionById: CompanyDiscussion;
@@ -1237,6 +1389,11 @@ export type QueryCommentsArgs = {
   last?: InputMaybe<Scalars['Float']>;
   order?: InputMaybe<OrderCommentsList>;
   postId: Scalars['String'];
+};
+
+
+export type QueryCommunityArgs = {
+  companyId: Scalars['String'];
 };
 
 

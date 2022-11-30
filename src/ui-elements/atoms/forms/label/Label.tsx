@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 export type LabelProps = {
@@ -6,14 +7,11 @@ export type LabelProps = {
 	label: string | React.ReactNode;
 };
 export const Label = (props: LabelProps) => {
-	const { className, id, label } = props;
+	const { className = '', id, label } = props;
+	const defaultClassName =
+		'font-semibold flex items-center mb-2 text-gray-700 text-sm tracking-wide uppercase';
 	return (
-		<label
-			className={
-				className ||
-				'font-semibold flex items-center mb-2 text-gray-700 text-sm tracking-wide uppercase'
-			}
-			htmlFor={id}>
+		<label className={classNames(defaultClassName, className)} htmlFor={id}>
 			{label}
 		</label>
 	);
