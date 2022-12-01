@@ -30,7 +30,7 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 			<div className='heading'>
 				<div className='flex justify-between'>
 					<div className='flex flex-col'>
-						<h1 className='font-bold text-lg'>Connyct's Communities</h1>
+						<h1 className='font-bold text-lg'>Connyct&apos;s Communities</h1>
 						<p className='text-gray-400'>2 communities created</p>
 					</div>
 					<div className='action' onClick={handleDrawerToggle}>

@@ -13,7 +13,7 @@ const Motives = () => {
 					</p>
 					<p className='font-semibold mt-6'>Vision</p>
 					<p>
-						We believe that we are on the face of the earth to make great products, and that's not
+						We believe that we are on the face of the earth to make great products, and that&apos;s not
 						changing.
 					</p>
 				</div>
