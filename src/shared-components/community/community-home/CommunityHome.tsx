@@ -74,7 +74,7 @@ const CommunityHome = () => {
 									/>
 								</div>
 								<div className='company-name pl-4'>
-									<div className='font-bold text-xl'>Name</div>
+									<div className='font-bold text-xl'>Community Name</div>
 									<p className='text-gray-400 text-xs'>2023-02-03</p>
 								</div>
 							</div>
