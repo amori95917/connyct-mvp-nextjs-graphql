@@ -26,7 +26,7 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 		<>
 			{
 				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
-					<CommunityForm />
+					<CommunityForm setIsOpen={setIsDrawerOpen} companySlug={companySlug} />
 				</RightDrawerLayout>
 			}
 			<div className='heading'>

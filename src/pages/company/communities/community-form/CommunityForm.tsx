@@ -1,16 +1,23 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { FormInput, FormRadio } from '@/shared-components/forms';
+import { FormEditor, FormInput, FormRadio } from '@/shared-components/forms';
 import { schema } from './schema';
 import { initialValues } from './initialValues';
 import { CommunityFormFields } from './types';
+import { useMutation } from '@apollo/client';
+import { CREATE_COMMUNITY } from '@/graphql/community';
+import { FormDropFile } from '@/shared-components/forms/drop-file/FormDropFIle';
+import { acceptedImagesFileTypes } from '@/constants/acceptedFileTypes';
+import { verifyFile } from '@/utils/verifyFile';
 
-const CommunityForm = () => {
+const CommunityForm = ({ setIsOpen, companySlug }) => {
 	const {
 		register,
 		control,
 		handleSubmit,
+		reset,
+		setValue,
 		formState: { errors },
 	} = useForm<CommunityFormFields>({
 		mode: 'onSubmit',
@@ -18,9 +25,37 @@ const CommunityForm = () => {
 		defaultValues: initialValues,
 	});
 
-	const onSubmit = handleSubmit(input => {
-		console.log('input', input);
+	const [createCommunity, { loading }] = useMutation(CREATE_COMMUNITY);
+
+	const onSubmit = handleSubmit(async input => {
+		const { profilePicture: profile, communityPrivacyType: type, ...restInput } = input;
+		console.log(input);
+		try {
+			const response = await createCommunity({
+				variables: {
+					input: { ...restInput, type, companyId: companySlug },
+					profile: profile[0],
+				},
+			});
+
+			if (response) {
+				setIsOpen(false);
+				reset();
+			}
+		} catch (e) {
+			console.log(e, '####');
+		}
 	});
+
+	const onDrop = (files: File[]) => {
+		if (files && files.length > 0) {
+			const isVerifiedFile = verifyFile(files, acceptedImagesFileTypes, 1000000);
+			if (isVerifiedFile) {
+				const currentFile = files;
+				setValue('profilePicture', currentFile);
+			}
+		}
+	};
 
 	return (
 		<>
@@ -43,7 +78,8 @@ const CommunityForm = () => {
 						<FormRadio
 							id='private'
 							name='communityPrivacyType'
-							value='private'
+							labelClassName='mb-0'
+							value='PRIVATE'
 							label='Private'
 							className='mr-2'
 							inputClassName='bg-gray-200'
@@ -56,15 +92,42 @@ const CommunityForm = () => {
 						<FormRadio
 							id='public'
 							name='communityPrivacyType'
-							value='public'
+							value='PUBLIC'
 							label='Public'
 							className='mr-2'
 							inputClassName='bg-gray-200'
+							labelClassName='mb-0'
 							register={register}
 							errors={errors}
 							helperText='Any of your follower can join this community.'
 						/>
 					</div>
+				</div>
+				<div className='w-full md:pt-6'>
+					<FormEditor
+						id='description'
+						name={`description`}
+						label='Description*'
+						placeholder='Write a description'
+						control={control}
+						errors={errors}
+					/>
+				</div>
+
+				<div className='bg-gray-100 cursor-pointer flex h-72 justify-center mt-5 p-5 rounded-md'>
+					<FormDropFile
+						control={control}
+						name={'profilePicture'}
+						errors={errors}
+						onDrop={onDrop}
+						isHidden={false}
+					/>
+				</div>
+				<span className='italic text-gray-600 text-xs'>Upload a profile photo</span>
+				<p className='block text-left text-red-600 text-sm'>{errors?.profilePicture?.message}</p>
+
+				<div className='absolute bottom-10 flex justify-center pr-5 w-11/12'>
+					<button className='bg-primary p-3 rounded-md text-white text-xl w-full'>Add Community</button>
 				</div>
 			</form>
 		</>
