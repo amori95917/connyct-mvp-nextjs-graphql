@@ -9,11 +9,11 @@ export const CommunityDetail = () => {
 	const router = useRouter();
 	const { slug: comSlug, communitySlug: commSlug } = router.query;
 	let companySlug = getSlug(comSlug);
-	let communitySlug = getSlug(commSlug) || '';
+	let communitySlug = getSlug(commSlug);
 	return (
 		<>
 			<Navbar />
-			<CompanyLayout companySlug={companySlug || ''}>
+			<CompanyLayout companySlug={companySlug}>
 				<CommunityHead
 					coverImage='/images/community/background.jpg'
 					profileImage='/images/community/background.jpg'

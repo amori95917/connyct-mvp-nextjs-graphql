@@ -1,15 +1,20 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Image from 'next/image';
+
 import { yupResolver } from '@hookform/resolvers/yup';
+import { AiOutlineClose } from 'react-icons/ai';
 
 import { FormEditor, FormInput, FormRadio } from '@/shared-components/forms';
-import { schema } from './schema';
-import { initialValues } from './initialValues';
-import { CommunityFormFields } from './types';
 import { useMutation } from '@apollo/client';
-import { CREATE_COMMUNITY } from '@/graphql/community';
+import { CREATE_COMMUNITY, GET_COMMUNITY } from '@/graphql/community';
 import { FormDropFile } from '@/shared-components/forms/drop-file/FormDropFIle';
 import { acceptedImagesFileTypes } from '@/constants/acceptedFileTypes';
 import { verifyFile } from '@/utils/verifyFile';
+
+import { schema } from './schema';
+import { initialValues } from './initialValues';
+import { CommunityFormFields } from './types';
 
 const CommunityForm = ({ setIsOpen, companySlug }) => {
 	const {
@@ -18,12 +23,15 @@ const CommunityForm = ({ setIsOpen, companySlug }) => {
 		handleSubmit,
 		reset,
 		setValue,
+		getValues,
 		formState: { errors },
 	} = useForm<CommunityFormFields>({
 		mode: 'onSubmit',
 		resolver: yupResolver(schema),
 		defaultValues: initialValues,
 	});
+
+	const [rerender, setRerender] = useState(false);
 
 	const [createCommunity, { loading }] = useMutation(CREATE_COMMUNITY);
 
@@ -36,6 +44,7 @@ const CommunityForm = ({ setIsOpen, companySlug }) => {
 					input: { ...restInput, type, companyId: companySlug },
 					profile: profile[0],
 				},
+				refetchQueries: [{ query: GET_COMMUNITY, variables: { companyId: companySlug } }],
 			});
 
 			if (response) {
@@ -53,9 +62,16 @@ const CommunityForm = ({ setIsOpen, companySlug }) => {
 			if (isVerifiedFile) {
 				const currentFile = files;
 				setValue('profilePicture', currentFile);
+				setRerender(!rerender);
 			}
 		}
 	};
+
+	const onSelectedImageRemoveHandler = removedImage => {
+		reset();
+	};
+
+	console.log(getValues('profilePicture'));
 
 	return (
 		<>
@@ -114,17 +130,43 @@ const CommunityForm = ({ setIsOpen, companySlug }) => {
 					/>
 				</div>
 
-				<div className='bg-gray-100 cursor-pointer flex h-72 justify-center mt-5 p-5 rounded-md'>
-					<FormDropFile
-						control={control}
-						name={'profilePicture'}
-						errors={errors}
-						onDrop={onDrop}
-						isHidden={false}
-					/>
-				</div>
-				<span className='italic text-gray-600 text-xs'>Upload a profile photo</span>
-				<p className='block text-left text-red-600 text-sm'>{errors?.profilePicture?.message}</p>
+				{getValues('profilePicture')?.length
+					? getValues('profilePicture').map((image: any, index: any) => {
+							return (
+								<div className='h-72 mt-5 relative rounded-md w-full' key={index}>
+									<button
+										type='button'
+										onClick={() => onSelectedImageRemoveHandler(image)}
+										className='-mr-2 -mt-2 absolute bg-gray-300 flex h-6 items-center justify-center outline outline-4 outline-offset-0 outline-white right-0 rounded-full w-6 z-50'>
+										<AiOutlineClose size={20} />
+									</button>
+									<Image
+										className='object-cover rounded-md'
+										alt='test'
+										src={URL.createObjectURL(image)}
+										fill
+									/>
+								</div>
+							);
+					  })
+					: ''}
+
+				{!getValues('profilePicture')?.length && (
+					<>
+						<div className='bg-gray-100 cursor-pointer flex h-72 justify-center mt-5 p-5 rounded-md'>
+							<FormDropFile
+								label={'Profile picture'}
+								control={control}
+								name={'profilePicture'}
+								errors={errors}
+								onDrop={onDrop}
+								isHidden={false}
+							/>
+						</div>
+						<span className='italic text-gray-600 text-xs'>Upload a profile photo.</span>
+						<p className='block text-left text-red-600 text-sm'>{errors?.profilePicture?.message}</p>
+					</>
+				)}
 
 				<div className='absolute bottom-10 flex justify-center pr-5 w-11/12'>
 					<button className='bg-primary p-3 rounded-md text-white text-xl w-full'>Add Community</button>

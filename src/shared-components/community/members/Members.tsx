@@ -4,7 +4,7 @@ import { ProfileCard } from '@/shared-components/profile-card';
 export const CommunityMembers = () => {
 	return (
 		<>
-			<div className='bg-white gap-4 mx-auto p-5 rounded-md w-4/5'>
+			<div className='bg-white gap-4 p-5 rounded-md w-4/5'>
 				<span className='font-bold py-3 text-xl'>Members &bull;64,532</span>
 				<div className='py-4'>
 					<Input id='member' name='member' placeholder='Find a member' />

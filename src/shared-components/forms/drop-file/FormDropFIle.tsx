@@ -14,7 +14,6 @@ export const FormDropFile = (props: any) => {
 						<div className='flex flex-col h-full justify-center w-full'>
 							<DropFile onDrop={onDrop} />
 							<p className='flex justify-center text-gray-400 w-full'>
-								{' '}
 								click here to upload or drag and drop here{' '}
 							</p>
 						</div>

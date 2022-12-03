@@ -1,30 +1,36 @@
-import { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { useCommunityQuery } from '@/hooks/services/useCommunityQuery';
+import { ConferenceIcon } from '@/shared-components/icons';
+import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
+import { LoaderDataComponent } from '@/shared-components/loader-data-component';
 
+import { EmptyComponent } from '@/ui-elements/atoms/empty-component';
+import { useRouter } from 'next/router';
+
+import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
-import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
-import { useCommunityQuery } from '@/hooks/services/useCommunityQuery';
+import { Community } from './Community';
 import { CommunityForm } from './community-form';
+
+import { CommunitiesLoader } from '@/shared-components/skeleton-loader/CommunitiesLoader';
 
 const Communities = ({ companySlug }: { companySlug: string }) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	const router = useRouter();
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
 	const { communities, loading } = useCommunityQuery(companySlug);
 
-	console.log(companySlug, communities, 'communities');
+	console.log(communities, loading, '##');
+
 	return (
 		<>
-			{
-				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
-					<CommunityForm setIsOpen={setIsDrawerOpen} companySlug={companySlug} />
-				</RightDrawerLayout>
-			}
+			<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
+				<CommunityForm setIsOpen={setIsDrawerOpen} companySlug={companySlug} />
+			</RightDrawerLayout>
 			<div className='heading'>
 				<div className='flex justify-between'>
 					<div className='flex flex-col'>
-						<h1 className='font-bold text-lg'>Connyct's Communities</h1>
+						<h1 className='font-bold text-lg'>{`Connyct's Communities`}</h1>
 						<p className='text-gray-400'>2 communities created</p>
 					</div>
 					<div className='px-5'>
@@ -36,45 +42,31 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 						</button>
 					</div>
 				</div>
-				<div className='gap-4 grid grid-cols-3 pt-4'>
-					{communities?.map(community => (
-						<div key={community.id} className='bg-white p-5 rounded-lg shadow-sm'>
-							<div className='h-full relative w-full'>
-								<Image
-									src='https://i.pravatar.cc'
-									fill
-									objectFit='contain'
-									alt='participant-avatar'
-									className='contain rounded-md'
-								/>
-							</div>
-							<Link href={`/company/${companySlug}/communities/${community.id}`}>
-								<p className='cursor-pointer font-bold text-center text-lg text-primary'>
-									{community.name}
-								</p>
-							</Link>
-							<div className='participants pt-4'>
-								<div className='flex items-center justify-center'>
-									{[1, 2, 3, 4].map((image, index) => (
-										<div key={index}>
-											<Image
-												src='https://i.pravatar.cc'
-												width={20}
-												height={20}
-												alt='participant-avatar'
-												className='rounded-full'
-											/>
-										</div>
-									))}
+				<LoaderDataComponent
+					isLoading={loading}
+					data={communities}
+					fallback={<CommunitiesLoader />}
+					isSuspense={true}
+					emptyComponent={
+						<EmptyComponent
+							text='There are no communities yet'
+							subText='Please create a new community'
+							icon={<ConferenceIcon width='4em' height='4em' className='fill-primary' />}
+						/>
+					}>
+					{/** TODO improve types for community api enhanced, this should be paginate */}
+					<div className='gap-4 grid grid-cols-3 pt-4'>
+						{communities?.map(community => {
+							return (
+								<div key={community.id} className={'bg-white h-72 p-5 rounded-lg shadow-sm'}>
+									<Community community={community} companySlug={companySlug} />
 								</div>
-								<p className='pt-5 text-center text-gray-600'>32 participants</p>
-							</div>
-						</div>
-					))}
-				</div>
+							);
+						})}
+					</div>
+				</LoaderDataComponent>
 			</div>
 		</>
 	);
 };
-
 export default Communities;
