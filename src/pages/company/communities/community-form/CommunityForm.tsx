@@ -16,7 +16,7 @@ import { schema } from './schema';
 import { initialValues } from './initialValues';
 import { CommunityFormFields } from './types';
 
-const CommunityForm = ({ setIsOpen, companySlug }) => {
+const CommunityForm = ({ setIsOpen, companySlug, isEditing }) => {
 	const {
 		register,
 		control,

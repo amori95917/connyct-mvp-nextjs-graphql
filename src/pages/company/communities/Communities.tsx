@@ -54,11 +54,11 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 							icon={<ConferenceIcon width='4em' height='4em' className='fill-primary' />}
 						/>
 					}>
-					{/** TODO improve types for community api enhanced, this should be paginate */}
+					{/** TODO improve types for community after api enhanced, this should be paginate */}
 					<div className='gap-4 grid grid-cols-3 pt-4'>
 						{communities?.map(community => {
 							return (
-								<div key={community.id} className={'bg-white h-72 p-5 rounded-lg shadow-sm'}>
+								<div key={community.id} className={'bg-white p-5 rounded-lg shadow-sm'}>
 									<Community community={community} companySlug={companySlug} />
 								</div>
 							);
