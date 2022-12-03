@@ -30,3 +30,67 @@ export const CREATE_COMMUNITY = gql`
 		}
 	}
 `;
+
+export const GET_COMMUNITY = gql`
+	query community($companyId: String!) {
+		community(companyId: $companyId) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			community {
+				id
+				createdAt
+				updatedAt
+				name
+				description
+				type
+				profile
+				companyId
+				creatorId
+				slug
+				company {
+					id
+					name
+					legalName
+				}
+				user {
+					id
+					fullName
+				}
+				communityRole {
+					id
+					createdAt
+					updatedAt
+					role
+					communityId
+					userId
+					user {
+						id
+						createdAt
+						updatedAt
+						fullName
+						username
+						email
+						isValid
+						isSuperuser
+						confirm
+						emailToken
+						isEmailVerified
+						company {
+							id
+							legalName
+							name
+						}
+						userProfile {
+							id
+							profileImage
+						}
+						isAdmin
+					}
+				}
+			}
+		}
+	}
+`;

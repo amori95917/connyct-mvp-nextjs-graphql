@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
+import { useCommunityQuery } from '@/hooks/services/useCommunityQuery';
 import { CommunityForm } from './community-form';
 
 const COMMUNITIES = [
@@ -22,6 +23,9 @@ const COMMUNITIES = [
 const Communities = ({ companySlug }: { companySlug: string }) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
+	const { communities, loading } = useCommunityQuery(companySlug);
+
+	console.log(companySlug, communities, 'communities');
 	return (
 		<>
 			{
@@ -45,8 +49,17 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 					</div>
 				</div>
 				<div className='gap-4 grid grid-cols-3 pt-4'>
-					{COMMUNITIES.map(community => (
+					{communities?.map(community => (
 						<div key={community.id} className='bg-white p-5 rounded-lg shadow-sm'>
+							<div className='h-full relative w-full'>
+								<Image
+									src='https://i.pravatar.cc'
+									fill
+									objectFit='contain'
+									alt='participant-avatar'
+									className='contain rounded-md'
+								/>
+							</div>
 							<Link href={`/company/${companySlug}/communities/${community.id}`}>
 								<p className='cursor-pointer font-bold text-center text-lg text-primary'>
 									{community.name}
