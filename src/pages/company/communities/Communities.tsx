@@ -8,18 +8,6 @@ import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layo
 import { useCommunityQuery } from '@/hooks/services/useCommunityQuery';
 import { CommunityForm } from './community-form';
 
-const COMMUNITIES = [
-	{
-		id: 1,
-		name: 'Connycters',
-		totalParticipants: '10k',
-	},
-	{
-		id: 2,
-		name: 'Group for change',
-		totalParticipants: '20k',
-	},
-];
 const Communities = ({ companySlug }: { companySlug: string }) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
