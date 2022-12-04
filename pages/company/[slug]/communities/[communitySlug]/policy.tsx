@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { Navbar } from '@/shared-components/navbar';
 
 import { CompanyLayout } from '@/shared-components/layouts';
-// import CommunityHome from '@/components/brand/community/community-home';
+import { Policy } from '@/pages/company/communities/community-detail/policy';
 
 function getSlug(slug: string | string[] | undefined) {
 	if (slug === undefined) return '';
@@ -17,7 +17,11 @@ const CommunityPolicyPage = () => {
 	return (
 		<>
 			<Navbar />
-			<CompanyLayout companySlug={companySlug || ''}>Community Home</CompanyLayout>
+			{companySlug && (
+				<CompanyLayout companySlug={companySlug}>
+					<Policy companySlug={companySlug} />
+				</CompanyLayout>
+			)}
 		</>
 	);
 };

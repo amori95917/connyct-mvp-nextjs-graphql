@@ -6,7 +6,7 @@ type ProductPostDrawerType = {
 	children: ReactNode;
 	isOpen: boolean;
 	setIsOpen: (isOpen: boolean) => void;
-	drawerSize: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+	drawerSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 };
 
 export const RightDrawerLayout: FC<ProductPostDrawerType> = ({
