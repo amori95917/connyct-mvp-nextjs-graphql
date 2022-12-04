@@ -39,21 +39,6 @@ export function useDiscussionAnswersQuery(
 					companyId: discussionSlug,
 					after,
 				},
-				updateQuery: (prev, { fetchMoreResult }: any) => {
-					if (!fetchMoreResult) return prev;
-					const connection = fetchMoreResult.getDiscussionAnswer;
-					return produce(prev, (draft: Pick<Query, 'getDiscussionAnswerByDiscussionId'>) => {
-						if (draft?.getDiscussionAnswerByDiscussionId?.totalCount) {
-							draft.getDiscussionAnswerByDiscussionId = {
-								pageInfo: connection.pageInfo,
-								edges: draft?.getDiscussionAnswerByDiscussionId?.edges?.concat(connection.edges),
-								totalCount: connection.totalCount,
-								// eslint-disable-next-line no-underscore-dangle
-								__typename: draft?.getDiscussionAnswerByDiscussionId?.__typename,
-							};
-						}
-					});
-				},
 			});
 		}
 	};

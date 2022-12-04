@@ -35,21 +35,6 @@ export function useCompanyFeedsFollowedByUser(first: number = 10) {
 				variables: {
 					after,
 				},
-				updateQuery: (prev, { fetchMoreResult }: any) => {
-					if (!fetchMoreResult) return prev;
-					const connection = fetchMoreResult.companyPostsFollowedByUser;
-					return produce(prev, (draft: Pick<Query, 'companyPostsFollowedByUser'>) => {
-						if (draft?.companyPostsFollowedByUser?.totalCount) {
-							draft.companyPostsFollowedByUser = {
-								pageInfo: connection.pageInfo,
-								edges: draft?.companyPostsFollowedByUser?.edges?.concat(connection.edges),
-								totalCount: connection.totalCount,
-								// eslint-disable-next-line no-underscore-dangle
-								__typename: draft?.companyPostsFollowedByUser?.__typename,
-							};
-						}
-					});
-				},
 			});
 		}
 	};
