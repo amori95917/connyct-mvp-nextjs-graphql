@@ -72,8 +72,6 @@ const Documents: React.FC<DocumentsProps> = props => {
 		}
 	};
 
-	console.log(data, 'data');
-
 	return (
 		<>
 			<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>

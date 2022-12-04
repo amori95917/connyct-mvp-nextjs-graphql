@@ -1,5 +1,4 @@
 export const generalFromInitialValues = (data: any) => {
-	console.log(data, 'initial value of general section');
 	const {
 		name,
 		legalName,
@@ -32,7 +31,6 @@ export const documentsRegistrationFormInitialValues = (data: any) => {
 };
 
 function getCompanyStage(companyStage: string | null) {
-	console.log(companyStage, ' ##');
 	if (!companyStage) {
 		return '';
 	} else {

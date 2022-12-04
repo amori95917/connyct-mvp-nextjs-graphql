@@ -11,16 +11,18 @@ export const DiscussionPage = () => {
 	const router = useRouter();
 	const { slug, discussionSlug: discussionSlugVal } = router.query;
 	let companySlug = getSlug(slug);
-	let discussionSlug = getSlug(discussionSlugVal) || '';
+	let discussionSlug = getSlug(discussionSlugVal);
 
 	return (
 		<>
 			<Navbar />
-			<CompanyLayout companySlug={companySlug || ''}>
-				<DiscussionLayout companySlug={companySlug || ''} DiscussionForm={DiscussionForm}>
-					<DiscussionDetail companySlug={companySlug || ''} discussionSlug={discussionSlug} />
-				</DiscussionLayout>
-			</CompanyLayout>
+			{companySlug && discussionSlug && (
+				<CompanyLayout companySlug={companySlug}>
+					<DiscussionLayout companySlug={companySlug} DiscussionForm={DiscussionForm}>
+						<DiscussionDetail companySlug={companySlug} discussionSlug={discussionSlug} />
+					</DiscussionLayout>
+				</CompanyLayout>
+			)}
 		</>
 	);
 };

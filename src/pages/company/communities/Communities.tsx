@@ -20,8 +20,6 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
 	const { communities, loading } = useCommunityQuery(companySlug);
 
-	console.log(communities, loading, '##');
-
 	return (
 		<>
 			<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>

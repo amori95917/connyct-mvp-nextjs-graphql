@@ -16,7 +16,7 @@ import { schema } from './schema';
 import { initialValues } from './initialValues';
 import { CommunityFormFields } from './types';
 
-const CommunityForm = ({ setIsOpen, companySlug, isEditing }) => {
+const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 	const {
 		register,
 		control,
@@ -70,8 +70,6 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing }) => {
 	const onSelectedImageRemoveHandler = removedImage => {
 		reset();
 	};
-
-	console.log(getValues('profilePicture'));
 
 	return (
 		<>
@@ -153,6 +151,9 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing }) => {
 
 				{!getValues('profilePicture')?.length && (
 					<>
+						<label className='flex font-semibold items-center mb-0 mt-4 text-gray-700 text-sm tracking-wide uppercase'>
+							Cover photo
+						</label>
 						<div className='bg-gray-100 cursor-pointer flex h-72 justify-center mt-5 p-5 rounded-md'>
 							<FormDropFile
 								label={'Profile picture'}
@@ -163,7 +164,6 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing }) => {
 								isHidden={false}
 							/>
 						</div>
-						<span className='italic text-gray-600 text-xs'>Upload a profile photo.</span>
 						<p className='block text-left text-red-600 text-sm'>{errors?.profilePicture?.message}</p>
 					</>
 				)}

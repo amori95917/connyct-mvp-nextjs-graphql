@@ -74,7 +74,6 @@ export const PostPopup = React.forwardRef(({ company, setShowPostPopup, visitedC
 
 	const onSubmit = handleSubmit(async input => {
 		const cookie = Cookies.get('CONNYCT_USER') || 'undefined';
-		console.log(cookie);
 		const { company } = JSON.parse(cookie);
 		const { tags = [], images = [], ...rest } = input;
 

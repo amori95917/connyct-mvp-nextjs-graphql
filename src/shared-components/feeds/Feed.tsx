@@ -59,8 +59,6 @@ export const Feed: React.FC<FeedProps> = props => {
 		];
 	}, []);
 
-	console.log(currentImage);
-
 	const [showCommentSection, setShowCommentSection] = useState(false);
 	const onCommentClickHandler = () => {
 		setShowCommentSection(!showCommentSection);

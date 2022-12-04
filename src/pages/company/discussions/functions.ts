@@ -9,14 +9,12 @@ export const handelVoteUp = async (
 	setVote: (vote: number) => void,
 	vote: number
 ) => {
-	console.log(variables, 'variables');
 	try {
 		const response = await upvote({
 			variables: {
 				input: { ...variables, vote: voteType.UPVOTE },
 			},
 		});
-		console.log(response.data);
 	} catch (e) {}
 	setVote(vote + 1);
 };
@@ -28,6 +26,5 @@ export const handelVoteDown = async (downvote: any, variables: {}) => {
 				input: { ...variables, vote: voteType.DOWNVOTE },
 			},
 		});
-		console.log(response.data);
 	} catch (e) {}
 };

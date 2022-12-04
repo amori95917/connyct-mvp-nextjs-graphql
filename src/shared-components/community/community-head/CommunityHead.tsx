@@ -26,7 +26,6 @@ export const CommunityHead = (props: CommunityHeadProps) => {
 	} = props;
 	const router = useRouter();
 	const navPath = router.pathname.split('/')[5];
-	console.log(navPath, 'incoming router');
 	return (
 		<>
 			<div className='bg-white flex flex-col rounded-md w-full'>

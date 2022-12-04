@@ -13,9 +13,11 @@ const DiscussionsPage = () => {
 	return (
 		<>
 			<Navbar />
-			<CompanyLayout companySlug={companySlug || ''}>
-				<Discussions companySlug={companySlug || ''} />
-			</CompanyLayout>
+			{companySlug && (
+				<CompanyLayout companySlug={companySlug}>
+					<Discussions companySlug={companySlug} />
+				</CompanyLayout>
+			)}
 		</>
 	);
 };

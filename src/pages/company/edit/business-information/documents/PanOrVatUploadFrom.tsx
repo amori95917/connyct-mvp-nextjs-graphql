@@ -80,8 +80,6 @@ export const PanOrVatUploadFrom: React.FC<DocumentUploadProps> = ({
 		reset();
 	};
 
-	console.log(data, 'data');
-
 	const buttonClass =
 		'bg-primary block font-semibold  px-3 py-3 rounded-lg text-white  absolute bottom-10 right-10 hover:bg-primary focus:bg-primary';
 	return (

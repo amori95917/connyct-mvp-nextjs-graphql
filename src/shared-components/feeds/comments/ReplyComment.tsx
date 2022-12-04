@@ -50,15 +50,11 @@ const ReplyComment = React.forwardRef(({ postId, commentId }: createCommentReply
 						query: GET_COMMENTS,
 						variables: { postId, first: 3 },
 					});
-					console.log('commentReply', commentReply);
-					console.log('commentPost', commentPost);
 					const updatedComment = produce(commentPost, (draft: any) => {
 						if (draft?.comments?.comments.edges) {
-							console.log('JSON', JSON.parse(JSON.stringify(draft?.comments?.comments)));
 							const commentToUpdate = draft.comments.comments.edges.find(
 								commentEdge => commentEdge.node.id === commentId
 							);
-							console.log('commentToUpdate', JSON.parse(JSON.stringify(commentToUpdate)));
 							commentToUpdate.node.replies.edges.push({
 								__typename: 'RepliesEdge',
 								cursor: commentReply.replies.id,
@@ -66,7 +62,6 @@ const ReplyComment = React.forwardRef(({ postId, commentId }: createCommentReply
 							});
 						}
 					});
-					console.log('updatedComment', updatedComment);
 					// const updatedComment = {
 					// 	...commentPost,
 					// 	comments: {

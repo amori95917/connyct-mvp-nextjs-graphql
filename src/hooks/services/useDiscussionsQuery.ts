@@ -8,9 +8,7 @@ import { GET_DISCUSSION } from '@/graphql/discussion/resolver';
 export function useDiscussionsQuery(companySlug: string, first: number = 10) {
 	const observerRef = useRef<any>(null);
 	const [buttonRef, setButtonRef] = useState<any>(null);
-
 	const { data, fetchMore, loading } = useQuery(GET_DISCUSSION, {
-		fetchPolicy: 'cache-and-network',
 		variables: {
 			companyId: companySlug,
 			first: first,
