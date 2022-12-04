@@ -2,13 +2,7 @@ import ReplyComment from './ReplyComment';
 import { CommentProps } from './comments.types';
 import { BaseComment } from './BaseComment';
 
-const Comment = ({
-	postId,
-	comment,
-	activeComment,
-	setActiveComment,
-	isGreaterThanSecondLevelDepth,
-}: CommentProps) => {
+const Comment = ({ postId, comment, activeComment, setActiveComment, depth = 1 }: CommentProps) => {
 	const { id, replies } = comment;
 	const isEditing = activeComment && activeComment?.id === id && activeComment?.type === 'editing';
 	const isReplying = activeComment && activeComment?.id === id && activeComment?.type === 'replying';
@@ -27,16 +21,15 @@ const Comment = ({
 			/>
 
 			{replies?.edges?.map(reply => {
-				const isGreaterThanSecondLevel = 'repliedToReplyId' in reply.node;
 				// for now we will use the same component used for comment but with two level depth
 				return (
-					<div className={`${isGreaterThanSecondLevel ? '' : 'ml-14'} replies`} key={reply.node.id}>
+					<div className={`${depth > 3 ? '' : 'ml-14'} replies`} key={reply.node.id}>
 						<Comment
-							isGreaterThanSecondLevelDepth={isGreaterThanSecondLevel}
 							comment={reply.node}
 							postId={postId}
 							activeComment={activeComment}
 							setActiveComment={setActiveComment}
+							depth={depth + 1}
 						/>
 					</div>
 				);
@@ -48,7 +41,7 @@ const Comment = ({
 			) : (
 				''
 			)}
-			<div className={`${isGreaterThanSecondLevelDepth ? '' : 'pl-10'}`}>
+			<div className={`${depth > 3 ? '' : 'pl-10'}`}>
 				{isReplying && <ReplyComment postId={postId} commentId={id} />}
 			</div>
 		</>

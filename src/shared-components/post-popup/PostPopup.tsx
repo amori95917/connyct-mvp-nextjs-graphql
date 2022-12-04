@@ -97,7 +97,7 @@ export const PostPopup = React.forwardRef(({ company, setShowPostPopup, visitedC
 					// post.post
 					const companyPosts = cache.readQuery({
 						query: GET_COMPANY_POST,
-						variables: { id: company[0].id, first: 4 },
+						variables: { id: company[0].id, first: 10 },
 					});
 					const updatedCompanyPosts = produce(companyPosts, (draft: any) => {
 						if (draft?.postsByCompanyId?.edges) {

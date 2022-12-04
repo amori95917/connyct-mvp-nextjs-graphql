@@ -11,6 +11,7 @@ export const BaseComment = ({
 	commentWrapperCss = '',
 	shadowBoxCss = '',
 	setActiveComment,
+	depth,
 }: BaseCommentProps) => {
 	const { id, creator, text, createdAt = new Date() } = comment;
 	const commentWrapperStyling = `flex items-center mt-5 ${commentWrapperCss}`;
@@ -35,7 +36,9 @@ export const BaseComment = ({
 											{formatDistance(new Date(createdAt), new Date(), { addSuffix: true })}
 										</span>
 									</div>
-									<p className='flex pl-2 text-gray-600'>{text}</p>
+									<p className='flex pl-2 text-gray-600'>
+										{text} - {depth}
+									</p>
 									<div className='comment-actions cursor-pointer flex items-center mt-2 pl-2'>
 										<div className='flex items-center pr-4'>
 											<LikeIcon width='1.5em' height='1.5em' />

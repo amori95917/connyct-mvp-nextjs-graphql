@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import { useQuery } from '@apollo/client';
 
-import { GET_COMMENTS } from '@/graphql/feeds';
-import { CommentDataProps } from './comments.types';
-import Comment from './Comment';
 import { useCommentsQuery } from '@/hooks/services/useCommentsQuery';
 import { CommentEdge } from 'src/generated/graphql';
+import Comment from './Comment';
 
 interface CommentsProps {
 	postId: string;
@@ -18,17 +15,19 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
 		<>
 			{comments?.map((commentNode: CommentEdge) => {
 				const { node } = commentNode;
-				return (
-					<div key={node?.id}>
-						<Comment
-							key={node?.id}
-							postId={postId}
-							comment={node}
-							activeComment={activeComment}
-							setActiveComment={setActiveComment}
-						/>
-					</div>
-				);
+				if (node) {
+					return (
+						<div key={node.id}>
+							<Comment
+								key={node.id}
+								postId={postId}
+								comment={node}
+								activeComment={activeComment}
+								setActiveComment={setActiveComment}
+							/>
+						</div>
+					);
+				}
 			})}
 		</>
 	);

@@ -8,7 +8,7 @@ import CreatePost from '../create-post/CreatePost';
 import { Feed } from './Feed';
 import { FeedLoader } from '@/shared-components/skeleton-loader/FeedLoader';
 
-export const Feeds = ({ companySlug = '' }: { companySlug: string }) => {
+export const Feeds = ({ companySlug }: { companySlug: string }) => {
 	const { feeds, loading, hasNextPage, onLoadMore } = useCompanyFeedsQuery(companySlug);
 
 	return (
@@ -26,14 +26,16 @@ export const Feeds = ({ companySlug = '' }: { companySlug: string }) => {
 								{(feeds || []).map((postNode: PostEdge) => {
 									const { node } = postNode;
 									console.log(node);
-									return (
-										<Feed
-											key={node?.id}
-											name={node?.creator?.fullName ? node?.creator?.fullName : 'User'} //  Todo handle company name too,
-											post={node}
-											isOnSale={false}
-										/>
-									);
+									if (node) {
+										return (
+											<Feed
+												key={node.id}
+												name={node.creator?.fullName || 'User'} //  Todo handle company name too,
+												post={node}
+												isOnSale={false}
+											/>
+										);
+									}
 								})}
 							</InfiniteScroller>
 						</LoaderDataComponent>

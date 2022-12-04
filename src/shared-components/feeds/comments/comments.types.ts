@@ -23,7 +23,7 @@ export interface CommentProps {
 	activeComment?: ActiveComment;
 	postId: string;
 	setActiveComment: (comment: ActiveComment) => void;
-	isGreaterThanSecondLevelDepth?: boolean;
+	depth?: number;
 }
 
 export interface BaseCommentProps extends CommentProps {
