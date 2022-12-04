@@ -1,22 +1,17 @@
-import { useCommunityQuery } from '@/hooks/services/useCommunityQuery';
-import { ConferenceIcon } from '@/shared-components/icons';
-import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
-import { LoaderDataComponent } from '@/shared-components/loader-data-component';
-
-import { EmptyComponent } from '@/ui-elements/atoms/empty-component';
-import { useRouter } from 'next/router';
-
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
-import { Community } from './Community';
-import { CommunityForm } from './community-form';
-
 import { CommunitiesLoader } from '@/shared-components/skeleton-loader/CommunitiesLoader';
+import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
+import { LoaderDataComponent } from '@/shared-components/loader-data-component';
+import { useCommunityQuery } from '@/hooks/services/useCommunityQuery';
+import { EmptyComponent } from '@/ui-elements/atoms/empty-component';
+import { ConferenceIcon } from '@/shared-components/icons';
+import { CommunityForm } from './community-form';
+import { Community } from './Community';
 
 const Communities = ({ companySlug }: { companySlug: string }) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-	const router = useRouter();
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
 	const { communities, loading } = useCommunityQuery(companySlug);
 

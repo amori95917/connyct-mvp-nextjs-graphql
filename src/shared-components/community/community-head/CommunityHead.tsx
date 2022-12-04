@@ -67,24 +67,18 @@ export const CommunityHead = (props: CommunityHeadProps) => {
 						</div>
 					</div>
 				</div>
-				<hr className='bg-gray-100 border-0 h-px mb-4 pl-10 dark:bg-gray-700' />
+				<hr className='bg-gray-100 border-0 h-px pl-10 dark:bg-gray-700' />
 				{/* group navigation */}
 				<div className='p-2 text-bold'>
 					<div className='flex pl-10'>
 						<Link href={'/company/${companySlug}/communities/${communitySlug}'} passHref>
 							<span className={navPath === undefined ? defaultNavClass : NavButtonClassName}>Home</span>
 						</Link>
-						<Link href={'/company/${companySlug}/communities/${communitySlug}/posts'} passHref>
-							<span className={navPath === 'posts' ? defaultNavClass : NavButtonClassName}>Posts</span>
-						</Link>
 						<Link href={'/company/${companySlug}/communities/${communitySlug}/members'} passHref>
 							<span className={navPath === 'members' ? defaultNavClass : NavButtonClassName}>Members</span>
 						</Link>
 						<Link href={'/company/${companySlug}/communities/${communitySlug}/policy'} passHref>
 							<span className={navPath === 'policy' ? defaultNavClass : NavButtonClassName}>Policy</span>
-						</Link>
-						<Link href={'/company/${companySlug}/communities/${communitySlug}/about'} passHref>
-							<span className={navPath === 'about' ? defaultNavClass : NavButtonClassName}>About</span>
 						</Link>
 					</div>
 				</div>

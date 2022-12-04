@@ -20,16 +20,15 @@ const Policy = (props: PolicyProps) => {
 				</RightDrawerLayout>
 			)}
 			<div className=''>
-				<div className='flex h-screen items-center justify-center no-rules'>
-					<div className='flex flex-col w-80'>
-						<p className='text-gray-800'>
-							No Rules Set Up Use rules to help set the tone for your group and help prevent member
-							conflict. Write up to 10 rules about your group.
-						</p>
-						<button className='bg-primary px-4 py-2 text-white' onClick={handleDrawerToggle}>
-							Get Started
-						</button>
-					</div>
+				{/* TODO: use LoaderDataComponent and have below element for EmptyComponent */}
+				<div className='flex flex-col mt-4 w-80'>
+					<p className='text-gray-800'>
+						No Rules Set Up Use rules to help set the tone for your group and help prevent member
+						conflict. Write up to 10 rules about your group.
+					</p>
+					<button className='bg-primary px-4 py-2 text-white' onClick={handleDrawerToggle}>
+						Get Started
+					</button>
 				</div>
 			</div>
 		</>
