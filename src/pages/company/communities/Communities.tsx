@@ -15,6 +15,8 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
 	const { communities, loading } = useCommunityQuery(companySlug);
 
+	console.log(communities);
+
 	return (
 		<>
 			<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
@@ -23,8 +25,8 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 			<div className='heading'>
 				<div className='flex justify-between'>
 					<div className='flex flex-col'>
-						<h1 className='font-bold text-lg'>{`Connyct's Communities`}</h1>
-						<p className='text-gray-400'>2 communities created</p>
+						<h1 className='font-bold text-lg'>{communities?.[0]?.company?.legalName}</h1>
+						<p className='text-gray-400'>{communities?.length} Communities</p>
 					</div>
 					<div className='px-5'>
 						<button
@@ -48,7 +50,7 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 						/>
 					}>
 					{/** TODO improve types for community after api enhanced, this should be paginate */}
-					<div className='gap-4 grid grid-cols-3 pt-4'>
+					<div className='gap-4 grid grid-cols-1 pt-4 md:grid-cols-2 lg:grid-cols-3'>
 						{communities?.map(community => {
 							return (
 								<div key={community.id} className={'bg-white p-5 rounded-lg shadow-sm'}>

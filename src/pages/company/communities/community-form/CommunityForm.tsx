@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineCloudUpload } from 'react-icons/ai';
 
 import { FormEditor, FormInput, FormRadio } from '@/shared-components/forms';
 import { useMutation } from '@apollo/client';
@@ -15,6 +15,8 @@ import { verifyFile } from '@/utils/verifyFile';
 import { schema } from './schema';
 import { initialValues } from './initialValues';
 import { CommunityFormFields } from './types';
+import { useDropzone } from 'react-dropzone';
+import { profile } from 'console';
 
 const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 	const {
@@ -24,7 +26,7 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 		reset,
 		setValue,
 		getValues,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<CommunityFormFields>({
 		mode: 'onSubmit',
 		resolver: yupResolver(schema),
@@ -32,17 +34,26 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 	});
 
 	const [rerender, setRerender] = useState(false);
+	const [profileImage, setProfileImage] = useState<File[]>();
 
 	const [createCommunity, { loading }] = useMutation(CREATE_COMMUNITY);
 
 	const onSubmit = handleSubmit(async input => {
-		const { profilePicture: profile, communityPrivacyType: type, ...restInput } = input;
+		const {
+			coverPicture: cover,
+			profilePicture: profile,
+			communityPrivacyType: type,
+			...restInput
+		} = input;
+
 		console.log(input);
+
 		try {
 			const response = await createCommunity({
 				variables: {
 					input: { ...restInput, type, companyId: companySlug },
-					profile: profile[0],
+					profile: profile?.[0],
+					cover: cover?.[0],
 				},
 				refetchQueries: [{ query: GET_COMMUNITY, variables: { companyId: companySlug } }],
 			});
@@ -56,25 +67,66 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 		}
 	});
 
+	// TODO make a single logic to handle the both uploads
+
+	//cover photo
 	const onDrop = (files: File[]) => {
+		console.log('cover picture called');
 		if (files && files.length > 0) {
 			const isVerifiedFile = verifyFile(files, acceptedImagesFileTypes, 1000000);
 			if (isVerifiedFile) {
 				const currentFile = files;
-				setValue('profilePicture', currentFile);
+				setValue('coverPicture', currentFile);
 				setRerender(!rerender);
 			}
 		}
 	};
 
+	const onDropProfilePicture = (files: File[]) => {
+		if (files && files.length > 0) {
+			const isVerifiedFile = verifyFile(files, acceptedImagesFileTypes, 1000000);
+			if (isVerifiedFile) {
+				const currentFile = files;
+				setValue('profilePicture', currentFile);
+				setProfileImage(currentFile);
+				setRerender(!rerender);
+			}
+		}
+	};
+
+	const { getRootProps, getInputProps } = useDropzone({ onDrop: onDropProfilePicture });
+
 	const onSelectedImageRemoveHandler = removedImage => {
 		reset();
+	};
+
+	const getProfilePicture = () => {
+		if (profileImage) {
+			return URL.createObjectURL(profileImage?.[0]);
+		} else {
+			return 'https://i.pravatar.cc';
+		}
 	};
 
 	return (
 		<>
 			<form onSubmit={onSubmit} className='md:px-3'>
 				<p className='font-semibold mb-10 text-gray-600 text-xl'>Create a new community</p>
+				<p className='flex font-semibold items-center mb-2 text-gray-700 text-sm tracking-wide uppercase'>
+					Upload profile picture of community
+				</p>
+				<div
+					className='bg-gray-100 h-40 overflow-hidden relative rounded-full w-40 hover:brightness-50'
+					{...getRootProps()}>
+					<Image src={getProfilePicture()} alt='Image' fill />
+					<input
+						className='bg-light-bg cursor-pointer flex h-full items-center justify-center rounded-full w-full'
+						{...getInputProps()}
+					/>
+					<div className='flex h-full items-center justify-center rounded-md w-full'>
+						<AiOutlineCloudUpload size={25} />
+					</div>
+				</div>
 				<div className='w-full'>
 					<FormInput
 						name={`name`}
@@ -128,10 +180,10 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 					/>
 				</div>
 
-				{getValues('profilePicture')?.length
-					? getValues('profilePicture').map((image: any, index: any) => {
+				{getValues('coverPicture')?.length
+					? getValues('coverPicture').map((image: any, index: any) => {
 							return (
-								<div className='h-72 mt-5 relative rounded-md w-full' key={index}>
+								<div className='h-72 mt-5 relative rounded-md w-96' key={index}>
 									<button
 										type='button'
 										onClick={() => onSelectedImageRemoveHandler(image)}
@@ -149,16 +201,16 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 					  })
 					: ''}
 
-				{!getValues('profilePicture')?.length && (
+				{!getValues('coverPicture')?.length && (
 					<>
 						<label className='flex font-semibold items-center mb-0 mt-4 text-gray-700 text-sm tracking-wide uppercase'>
 							Cover photo
 						</label>
-						<div className='bg-gray-100 cursor-pointer flex h-72 justify-center mt-5 p-5 rounded-md'>
+						<div className='bg-gray-100 cursor-pointer flex h-72 justify-center mt-5 p-5 rounded-md w-96'>
 							<FormDropFile
-								label={'Profile picture'}
+								label={'Cover picture'}
 								control={control}
-								name={'profilePicture'}
+								name={'coverPicture'}
 								errors={errors}
 								onDrop={onDrop}
 								isHidden={false}
@@ -168,9 +220,14 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 					</>
 				)}
 
-				<div className='absolute bottom-10 flex justify-center pr-5 w-11/12'>
-					<button className='bg-primary p-3 rounded-md text-white text-xl w-full'>Add Community</button>
+				<div className='flex justify-center mb-5 mt-5'>
+					<button
+						disabled={isSubmitting}
+						className='bg-primary p-3 rounded-md text-white text-xl w-full disabled:opacity-50'>
+						{isSubmitting ? 'Submitting' : 'Add Community'}
+					</button>
 				</div>
+				<div className='p-5'></div>
 			</form>
 		</>
 	);

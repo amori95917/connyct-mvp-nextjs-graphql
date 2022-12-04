@@ -32,8 +32,8 @@ export const CREATE_COMMUNITY = gql`
 `;
 
 export const GET_COMMUNITY = gql`
-	query community($companyId: String!) {
-		community(companyId: $companyId) {
+	query getCommunity($companyId: String!) {
+		getCommunity(companyId: $companyId) {
 			errors {
 				message
 				code

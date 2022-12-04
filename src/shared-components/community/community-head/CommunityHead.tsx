@@ -13,8 +13,8 @@ type CommunityHeadProps = {
 	communitySlug: string | undefined;
 };
 export const CommunityHead = (props: CommunityHeadProps) => {
-	const NavButtonClassName = 'cursor-pointer p-2 pr-6 hover:bg-gray-200 rounded-md';
-	const defaultNavClass = `cursor-pointer p-2 pr-6 text-primary`;
+	const NavButtonClassName = 'cursor-pointer p-2 pr-6 text-center hover:bg-gray-200 rounded-md';
+	const defaultNavClass = `cursor-pointer text-center p-2 pr-6 text-primary`;
 	const {
 		coverImage,
 		profileImage,
@@ -30,18 +30,10 @@ export const CommunityHead = (props: CommunityHeadProps) => {
 		<>
 			<div className='bg-white flex flex-col rounded-md w-full'>
 				<div className='p-5'>
-					<div className='bg-white flex pl-10 w-full'>
-						<div className='-top-7 border-4 border-solid border-white h-20 relative rounded-full w-20'>
-							<Image
-								src={profileImage}
-								alt='community'
-								width={20} // required
-								height={20} // required
-								// change to suit your needs
-								className='rounded-full'
-							/>
+					<div className='bg-white flex items-center pl-10 w-full'>
+						<div className='border-4 border-solid border-white h-20 relative rounded-full w-20'>
+							<Image src={profileImage} alt='community' fill className='rounded-full' />
 						</div>
-
 						<div className='flex flex-col grow px-7 py-7'>
 							<div>
 								<span className='font-bold text-3xl'>{communityName}</span>

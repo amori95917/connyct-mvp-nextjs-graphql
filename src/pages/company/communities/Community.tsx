@@ -7,6 +7,9 @@ import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layo
 import { CommunityForm } from './community-form';
 import { InviteMembers } from './invite-memers';
 
+// Todo show proper count
+const count = 0;
+
 export const Community = ({ community, companySlug }: { companySlug: string }) => {
 	const router = useRouter();
 
@@ -59,10 +62,9 @@ export const Community = ({ community, companySlug }: { companySlug: string }) =
 			<Link href={`/company/${companySlug}/communities/${community.id}`}>
 				<p className='cursor-pointer font-bold text-lg text-primary'>{community.name}</p>
 			</Link>
-			{/* <p>{community.description}</p> */}
 
 			<div className='participants pt-2'>
-				<div className='flex justify-end mt-2'>
+				<div className='flex justify-end mt-2 whitespace-nowrap'>
 					{community?.type === 'PRIVATE' && (
 						<button
 							className='bg-primary cursor-pointer px-2 py-2 rounded-md shadow-xl text-white'
@@ -70,17 +72,16 @@ export const Community = ({ community, companySlug }: { companySlug: string }) =
 							Invite members
 						</button>
 					)}
-					<p className='grow mr-2 text-gray-600 text-right'>32 member</p>
-					{[1, 2, 3, 4].map((image, index) => (
-						<div className='cursor-pointer' key={index}>
-							<Image
-								src='https://i.pravatar.cc'
-								width={20}
-								height={20}
-								alt='participant-avatar'
-								className='rounded-full'
-							/>
-						</div>
+					<p className='grow mr-2 text-gray-600 text-right'>{count} members</p>
+					{[1, 2, 3].map((image, index) => (
+						<Image
+							key={image}
+							className='h-6 inline-block ring-2 ring-white rounded-full w-6'
+							width={20}
+							height={20}
+							src={'https://i.pravatar.cc'}
+							alt={'image'}
+						/>
 					))}
 				</div>
 			</div>

@@ -8,7 +8,7 @@ export function useCommunityQuery(companyId: string) {
 		},
 	});
 
-	const communities = data?.community?.community ?? [];
+	const communities = data?.getCommunity?.community ?? [];
 
 	return {
 		communities,
