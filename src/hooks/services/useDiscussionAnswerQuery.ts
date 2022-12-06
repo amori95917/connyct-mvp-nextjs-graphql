@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@apollo/client';
-import { produce } from 'immer';
 
-import { Query } from '@/generated/graphql';
 import { GET_DISCUSSION_ANSWER } from '@/graphql/discussion/resolver';
 
 export function useDiscussionAnswersQuery(

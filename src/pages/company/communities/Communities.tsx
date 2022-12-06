@@ -9,6 +9,7 @@ import { EmptyComponent } from '@/ui-elements/atoms/empty-component';
 import { ConferenceIcon } from '@/shared-components/icons';
 import { CommunityForm } from './community-form';
 import { Community } from './Community';
+import { CommunityEdge } from '@/generated/graphql';
 
 const Communities = ({ companySlug }: { companySlug: string }) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -51,12 +52,15 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 					}>
 					{/** TODO improve types for community after api enhanced, this should be paginate */}
 					<div className='gap-4 grid grid-cols-1 pt-4 md:grid-cols-2 lg:grid-cols-3'>
-						{communities?.map(community => {
-							return (
-								<div key={community.id} className={'bg-white p-5 rounded-lg shadow-sm'}>
-									<Community community={community} companySlug={companySlug} />
-								</div>
-							);
+						{communities?.map((communityNode: CommunityEdge) => {
+							const { node } = communityNode;
+							if (node) {
+								return (
+									<div key={node.id} className={'bg-white p-5 rounded-lg shadow-sm'}>
+										<Community community={node} companySlug={companySlug} />
+									</div>
+								);
+							}
 						})}
 					</div>
 				</LoaderDataComponent>

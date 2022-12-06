@@ -15,6 +15,12 @@ export type Scalars = {
   Upload: any;
 };
 
+export type AcceptInvitePayload = {
+  __typename?: 'AcceptInvitePayload';
+  errors?: Maybe<Array<CustomError>>;
+  isAccepted?: Maybe<Scalars['Boolean']>;
+};
+
 export type Auth = {
   __typename?: 'Auth';
   /** JWT access token */
@@ -111,7 +117,7 @@ export type CommentPagination = {
   __typename?: 'CommentPagination';
   edges?: Maybe<Array<CommentEdge>>;
   pageInfo?: Maybe<CommentPageInfo>;
-  totalCount: Scalars['Float'];
+  totalCount?: Maybe<Scalars['Float']>;
 };
 
 export type CommentPaginationPayload = {
@@ -180,13 +186,38 @@ export type Community = {
   company?: Maybe<Company>;
   companyId?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
+  createdBy?: Maybe<User>;
   creatorId?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  followersCount?: Maybe<Scalars['Float']>;
   id: Scalars['ID'];
+  members?: Maybe<CommunityMemberPaginated>;
   name?: Maybe<Scalars['String']>;
+  profile?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
-  user?: Maybe<User>;
+};
+
+
+export type CommunityMembersArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderListCommunityMember>;
+};
+
+export type CommunityDeletePayload = {
+  __typename?: 'CommunityDeletePayload';
+  errors?: Maybe<Array<CustomError>>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
+};
+
+export type CommunityEdge = {
+  __typename?: 'CommunityEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<Community>;
 };
 
 export type CommunityEditInput = {
@@ -200,6 +231,81 @@ export type CommunityInput = {
   description: Scalars['String'];
   name: Scalars['String'];
   type: Scalars['String'];
+};
+
+export type CommunityMember = {
+  __typename?: 'CommunityMember';
+  community?: Maybe<Community>;
+  communityId?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  invitedById?: Maybe<Scalars['String']>;
+  memberId?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type CommunityMemberEdge = {
+  __typename?: 'CommunityMemberEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<CommunityMember>;
+};
+
+export type CommunityMemberInput = {
+  communityId: Scalars['String'];
+  companyId: Scalars['String'];
+};
+
+export type CommunityMemberInviteInput = {
+  communityId: Scalars['String'];
+  companyId: Scalars['String'];
+  memberId?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** Order by:createdAt */
+export enum CommunityMemberOrderBy {
+  CreatedAt = 'createdAt'
+}
+
+export type CommunityMemberPageInfo = {
+  __typename?: 'CommunityMemberPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type CommunityMemberPaginated = {
+  __typename?: 'CommunityMemberPaginated';
+  edges?: Maybe<Array<CommunityMemberEdge>>;
+  pageInfo?: Maybe<CommunityMemberPageInfo>;
+  totalCount?: Maybe<Scalars['Float']>;
+};
+
+export type CommunityMemberPayload = {
+  __typename?: 'CommunityMemberPayload';
+  communityMember?: Maybe<Array<CommunityMember>>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+/** Order by:createdAt, name */
+export enum CommunityOrderBy {
+  CreatedAt = 'createdAt',
+  Name = 'name'
+}
+
+export type CommunityPageInfo = {
+  __typename?: 'CommunityPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type CommunityPaginated = {
+  __typename?: 'CommunityPaginated';
+  edges?: Maybe<Array<CommunityEdge>>;
+  pageInfo?: Maybe<CommunityPageInfo>;
+  totalCount?: Maybe<Scalars['Float']>;
 };
 
 export type CommunityPayload = {
@@ -418,7 +524,7 @@ export type CompanyPaginated = {
   __typename?: 'CompanyPaginated';
   edges?: Maybe<Array<CompanyEdge>>;
   pageInfo?: Maybe<CompanyPageInfo>;
-  totalCount: Scalars['Float'];
+  totalCount?: Maybe<Scalars['Float']>;
 };
 
 export type CompanyPayload = {
@@ -554,7 +660,7 @@ export type DiscussionAnswerPaginated = {
   __typename?: 'DiscussionAnswerPaginated';
   edges?: Maybe<Array<DiscussionAnswerEdge>>;
   pageInfo?: Maybe<DiscussionAnswerPageInfo>;
-  totalCount: Scalars['Float'];
+  totalCount?: Maybe<Scalars['Float']>;
 };
 
 export type DiscussionAnswerPayload = {
@@ -597,7 +703,7 @@ export type DiscussionAnswerReplyPaginated = {
   __typename?: 'DiscussionAnswerReplyPaginated';
   edges?: Maybe<Array<DiscussionAnswerReplyEdge>>;
   pageInfo?: Maybe<DiscussionAnswerReplyPageInfo>;
-  totalCount: Scalars['Float'];
+  totalCount?: Maybe<Scalars['Float']>;
 };
 
 export type DiscussionAnswerReplyPayload = {
@@ -646,7 +752,7 @@ export type DiscussionPaginated = {
   __typename?: 'DiscussionPaginated';
   edges?: Maybe<Array<CompanyDiscussionEdge>>;
   pageInfo?: Maybe<CompanyDiscussionPageInfo>;
-  totalCount: Scalars['Float'];
+  totalCount?: Maybe<Scalars['Float']>;
 };
 
 export type DiscussionVote = {
@@ -713,9 +819,9 @@ export enum FollowedCompanyOrderBy {
   CreatedAt = 'createdAt'
 }
 
-export type GetCommunityPayload = {
-  __typename?: 'GetCommunityPayload';
-  community?: Maybe<Array<Community>>;
+export type GetCommunityMemberPayload = {
+  __typename?: 'GetCommunityMemberPayload';
+  communityMember?: Maybe<CommunityMemberPaginated>;
   errors?: Maybe<Array<CustomError>>;
 };
 
@@ -764,6 +870,12 @@ export type InvitedEmployeeInput = {
   role: Scalars['String'];
 };
 
+export type JoinCommunityPayload = {
+  __typename?: 'JoinCommunityPayload';
+  errors?: Maybe<Array<CustomError>>;
+  joinCommunity?: Maybe<CommunityMember>;
+};
+
 export type Likes = {
   __typename?: 'Likes';
   createdAt: Scalars['DateTime'];
@@ -804,6 +916,7 @@ export type LoginLinkAccessInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  acceptCommunityInvite: AcceptInvitePayload;
   activeOrDeactiveIndustry: IndustryPayload;
   changePassword: User;
   commentDelete: CommentDeletePayload;
@@ -814,6 +927,7 @@ export type Mutation = {
   companyAccountStatus: CompanyPayload;
   companyAvatar: CompanyPayload;
   companyCommunity: CommunityPayload;
+  companyCommunityDelete: CommunityDeletePayload;
   companyCommunityEdit: CommunityPayload;
   companyDiscussion: CompanyDiscussionPayload;
   companyDiscussionDelete: CompanyDiscussionDeletePayload;
@@ -845,6 +959,9 @@ export type Mutation = {
   followCompany: FollowCompany;
   followUserToUser: FollowUserToUser;
   inviteEmployee: InvitedEmployee;
+  inviteUserByCommunityAdmin: CommunityMemberPayload;
+  inviteUserByCommunityUser: CommunityMemberPayload;
+  joinPublicCommunity: JoinCommunityPayload;
   login: Auth;
   loginLinkAccess: Scalars['Boolean'];
   logout: Scalars['Boolean'];
@@ -869,6 +986,12 @@ export type Mutation = {
   updateUser: User;
   upvoteComment: RatePayload;
   upvotePost: RatePayload;
+};
+
+
+export type MutationAcceptCommunityInviteArgs = {
+  communityMemberId: Scalars['String'];
+  companyId: Scalars['String'];
 };
 
 
@@ -931,9 +1054,15 @@ export type MutationCompanyCommunityArgs = {
 };
 
 
+export type MutationCompanyCommunityDeleteArgs = {
+  communityId: Scalars['String'];
+};
+
+
 export type MutationCompanyCommunityEditArgs = {
   communityId: Scalars['String'];
   input: CommunityEditInput;
+  profile: Scalars['Upload'];
 };
 
 
@@ -1098,6 +1227,21 @@ export type MutationInviteEmployeeArgs = {
 };
 
 
+export type MutationInviteUserByCommunityAdminArgs = {
+  input: CommunityMemberInviteInput;
+};
+
+
+export type MutationInviteUserByCommunityUserArgs = {
+  input: CommunityMemberInviteInput;
+};
+
+
+export type MutationJoinPublicCommunityArgs = {
+  input: CommunityMemberInput;
+};
+
+
 export type MutationLoginArgs = {
   data: LoginInput;
 };
@@ -1258,6 +1402,16 @@ export type OrderFollowedCompanyList = {
   orderBy: FollowedCompanyOrderBy;
 };
 
+export type OrderListCommunity = {
+  direction: OrderDirection;
+  orderBy: CommunityOrderBy;
+};
+
+export type OrderListCommunityMember = {
+  direction: OrderDirection;
+  orderBy: CommunityMemberOrderBy;
+};
+
 export type OrderListCompanies = {
   direction: OrderDirection;
   orderBy: CompaniesOrderBy;
@@ -1339,7 +1493,7 @@ export type PostPagination = {
   __typename?: 'PostPagination';
   edges?: Maybe<Array<PostEdge>>;
   pageInfo?: Maybe<PostPageInfo>;
-  totalCount: Scalars['Float'];
+  totalCount?: Maybe<Scalars['Float']>;
 };
 
 /** Order by: createdAt */
@@ -1351,12 +1505,14 @@ export type Query = {
   __typename?: 'Query';
   commentReactions: CommentReactionPaginationPayload;
   comments: CommentPaginationPayload;
-  community: GetCommunityPayload;
   companies: CompanyPaginated;
   companiesSuggestions: CompanyPaginated;
   companyPostsFollowedByUser?: Maybe<PostPagination>;
   discussionVoteCount: Scalars['Float'];
   getBranchesByCompanyId: GetCompanyBranchPayload;
+  getCommunity: CommunityPaginated;
+  getCommunityById: CommunityPayload;
+  getCommunityMember: GetCommunityMemberPayload;
   getCompanyById: Company;
   getCompanyDiscussion: DiscussionPaginated;
   getCompanyDiscussionById: CompanyDiscussion;
@@ -1389,11 +1545,6 @@ export type QueryCommentsArgs = {
   last?: InputMaybe<Scalars['Float']>;
   order?: InputMaybe<OrderCommentsList>;
   postId: Scalars['String'];
-};
-
-
-export type QueryCommunityArgs = {
-  companyId: Scalars['String'];
 };
 
 
@@ -1433,6 +1584,31 @@ export type QueryDiscussionVoteCountArgs = {
 
 export type QueryGetBranchesByCompanyIdArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryGetCommunityArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  companyId: Scalars['String'];
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderListCommunity>;
+};
+
+
+export type QueryGetCommunityByIdArgs = {
+  communityId: Scalars['String'];
+};
+
+
+export type QueryGetCommunityMemberArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  communityId: Scalars['String'];
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderListCommunityMember>;
 };
 
 
@@ -1600,7 +1776,7 @@ export type RepliesPagination = {
   __typename?: 'RepliesPagination';
   edges?: Maybe<Array<RepliesEdge>>;
   pageInfo?: Maybe<RepliesPageInfo>;
-  totalCount: Scalars['Float'];
+  totalCount?: Maybe<Scalars['Float']>;
 };
 
 export type RepliesToReplies = {
@@ -1634,7 +1810,7 @@ export type RepliesToRepliesPagination = {
   __typename?: 'RepliesToRepliesPagination';
   edges?: Maybe<Array<RepliesToRepliesEdge>>;
   pageInfo?: Maybe<RepliesToRepliesPageInfo>;
-  totalCount: Scalars['Float'];
+  totalCount?: Maybe<Scalars['Float']>;
 };
 
 export type RepliesToRepliesPayload = {
@@ -1800,7 +1976,7 @@ export type UserPaginated = {
   __typename?: 'UserPaginated';
   edges?: Maybe<Array<UserEdge>>;
   pageInfo?: Maybe<UserPageInfo>;
-  totalCount: Scalars['Float'];
+  totalCount?: Maybe<Scalars['Float']>;
 };
 
 export type UserProfile = {
