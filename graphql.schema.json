@@ -7066,6 +7066,49 @@
       },
       {
         "kind": "OBJECT",
+        "name": "GetCommunityPayload",
+        "description": null,
+        "fields": [
+          {
+            "name": "community",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "CommunityPaginated",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "errors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CustomError",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "GetCompanyBranchPayload",
         "description": null,
         "fields": [
@@ -12441,7 +12484,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "CommunityPaginated",
+                "name": "GetCommunityPayload",
                 "ofType": null
               }
             },

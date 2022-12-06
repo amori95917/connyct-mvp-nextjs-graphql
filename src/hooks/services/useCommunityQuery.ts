@@ -14,9 +14,9 @@ export function useCommunityQuery(companyId: string, first: number = 10) {
 		},
 	});
 
-	const communities = data?.getCommunity?.edges ?? [];
-	const hasNextPage = data?.getCommunity?.pageInfo?.hasNextPage;
-	const after = data?.getCommunity?.pageInfo?.endCursor;
+	const communities = data?.getCommunity?.community?.edges ?? [];
+	const hasNextPage = data?.getCommunity?.community?.pageInfo?.hasNextPage;
+	const after = data?.getCommunity?.community?.pageInfo?.endCursor;
 
 	useEffect(() => {
 		const currentObserver = observerRef?.current;

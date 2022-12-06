@@ -825,6 +825,12 @@ export type GetCommunityMemberPayload = {
   errors?: Maybe<Array<CustomError>>;
 };
 
+export type GetCommunityPayload = {
+  __typename?: 'GetCommunityPayload';
+  community?: Maybe<CommunityPaginated>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
 export type GetCompanyBranchPayload = {
   __typename?: 'GetCompanyBranchPayload';
   branches?: Maybe<Array<Branch>>;
@@ -1510,7 +1516,7 @@ export type Query = {
   companyPostsFollowedByUser?: Maybe<PostPagination>;
   discussionVoteCount: Scalars['Float'];
   getBranchesByCompanyId: GetCompanyBranchPayload;
-  getCommunity: CommunityPaginated;
+  getCommunity: GetCommunityPayload;
   getCommunityById: CommunityPayload;
   getCommunityMember: GetCommunityMemberPayload;
   getCompanyById: Company;

@@ -48,95 +48,97 @@ export const GET_COMMUNITY = gql`
 			last: $last
 			order: $order
 		) {
-			edges {
-				cursor
-				node {
-					id
-					createdAt
-					updatedAt
-					name
-					description
-					type
-					profile
-					companyId
-					creatorId
-					slug
-					company {
-						id
-						name
-						legalName
-					}
-					createdBy {
-						id
-						fullName
-					}
-					members(
-						before: $before
-						after: $after
-						first: $first
-						last: $last
-						order: { direction: desc, orderBy: createdAt }
-					) {
-						edges {
-							cursor
-							node {
-								id
-								createdAt
-								updatedAt
-								communityId
-								invitedById
-								memberId
-							}
-						}
-						pageInfo {
-							hasNextPage
-							hasPreviousPage
-							startCursor
-							endCursor
-						}
-						totalCount
-					}
-					followersCount
-					communityRole {
+			community {
+				edges {
+					cursor
+					node {
 						id
 						createdAt
 						updatedAt
-						role
-						communityId
-						userId
-						user {
+						name
+						description
+						type
+						profile
+						companyId
+						creatorId
+						slug
+						company {
+							id
+							name
+							legalName
+						}
+						createdBy {
+							id
+							fullName
+						}
+						members(
+							before: $before
+							after: $after
+							first: $first
+							last: $last
+							order: { direction: desc, orderBy: createdAt }
+						) {
+							edges {
+								cursor
+								node {
+									id
+									createdAt
+									updatedAt
+									communityId
+									invitedById
+									memberId
+								}
+							}
+							pageInfo {
+								hasNextPage
+								hasPreviousPage
+								startCursor
+								endCursor
+							}
+							totalCount
+						}
+						followersCount
+						communityRole {
 							id
 							createdAt
 							updatedAt
-							fullName
-							username
-							email
-							isValid
-							isSuperuser
-							confirm
-							emailToken
-							isEmailVerified
-							company {
+							role
+							communityId
+							userId
+							user {
 								id
-								legalName
-								name
+								createdAt
+								updatedAt
+								fullName
+								username
+								email
+								isValid
+								isSuperuser
+								confirm
+								emailToken
+								isEmailVerified
+								company {
+									id
+									legalName
+									name
+								}
+								userProfile {
+									id
+									profileImage
+								}
+								isAdmin
 							}
-							userProfile {
-								id
-								profileImage
-							}
-							isAdmin
 						}
 					}
 				}
+				pageInfo {
+					hasNextPage
+					hasPreviousPage
+					startCursor
+					endCursor
+				}
+				totalCount
 			}
-			pageInfo {
-				hasNextPage
-				hasPreviousPage
-				startCursor
-				endCursor
-			}
-			totalCount
 		}
 	}
 `;
