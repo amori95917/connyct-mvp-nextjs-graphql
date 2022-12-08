@@ -1,11 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@apollo/client';
-import { produce } from 'immer';
 
-import { Query } from '@/generated/graphql';
 import { GET_COMPANY_POST } from '@/graphql/feeds';
 
-export function useCompanyFeedsQuery(companySlug: string, first: number = 10) {
+export function useCompanyFeedsQuery(companySlug: string, first: number = 2) {
 	const observerRef = useRef<any>(null);
 	const [buttonRef, setButtonRef] = useState<any>(null);
 
@@ -35,21 +33,6 @@ export function useCompanyFeedsQuery(companySlug: string, first: number = 10) {
 				variables: {
 					id: companySlug,
 					after,
-				},
-				updateQuery: (prev, { fetchMoreResult }: any) => {
-					if (!fetchMoreResult) return prev;
-					const connection = fetchMoreResult.postsByCompanyId;
-					return produce(prev, (draft: Pick<Query, 'postsByCompanyId'>) => {
-						if (draft?.postsByCompanyId?.totalCount) {
-							draft.postsByCompanyId = {
-								pageInfo: connection.pageInfo,
-								edges: draft?.postsByCompanyId?.edges?.concat(connection.edges),
-								totalCount: connection.totalCount,
-								// eslint-disable-next-line no-underscore-dangle
-								__typename: draft?.postsByCompanyId?.__typename,
-							};
-						}
-					});
 				},
 			});
 		}

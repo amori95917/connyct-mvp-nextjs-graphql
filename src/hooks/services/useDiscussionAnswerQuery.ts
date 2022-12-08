@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@apollo/client';
-import { produce } from 'immer';
 
-import { Query } from '@/generated/graphql';
 import { GET_DISCUSSION_ANSWER } from '@/graphql/discussion/resolver';
 
 export function useDiscussionAnswersQuery(
@@ -38,21 +36,6 @@ export function useDiscussionAnswersQuery(
 				variables: {
 					companyId: discussionSlug,
 					after,
-				},
-				updateQuery: (prev, { fetchMoreResult }: any) => {
-					if (!fetchMoreResult) return prev;
-					const connection = fetchMoreResult.getDiscussionAnswer;
-					return produce(prev, (draft: Pick<Query, 'getDiscussionAnswerByDiscussionId'>) => {
-						if (draft?.getDiscussionAnswerByDiscussionId?.totalCount) {
-							draft.getDiscussionAnswerByDiscussionId = {
-								pageInfo: connection.pageInfo,
-								edges: draft?.getDiscussionAnswerByDiscussionId?.edges?.concat(connection.edges),
-								totalCount: connection.totalCount,
-								// eslint-disable-next-line no-underscore-dangle
-								__typename: draft?.getDiscussionAnswerByDiscussionId?.__typename,
-							};
-						}
-					});
 				},
 			});
 		}

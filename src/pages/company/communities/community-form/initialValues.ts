@@ -1,4 +1,4 @@
 export const initialValues = {
 	name: '',
-	communityPrivacyType: 'public' as const,
+	communityPrivacyType: 'PUBLIC' as const,
 };

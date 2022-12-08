@@ -36,9 +36,6 @@ const GeneralInfoForm = props => {
 	const [generalEdit, { loading, error }] = useMutation(COMPANY_GENERAL_EDIT);
 
 	const onSubmit = handleSubmit(async input => {
-		console.log(input, 'inputs');
-		console.log(submitCompletedRoute, 'submit completed route');
-
 		const { companyStage, ...restInput } = input;
 
 		try {

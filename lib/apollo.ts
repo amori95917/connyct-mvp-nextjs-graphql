@@ -9,7 +9,7 @@ import { onError } from '@apollo/link-error';
 import { createUploadLink } from 'apollo-upload-client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
-import { getMainDefinition } from '@apollo/client/utilities';
+import { getMainDefinition, relayStylePagination } from '@apollo/client/utilities';
 import merge from 'deepmerge';
 import { IncomingHttpHeaders } from 'http';
 import fetch from 'isomorphic-unfetch';
@@ -36,6 +36,16 @@ function authorization() {
 export const cache = new InMemoryCache({
 	possibleTypes: {
 		authenticatedItem: ['User'],
+	},
+	typePolicies: {
+		Query: {
+			fields: {
+				postsByCompanyId: relayStylePagination(),
+				companyPostsFollowedByUser: relayStylePagination(),
+				getDiscussionAnswerByDiscussionId: relayStylePagination(),
+				companiesSuggestions: relayStylePagination(),
+			},
+		},
 	},
 });
 

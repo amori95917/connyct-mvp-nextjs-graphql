@@ -1,31 +1,132 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import Image from 'next/image';
 
-import { FormInput, FormRadio } from '@/shared-components/forms';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { AiOutlineClose, AiOutlineCloudUpload } from 'react-icons/ai';
+
+import { FormEditor, FormInput, FormRadio } from '@/shared-components/forms';
+import { useMutation } from '@apollo/client';
+import { CREATE_COMMUNITY, GET_COMMUNITY } from '@/graphql/community';
+import { FormDropFile } from '@/shared-components/forms/drop-file/FormDropFIle';
+import { acceptedImagesFileTypes } from '@/constants/acceptedFileTypes';
+import { verifyFile } from '@/utils/verifyFile';
+
 import { schema } from './schema';
 import { initialValues } from './initialValues';
 import { CommunityFormFields } from './types';
+import { useDropzone } from 'react-dropzone';
+import { profile } from 'console';
 
-const CommunityForm = () => {
+const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 	const {
 		register,
 		control,
 		handleSubmit,
-		formState: { errors },
+		reset,
+		setValue,
+		getValues,
+		formState: { errors, isSubmitting },
 	} = useForm<CommunityFormFields>({
 		mode: 'onSubmit',
 		resolver: yupResolver(schema),
 		defaultValues: initialValues,
 	});
 
-	const onSubmit = handleSubmit(input => {
-		console.log('input', input);
+	const [rerender, setRerender] = useState(false);
+	const [profileImage, setProfileImage] = useState<File[]>();
+
+	const [createCommunity, { loading }] = useMutation(CREATE_COMMUNITY);
+
+	const onSubmit = handleSubmit(async input => {
+		const {
+			coverPicture: cover,
+			profilePicture: profile,
+			communityPrivacyType: type,
+			...restInput
+		} = input;
+
+		console.log(input);
+
+		try {
+			const response = await createCommunity({
+				variables: {
+					input: { ...restInput, type, companyId: companySlug },
+					profile: profile?.[0],
+					cover: cover?.[0],
+				},
+				refetchQueries: [{ query: GET_COMMUNITY, variables: { companyId: companySlug } }],
+			});
+
+			if (response) {
+				setIsOpen(false);
+				reset();
+			}
+		} catch (e) {
+			console.log(e, '####');
+		}
 	});
+
+	// TODO make a single logic to handle the both uploads
+
+	//cover photo
+	const onDrop = (files: File[]) => {
+		console.log('cover picture called');
+		if (files && files.length > 0) {
+			const isVerifiedFile = verifyFile(files, acceptedImagesFileTypes, 1000000);
+			if (isVerifiedFile) {
+				const currentFile = files;
+				setValue('coverPicture', currentFile);
+				setRerender(!rerender);
+			}
+		}
+	};
+
+	const onDropProfilePicture = (files: File[]) => {
+		if (files && files.length > 0) {
+			const isVerifiedFile = verifyFile(files, acceptedImagesFileTypes, 1000000);
+			if (isVerifiedFile) {
+				const currentFile = files;
+				setValue('profilePicture', currentFile);
+				setProfileImage(currentFile);
+				setRerender(!rerender);
+			}
+		}
+	};
+
+	const { getRootProps, getInputProps } = useDropzone({ onDrop: onDropProfilePicture });
+
+	const onSelectedImageRemoveHandler = removedImage => {
+		reset();
+	};
+
+	const getProfilePicture = () => {
+		if (profileImage) {
+			return URL.createObjectURL(profileImage?.[0]);
+		} else {
+			return 'https://i.pravatar.cc';
+		}
+	};
 
 	return (
 		<>
 			<form onSubmit={onSubmit} className='md:px-3'>
 				<p className='font-semibold mb-10 text-gray-600 text-xl'>Create a new community</p>
+				<p className='flex font-semibold items-center mb-2 text-gray-700 text-sm tracking-wide uppercase'>
+					Upload profile picture of community
+				</p>
+				<div
+					className='bg-gray-100 h-40 overflow-hidden relative rounded-full w-40 hover:brightness-50'
+					{...getRootProps()}>
+					<Image src={getProfilePicture()} alt='Image' fill />
+					<input
+						className='bg-light-bg cursor-pointer flex h-full items-center justify-center rounded-full w-full'
+						{...getInputProps()}
+					/>
+					<div className='flex h-full items-center justify-center rounded-md w-full'>
+						<AiOutlineCloudUpload size={25} />
+					</div>
+				</div>
 				<div className='w-full'>
 					<FormInput
 						name={`name`}
@@ -43,7 +144,8 @@ const CommunityForm = () => {
 						<FormRadio
 							id='private'
 							name='communityPrivacyType'
-							value='private'
+							labelClassName='mb-0'
+							value='PRIVATE'
 							label='Private'
 							className='mr-2'
 							inputClassName='bg-gray-200'
@@ -56,16 +158,76 @@ const CommunityForm = () => {
 						<FormRadio
 							id='public'
 							name='communityPrivacyType'
-							value='public'
+							value='PUBLIC'
 							label='Public'
 							className='mr-2'
 							inputClassName='bg-gray-200'
+							labelClassName='mb-0'
 							register={register}
 							errors={errors}
 							helperText='Any of your follower can join this community.'
 						/>
 					</div>
 				</div>
+				<div className='w-full md:pt-6'>
+					<FormEditor
+						id='description'
+						name={`description`}
+						label='Description*'
+						placeholder='Write a description'
+						control={control}
+						errors={errors}
+					/>
+				</div>
+
+				{getValues('coverPicture')?.length
+					? getValues('coverPicture').map((image: any, index: any) => {
+							return (
+								<div className='h-72 mt-5 relative rounded-md w-96' key={index}>
+									<button
+										type='button'
+										onClick={() => onSelectedImageRemoveHandler(image)}
+										className='-mr-2 -mt-2 absolute bg-gray-300 flex h-6 items-center justify-center outline outline-4 outline-offset-0 outline-white right-0 rounded-full w-6 z-50'>
+										<AiOutlineClose size={20} />
+									</button>
+									<Image
+										className='object-cover rounded-md'
+										alt='test'
+										src={URL.createObjectURL(image)}
+										fill
+									/>
+								</div>
+							);
+					  })
+					: ''}
+
+				{!getValues('coverPicture')?.length && (
+					<>
+						<label className='flex font-semibold items-center mb-0 mt-4 text-gray-700 text-sm tracking-wide uppercase'>
+							Cover photo
+						</label>
+						<div className='bg-gray-100 cursor-pointer flex h-72 justify-center mt-5 p-5 rounded-md w-96'>
+							<FormDropFile
+								label={'Cover picture'}
+								control={control}
+								name={'coverPicture'}
+								errors={errors}
+								onDrop={onDrop}
+								isHidden={false}
+							/>
+						</div>
+						<p className='block text-left text-red-600 text-sm'>{errors?.profilePicture?.message}</p>
+					</>
+				)}
+
+				<div className='flex justify-center mb-5 mt-5'>
+					<button
+						disabled={isSubmitting}
+						className='bg-primary p-3 rounded-md text-white text-xl w-full disabled:opacity-50'>
+						{isSubmitting ? 'Submitting' : 'Add Community'}
+					</button>
+				</div>
+				<div className='p-5'></div>
 			</form>
 		</>
 	);

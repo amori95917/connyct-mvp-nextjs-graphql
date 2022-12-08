@@ -61,15 +61,6 @@ const CreatePost = props => {
 							className='bg-gray-200 p-3 rounded-full text-gray-400 text-left w-full hover:bg-gray-300'>
 							say something that inspires
 						</button>
-						{/* <FormTextArea
-								id='status-id'
-								name='status'
-								atomClassName={'bg-gray-200 resize-none h-8 p-3 w-full'}
-								className='bg-white'
-								register={register}
-								errors={errors}
-								placeholder='Say something that inspires'
-							/> */}
 					</div>
 				</div>
 				<div className='flex gap-4 justify-center mt-2 w-full'>
@@ -79,12 +70,6 @@ const CreatePost = props => {
 					<button onClick={onCommonButtonClickHandler} className={postButtonClassName}>
 						<BsCalendar3Event className='mr-2' fill='#5abff8' size={20} /> Events
 					</button>
-					{/* <button onClick={onCommonButtonClickHandler} className={postButtonClassName}>
-						<BsCameraVideo fill='#EB4D89' size={25} /> Videos
-					</button>
-					<button onClick={onCommonButtonClickHandler} className={postButtonClassName}>
-						<RiStockLine fill='#5abff8' size={25} /> Promotions
-					</button> */}
 					<button onClick={onProductClickHandler} className={postButtonClassName}>
 						<MdOutlineProductionQuantityLimits className='mr-2' fill='#DCA3F7' size={25} /> Products
 					</button>

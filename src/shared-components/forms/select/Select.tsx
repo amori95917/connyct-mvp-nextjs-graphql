@@ -103,7 +103,6 @@ export default function FormSelectField(props: FormSelectProps) {
 	});
 
 	const getDefaultValues = values => {
-		console.log('values', values);
 		if (values && values.length) {
 			return values[0];
 		} else return values;

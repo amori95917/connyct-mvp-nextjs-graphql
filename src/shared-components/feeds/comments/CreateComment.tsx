@@ -5,7 +5,7 @@ import { AiOutlineSend } from 'react-icons/ai';
 import produce from 'immer';
 
 import { CREATE_COMMENT_FEED } from '@/graphql/feeds';
-import { FormInput } from 'src/ui-elements/molecules/forms';
+import { FormInput } from '@/shared-components/forms';
 import { GET_COMMENTS } from '@/graphql/feeds';
 
 type commentFormFields = {
@@ -86,9 +86,9 @@ const CreateComment = ({ postId }: commentPost) => {
 							type='text'
 							atomClassName='bg-slate-100 w-full rounded-md'
 							className='w-full'
+							placeholder={'Say something that inspires'}
 							register={register}
 							errors={errors}
-							placeholder={'Say something that inspires'}
 						/>
 						{/* <input className='bg-slate-100 flex h-12 ml-2 w-full' placeholder='write comment here' /> */}
 					</div>

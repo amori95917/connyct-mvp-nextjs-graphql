@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import produce from 'immer';
 
 import { GET_COMMENTS, CREATE_COMMENT_REPLY } from '@/graphql/feeds';
-import { FormInput } from 'src/ui-elements/molecules/forms';
+import { FormInput } from '@/shared-components/forms';
 
 type commentFormFields = {
 	postReply: string;
@@ -50,15 +50,11 @@ const ReplyComment = React.forwardRef(({ postId, commentId }: createCommentReply
 						query: GET_COMMENTS,
 						variables: { postId, first: 3 },
 					});
-					console.log('commentReply', commentReply);
-					console.log('commentPost', commentPost);
 					const updatedComment = produce(commentPost, (draft: any) => {
 						if (draft?.comments?.comments.edges) {
-							console.log('JSON', JSON.parse(JSON.stringify(draft?.comments?.comments)));
 							const commentToUpdate = draft.comments.comments.edges.find(
 								commentEdge => commentEdge.node.id === commentId
 							);
-							console.log('commentToUpdate', JSON.parse(JSON.stringify(commentToUpdate)));
 							commentToUpdate.node.replies.edges.push({
 								__typename: 'RepliesEdge',
 								cursor: commentReply.replies.id,
@@ -66,26 +62,6 @@ const ReplyComment = React.forwardRef(({ postId, commentId }: createCommentReply
 							});
 						}
 					});
-					console.log('updatedComment', updatedComment);
-					// const updatedComment = {
-					// 	...commentPost,
-					// 	comments: {
-					// 		...commentPost.comments,
-					// 		comments: {
-					// 			...commentPost.comments.comments,
-					// 			nodes: commentPost.comments.comments.nodes.map(commentNode => {
-					// 				if (commentNode.id === commentId) {
-					// 					return { ...commentNode, replies: {...commentNode.replies, nodes: [...commentNode.replies.nodes, commentReply.replies]} };
-					// 				} else {
-					// 					return commentNode;
-					// 				}
-					// 			}),
-					// 		},
-					// 	},
-					// };
-					// const updatedComment = {
-					// 	getComments: [{ commentReply }, ...commentPost.getComments.nodes],
-					// };
 					cache.writeQuery({
 						query: GET_COMMENTS,
 						variables: { postId, first: 3 },

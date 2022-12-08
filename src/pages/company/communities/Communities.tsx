@@ -1,72 +1,71 @@
 import { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { AiOutlinePlus } from 'react-icons/ai';
 
+import { CommunitiesLoader } from '@/shared-components/skeleton-loader/CommunitiesLoader';
 import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
+import { LoaderDataComponent } from '@/shared-components/loader-data-component';
+import { useCommunityQuery } from '@/hooks/services/useCommunityQuery';
+import { EmptyComponent } from '@/ui-elements/atoms/empty-component';
+import { ConferenceIcon } from '@/shared-components/icons';
 import { CommunityForm } from './community-form';
+import { Community } from './Community';
+import { CommunityEdge } from '@/generated/graphql';
 
-const COMMUNITIES = [
-	{
-		id: 1,
-		name: 'Connycters',
-		totalParticipants: '10k',
-	},
-	{
-		id: 2,
-		name: 'Group for change',
-		totalParticipants: '20k',
-	},
-];
 const Communities = ({ companySlug }: { companySlug: string }) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
+	const { communities, loading } = useCommunityQuery(companySlug);
+
+	console.log(communities);
+
 	return (
 		<>
-			{
-				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
-					<CommunityForm />
-				</RightDrawerLayout>
-			}
+			<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
+				<CommunityForm setIsOpen={setIsDrawerOpen} companySlug={companySlug} />
+			</RightDrawerLayout>
 			<div className='heading'>
 				<div className='flex justify-between'>
 					<div className='flex flex-col'>
-						<h1 className='font-bold text-lg'>Connyct&apos;s Communities</h1>
-						<p className='text-gray-400'>2 communities created</p>
+						<h1 className='font-bold text-lg'>{communities?.[0]?.company?.legalName}</h1>
+						<p className='text-gray-400'>{communities?.length} Communities</p>
 					</div>
-					<div className='action' onClick={handleDrawerToggle}>
-						<button className='bg-primary px-10 py-2 text-lg text-white'>Create a new community</button>
+					<div className='px-5'>
+						<button
+							className='bg-primaryv2 flex font-bold gap-1 items-center justify-center p-4 rounded-md text-white w-full hover:bg-primary'
+							onClick={handleDrawerToggle}>
+							<AiOutlinePlus fill='#FFFFFF' size={20} />
+							<span>Create a new community</span>
+						</button>
 					</div>
 				</div>
-				<div className='gap-4 grid grid-cols-3 pt-4'>
-					{COMMUNITIES.map(community => (
-						<div key={community.id} className='bg-white p-5 rounded-lg shadow-sm'>
-							<Link href={`/company/${companySlug}/communities/${community.id}`}>
-								<p className='cursor-pointer font-bold text-center text-lg text-primary'>
-									{community.name}
-								</p>
-							</Link>
-							<div className='participants pt-4'>
-								<div className='flex items-center justify-center'>
-									{[1, 2, 3, 4].map((image, index) => (
-										<div key={index}>
-											<Image
-												src='https://i.pravatar.cc'
-												width={20}
-												height={20}
-												alt='participant-avatar'
-												className='rounded-full'
-											/>
-										</div>
-									))}
-								</div>
-								<p className='pt-5 text-center text-gray-600'>32 participants</p>
-							</div>
-						</div>
-					))}
-				</div>
+				<LoaderDataComponent
+					isLoading={loading}
+					data={communities}
+					fallback={<CommunitiesLoader />}
+					isSuspense={true}
+					emptyComponent={
+						<EmptyComponent
+							text='There are no communities yet'
+							subText='Please create a new community'
+							icon={<ConferenceIcon width='4em' height='4em' className='fill-primary' />}
+						/>
+					}>
+					{/** TODO improve types for community after api enhanced, this should be paginate */}
+					<div className='gap-4 grid grid-cols-1 pt-4 md:grid-cols-2 lg:grid-cols-3'>
+						{communities?.map((communityNode: CommunityEdge) => {
+							const { node } = communityNode;
+							if (node) {
+								return (
+									<div key={node.id} className={'bg-white p-5 rounded-lg shadow-sm'}>
+										<Community community={node} companySlug={companySlug} />
+									</div>
+								);
+							}
+						})}
+					</div>
+				</LoaderDataComponent>
 			</div>
 		</>
 	);
 };
-
 export default Communities;

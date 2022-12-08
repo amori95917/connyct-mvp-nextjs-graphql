@@ -2,7 +2,8 @@ import { useRouter } from 'next/router';
 import { Navbar } from '@/shared-components/navbar';
 
 import { CompanyLayout } from '@/shared-components/layouts';
-// import CommunityHome from '@/components/brand/community/community-home';
+import { Policy } from '@/pages/company/communities/community-detail/policy';
+import { CommunityHead } from '@/shared-components/community';
 
 function getSlug(slug: string | string[] | undefined) {
 	if (slug === undefined) return '';
@@ -12,12 +13,27 @@ function getSlug(slug: string | string[] | undefined) {
 
 const CommunityPolicyPage = () => {
 	const router = useRouter();
-	const { slug } = router.query;
+	const { slug, communitySlug: communitySlugVal } = router.query;
 	let companySlug = getSlug(slug);
+	let communitySlug = getSlug(communitySlugVal);
+
 	return (
 		<>
 			<Navbar />
-			<CompanyLayout companySlug={companySlug || ''}>Community Home</CompanyLayout>
+			{companySlug && (
+				<CompanyLayout companySlug={companySlug}>
+					<CommunityHead
+						coverImage='/images/community/background.jpg'
+						profileImage='/images/community/background.jpg'
+						communityName='My Community'
+						groupStatus='Public Group'
+						members='0k'
+						companySlug={companySlug}
+						communitySlug={communitySlug}
+					/>
+					<Policy companySlug={companySlug} />
+				</CompanyLayout>
+			)}
 		</>
 	);
 };

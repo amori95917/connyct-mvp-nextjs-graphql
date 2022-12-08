@@ -24,7 +24,7 @@ const CompanyLayout = (props: CompanyLayoutProps) => {
 			<section className='flex flex-col'>
 				<Menus data={data} />
 				<div className='bg-slate-50 container grid mx-auto pt-4 md:grid-cols-4'>
-					<CompanyInfoCard companySlug={companySlug || ''} data={data} />
+					<CompanyInfoCard companySlug={companySlug} data={data} />
 					<section className='pt-4 md:col-span-3 md:pt-0'>{children}</section>
 				</div>
 			</section>

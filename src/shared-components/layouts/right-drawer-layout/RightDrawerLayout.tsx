@@ -6,27 +6,34 @@ type ProductPostDrawerType = {
 	children: ReactNode;
 	isOpen: boolean;
 	setIsOpen: (isOpen: boolean) => void;
+	drawerSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 };
 
-export const RightDrawerLayout: FC<ProductPostDrawerType> = ({ children, isOpen, setIsOpen }) => {
+export const RightDrawerLayout: FC<ProductPostDrawerType> = ({
+	children,
+	isOpen,
+	setIsOpen,
+	drawerSize = 'lg',
+}) => {
 	const onCloseHandler = () => {
 		setIsOpen(false);
 	};
 
 	const initialDrawerClassName =
-		' fixed overflow-hidden z-10 bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out ';
-	const openDrawerClassName = 'transition-opacity opacity-100 duration-500 translate-x-0 ';
-	const closeDrawerClassName = 'transition-all delay-500 opacity-0 translate-x-full  ';
+		' fixed overflow-hidden z-10 bg-gray-500 bg-opacity-25 inset-0 transform ease-in-out duration-300';
+	const openDrawerClassName = 'translate-x-0 ';
+	const closeDrawerClassName = 'translate-x-full  ';
 	return (
 		<>
 			<div
 				className={`${initialDrawerClassName} ${isOpen ? openDrawerClassName : closeDrawerClassName}`}>
 				<div
 					className={
-						' w-screen  max-w-lg right-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  ' +
-						(isOpen ? ' translate-x-0 ' : ' translate-x-full ')
+						`w-screen  max-w-${drawerSize} right-0 absolute bg-white h-full shadow-xl duration-300 ease-in-out transition-all transform ` +
+						(isOpen ? openDrawerClassName : closeDrawerClassName)
 					}>
-					<div className='flex flex-col h-full max-w-lg no-scrollbar overflow-y-scroll p-5 pb-10 space-y-6 w-screen'>
+					<div
+						className={`flex flex-col h-full max-w-${drawerSize} no-scrollbar overflow-y-scroll p-5 pb-10 space-y-6 w-screen`}>
 						<div className='flex justify-between'>
 							<div className='flex'>
 								<ConnyctLogo height={'2em'} width={'2em'} />

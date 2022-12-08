@@ -18,9 +18,11 @@ const CompanyFeedsPage = () => {
 	return (
 		<>
 			<Navbar />
-			<CompanyLayout companySlug={companySlug || ''}>
-				<CompanyFeeds companySlug={companySlug || ''} />
-			</CompanyLayout>
+			{companySlug && (
+				<CompanyLayout companySlug={companySlug}>
+					<CompanyFeeds companySlug={companySlug} />
+				</CompanyLayout>
+			)}
 		</>
 	);
 };

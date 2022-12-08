@@ -22,9 +22,9 @@ export const LoaderDataComponent = (props: LoaderDataComponentProps) => {
 		isSuspense = false,
 	} = props;
 	const render = useCallback(() => {
-		return data?.length ? children : emptyComponent;
+		return data?.length > 0 ? children : emptyComponent;
 	}, [children, data?.length, emptyComponent]);
-	if (isLoading) return <>{fallback}</>;
+	if (isLoading && !data?.length) return <>{fallback}</>;
 	if (isSuspense) {
 		return <React.Suspense fallback={fallback}>{render()}</React.Suspense>;
 	} else {

@@ -8,8 +8,9 @@ import CreatePost from '../create-post/CreatePost';
 import { Feed } from './Feed';
 import { FeedLoader } from '@/shared-components/skeleton-loader/FeedLoader';
 
-export const Feeds = ({ companySlug = '' }: { companySlug: string }) => {
+export const Feeds = ({ companySlug }: { companySlug: string }) => {
 	const { feeds, loading, hasNextPage, onLoadMore } = useCompanyFeedsQuery(companySlug);
+
 	return (
 		<>
 			<div className='gap-4 grid md:grid-cols-3'>
@@ -24,14 +25,17 @@ export const Feeds = ({ companySlug = '' }: { companySlug: string }) => {
 								onLoadMore={onLoadMore}>
 								{(feeds || []).map((postNode: PostEdge) => {
 									const { node } = postNode;
-									return (
-										<Feed
-											key={node?.id}
-											name={node?.creator?.fullName ? node?.creator?.fullName : 'User'} //  Todo handle company name too,
-											post={node}
-											isOnSale={false}
-										/>
-									);
+									console.log(node);
+									if (node) {
+										return (
+											<Feed
+												key={node.id}
+												name={node.creator?.fullName || 'User'} //  Todo handle company name too,
+												post={node}
+												isOnSale={false}
+											/>
+										);
+									}
 								})}
 							</InfiniteScroller>
 						</LoaderDataComponent>
