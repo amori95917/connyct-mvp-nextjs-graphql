@@ -1,9 +1,5 @@
 import Image from 'next/image';
-import { useQuery } from '@apollo/client';
 import { MdVerified } from 'react-icons/md';
-// import { AiOutlineEdit } from 'react-icons/ai';
-import { GET_COMPANY } from '@/graphql/company';
-import { getCookie } from '@/utils/cookies';
 
 const slateSecondaryClassNames = 'text-slate-400';
 const boldSecondaryTextClassNames = 'font-bold text-xl';
@@ -15,8 +11,6 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 	const totalPosts = data?.getCompanyById?.totalPost ? data?.getCompanyById?.totalPost : '0';
 
 	// TODO need to check from this api, is the account is verified or not ??
-
-	const isVerified = false;
 	return (
 		<div className='flex flex-col items-center mr-5 no-scrollbar overflow-y-scroll rounded-md md:h-screen md:sticky md:top-24'>
 			<div className='bg-white rounded-md w-full'>
@@ -28,8 +22,8 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 									className='rounded-full'
 									width='200'
 									height='200'
-									src='/images/nike.jpeg'
-									alt='Sunset in the mountains'
+									src={data?.getCompanyById?.avatar ?? '/images/nike.jpeg'}
+									alt={data?.getCompanyById?.name}
 								/>
 							</div>
 							{/* TODO need to change visitor by using the graphql call */}
@@ -37,10 +31,10 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 								<div className='flex font-bold h-fit items-center'>
 									<p className='font-bold text-lg'>{data?.getCompanyById?.legalName}</p>
 									<span className='ml-2'>
-										<MdVerified fill={`${isVerified ? '#2599c0' : '#9ca3af'}`} />
+										<MdVerified fill={`${data?.getCompanyById?.isVerified ? '#5A6399' : '#9ca3af'}`} />
 									</span>
 								</div>
-								<span className={slateSecondaryClassNames}>{data?.getCompanyById?.name}</span>
+								<span className={`font-bold text-primary`}>{data?.getCompanyById?.name}</span>
 							</div>
 						</div>
 						<div className='flex justify-around mt-5 w-full'>

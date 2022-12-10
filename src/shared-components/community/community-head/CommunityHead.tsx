@@ -1,3 +1,4 @@
+import { useCommunityQueryById } from '@/hooks/services/useCommunityQuery';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,40 +11,39 @@ type CommunityHeadProps = {
 	groupStatus: string;
 	members: string;
 	companySlug: string | undefined;
-	communitySlug: string | undefined;
+	communitySlug: string;
 };
 export const CommunityHead = (props: CommunityHeadProps) => {
+	const { communitySlug, profileImage, companySlug } = props;
+	const { loading, response } = useCommunityQueryById(communitySlug);
 	const NavButtonClassName = 'cursor-pointer p-2 pr-6 text-center hover:bg-gray-200 rounded-md';
 	const defaultNavClass = `cursor-pointer text-center p-2 pr-6 text-primary`;
-	const {
-		coverImage,
-		profileImage,
-		communityName,
-		groupStatus,
-		members,
-		companySlug,
-		communitySlug,
-	} = props;
 	const router = useRouter();
 	const navPath = router.pathname.split('/')[5];
+	const { community } = response ?? {};
 	return (
 		<>
 			<div className='bg-white flex flex-col rounded-md w-full'>
 				<div className='p-5'>
 					<div className='bg-white flex items-center pl-10 w-full'>
 						<div className='border-4 border-solid border-white h-20 relative rounded-full w-20'>
-							<Image src={profileImage} alt='community' fill className='rounded-full' />
+							<Image
+								src={community?.profile ?? profileImage}
+								alt='community'
+								fill
+								className='rounded-full'
+							/>
 						</div>
 						<div className='flex flex-col grow px-7 py-7'>
 							<div>
-								<span className='font-bold text-3xl'>{communityName}</span>
+								<span className='font-bold text-3xl'>{community?.name}</span>
 							</div>
 							<div className='flex items-center'>
 								<span>
 									<GiEarthAfricaEurope size={20} />
 								</span>
-								<span className='pl-1 text-lg'>{groupStatus}</span>
-								<span className='pl-1 text-lg'>{members} members</span>
+								<span className='pl-1 text-lg'>{community?.type}</span>
+								<span className='pl-1 text-lg'>{community?.followersCount} members</span>
 							</div>
 						</div>
 						<div className=''>
@@ -63,13 +63,13 @@ export const CommunityHead = (props: CommunityHeadProps) => {
 				{/* group navigation */}
 				<div className='p-2 text-bold'>
 					<div className='flex pl-10'>
-						<Link href={'/company/${companySlug}/communities/${communitySlug}'} passHref>
+						<Link href={`/company/${companySlug}/communities/${communitySlug}`} passHref>
 							<span className={navPath === undefined ? defaultNavClass : NavButtonClassName}>Home</span>
 						</Link>
-						<Link href={'/company/${companySlug}/communities/${communitySlug}/members'} passHref>
+						<Link href={`/company/${companySlug}/communities/${communitySlug}/members`} passHref>
 							<span className={navPath === 'members' ? defaultNavClass : NavButtonClassName}>Members</span>
 						</Link>
-						<Link href={'/company/${companySlug}/communities/${communitySlug}/policy'} passHref>
+						<Link href={`/company/${companySlug}/communities/${communitySlug}/policy`} passHref>
 							<span className={navPath === 'policy' ? defaultNavClass : NavButtonClassName}>Policy</span>
 						</Link>
 					</div>

@@ -7,7 +7,7 @@ module.exports = {
 				pinkish: 'rgb(224, 36, 94)',
 				// primary: '#165A71',
 				'icon-color': '#00E0FF',
-				primary: '#2599c0',
+				primary: '#5A6399',
 				primaryv2: '#0fabc1',
 				'primary-hover': 'rgb(26, 145, 218)',
 				dark: 'rgb(21, 32, 43)',

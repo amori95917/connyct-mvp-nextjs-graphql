@@ -1,1 +1,1 @@
-export { CREATE_COMMUNITY, GET_COMMUNITY } from './resolver';
+export { CREATE_COMMUNITY, GET_COMMUNITY, GET_COMMUNITY_BY_ID } from './resolver';

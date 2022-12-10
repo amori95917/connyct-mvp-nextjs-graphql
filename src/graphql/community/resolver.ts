@@ -1,5 +1,28 @@
 import { gql } from '@apollo/client';
 
+export const COMMUNITY_MEMBERS_FRAGMENT = gql`
+	fragment CommunityMemberFragment on CommunityMemberPaginated {
+		edges {
+			cursor
+			node {
+				id
+				createdAt
+				updatedAt
+				communityId
+				invitedById
+				memberId
+			}
+		}
+		pageInfo {
+			hasNextPage
+			hasPreviousPage
+			startCursor
+			endCursor
+		}
+		totalCount
+	}
+`;
+
 export const CREATE_COMMUNITY = gql`
 	mutation companyCommunity($input: CommunityInput!, $profile: Upload!) {
 		companyCommunity(input: $input, profile: $profile) {
@@ -141,4 +164,56 @@ export const GET_COMMUNITY = gql`
 			}
 		}
 	}
+`;
+
+export const GET_COMMUNITY_BY_ID = gql`
+	query getCommunityById($communityId: String!) {
+		getCommunityById(communityId: $communityId) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			community {
+				id
+				name
+				description
+				type
+				companyId
+				profile
+				slug
+				followersCount
+			}
+		}
+	}
+`;
+
+export const GET_COMMUNITY_MEMBERS = gql`
+	query getCommunityMember(
+		$companyId: String!
+		$before: String
+		$after: String
+		$first: Float
+		$last: Float
+		$order: OrderListCommunityMember
+	) {
+		getCommunityMember(
+			companyId: $companyId
+			before: $before
+			after: $after
+			first: $first
+			last: $last
+			order: $order
+		) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			communityMember {
+				...CommunityMemberFragment
+			}
+		}
+	}
+	${COMMUNITY_MEMBERS_FRAGMENT}
 `;

@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { GET_COMMUNITY } from '@/graphql/community';
+import { GET_COMMUNITY, GET_COMMUNITY_BY_ID } from '@/graphql/community';
 
 export function useCommunityQuery(companyId: string, first: number = 10) {
 	const observerRef = useRef<any>(null);
@@ -41,5 +41,21 @@ export function useCommunityQuery(companyId: string, first: number = 10) {
 		loading,
 		hasNextPage,
 		onLoadMore,
+	};
+}
+
+export function useCommunityQueryById(communitySlug: string) {
+	const { data, loading } = useQuery(GET_COMMUNITY_BY_ID, {
+		fetchPolicy: 'cache-and-network',
+		variables: {
+			communityId: communitySlug,
+		},
+	});
+
+	const response = data?.getCommunityById ?? null;
+
+	return {
+		response,
+		loading,
 	};
 }
