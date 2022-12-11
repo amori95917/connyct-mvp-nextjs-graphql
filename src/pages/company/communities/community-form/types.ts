@@ -1,7 +1,15 @@
 export type CommunityFormFields = {
 	name: string;
-	communityPrivacyType: 'public' | 'private';
+	communityPrivacyType: 'PUBLIC' | 'PRIVATE';
 	description: string;
 	profilePicture: File[];
 	coverPicture: File[];
+};
+
+export type CommunityFormPropsTypes = {
+	isOpen?: boolean;
+	setIsOpen: (isOpen: boolean) => void;
+	companySlug: string;
+	isEditing: boolean;
+	communityId: string;
 };

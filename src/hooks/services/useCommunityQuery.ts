@@ -1,13 +1,13 @@
 import { useRef, useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { GET_COMMUNITY, GET_COMMUNITY_BY_ID } from '@/graphql/community';
+import { GET_COMMUNITIES, GET_COMMUNITIES_BY_ID } from '@/graphql/community';
 
 export function useCommunityQuery(companyId: string, first: number = 10) {
 	const observerRef = useRef<any>(null);
 	const [buttonRef, setButtonRef] = useState<any>(null);
 
-	const { data, fetchMore, loading } = useQuery(GET_COMMUNITY, {
+	const { data, fetchMore, loading } = useQuery(GET_COMMUNITIES, {
 		variables: {
 			companyId,
 			first,
@@ -45,17 +45,17 @@ export function useCommunityQuery(companyId: string, first: number = 10) {
 }
 
 export function useCommunityQueryById(communitySlug: string) {
-	const { data, loading } = useQuery(GET_COMMUNITY_BY_ID, {
+	const { data, loading } = useQuery(GET_COMMUNITIES_BY_ID, {
 		fetchPolicy: 'cache-and-network',
 		variables: {
 			communityId: communitySlug,
 		},
 	});
 
-	const response = data?.getCommunityById ?? null;
+	const communityData = data?.getCommunityById ?? null;
 
 	return {
-		response,
+		communityData,
 		loading,
 	};
 }

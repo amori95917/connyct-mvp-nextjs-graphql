@@ -1,24 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AiOutlineClose, AiOutlineCloudUpload } from 'react-icons/ai';
 
+import { useCommunityQueryById } from '@/hooks/services/useCommunityQuery';
 import { FormEditor, FormInput, FormRadio } from '@/shared-components/forms';
 import { useMutation } from '@apollo/client';
-import { CREATE_COMMUNITY, GET_COMMUNITY } from '@/graphql/community';
+import { CREATE_COMMUNITY, GET_COMMUNITIES, EDIT_COMMUNITY } from '@/graphql/community';
 import { FormDropFile } from '@/shared-components/forms/drop-file/FormDropFIle';
 import { acceptedImagesFileTypes } from '@/constants/acceptedFileTypes';
 import { verifyFile } from '@/utils/verifyFile';
 
 import { schema } from './schema';
-import { initialValues } from './initialValues';
-import { CommunityFormFields } from './types';
+import { getInitialValues, initialValues } from './initialValues';
 import { useDropzone } from 'react-dropzone';
-import { profile } from 'console';
+import { CommunityFormFields, CommunityFormPropsTypes } from './types';
 
-const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
+const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
+	setIsOpen,
+	companySlug,
+	communityId,
+	isEditing = false,
+}) => {
 	const {
 		register,
 		control,
@@ -37,8 +42,16 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 	const [profileImage, setProfileImage] = useState<File[]>();
 
 	const [createCommunity, { loading }] = useMutation(CREATE_COMMUNITY);
+	const [editCommunity, { loading: editLoading }] = useMutation(EDIT_COMMUNITY);
+	const { loading: communityLoading, communityData } = useCommunityQueryById(communityId);
+
+	useEffect(() => {
+		reset(getInitialValues(communityData?.community));
+		setProfileImage(communityData?.community?.profile);
+	}, [communityData, reset]);
 
 	const onSubmit = handleSubmit(async input => {
+		console.log(input);
 		const {
 			coverPicture: cover,
 			profilePicture: profile,
@@ -46,24 +59,43 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 			...restInput
 		} = input;
 
-		console.log(input);
+		if (!isEditing) {
+			try {
+				const response = await createCommunity({
+					variables: {
+						input: { ...restInput, type, companyId: companySlug },
+						profile: profile?.[0],
+						cover: cover?.[0],
+					},
+					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: companySlug } }],
+				});
 
-		try {
-			const response = await createCommunity({
-				variables: {
-					input: { ...restInput, type, companyId: companySlug },
-					profile: profile?.[0],
-					cover: cover?.[0],
-				},
-				refetchQueries: [{ query: GET_COMMUNITY, variables: { companyId: companySlug } }],
-			});
-
-			if (response) {
-				setIsOpen(false);
-				reset();
+				if (response) {
+					setIsOpen(false);
+					reset();
+				}
+			} catch (e) {
+				console.log(e, '####');
 			}
-		} catch (e) {
-			console.log(e, '####');
+		} else {
+			try {
+				const response = await editCommunity({
+					variables: {
+						communityId: communityId,
+						input: { ...restInput, type },
+						profile: profile?.[0],
+						cover: cover?.[0],
+					},
+					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: companySlug } }],
+				});
+
+				if (response) {
+					setIsOpen(false);
+					reset();
+				}
+			} catch (e) {
+				console.log(e, '####');
+			}
 		}
 	});
 
@@ -101,7 +133,9 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 	};
 
 	const getProfilePicture = () => {
-		if (profileImage) {
+		if (typeof profileImage === 'string') {
+			return profileImage;
+		} else if (typeof profileImage === 'object') {
 			return URL.createObjectURL(profileImage?.[0]);
 		} else {
 			return 'https://i.pravatar.cc';
@@ -224,7 +258,7 @@ const CommunityForm = ({ setIsOpen, companySlug, isEditing = false }) => {
 					<button
 						disabled={isSubmitting}
 						className='bg-primary p-3 rounded-md text-white text-xl w-full disabled:opacity-50'>
-						{isSubmitting ? 'Submitting' : 'Add Community'}
+						{isSubmitting ? 'Submitting' : isEditing ? 'Edit Community' : 'Add Community'}
 					</button>
 				</div>
 				<div className='p-5'></div>

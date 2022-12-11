@@ -6,27 +6,45 @@ import { FiEdit2 } from 'react-icons/fi';
 import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
 import { CommunityForm } from './community-form';
 import { InviteMembers } from './invite-memers';
+import { Community as CommunityTypes } from '@/generated/graphql';
 
 // Todo show proper count
 const count = 0;
 
-export const Community = ({ community, companySlug }: { companySlug: string }) => {
+export const Community = ({
+	community,
+	companySlug,
+}: {
+	community: CommunityTypes;
+	companySlug: string;
+}) => {
 	const router = useRouter();
+	const [currentCommunityId, setCurrentCommunityId] = useState('');
 
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [isInviteDrawerOpen, setIsInviteDrawerOpen] = useState(false);
 
-	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
+	const handleDrawerToggle = (communityId: string) => {
+		setIsDrawerOpen(!isDrawerOpen);
+		setCurrentCommunityId(communityId);
+	};
 	const handleInviteDrawerToggle = () => setIsInviteDrawerOpen(!isInviteDrawerOpen);
 
 	const onCommunityClickHandler = (communityId: string) => {
 		router.push(`/company/${companySlug}/communities/${communityId}`);
 	};
+
+	console.log(community, 'community');
 	return (
 		<>
 			{isDrawerOpen && (
 				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} drawerSize='2xl'>
-					<CommunityForm isEditing={true} setIsOpen={setIsDrawerOpen} companySlug={companySlug} />
+					<CommunityForm
+						isEditing={true}
+						setIsOpen={setIsDrawerOpen}
+						companySlug={companySlug}
+						communityId={currentCommunityId}
+					/>
 				</RightDrawerLayout>
 			)}
 			{isInviteDrawerOpen && (
@@ -55,7 +73,7 @@ export const Community = ({ community, companySlug }: { companySlug: string }) =
 					alt='participant-avatar'
 					className='rounded-full'
 				/>
-				<button onClick={handleDrawerToggle}>
+				<button onClick={() => handleDrawerToggle(community.id)}>
 					<FiEdit2 />
 				</button>
 			</div>

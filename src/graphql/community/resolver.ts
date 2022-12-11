@@ -57,15 +57,12 @@ export const CREATE_COMMUNITY = gql`
 					name
 					id
 				}
-				user {
-					id
-				}
 			}
 		}
 	}
 `;
 
-export const GET_COMMUNITY = gql`
+export const GET_COMMUNITIES = gql`
 	query getCommunity(
 		$companyId: String!
 		$before: String
@@ -177,7 +174,7 @@ export const GET_COMMUNITY = gql`
 	}
 `;
 
-export const GET_COMMUNITY_BY_ID = gql`
+export const GET_COMMUNITIES_BY_ID = gql`
 	query getCommunityById($communityId: String!) {
 		getCommunityById(communityId: $communityId) {
 			errors {
@@ -199,7 +196,7 @@ export const GET_COMMUNITY_BY_ID = gql`
 	}
 `;
 
-export const GET_COMMUNITY_MEMBERS = gql`
+export const GET_COMMUNITIES_MEMBERS = gql`
 	query getCommunityMember(
 		$companyId: String!
 		$before: String
@@ -227,6 +224,22 @@ export const GET_COMMUNITY_MEMBERS = gql`
 		}
 	}
 	${COMMUNITY_MEMBERS_FRAGMENT}
+`;
+
+export const EDIT_COMMUNITY = gql`
+	mutation companyCommunityEdit(
+		$communityId: String!
+		$input: CommunityEditInput!
+		$profile: Upload!
+	) {
+		companyCommunityEdit(communityId: $communityId, input: $input, profile: $profile) {
+			errors {
+				message
+				code
+				statusCode
+			}
+		}
+	}
 `;
 
 export const COMMUNITY_POLICIES = gql`
