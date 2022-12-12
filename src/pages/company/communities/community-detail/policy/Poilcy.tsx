@@ -15,7 +15,7 @@ const Policy = (props: PolicyProps) => {
 	return (
 		<>
 			{isDrawerOpen && (
-				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
+				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} drawerSize='md'>
 					<PolicyForm />
 				</RightDrawerLayout>
 			)}

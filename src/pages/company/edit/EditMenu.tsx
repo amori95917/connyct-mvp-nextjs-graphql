@@ -21,7 +21,7 @@ const EditMenu: React.FC<EditMenuProps> = props => {
 	return (
 		<>
 			<div className='flex flex-col mt-0 md:flex-row md:gap-3'>
-				<div className='bg-primaryv2 p-4 text-white w-full md:basis-1/6'>
+				<div className='bg-primary p-4 text-white w-full md:basis-1/6'>
 					<Link href={`/company/${companySlug}/edit/business-information/general`}>
 						<button className='mt-4 pb-4 text-left text-lg w-full whitespace-nowrap hover:font-bold'>
 							Business Information

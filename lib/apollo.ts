@@ -44,6 +44,7 @@ export const cache = new InMemoryCache({
 				companyPostsFollowedByUser: relayStylePagination(),
 				getDiscussionAnswerByDiscussionId: relayStylePagination(),
 				companiesSuggestions: relayStylePagination(),
+				getCommunityPolicies: relayStylePagination(),
 			},
 		},
 	},

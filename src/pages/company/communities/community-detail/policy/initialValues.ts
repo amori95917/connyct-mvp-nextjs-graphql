@@ -1,4 +1,4 @@
 export const initialValues = {
-	name: '',
+	title: '',
 	description: '',
 };

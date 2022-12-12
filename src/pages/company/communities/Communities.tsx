@@ -31,7 +31,7 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 					</div>
 					<div className='px-5'>
 						<button
-							className='bg-primaryv2 flex font-bold gap-1 items-center justify-center p-4 rounded-md text-white w-full hover:bg-primary'
+							className='bg-primary flex font-bold gap-1 items-center justify-center p-4 rounded-md text-white w-full hover:bg-primary'
 							onClick={handleDrawerToggle}>
 							<AiOutlinePlus fill='#FFFFFF' size={20} />
 							<span>Create a new community</span>

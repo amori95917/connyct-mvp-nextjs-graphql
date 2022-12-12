@@ -23,6 +23,17 @@ export const COMMUNITY_MEMBERS_FRAGMENT = gql`
 	}
 `;
 
+export const COMMUNITY_POLICY_FRAGMENT = gql`
+	fragment CommunityPolicyFragment on CommunityPolicy {
+		id
+		createdAt
+		updatedAt
+		communityId
+		title
+		description
+	}
+`;
+
 export const CREATE_COMMUNITY = gql`
 	mutation companyCommunity($input: CommunityInput!, $profile: Upload!) {
 		companyCommunity(input: $input, profile: $profile) {
@@ -216,4 +227,99 @@ export const GET_COMMUNITY_MEMBERS = gql`
 		}
 	}
 	${COMMUNITY_MEMBERS_FRAGMENT}
+`;
+
+export const COMMUNITY_POLICIES = gql`
+	query getCommunityPolicies(
+		$communityId: String!
+		$before: String
+		$after: String
+		$first: Float
+		$last: Float
+	) {
+		getCommunityPolicies(
+			communityId: $communityId
+			before: $before
+			after: $after
+			first: $first
+			last: $last
+		) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			data {
+				edges {
+					cursor
+					node {
+						...CommunityPolicyFragment
+					}
+				}
+				pageInfo {
+					hasNextPage
+					hasPreviousPage
+					startCursor
+					endCursor
+				}
+				totalCount
+			}
+		}
+	}
+	${COMMUNITY_POLICY_FRAGMENT}
+`;
+
+export const COMMUNITY_POLICY = gql`
+	query getCommunityPolicy($id: String!) {
+		getCommunityPolicy(id: $id) {
+			...CommunityPolicyFragment
+		}
+	}
+	${COMMUNITY_POLICY_FRAGMENT}
+`;
+
+export const CREATE_COMMUNITY_POLICY = gql`
+	mutation createCommunityPolicy($id: String!, $input: CommunityPolicyInput!) {
+		createCommunityPolicy(id: $id, input: $input) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			data {
+				...CommunityPolicyFragment
+			}
+		}
+	}
+	${COMMUNITY_POLICY_FRAGMENT}
+`;
+
+export const UPDATE_COMMUNITY_POLICY = gql`
+	mutation updateCommunityPolicy($id: String!, $input: CommunityPolicyUpdateInput!) {
+		updateCommunityPolicy(id: $id, input: $input) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			data {
+				...CommunityPolicyFragment
+			}
+		}
+	}
+	${COMMUNITY_POLICY_FRAGMENT}
+`;
+
+export const DELETE_COMMUNITY_POLICY = gql`
+	mutation deleteCommunityPolicy($id: String!) {
+		deleteCommunityPolicy(id: $id) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			isDeleted
+		}
+	}
+	${COMMUNITY_POLICY_FRAGMENT}
 `;

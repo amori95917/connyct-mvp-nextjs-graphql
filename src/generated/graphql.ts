@@ -314,6 +314,65 @@ export type CommunityPayload = {
   errors?: Maybe<Array<CustomError>>;
 };
 
+export type CommunityPoliciesPayload = {
+  __typename?: 'CommunityPoliciesPayload';
+  data?: Maybe<CommunityPolicyPaginated>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type CommunityPolicy = {
+  __typename?: 'CommunityPolicy';
+  communityId?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type CommunityPolicyDeletePayload = {
+  __typename?: 'CommunityPolicyDeletePayload';
+  errors?: Maybe<Array<CustomError>>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
+};
+
+export type CommunityPolicyEdge = {
+  __typename?: 'CommunityPolicyEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<CommunityPolicy>;
+};
+
+export type CommunityPolicyInput = {
+  description: Scalars['String'];
+  title: Scalars['String'];
+};
+
+export type CommunityPolicyPageInfo = {
+  __typename?: 'CommunityPolicyPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type CommunityPolicyPaginated = {
+  __typename?: 'CommunityPolicyPaginated';
+  edges?: Maybe<Array<CommunityPolicyEdge>>;
+  pageInfo?: Maybe<CommunityPolicyPageInfo>;
+  totalCount?: Maybe<Scalars['Float']>;
+};
+
+export type CommunityPolicyPayload = {
+  __typename?: 'CommunityPolicyPayload';
+  data?: Maybe<CommunityPolicy>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type CommunityPolicyUpdateInput = {
+  description: Scalars['String'];
+  title: Scalars['String'];
+};
+
 export type CommunityRole = {
   __typename?: 'CommunityRole';
   community?: Maybe<Community>;
@@ -942,6 +1001,7 @@ export type Mutation = {
   companyDocumentEdit: CompanyDocumentEditPayload;
   companyGeneralInfoEdit: CompanyPayload;
   confirmEmail: Token;
+  createCommunityPolicy: CommunityPolicyPayload;
   createCompany: Company;
   createCompanyBranch: CompanyBranchPayload;
   createCompanyGeneralInfo: Company;
@@ -949,6 +1009,7 @@ export type Mutation = {
   createEmployee: User;
   createIndustry: IndustryPayload;
   createLikes: LikesPayload;
+  deleteCommunityPolicy: CommunityPolicyDeletePayload;
   deleteCompanyBranch: CompanyBranchDeletePayload;
   deleteIndustry: IndustryPayload;
   discussionAnswerDelete: DiscussionAnswerDeletePayload;
@@ -987,6 +1048,7 @@ export type Mutation = {
   signup: Auth;
   unfollowCompany: Scalars['String'];
   unfollowUser: Scalars['String'];
+  updateCommunityPolicy: CommunityPolicyPayload;
   updateIndustry: IndustryPayload;
   updateStatusUser: User;
   updateUser: User;
@@ -1113,6 +1175,12 @@ export type MutationConfirmEmailArgs = {
 };
 
 
+export type MutationCreateCommunityPolicyArgs = {
+  id: Scalars['String'];
+  input: CommunityPolicyInput;
+};
+
+
 export type MutationCreateCompanyArgs = {
   data: CreateCompanyInput;
 };
@@ -1146,6 +1214,11 @@ export type MutationCreateIndustryArgs = {
 
 export type MutationCreateLikesArgs = {
   data: LikesInput;
+};
+
+
+export type MutationDeleteCommunityPolicyArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -1340,6 +1413,12 @@ export type MutationUnfollowUserArgs = {
 };
 
 
+export type MutationUpdateCommunityPolicyArgs = {
+  id: Scalars['String'];
+  input: CommunityPolicyUpdateInput;
+};
+
+
 export type MutationUpdateIndustryArgs = {
   data: IndustryInput;
   id: Scalars['String'];
@@ -1519,6 +1598,8 @@ export type Query = {
   getCommunity: GetCommunityPayload;
   getCommunityById: CommunityPayload;
   getCommunityMember: GetCommunityMemberPayload;
+  getCommunityPolicies: CommunityPoliciesPayload;
+  getCommunityPolicy: CommunityPolicy;
   getCompanyById: Company;
   getCompanyDiscussion: DiscussionPaginated;
   getCompanyDiscussionById: CompanyDiscussion;
@@ -1615,6 +1696,20 @@ export type QueryGetCommunityMemberArgs = {
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   order?: InputMaybe<OrderListCommunityMember>;
+};
+
+
+export type QueryGetCommunityPoliciesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  communityId: Scalars['String'];
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+};
+
+
+export type QueryGetCommunityPolicyArgs = {
+  id: Scalars['String'];
 };
 
 

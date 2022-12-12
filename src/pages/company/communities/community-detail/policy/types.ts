@@ -1,4 +1,4 @@
 export type PolicyFormFields = {
-	name: string;
+	title: string;
 	description: string;
 };

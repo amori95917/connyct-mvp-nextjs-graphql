@@ -1,15 +1,10 @@
 import { useRouter } from 'next/router';
 import { Navbar } from '@/shared-components/navbar';
 
+import { Policies } from '@/pages/company/communities/community-detail/policy';
 import { CompanyLayout } from '@/shared-components/layouts';
-import { Policy } from '@/pages/company/communities/community-detail/policy';
 import { CommunityHead } from '@/shared-components/community';
-
-function getSlug(slug: string | string[] | undefined) {
-	if (slug === undefined) return '';
-	if (typeof slug === 'string') return slug;
-	if (Array.isArray(slug)) return slug[0];
-}
+import { getSlug } from '@/utils/getSlug';
 
 const CommunityPolicyPage = () => {
 	const router = useRouter();
@@ -20,7 +15,7 @@ const CommunityPolicyPage = () => {
 	return (
 		<>
 			<Navbar />
-			{companySlug && (
+			{companySlug && communitySlug && (
 				<CompanyLayout companySlug={companySlug}>
 					<CommunityHead
 						coverImage='/images/community/background.jpg'
@@ -31,7 +26,7 @@ const CommunityPolicyPage = () => {
 						companySlug={companySlug}
 						communitySlug={communitySlug}
 					/>
-					<Policy companySlug={companySlug} />
+					<Policies communitySlug={communitySlug} />
 				</CompanyLayout>
 			)}
 		</>

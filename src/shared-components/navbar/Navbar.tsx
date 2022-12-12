@@ -37,7 +37,7 @@ export const Navbar = () => {
 				<div className='container flex items-center justify-between mx-auto'>
 					<Link href='/' className='flex font-bold items-center text-primary' passHref>
 						<ConnyctLogo height='2em' width='2em' />
-						<span className='pl-1 text-lg'>connyct</span>
+						<span className='pl-1 text-lg'>Connyct</span>
 					</Link>
 					{/* <div className='search-bar'>
 						<i className='uil uil-search'></i>

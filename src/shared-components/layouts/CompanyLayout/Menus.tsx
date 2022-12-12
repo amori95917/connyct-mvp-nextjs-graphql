@@ -15,31 +15,31 @@ const Menus = props => {
 			<div className='bg-slate-100 flex no-scrollbar overflow-scroll w-full md:justify-center'>
 				<Link href={`/company/${slug}/about-us`} passHref className='mr-6'>
 					<button className={downMenusButtonClassNames}>
-						<SiAboutdotme size={25} fill={'#00E0FF'} />
+						<SiAboutdotme size={25} fill={'#5A6399'} />
 						<span className='ml-5 whitespace-nowrap'>About us</span>
 					</button>
 				</Link>
 				<Link href={`/company/${slug}/feeds`} passHref className='mr-6'>
 					<button className={downMenusButtonClassNames}>
-						<BiWalletAlt size={25} fill={'#00E0FF'} />
+						<BiWalletAlt size={25} fill={'#5A6399'} />
 						<span className='ml-5'>Feeds</span>
 					</button>
 				</Link>
 				<Link href={`/company/${slug}/products`} passHref className='mr-6'>
 					<button className={downMenusButtonClassNames}>
-						<MdOutlineExplore size={25} width={1} fill={'#00E0FF'} />
+						<MdOutlineExplore size={25} width={1} fill={'#5A6399'} />
 						<span className='ml-5'>Products</span>
 					</button>
 				</Link>
 				<Link href={`/company/${slug}/communities`} passHref className='mr-6'>
 					<button className={downMenusButtonClassNames}>
-						<MdOutlineExplore size={25} width={1} fill={'#00E0FF'} />
+						<MdOutlineExplore size={25} width={1} fill={'#5A6399'} />
 						<span className='ml-5'>Communities</span>
 					</button>
 				</Link>
 				<Link href={`/company/${slug}/discussions`} passHref>
 					<button className={downMenusButtonClassNames}>
-						<BsCalendar4Event size={25} fill={'#00E0FF'} />
+						<BsCalendar4Event size={25} fill={'#5A6399'} />
 						<span className='ml-5'>Discussions</span>
 					</button>
 				</Link>

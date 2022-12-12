@@ -70,7 +70,7 @@ export const DiscussionLayout = ({
 				<div className='flex flex-col'>
 					<div className='px-5 w-full'>
 						<button
-							className='bg-primaryv2 flex font-bold gap-1 items-center justify-center p-4 rounded-md text-white w-full hover:bg-primary'
+							className='bg-primary flex font-bold gap-1 items-center justify-center p-4 rounded-md text-white w-full hover:bg-primary'
 							onClick={handleDrawerToggle}>
 							<AiOutlinePlus fill='#FFFFFF' size={20} />
 							<span>Start a New Topic</span>

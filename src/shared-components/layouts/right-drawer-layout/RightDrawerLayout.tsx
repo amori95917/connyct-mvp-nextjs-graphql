@@ -29,15 +29,15 @@ export const RightDrawerLayout: FC<ProductPostDrawerType> = ({
 				className={`${initialDrawerClassName} ${isOpen ? openDrawerClassName : closeDrawerClassName}`}>
 				<div
 					className={
-						`w-screen  max-w-${drawerSize} right-0 absolute bg-white h-full shadow-xl duration-300 ease-in-out transition-all transform ` +
+						`max-w-${drawerSize} right-0 absolute bg-white h-full shadow-xl duration-300 ease-in-out transition-all transform ` +
 						(isOpen ? openDrawerClassName : closeDrawerClassName)
 					}>
 					<div
-						className={`flex flex-col h-full max-w-${drawerSize} no-scrollbar overflow-y-scroll p-5 pb-10 space-y-6 w-screen`}>
+						className={`flex flex-col h-full max-w-${drawerSize} no-scrollbar overflow-y-scroll p-5 pb-10 space-y-6`}>
 						<div className='flex justify-between'>
 							<div className='flex'>
 								<ConnyctLogo height={'2em'} width={'2em'} />
-								<span className='font-bold ml-1 text-primary text-xl'> connyct</span>
+								<span className='font-bold ml-1 text-primary text-xl'>Connyct</span>
 							</div>
 							<button
 								type='button'
