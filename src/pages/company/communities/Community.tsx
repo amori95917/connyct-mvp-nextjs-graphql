@@ -19,14 +19,12 @@ export const Community = ({
 	companySlug: string;
 }) => {
 	const router = useRouter();
-	const [currentCommunityId, setCurrentCommunityId] = useState('');
 
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [isInviteDrawerOpen, setIsInviteDrawerOpen] = useState(false);
 
-	const handleDrawerToggle = (communityId: string) => {
+	const handleDrawerToggle = () => {
 		setIsDrawerOpen(!isDrawerOpen);
-		setCurrentCommunityId(communityId);
 	};
 	const handleInviteDrawerToggle = () => setIsInviteDrawerOpen(!isInviteDrawerOpen);
 
@@ -38,12 +36,12 @@ export const Community = ({
 	return (
 		<>
 			{isDrawerOpen && (
-				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} drawerSize='2xl'>
+				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} drawerSize='lg'>
 					<CommunityForm
 						isEditing={true}
 						setIsOpen={setIsDrawerOpen}
 						companySlug={companySlug}
-						communityId={currentCommunityId}
+						community={community}
 					/>
 				</RightDrawerLayout>
 			)}

@@ -11,5 +11,5 @@ export type CommunityFormPropsTypes = {
 	setIsOpen: (isOpen: boolean) => void;
 	companySlug: string;
 	isEditing: boolean;
-	communityId: string;
+	community: any; // I will change it
 };

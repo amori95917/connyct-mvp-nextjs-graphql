@@ -21,7 +21,7 @@ import { CommunityFormFields, CommunityFormPropsTypes } from './types';
 const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 	setIsOpen,
 	companySlug,
-	communityId,
+	community,
 	isEditing = false,
 }) => {
 	const {
@@ -35,7 +35,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 	} = useForm<CommunityFormFields>({
 		mode: 'onSubmit',
 		resolver: yupResolver(schema),
-		defaultValues: initialValues,
+		defaultValues: community || initialValues,
 	});
 
 	const [rerender, setRerender] = useState(false);
@@ -43,12 +43,6 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 
 	const [createCommunity, { loading }] = useMutation(CREATE_COMMUNITY);
 	const [editCommunity, { loading: editLoading }] = useMutation(EDIT_COMMUNITY);
-	const { loading: communityLoading, communityData } = useCommunityQueryById(communityId);
-
-	useEffect(() => {
-		reset(getInitialValues(communityData?.community));
-		setProfileImage(communityData?.community?.profile);
-	}, [communityData, reset]);
 
 	const onSubmit = handleSubmit(async input => {
 		console.log(input);
@@ -81,12 +75,12 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 			try {
 				const response = await editCommunity({
 					variables: {
-						communityId: communityId,
+						communityId: community.id,
 						input: { ...restInput, type },
 						profile: profile?.[0],
 						cover: cover?.[0],
 					},
-					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: companySlug } }],
+					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: community.id } }],
 				});
 
 				if (response) {
