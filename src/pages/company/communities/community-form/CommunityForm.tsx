@@ -37,7 +37,6 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 		resolver: yupResolver(schema),
 		defaultValues: community || initialValues,
 	});
-
 	const [rerender, setRerender] = useState(false);
 	const [profileImage, setProfileImage] = useState<File[]>();
 
@@ -46,18 +45,13 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 
 	const onSubmit = handleSubmit(async input => {
 		console.log(input);
-		const {
-			coverPicture: cover,
-			profilePicture: profile,
-			communityPrivacyType: type,
-			...restInput
-		} = input;
+		const { coverPicture: cover, profilePicture: profile, ...restInput } = input;
 
 		if (!isEditing) {
 			try {
 				const response = await createCommunity({
 					variables: {
-						input: { ...restInput, type, companyId: companySlug },
+						input: { ...restInput, companyId: companySlug },
 						profile: profile?.[0],
 						cover: cover?.[0],
 					},
@@ -171,7 +165,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 					<div className='w-1/2'>
 						<FormRadio
 							id='private'
-							name='communityPrivacyType'
+							name='type'
 							labelClassName='mb-0'
 							value='PRIVATE'
 							label='Private'
@@ -185,7 +179,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 					<div className='w-1/2'>
 						<FormRadio
 							id='public'
-							name='communityPrivacyType'
+							name='type'
 							value='PUBLIC'
 							label='Public'
 							className='mr-2'
