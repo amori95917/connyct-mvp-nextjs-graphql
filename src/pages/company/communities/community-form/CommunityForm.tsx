@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
-
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AiOutlineClose, AiOutlineCloudUpload } from 'react-icons/ai';
 
-import { useCommunityQueryById } from '@/hooks/services/useCommunityQuery';
-import { FormEditor, FormInput, FormRadio } from '@/shared-components/forms';
+import { FormEditor, FormInput, FormRadio, FileInput } from '@/shared-components/forms';
 import { useMutation } from '@apollo/client';
 import { CREATE_COMMUNITY, GET_COMMUNITIES, EDIT_COMMUNITY } from '@/graphql/community';
-import { FormDropFile } from '@/shared-components/forms/drop-file/FormDropFIle';
+// import { FormDropFile } from '@/shared-components/forms/drop-file/FormDropFIle';
 import { acceptedImagesFileTypes } from '@/constants/acceptedFileTypes';
 import { verifyFile } from '@/utils/verifyFile';
 
@@ -17,12 +15,12 @@ import { schema } from './schema';
 import { getInitialValues, initialValues } from './initialValues';
 import { useDropzone } from 'react-dropzone';
 import { CommunityFormFields, CommunityFormPropsTypes } from './types';
+import { CoverPhotoUploadForm } from '@/shared-components/cover-photo-upload-form';
 
 const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 	setIsOpen,
 	companySlug,
 	community,
-	isEditing = false,
 }) => {
 	const {
 		register,
@@ -45,9 +43,9 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 
 	const onSubmit = handleSubmit(async input => {
 		console.log(input);
-		const { coverPicture: cover, profilePicture: profile, ...restInput } = input;
+		const { coverPicture: cover, profile, ...restInput } = input;
 
-		if (!isEditing) {
+		if (!community?.id) {
 			try {
 				const response = await createCommunity({
 					variables: {
@@ -70,7 +68,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 				const response = await editCommunity({
 					variables: {
 						communityId: community.id,
-						input: { ...restInput, type },
+						input: { ...restInput },
 						profile: profile?.[0],
 						cover: cover?.[0],
 					},
@@ -107,7 +105,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 			const isVerifiedFile = verifyFile(files, acceptedImagesFileTypes, 1000000);
 			if (isVerifiedFile) {
 				const currentFile = files;
-				setValue('profilePicture', currentFile);
+				setValue('profile', currentFile);
 				setProfileImage(currentFile);
 				setRerender(!rerender);
 			}
@@ -134,7 +132,26 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 		<>
 			<form onSubmit={onSubmit} className='md:px-3'>
 				<p className='font-semibold mb-10 text-gray-600 text-xl'>Create a new community</p>
-				<p className='flex font-semibold items-center mb-2 text-gray-700 text-sm tracking-wide uppercase'>
+				<FileInput
+					label='Upload profile picture of community'
+					control={control}
+					name={'profile'}
+					multiple={false}
+					defaultValue={community?.profile}
+					value={community?.profile}
+					uploadComponent={
+						<>
+							<div className='bg-gray-100 h-28 overflow-hidden relative rounded-full w-28 hover:brightness-50'>
+								<div className='flex h-full items-center justify-center rounded-md w-full'>
+									<AiOutlineCloudUpload size={25} />
+								</div>
+							</div>
+						</>
+					}
+					labelClassName='mt-4'
+					errors={errors}
+				/>
+				{/* <p className='flex font-semibold items-center mb-2 text-gray-700 text-sm tracking-wide uppercase'>
 					Upload profile picture of community
 				</p>
 				<div
@@ -148,7 +165,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 					<div className='flex h-full items-center justify-center rounded-md w-full'>
 						<AiOutlineCloudUpload size={25} />
 					</div>
-				</div>
+				</div> */}
 				<div className='w-full'>
 					<FormInput
 						name={`name`}
@@ -201,7 +218,6 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 						errors={errors}
 					/>
 				</div>
-
 				{getValues('coverPicture')?.length
 					? getValues('coverPicture').map((image: any, index: any) => {
 							return (
@@ -222,8 +238,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 							);
 					  })
 					: ''}
-
-				{!getValues('coverPicture')?.length && (
+				{/* {!getValues('coverPicture')?.length && (
 					<>
 						<label className='flex font-semibold items-center mb-0 mt-4 text-gray-700 text-sm tracking-wide uppercase'>
 							Cover photo
@@ -240,13 +255,22 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 						</div>
 						<p className='block text-left text-red-600 text-sm'>{errors?.profilePicture?.message}</p>
 					</>
-				)}
-
+				)} */}
+				<FileInput
+					label='Cover photo'
+					control={control}
+					name={'coverPicture'}
+					multiple={false}
+					defaultValue={community?.coverPicture}
+					uploadComponent={<CoverPhotoUploadForm />}
+					labelClassName='mt-4'
+					errors={errors}
+				/>
 				<div className='flex justify-center mb-5 mt-5'>
 					<button
 						disabled={isSubmitting}
 						className='bg-primary p-3 rounded-md text-white text-xl w-full disabled:opacity-50'>
-						{isSubmitting ? 'Submitting' : isEditing ? 'Edit Community' : 'Add Community'}
+						{isSubmitting ? 'Submitting' : community?.id ? 'Edit Community' : 'Add Community'}
 					</button>
 				</div>
 				<div className='p-5'></div>

@@ -2,15 +2,11 @@ import { useRouter } from 'next/router';
 import { Navbar } from '@/shared-components/navbar';
 
 import { CompanyLayout } from '@/shared-components/layouts';
-import { CommunityHead, CommunityMembers } from '@/shared-components/community';
+import { CommunityHead } from '@/shared-components/community';
+import { CommunityMembers } from '@/pages/company/communities/community-detail/members';
+import { getSlug } from '@/utils/getSlug';
 
 // import CommunityHome from '@/components/brand/community/community-home';
-
-function getSlug(slug: string | string[] | undefined) {
-	if (slug === undefined) return '';
-	if (typeof slug === 'string') return slug;
-	if (Array.isArray(slug)) return slug[0];
-}
 
 const CommunityMembersPage = () => {
 	const router = useRouter();
@@ -32,7 +28,7 @@ const CommunityMembersPage = () => {
 						communitySlug={communitySlug}
 					/>
 					<div className='mt-6'>
-						<CommunityMembers />
+						<CommunityMembers communitySlug={communitySlug} />
 					</div>
 				</CompanyLayout>
 			)}

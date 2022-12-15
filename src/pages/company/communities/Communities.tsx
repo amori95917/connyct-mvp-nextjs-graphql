@@ -16,13 +16,13 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
 	const { communities, loading } = useCommunityQuery(companySlug);
 
-	console.log(communities);
-
 	return (
 		<>
-			<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
-				<CommunityForm setIsOpen={setIsDrawerOpen} companySlug={companySlug} />
-			</RightDrawerLayout>
+			{isDrawerOpen && (
+				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
+					<CommunityForm setIsOpen={setIsDrawerOpen} companySlug={companySlug} />
+				</RightDrawerLayout>
+			)}
 			<div className='heading'>
 				<div className='flex justify-between'>
 					<div className='flex flex-col'>

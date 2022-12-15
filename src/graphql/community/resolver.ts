@@ -11,6 +11,17 @@ export const COMMUNITY_MEMBERS_FRAGMENT = gql`
 				communityId
 				invitedById
 				memberId
+				member {
+					id
+					fullName
+					username
+					email
+					isAdmin
+					userProfile {
+						id
+						profileImage
+					}
+				}
 			}
 		}
 		pageInfo {
@@ -198,7 +209,7 @@ export const GET_COMMUNITIES_BY_ID = gql`
 
 export const GET_COMMUNITIES_MEMBERS = gql`
 	query getCommunityMember(
-		$companyId: String!
+		$communityId: String!
 		$before: String
 		$after: String
 		$first: Float
@@ -206,7 +217,7 @@ export const GET_COMMUNITIES_MEMBERS = gql`
 		$order: OrderListCommunityMember
 	) {
 		getCommunityMember(
-			companyId: $companyId
+			communityId: $communityId
 			before: $before
 			after: $after
 			first: $first

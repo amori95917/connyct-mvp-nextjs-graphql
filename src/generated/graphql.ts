@@ -240,6 +240,7 @@ export type CommunityMember = {
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   invitedById?: Maybe<Scalars['String']>;
+  member?: Maybe<User>;
   memberId?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -371,6 +372,79 @@ export type CommunityPolicyPayload = {
 export type CommunityPolicyUpdateInput = {
   description: Scalars['String'];
   title: Scalars['String'];
+};
+
+export type CommunityPost = {
+  __typename?: 'CommunityPost';
+  community?: Maybe<Community>;
+  communityId?: Maybe<Scalars['String']>;
+  communityPostMedia?: Maybe<CommunityPostMedia>;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  isApproved?: Maybe<Scalars['Boolean']>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
+  slug?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type CommunityPostEdge = {
+  __typename?: 'CommunityPostEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<CommunityPost>;
+};
+
+export type CommunityPostInput = {
+  communityId: Scalars['String'];
+  description?: InputMaybe<Scalars['String']>;
+  metaTitle?: InputMaybe<Scalars['String']>;
+  tags?: InputMaybe<Array<Scalars['String']>>;
+  text: Scalars['String'];
+};
+
+export type CommunityPostMedia = {
+  __typename?: 'CommunityPostMedia';
+  communityPost?: Maybe<CommunityPost>;
+  communityPostId?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  imageURL?: Maybe<Scalars['String']>;
+  metaTitle?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type CommunityPostPageInfo = {
+  __typename?: 'CommunityPostPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type CommunityPostPaginated = {
+  __typename?: 'CommunityPostPaginated';
+  edges?: Maybe<Array<CommunityPostEdge>>;
+  pageInfo?: Maybe<CommunityPostPageInfo>;
+  totalCount?: Maybe<Scalars['Float']>;
+};
+
+export type CommunityPostPayload = {
+  __typename?: 'CommunityPostPayload';
+  communityPost?: Maybe<CommunityPost>;
+  communityPostMedia?: Maybe<Array<CommunityPostMedia>>;
+  errors?: Maybe<Array<CustomError>>;
+  tags?: Maybe<Array<Tag>>;
+};
+
+/** Order by: createdAt */
+export enum CommunityPostsOrderBy {
+  CreatedAt = 'createdAt'
+}
+
+export type CommunityPostsOrderList = {
+  direction: OrderDirection;
+  orderBy: CommunityPostsOrderBy;
 };
 
 export type CommunityRole = {
@@ -653,6 +727,12 @@ export type CustomError = {
   statusCode?: Maybe<Scalars['Float']>;
 };
 
+export type DeleteCommunityPostPayload = {
+  __typename?: 'DeleteCommunityPostPayload';
+  errors?: Maybe<Array<CustomError>>;
+  isDeleteSuccessful?: Maybe<Scalars['Boolean']>;
+};
+
 export type DeletePostPayload = {
   __typename?: 'DeletePostPayload';
   errors?: Maybe<Array<CustomError>>;
@@ -890,6 +970,12 @@ export type GetCommunityPayload = {
   errors?: Maybe<Array<CustomError>>;
 };
 
+export type GetCommunityPostPayload = {
+  __typename?: 'GetCommunityPostPayload';
+  communityPost?: Maybe<CommunityPostPaginated>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
 export type GetCompanyBranchPayload = {
   __typename?: 'GetCompanyBranchPayload';
   branches?: Maybe<Array<Branch>>;
@@ -989,6 +1075,9 @@ export type Mutation = {
   commentReply: ReplyToCommentPayload;
   commentToPost: NewReplyPayload;
   commentUpdate: NewReplyPayload;
+  communityPostCreate: CommunityPostPayload;
+  communityPostDelete: DeleteCommunityPostPayload;
+  communityPostUpdate: UpdateCommunityPostPayload;
   companyAccountStatus: CompanyPayload;
   companyAvatar: CompanyPayload;
   companyCommunity: CommunityPayload;
@@ -1104,6 +1193,25 @@ export type MutationCommentUpdateArgs = {
 };
 
 
+export type MutationCommunityPostCreateArgs = {
+  files?: InputMaybe<Array<Scalars['Upload']>>;
+  input: CommunityPostInput;
+};
+
+
+export type MutationCommunityPostDeleteArgs = {
+  postId: Scalars['String'];
+};
+
+
+export type MutationCommunityPostUpdateArgs = {
+  file?: InputMaybe<Scalars['Upload']>;
+  id: Scalars['String'];
+  imageURL?: InputMaybe<Scalars['String']>;
+  input?: InputMaybe<UpdateCommunityPostInput>;
+};
+
+
 export type MutationCompanyAccountStatusArgs = {
   companyId: Scalars['String'];
   data: CompanyAccountStatus;
@@ -1118,7 +1226,7 @@ export type MutationCompanyAvatarArgs = {
 
 export type MutationCompanyCommunityArgs = {
   input: CommunityInput;
-  profile: Scalars['Upload'];
+  profile?: InputMaybe<Scalars['Upload']>;
 };
 
 
@@ -1590,6 +1698,7 @@ export type Query = {
   __typename?: 'Query';
   commentReactions: CommentReactionPaginationPayload;
   comments: CommentPaginationPayload;
+  communityPost: GetCommunityPostPayload;
   companies: CompanyPaginated;
   companiesSuggestions: CompanyPaginated;
   companyPostsFollowedByUser?: Maybe<PostPagination>;
@@ -1632,6 +1741,16 @@ export type QueryCommentsArgs = {
   last?: InputMaybe<Scalars['Float']>;
   order?: InputMaybe<OrderCommentsList>;
   postId: Scalars['String'];
+};
+
+
+export type QueryCommunityPostArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  communityId: Scalars['String'];
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<CommunityPostsOrderList>;
 };
 
 
@@ -1996,6 +2115,21 @@ export type UnfollowCompanyInput = {
 
 export type UnfollowUserInput = {
   userId: Scalars['String'];
+};
+
+export type UpdateCommunityPostInput = {
+  description?: InputMaybe<Scalars['String']>;
+  metaTitle?: InputMaybe<Scalars['String']>;
+  tags?: InputMaybe<Array<Scalars['String']>>;
+  text: Scalars['String'];
+};
+
+export type UpdateCommunityPostPayload = {
+  __typename?: 'UpdateCommunityPostPayload';
+  communityPost?: Maybe<CommunityPost>;
+  communityPostMedia?: Maybe<CommunityPostMedia>;
+  errors?: Maybe<Array<CustomError>>;
+  tags?: Maybe<Array<Tag>>;
 };
 
 export type UpdatePostInput = {

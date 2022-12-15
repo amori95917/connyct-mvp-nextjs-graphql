@@ -37,12 +37,7 @@ export const Community = ({
 		<>
 			{isDrawerOpen && (
 				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} drawerSize='lg'>
-					<CommunityForm
-						isEditing={true}
-						setIsOpen={setIsDrawerOpen}
-						companySlug={companySlug}
-						community={community}
-					/>
+					<CommunityForm setIsOpen={setIsDrawerOpen} companySlug={companySlug} community={community} />
 				</RightDrawerLayout>
 			)}
 			{isInviteDrawerOpen && (

@@ -33,7 +33,7 @@ const InviteMembers = () => {
 							);
 						})}
 					</div>
-					<div className='bg-gray-300 p-4'>
+					<div className='bg-brandSecondary p-4'>
 						<p className='text-gray-800 text-md'>1 member selected</p>
 						<div className='flex items-center justify-between pt-4'>
 							<div className='user'>
