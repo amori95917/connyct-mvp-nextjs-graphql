@@ -7,14 +7,11 @@ import { AiOutlineClose, AiOutlineCloudUpload } from 'react-icons/ai';
 import { FormEditor, FormInput, FormRadio, FileInput } from '@/shared-components/forms';
 import { useMutation } from '@apollo/client';
 import { CREATE_COMMUNITY, GET_COMMUNITIES, EDIT_COMMUNITY } from '@/graphql/community';
-// import { FormDropFile } from '@/shared-components/forms/drop-file/FormDropFIle';
-import { acceptedImagesFileTypes } from '@/constants/acceptedFileTypes';
-import { verifyFile } from '@/utils/verifyFile';
 
 import { schema } from './schema';
-import { getInitialValues, initialValues } from './initialValues';
-import { useDropzone } from 'react-dropzone';
+import Dropzone from 'react-dropzone';
 import { CommunityFormFields, CommunityFormPropsTypes } from './types';
+import { getInitialValues } from './initialValues';
 import { CoverPhotoUploadForm } from '@/shared-components/cover-photo-upload-form';
 
 const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
@@ -33,18 +30,15 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 	} = useForm<CommunityFormFields>({
 		mode: 'onSubmit',
 		resolver: yupResolver(schema),
-		defaultValues: community || initialValues,
+		defaultValues: getInitialValues(community),
 	});
-	const [rerender, setRerender] = useState(false);
-	const [profileImage, setProfileImage] = useState<File[]>();
-
 	const [createCommunity, { loading }] = useMutation(CREATE_COMMUNITY);
 	const [editCommunity, { loading: editLoading }] = useMutation(EDIT_COMMUNITY);
 
 	const onSubmit = handleSubmit(async input => {
 		console.log(input);
 		const { coverPicture: cover, profile, ...restInput } = input;
-
+		debugger;
 		if (!community?.id) {
 			try {
 				const response = await createCommunity({
@@ -85,49 +79,6 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 		}
 	});
 
-	// TODO make a single logic to handle the both uploads
-
-	//cover photo
-	const onDrop = (files: File[]) => {
-		console.log('cover picture called');
-		if (files && files.length > 0) {
-			const isVerifiedFile = verifyFile(files, acceptedImagesFileTypes, 1000000);
-			if (isVerifiedFile) {
-				const currentFile = files;
-				setValue('coverPicture', currentFile);
-				setRerender(!rerender);
-			}
-		}
-	};
-
-	const onDropProfilePicture = (files: File[]) => {
-		if (files && files.length > 0) {
-			const isVerifiedFile = verifyFile(files, acceptedImagesFileTypes, 1000000);
-			if (isVerifiedFile) {
-				const currentFile = files;
-				setValue('profile', currentFile);
-				setProfileImage(currentFile);
-				setRerender(!rerender);
-			}
-		}
-	};
-
-	const { getRootProps, getInputProps } = useDropzone({ onDrop: onDropProfilePicture });
-
-	const onSelectedImageRemoveHandler = removedImage => {
-		reset();
-	};
-
-	const getProfilePicture = () => {
-		if (typeof profileImage === 'string') {
-			return profileImage;
-		} else if (typeof profileImage === 'object') {
-			return URL.createObjectURL(profileImage?.[0]);
-		} else {
-			return 'https://i.pravatar.cc';
-		}
-	};
-
 	return (
 		<>
 			<form onSubmit={onSubmit} className='md:px-3'>
@@ -137,35 +88,46 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 					control={control}
 					name={'profile'}
 					multiple={false}
-					defaultValue={community?.profile}
-					value={community?.profile}
-					uploadComponent={
-						<>
-							<div className='bg-gray-100 h-28 overflow-hidden relative rounded-full w-28 hover:brightness-50'>
-								<div className='flex h-full items-center justify-center rounded-md w-full'>
-									<AiOutlineCloudUpload size={25} />
-								</div>
-							</div>
-						</>
-					}
+					initialValues={[{ preview: community?.profile }]}
+					renderUpload={(onDrop, files, handleRemove) => {
+						return (
+							<Dropzone onDrop={onDrop}>
+								{({ getRootProps, getInputProps }) => (
+									<section>
+										<div {...getRootProps()}>
+											<input {...getInputProps()} />
+											{files.length > 0 ? (
+												files.map(file => {
+													return (
+														<div className='file-preview relative' key={file.name}>
+															<Image
+																src={file.preview}
+																alt={file.name || 'avatar'}
+																width={100}
+																height={100}
+																className='object-cover rounded-full'
+															/>
+															<span onClick={() => handleRemove(file)}>Delete</span>
+														</div>
+													);
+												})
+											) : (
+												<div className='bg-gray-100 h-28 overflow-hidden relative rounded-full w-28 hover:brightness-50'>
+													<div className='flex h-full items-center justify-center rounded-md w-full'>
+														<AiOutlineCloudUpload size={25} />
+													</div>
+												</div>
+											)}
+										</div>
+									</section>
+								)}
+							</Dropzone>
+						);
+					}}
 					labelClassName='mt-4'
 					errors={errors}
 				/>
-				{/* <p className='flex font-semibold items-center mb-2 text-gray-700 text-sm tracking-wide uppercase'>
-					Upload profile picture of community
-				</p>
-				<div
-					className='bg-gray-100 h-40 overflow-hidden relative rounded-full w-40 hover:brightness-50'
-					{...getRootProps()}>
-					<Image src={getProfilePicture()} alt='Image' fill />
-					<input
-						className='bg-light-bg cursor-pointer flex h-full items-center justify-center rounded-full w-full'
-						{...getInputProps()}
-					/>
-					<div className='flex h-full items-center justify-center rounded-md w-full'>
-						<AiOutlineCloudUpload size={25} />
-					</div>
-				</div> */}
+
 				<div className='w-full'>
 					<FormInput
 						name={`name`}
@@ -218,7 +180,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 						errors={errors}
 					/>
 				</div>
-				{getValues('coverPicture')?.length
+				{/* {getValues('coverPicture')?.length
 					? getValues('coverPicture').map((image: any, index: any) => {
 							return (
 								<div className='h-72 mt-5 relative rounded-md w-96' key={index}>
@@ -237,7 +199,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 								</div>
 							);
 					  })
-					: ''}
+					: ''} */}
 				{/* {!getValues('coverPicture')?.length && (
 					<>
 						<label className='flex font-semibold items-center mb-0 mt-4 text-gray-700 text-sm tracking-wide uppercase'>
@@ -256,13 +218,54 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 						<p className='block text-left text-red-600 text-sm'>{errors?.profilePicture?.message}</p>
 					</>
 				)} */}
-				<FileInput
+				{/* <FileInput
 					label='Cover photo'
 					control={control}
 					name={'coverPicture'}
 					multiple={false}
 					defaultValue={community?.coverPicture}
 					uploadComponent={<CoverPhotoUploadForm />}
+					labelClassName='mt-4'
+					errors={errors}
+				/> */}
+				<FileInput
+					label='Cover Photo'
+					control={control}
+					name='coverPicture'
+					multiple={false}
+					initialValues={[{ preview: community?.profile }]}
+					renderUpload={(onDrop, files, handleRemove) => {
+						console.log('files', files);
+						return (
+							<Dropzone onDrop={onDrop}>
+								{({ getRootProps, getInputProps }) => (
+									<section>
+										<div {...getRootProps()}>
+											<input {...getInputProps()} />
+											{files.length > 0 ? (
+												files.map(file => {
+													return (
+														<div className='file-preview relative' key={file.name}>
+															<Image
+																src={file.preview}
+																alt={file.name || 'avatar'}
+																width={200}
+																height={200}
+																className='object-cover rounded-md'
+															/>
+															<span onClick={() => handleRemove(file)}>Delete</span>
+														</div>
+													);
+												})
+											) : (
+												<CoverPhotoUploadForm />
+											)}
+										</div>
+									</section>
+								)}
+							</Dropzone>
+						);
+					}}
 					labelClassName='mt-4'
 					errors={errors}
 				/>

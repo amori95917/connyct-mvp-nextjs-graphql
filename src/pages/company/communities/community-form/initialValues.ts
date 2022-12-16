@@ -7,7 +7,10 @@ export const initialValues = {
 
 export const getInitialValues = (data: CommunityFormFields) => {
 	return {
-		name: data?.name,
-		description: data?.description,
+		profile: data?.profile ? [{ preview: data?.profile }] : [],
+		name: data?.name || '',
+		description: data?.description || '',
+		type: data?.type,
+		coverPicture: data?.coverPicture ? [{ preview: data?.coverPicture }] : [],
 	};
 };
