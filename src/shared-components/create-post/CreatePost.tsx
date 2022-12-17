@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-import { BiImages } from 'react-icons/bi';
-import { BsCameraVideo, BsCalendar3Event } from 'react-icons/bs';
-import { RiStockLine } from 'react-icons/ri';
-import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
+import { UilImages, UilCalender, UilLabelAlt } from '@iconscout/react-unicons';
 
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { getCookie } from '@/utils/cookies';
@@ -65,13 +62,13 @@ const CreatePost = props => {
 				</div>
 				<div className='flex gap-4 justify-center mt-2 w-full'>
 					<button onClick={onCommonButtonClickHandler} className={postButtonClassName}>
-						<BiImages fill='#50c7a6' className='mr-2' size={25} /> Media
+						<UilImages fill='#50c7a6' className='mr-2' size={25} /> Media
 					</button>
 					<button onClick={onCommonButtonClickHandler} className={postButtonClassName}>
-						<BsCalendar3Event className='mr-2' fill='#5abff8' size={20} /> Events
+						<UilCalender className='mr-2' fill='#5abff8' size={20} /> Events
 					</button>
 					<button onClick={onProductClickHandler} className={postButtonClassName}>
-						<MdOutlineProductionQuantityLimits className='mr-2' fill='#DCA3F7' size={25} /> Products
+						<UilLabelAlt className='mr-2' fill='#DCA3F7' size={25} /> Products
 					</button>
 				</div>
 			</div>

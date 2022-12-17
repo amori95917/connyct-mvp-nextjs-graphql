@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiEdit2 } from 'react-icons/fi';
+import { UilImageEdit } from '@iconscout/react-unicons';
 import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
 import { CommunityForm } from './community-form';
 import { InviteMembers } from './invite-memers';
@@ -24,6 +24,7 @@ export const Community = ({
 	const [isInviteDrawerOpen, setIsInviteDrawerOpen] = useState(false);
 
 	const handleDrawerToggle = () => {
+		console.log('toggled');
 		setIsDrawerOpen(!isDrawerOpen);
 	};
 	const handleInviteDrawerToggle = () => setIsInviteDrawerOpen(!isInviteDrawerOpen);
@@ -32,9 +33,9 @@ export const Community = ({
 		router.push(`/company/${companySlug}/communities/${communityId}`);
 	};
 
-	console.log(community, 'community');
 	return (
 		<>
+			{console.log('isDrawerOpen', isDrawerOpen)}
 			{isDrawerOpen && (
 				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} drawerSize='lg'>
 					<CommunityForm setIsOpen={setIsDrawerOpen} companySlug={companySlug} community={community} />
@@ -66,8 +67,8 @@ export const Community = ({
 					alt='participant-avatar'
 					className='rounded-full'
 				/>
-				<button onClick={() => handleDrawerToggle(community.id)}>
-					<FiEdit2 />
+				<button onClick={handleDrawerToggle}>
+					<UilImageEdit />
 				</button>
 			</div>
 			<Link href={`/company/${companySlug}/communities/${community.id}`}>

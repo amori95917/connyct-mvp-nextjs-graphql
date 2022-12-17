@@ -1,4 +1,4 @@
-import { BiCommentDetail } from 'react-icons/bi';
+import { UilCommentInfo } from '@iconscout/react-unicons';
 import { Avatar } from '../avatar';
 
 type ContibuitorsProps = {
@@ -24,7 +24,7 @@ const Contributor = (props: ContibuitorsProps) => {
 					</div>
 					<div className='flex gap-1 items-center'>
 						<span>
-							<BiCommentDetail fill='#50c7a6' />
+							<UilCommentInfo fill='#50c7a6' />
 						</span>
 						<span>{replies}</span>
 					</div>

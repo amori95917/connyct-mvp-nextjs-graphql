@@ -1,5 +1,5 @@
 import Dropzone from 'react-dropzone';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
+import { UilCloudUpload } from '@iconscout/react-unicons';
 
 export const DropFile = ({ onDrop }: any) => {
 	return (
@@ -8,7 +8,7 @@ export const DropFile = ({ onDrop }: any) => {
 				<div className='flex items-center justify-center w-full' {...getRootProps()}>
 					<input {...getInputProps()} />
 					<p className='flex justify-center mt-3'>
-						<AiOutlineCloudUpload fill='#2599c0' size={100} />
+						<UilCloudUpload fill='#2599c0' size={100} />
 					</p>
 				</div>
 			)}

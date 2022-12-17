@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { AiOutlineClose, AiOutlineCloudUpload } from 'react-icons/ai';
+import { UilTimes, UilCloudUpload } from '@iconscout/react-unicons';
 
 import { FormEditor, FormInput, FormRadio, FileInput } from '@/shared-components/forms';
 import { useMutation } from '@apollo/client';
@@ -25,7 +24,6 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 		handleSubmit,
 		reset,
 		setValue,
-		getValues,
 		formState: { errors, isSubmitting },
 	} = useForm<CommunityFormFields>({
 		mode: 'onSubmit',
@@ -37,61 +35,60 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 
 	const onSubmit = handleSubmit(async input => {
 		console.log(input);
-		const { coverPicture: cover, profile, ...restInput } = input;
-		debugger;
-		if (!community?.id) {
-			try {
-				const response = await createCommunity({
-					variables: {
-						input: { ...restInput, companyId: companySlug },
-						profile: profile?.[0],
-						cover: cover?.[0],
-					},
-					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: companySlug } }],
-				});
+		const { coverImage, profile, ...restInput } = input;
+		// if (!community?.id) {
+		// 	try {
+		// 		const response = await createCommunity({
+		// 			variables: {
+		// 				input: { ...restInput, companyId: companySlug },
+		// 				profile: profile?.[0],
+		// 				coverImage: coverImage?.[0],
+		// 			},
+		// 			refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: companySlug } }],
+		// 		});
 
-				if (response) {
-					setIsOpen(false);
-					reset();
-				}
-			} catch (e) {
-				console.log(e, '####');
-			}
-		} else {
-			try {
-				const response = await editCommunity({
-					variables: {
-						communityId: community.id,
-						input: { ...restInput },
-						profile: profile?.[0],
-						cover: cover?.[0],
-					},
-					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: community.id } }],
-				});
+		// 		if (response) {
+		// 			setIsOpen(false);
+		// 			reset();
+		// 		}
+		// 	} catch (e) {
+		// 		console.log(e, '####');
+		// 	}
+		// } else {
+		// 	try {
+		// 		const response = await editCommunity({
+		// 			variables: {
+		// 				communityId: community.id,
+		// 				input: { ...restInput },
+		// 				profile: profile?.[0],
+		// 				coverImage: coverImage?.[0],
+		// 			},
+		// 			refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: community.id } }],
+		// 		});
 
-				if (response) {
-					setIsOpen(false);
-					reset();
-				}
-			} catch (e) {
-				console.log(e, '####');
-			}
-		}
+		// 		if (response) {
+		// 			setIsOpen(false);
+		// 			reset();
+		// 		}
+		// 	} catch (e) {
+		// 		console.log(e, '####');
+		// 	}
+		// }
 	});
 
 	return (
 		<>
 			<form onSubmit={onSubmit} className='md:px-3'>
 				<p className='font-semibold mb-10 text-gray-600 text-xl'>Create a new community</p>
-				<FileInput
+				{/* <FileInput
 					label='Upload profile picture of community'
 					control={control}
 					name={'profile'}
 					multiple={false}
-					initialValues={[{ preview: community?.profile }]}
+					initialValues={community?.profile}
 					renderUpload={(onDrop, files, handleRemove) => {
 						return (
-							<Dropzone onDrop={onDrop}>
+							<Dropzone onDrop={onDrop} files={files}>
 								{({ getRootProps, getInputProps }) => (
 									<section>
 										<div {...getRootProps()}>
@@ -107,14 +104,16 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 																height={100}
 																className='object-cover rounded-full'
 															/>
-															<span onClick={() => handleRemove(file)}>Delete</span>
+															<span onClick={() => handleRemove(file)}>
+																<UilTimes size={20} />
+															</span>
 														</div>
 													);
 												})
 											) : (
 												<div className='bg-gray-100 h-28 overflow-hidden relative rounded-full w-28 hover:brightness-50'>
 													<div className='flex h-full items-center justify-center rounded-md w-full'>
-														<AiOutlineCloudUpload size={25} />
+														<UilCloudUpload size={25} />
 													</div>
 												</div>
 											)}
@@ -126,7 +125,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 					}}
 					labelClassName='mt-4'
 					errors={errors}
-				/>
+				/> */}
 
 				<div className='w-full'>
 					<FormInput
@@ -231,9 +230,10 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 				<FileInput
 					label='Cover Photo'
 					control={control}
-					name='coverPicture'
+					name='coverImage'
 					multiple={false}
-					initialValues={[{ preview: community?.profile }]}
+					initialValues={community?.coverImage}
+					setValue={setValue}
 					renderUpload={(onDrop, files, handleRemove) => {
 						console.log('files', files);
 						return (
@@ -253,7 +253,9 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 																height={200}
 																className='object-cover rounded-md'
 															/>
-															<span onClick={() => handleRemove(file)}>Delete</span>
+															<span onClick={() => handleRemove(file)}>
+																<UilTimes size={20} />
+															</span>
 														</div>
 													);
 												})

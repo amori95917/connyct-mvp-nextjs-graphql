@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { BiDownArrowAlt, BiUpArrowAlt } from 'react-icons/bi';
-import { BsThreeDotsVertical } from 'react-icons/bs';
+import { UilAngleDown, UilAngleUp, UilEllipsisV } from '@iconscout/react-unicons';
 import ReactHtmlParser from 'react-html-parser';
 
 import { useDiscussionAnswersQuery } from '@/hooks/services/useDiscussionAnswerQuery';
@@ -46,7 +45,7 @@ export const DiscussionView = ({ discussion }) => {
 						data-dropdown-toggle='dropdown'
 						className='font-medium inline-flex items-center px-4 py-2.5 rounded-lg text-center text-sm text-white hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-300'
 						type='button'>
-						<BsThreeDotsVertical fill='black' />
+						<UilEllipsisV fill='black' />
 					</button>
 					{showActions && <DiscussionActionsDropdown />}
 				</div>
@@ -58,11 +57,11 @@ export const DiscussionView = ({ discussion }) => {
 			<div className='bg-slate-200 h-px mt-4'></div>
 			<div className='flex items-center mt-3 text-gray-600'>
 				<button className='mr-1 text-slate-600 hover:text-blue-600' onClick={() => handelVoteUp()}>
-					<BiUpArrowAlt size={24} />
+					<UilAngleUp size={24} />
 				</button>
 				<span className='font-semibold text-primary text-xl'>{discussion?.upVote}</span>
 				<button className='ml-1 text-slate-600 hover:text-rose-600' onClick={() => handelVoteDown()}>
-					<BiDownArrowAlt size={24} />
+					<UilAngleDown size={24} />
 				</button>
 				<p className='ml-2'>{discussionAnswers?.length || 0} comments</p>
 				{/* <p className=''>10 replies</p> */}

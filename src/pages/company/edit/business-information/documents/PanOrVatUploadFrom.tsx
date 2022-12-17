@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { AiOutlineClose } from 'react-icons/ai';
+import { UilTimes } from '@iconscout/react-unicons';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@apollo/client';
 
@@ -95,7 +96,7 @@ export const PanOrVatUploadFrom: React.FC<DocumentUploadProps> = ({
 											type='button'
 											onClick={() => onSelectedImageRemoveHandler(image)}
 											className='-mr-2 -mt-2 absolute bg-gray-300 flex h-6 items-center justify-center outline outline-4 outline-offset-0 outline-white right-0 rounded-full w-6 z-50'>
-											<AiOutlineClose size={20} />
+											<UilTimes size={20} />
 										</button>
 										<Image
 											className='object-cover rounded-md'

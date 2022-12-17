@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
-import { AiOutlineSend } from 'react-icons/ai';
+import { UilMessage } from '@iconscout/react-unicons';
 import produce from 'immer';
 
 import { CREATE_COMMENT_FEED } from '@/graphql/feeds';
@@ -93,7 +93,7 @@ const CreateComment = ({ postId }: commentPost) => {
 						{/* <input className='bg-slate-100 flex h-12 ml-2 w-full' placeholder='write comment here' /> */}
 					</div>
 					<button type='submit' className='bg-slate-100 h-12 ml-2 p-2 rounded-md hover:bg-slate-200'>
-						<AiOutlineSend fill='#2599c0' size={30} />
+						<UilMessage fill='#2599c0' size={30} />
 					</button>
 				</form>
 			</div>

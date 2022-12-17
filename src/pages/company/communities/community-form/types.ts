@@ -2,8 +2,8 @@ export type CommunityFormFields = {
 	name: string;
 	type: 'PUBLIC' | 'PRIVATE';
 	description: string;
-	profile: File[];
-	coverPicture: File[];
+	profile?: File[];
+	coverImage?: File[];
 };
 
 export type CommunityFormPropsTypes = {

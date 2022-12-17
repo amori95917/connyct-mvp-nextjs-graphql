@@ -1,6 +1,5 @@
 import { DataNotFound } from './DataNotFoundIcon';
 
-// import { AiOutlineArrowUp } from 'react-icons/ai';
 type EmptyComponentProps = {
 	text?: string | React.ReactNode;
 	subText?: string | React.ReactNode;

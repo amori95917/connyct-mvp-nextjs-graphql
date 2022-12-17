@@ -3,12 +3,14 @@ import Router from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 // import { useQuery } from '@apollo/client';
-import { MdOutlineSettings } from 'react-icons/md';
-import { FcInvite } from 'react-icons/fc';
-import { MdOutlineManageAccounts } from 'react-icons/md';
-import { BiLogOutCircle } from 'react-icons/bi';
-import { MdOutlineMore } from 'react-icons/md';
-import { AiOutlineArrowLeft } from 'react-icons/ai';
+import {
+	UilSetting,
+	UilUserSquare,
+	UilSignout,
+	UilEllipsisV,
+	UilAngleLeft,
+	UilAngleRightB,
+} from '@iconscout/react-unicons';
 
 // import { GET_USER } from '@/graphql/user';
 import { deleteCookie, getCookie } from '@/utils/cookies';
@@ -100,91 +102,101 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 						</span>
 					</div>
 					<button className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-indigo-300'>
-						<FcInvite size={25} fill='#00E0FF' />
+						{/* <FcInvite size={25} fill='#00E0FF' /> */}
 						<span className='ml-5'>Invite</span>
 					</button>
 					<button
 						onClick={() => onClickHandler('setting')}
 						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
 						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
+							<UilSetting size={25} fill='#00E0FF' />
 							<span className='ml-5'>Settings</span>
 						</span>
-						<span className='text-2xl'>{'>'}</span>
+						<span className='text-2xl'>
+							<UilAngleRightB />
+						</span>
 					</button>
 					<button
 						onClick={() => onClickHandler('manage')}
 						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-indigo-300'>
 						<span className='flex'>
-							<MdOutlineManageAccounts size={25} fill='#00E0FF' />
+							<UilUserSquare size={25} fill='#00E0FF' />
 							<span className='ml-5'>Manage</span>
 						</span>
-						<span className='text-2xl'>{'>'}</span>
+						<span className='text-2xl'>
+							<UilAngleRightB />
+						</span>
 					</button>
 					<button
 						onClick={() => onClickHandler('other')}
 						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-indigo-300'>
 						<span className='flex'>
-							<MdOutlineMore rotate={'-180deg'} size={25} fill='#00E0FF' />
+							<UilEllipsisV rotate={'-180deg'} size={25} fill='#00E0FF' />
 							<span className='ml-5'>Other</span>
 						</span>
-						<span className='text-2xl'>{'>'}</span>
+						<span className='text-2xl'>
+							<UilAngleRightB />
+						</span>
 					</button>
 					<button
 						onClick={onClickLogoutHandle}
 						className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-indigo-300'>
-						<BiLogOutCircle size={25} fill='#00E0FF' />
+						<UilSignout size={25} fill='#00E0FF' />
 						<span className='ml-5'>Logout</span>
 					</button>
 				</div>
 				<div className={` ${classes.setting} absolute duration-200 ease-in-out  ml-5`}>
 					<span className='flex items-center ml-5'>
 						<button onClick={onBackClick}>
-							<AiOutlineArrowLeft size={25} />
+							<UilAngleLeft size={25} />
 						</button>{' '}
 						<span className='bold ml-5 text-2xl'>Settings</span>
 					</span>
 					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
 						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
+							<UilSetting size={25} fill='#00E0FF' />
 							<span className='ml-5'>Settings</span>
 						</span>
-						<span className='text-2xl'>{'>'}</span>
+						<span className='text-2xl'>
+							<UilAngleRightB />
+						</span>
 					</button>
 				</div>
 				<div className={` ${classes.manage} absolute duration-200 ease-in-out ml-5`}>
 					<span className='flex items-center ml-5'>
 						<button onClick={onBackClick}>
-							<AiOutlineArrowLeft size={25} />
+							<UilAngleLeft size={25} />
 						</button>{' '}
 						<span className='bold ml-5 text-2xl'>Manage</span>
 					</span>
 					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
 						<Link href={`/company/${slug}/edit/business-information/general`} passHref>
 							<button className='flex'>
-								<MdOutlineSettings size={25} fill='#00E0FF' />
+								<UilSetting size={25} fill='#00E0FF' />
 								<span className='ml-5'>Edit Profile</span>
 							</button>
 						</Link>
 					</button>
 					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
 						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
+							<UilSetting size={25} fill='#00E0FF' />
 							<span className='ml-5'>Manage</span>
 						</span>
-						<span className='text-2xl'>{'>'}</span>
+						<span className='text-2xl'>
+							<UilAngleRightB />
+						</span>
 					</button>
 				</div>
 				<div className={` ${classes.other} absolute duration-200 ease-in-out  ml-5`}>
 					<span className='flex items-center ml-5'>
 						<button onClick={onBackClick}>
-							<AiOutlineArrowLeft size={25} />
+							<UilAngleLeft size={25} />
 						</button>{' '}
 						<span className='bold ml-5 text-2xl'>Other</span>
 					</span>
 					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
 						<span className='flex'>
-							<MdOutlineSettings size={25} fill='#00E0FF' />
+							<UilSetting size={25} fill='#00E0FF' />
 							<span className='ml-5'>Other</span>
 						</span>
 					</button>

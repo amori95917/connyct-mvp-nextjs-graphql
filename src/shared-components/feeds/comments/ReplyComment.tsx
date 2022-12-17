@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { AiOutlineSend } from 'react-icons/ai';
+import { UilMessage } from '@iconscout/react-unicons';
 import * as yup from 'yup';
 import produce from 'immer';
 
@@ -106,7 +106,7 @@ const ReplyComment = React.forwardRef(({ postId, commentId }: createCommentReply
 					<button
 						type='submit'
 						className='bg-slate-100 h-10 ml-2 p-2 rounded-md w-10 hover:bg-slate-200'>
-						<AiOutlineSend fill='#2599c0' size={25} />
+						<UilMessage fill='#2599c0' size={25} />
 					</button>
 				</form>
 			</div>

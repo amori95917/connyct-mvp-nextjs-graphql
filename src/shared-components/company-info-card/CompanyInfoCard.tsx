@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { MdVerified } from 'react-icons/md';
+import { UilCheckCircle } from '@iconscout/react-unicons';
 
 const slateSecondaryClassNames = 'text-slate-400';
 const boldSecondaryTextClassNames = 'font-bold text-xl';
@@ -31,7 +31,7 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 								<div className='flex font-bold h-fit items-center'>
 									<p className='font-bold text-lg'>{data?.getCompanyById?.legalName}</p>
 									<span className='ml-2'>
-										<MdVerified fill={`${data?.getCompanyById?.isVerified ? '#5A6399' : '#9ca3af'}`} />
+										<UilCheckCircle fill={`${data?.getCompanyById?.isVerified ? '#5A6399' : '#9ca3af'}`} />
 									</span>
 								</div>
 								<span className={`font-bold text-primary`}>{data?.getCompanyById?.name}</span>

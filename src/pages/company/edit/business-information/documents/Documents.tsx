@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
+import { UilCloudUpload } from '@iconscout/react-unicons';
 import { useDropzone } from 'react-dropzone';
 import { useMutation } from '@apollo/client';
 
@@ -172,7 +172,7 @@ const Documents: React.FC<DocumentsProps> = props => {
 								{...getInputProps()}
 							/>
 							<div className='flex h-full items-center justify-center rounded-md w-full'>
-								<AiOutlineCloudUpload size={25} />
+								<UilCloudUpload size={25} />
 							</div>
 						</div>
 					</form>

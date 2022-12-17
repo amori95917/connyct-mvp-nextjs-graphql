@@ -5,8 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { FiEdit2 } from 'react-icons/fi';
-import { GiEarthAfricaEurope } from 'react-icons/gi';
+import { UilPen, UilLayerGroup } from '@iconscout/react-unicons';
 
 type CommunityHeadProps = {
 	coverImage: string;
@@ -59,7 +58,7 @@ export const CommunityHead = (props: CommunityHeadProps) => {
 							</div>
 							<div className='flex items-center'>
 								<span>
-									<GiEarthAfricaEurope size={20} />
+									<UilLayerGroup size={20} />
 								</span>
 								<span className='pl-1 text-lg'>{community?.type}</span>
 								<span className='pl-1 text-lg'>{community?.followersCount} members</span>
@@ -68,7 +67,7 @@ export const CommunityHead = (props: CommunityHeadProps) => {
 						<button
 							className='absolute flex gap-1 items-center right-0 top-0'
 							onClick={handleDrawerToggle}>
-							Edit <FiEdit2 />
+							<UilPen />
 						</button>
 						<div className='relative'>
 							<div className='flex flex-col relative top-7'>

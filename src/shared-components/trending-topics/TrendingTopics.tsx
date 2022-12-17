@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
-import { AiOutlineDown } from 'react-icons/ai';
+import { UilAngleDown } from '@iconscout/react-unicons';
 
 import { LoaderDataComponent } from '@/shared-components/loader-data-component';
 import { GET_TAGS } from '@/graphql/tags';
@@ -39,7 +39,7 @@ const TrendingTopics = () => {
 					);
 				})}
 				<button className='flex font-semibold items-center ml-5 mt-3 text-primary'>
-					<span className='flex items-center mr-1'>Read more</span> <AiOutlineDown />
+					<span className='flex items-center mr-1'>Read more</span> <UilAngleDown />
 				</button>
 			</LoaderDataComponent>
 		</div>

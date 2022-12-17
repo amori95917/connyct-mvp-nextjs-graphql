@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { BiDownArrowAlt, BiUpArrowAlt } from 'react-icons/bi';
-import { BsThreeDotsVertical } from 'react-icons/bs';
+import { UilAngleDown, UilAngleUp, UilEllipsisV } from '@iconscout/react-unicons';
 import ReactHtmlParser from 'react-html-parser';
 
 import { CreatorContainer } from '@/shared-components/creator-container/CreatorContainer';
@@ -57,7 +56,7 @@ export const DiscussionAnswer = ({
 						data-dropdown-toggle='dropdown'
 						className='font-medium inline-flex items-center px-4 py-2.5 rounded-lg text-center text-sm text-white hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-300'
 						type='button'>
-						<BsThreeDotsVertical fill='black' />
+						<UilEllipsisV fill='black' />
 					</button>
 					{showActions && <DiscussionActionsDropdown />}
 				</div>
@@ -68,11 +67,11 @@ export const DiscussionAnswer = ({
 			<div className='bg-slate-200 h-px mt-4'></div>
 			<div className='flex items-center pt-4'>
 				<button className='mr-1 text-slate-600 hover:text-blue-600' onClick={onClickUpvote}>
-					<BiUpArrowAlt size={24} />
+					<UilAngleUp size={24} />
 				</button>
 				<span className='font-semibold text-primary text-xl'>{answer?.upVote || 0}</span>
 				<button className='ml-1 text-slate-600 hover:text-rose-600' onClick={onClickDownvote}>
-					<BiDownArrowAlt size={24} />
+					<UilAngleDown size={24} />
 				</button>
 			</div>
 

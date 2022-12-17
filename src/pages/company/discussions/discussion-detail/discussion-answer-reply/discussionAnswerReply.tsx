@@ -3,8 +3,7 @@ import { formatDistance } from 'date-fns';
 import { useState } from 'react';
 
 import ReactHtmlParser from 'react-html-parser';
-import { BiUpArrowAlt, BiDownArrowAlt } from 'react-icons/bi';
-import { BsThreeDotsVertical } from 'react-icons/bs';
+import { UilAngleDown, UilAngleUp, UilEllipsisV } from '@iconscout/react-unicons';
 
 import { DiscussionActionsDropdown } from '../drop-down/DiscussionActionsDropdown';
 
@@ -58,7 +57,7 @@ export const DiscussionReply = ({ index, node }: { index: number | string }) => 
 							data-dropdown-toggle='dropdown'
 							className='font-medium inline-flex items-center px-4 py-2.5 rounded-lg text-center text-sm text-white hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-300'
 							type='button'>
-							<BsThreeDotsVertical fill='black' />
+							<UilEllipsisV fill='black' />
 						</button>
 						{showActions.show && index == showActions.index && <DiscussionActionsDropdown />}
 					</div>
@@ -69,11 +68,11 @@ export const DiscussionReply = ({ index, node }: { index: number | string }) => 
 				<div className='bg-slate-300 h-px mt-4'></div>
 				<div className='flex items-center pt-4'>
 					<button className='mr-1 text-slate-600 hover:text-primary' onClick={handelVoteUp}>
-						<BiUpArrowAlt size={24} />
+						<UilAngleUp size={24} />
 					</button>
 					<span className='font-semibold text-primary text-xl'>0</span>
 					<button className='ml-1 text-slate-600 hover:text-rose-600' onClick={handelVoteDown}>
-						<BiDownArrowAlt size={24} />
+						<UilAngleDown size={24} />
 					</button>
 				</div>
 			</div>

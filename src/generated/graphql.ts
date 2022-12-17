@@ -100,6 +100,10 @@ export type CommentEdge = {
   node?: Maybe<Comment>;
 };
 
+export type CommentInput = {
+  text: Scalars['String'];
+};
+
 /** Order by:createdAt */
 export enum CommentOrderBy {
   CreatedAt = 'createdAt'
@@ -185,6 +189,7 @@ export type Community = {
   communityRole?: Maybe<Array<CommunityRole>>;
   company?: Maybe<Company>;
   companyId?: Maybe<Scalars['String']>;
+  coverImage?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   createdBy?: Maybe<User>;
   creatorId?: Maybe<Scalars['String']>;
@@ -221,9 +226,9 @@ export type CommunityEdge = {
 };
 
 export type CommunityEditInput = {
-  description: Scalars['String'];
-  name: Scalars['String'];
-  type: Scalars['String'];
+  description?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 export type CommunityInput = {
@@ -237,6 +242,7 @@ export type CommunityMember = {
   __typename?: 'CommunityMember';
   community?: Maybe<Community>;
   communityId?: Maybe<Scalars['String']>;
+  communityRole: CommunityRole;
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   invitedById?: Maybe<Scalars['String']>;
@@ -376,10 +382,12 @@ export type CommunityPolicyUpdateInput = {
 
 export type CommunityPost = {
   __typename?: 'CommunityPost';
+  authorId?: Maybe<Scalars['String']>;
   community?: Maybe<Community>;
   communityId?: Maybe<Scalars['String']>;
   communityPostMedia?: Maybe<CommunityPostMedia>;
   createdAt: Scalars['DateTime'];
+  creator?: Maybe<User>;
   id: Scalars['ID'];
   isApproved?: Maybe<Scalars['Boolean']>;
   isDeleted?: Maybe<Scalars['Boolean']>;
@@ -387,6 +395,11 @@ export type CommunityPost = {
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
+
+/** Order by:createdAt */
+export enum CommunityPostCommentOrderBy {
+  CreatedAt = 'createdAt'
+}
 
 export type CommunityPostEdge = {
   __typename?: 'CommunityPostEdge';
@@ -727,6 +740,12 @@ export type CustomError = {
   statusCode?: Maybe<Scalars['Float']>;
 };
 
+export type DeleteCommentPayload = {
+  __typename?: 'DeleteCommentPayload';
+  errors?: Maybe<Array<CustomError>>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
+};
+
 export type DeleteCommunityPostPayload = {
   __typename?: 'DeleteCommunityPostPayload';
   errors?: Maybe<Array<CustomError>>;
@@ -927,6 +946,63 @@ export type FilterListUsers = {
   omni?: InputMaybe<Scalars['String']>;
 };
 
+export type FirstLevelComment = {
+  __typename?: 'FirstLevelComment';
+  authorId?: Maybe<Scalars['String']>;
+  community?: Maybe<Community>;
+  communityPost?: Maybe<CommunityPost>;
+  communityPostId?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  creator: User;
+  id: Scalars['ID'];
+  mentions: Array<User>;
+  secondLevelComment: SecondLevelCommentPagination;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+export type FirstLevelCommentSecondLevelCommentArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderCommentList>;
+};
+
+export type FirstLevelCommentEdge = {
+  __typename?: 'FirstLevelCommentEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<FirstLevelComment>;
+};
+
+export type FirstLevelCommentPageInfo = {
+  __typename?: 'FirstLevelCommentPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type FirstLevelCommentPaginatedPayload = {
+  __typename?: 'FirstLevelCommentPaginatedPayload';
+  comment?: Maybe<FirstLevelCommentPagination>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type FirstLevelCommentPagination = {
+  __typename?: 'FirstLevelCommentPagination';
+  edges?: Maybe<Array<FirstLevelCommentEdge>>;
+  pageInfo?: Maybe<FirstLevelCommentPageInfo>;
+  totalCount?: Maybe<Scalars['Float']>;
+};
+
+export type FirstLevelCommentPayload = {
+  __typename?: 'FirstLevelCommentPayload';
+  comment?: Maybe<FirstLevelComment>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
 export type FollowCompany = {
   __typename?: 'FollowCompany';
   createdAt: Scalars['DateTime'];
@@ -1065,12 +1141,16 @@ export type LoginLinkAccessInput = {
   email: Scalars['String'];
 };
 
+export type MentionsInput = {
+  mentionIds?: InputMaybe<Array<Scalars['String']>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   acceptCommunityInvite: AcceptInvitePayload;
   activeOrDeactiveIndustry: IndustryPayload;
   changePassword: User;
-  commentDelete: CommentDeletePayload;
+  commentDelete: DeleteCommentPayload;
   commentReaction: CommentReactionsPayload;
   commentReply: ReplyToCommentPayload;
   commentToPost: NewReplyPayload;
@@ -1096,8 +1176,11 @@ export type Mutation = {
   createCompanyGeneralInfo: Company;
   createDiscussionAnswer: DiscussionAnswerPayload;
   createEmployee: User;
+  createFirstLevelComment: FirstLevelCommentPayload;
   createIndustry: IndustryPayload;
   createLikes: LikesPayload;
+  createSecondLevelComment: SecondLevelCommentPayload;
+  createThirdLevelComment: ThirdLevelCommentPayload;
   deleteCommunityPolicy: CommunityPolicyDeletePayload;
   deleteCompanyBranch: CompanyBranchDeletePayload;
   deleteIndustry: IndustryPayload;
@@ -1137,6 +1220,7 @@ export type Mutation = {
   signup: Auth;
   unfollowCompany: Scalars['String'];
   unfollowUser: Scalars['String'];
+  updateComment: FirstLevelCommentPayload;
   updateCommunityPolicy: CommunityPolicyPayload;
   updateIndustry: IndustryPayload;
   updateStatusUser: User;
@@ -1225,6 +1309,7 @@ export type MutationCompanyAvatarArgs = {
 
 
 export type MutationCompanyCommunityArgs = {
+  coverImage?: InputMaybe<Scalars['Upload']>;
   input: CommunityInput;
   profile?: InputMaybe<Scalars['Upload']>;
 };
@@ -1237,8 +1322,9 @@ export type MutationCompanyCommunityDeleteArgs = {
 
 export type MutationCompanyCommunityEditArgs = {
   communityId: Scalars['String'];
+  coverImage?: InputMaybe<Scalars['Upload']>;
   input: CommunityEditInput;
-  profile: Scalars['Upload'];
+  profile?: InputMaybe<Scalars['Upload']>;
 };
 
 
@@ -1315,6 +1401,13 @@ export type MutationCreateEmployeeArgs = {
 };
 
 
+export type MutationCreateFirstLevelCommentArgs = {
+  input: CommentInput;
+  mention?: InputMaybe<MentionsInput>;
+  postId: Scalars['String'];
+};
+
+
 export type MutationCreateIndustryArgs = {
   data: IndustryInput;
 };
@@ -1322,6 +1415,20 @@ export type MutationCreateIndustryArgs = {
 
 export type MutationCreateLikesArgs = {
   data: LikesInput;
+};
+
+
+export type MutationCreateSecondLevelCommentArgs = {
+  commentId: Scalars['String'];
+  input: CommentInput;
+  mention?: InputMaybe<MentionsInput>;
+};
+
+
+export type MutationCreateThirdLevelCommentArgs = {
+  commentId: Scalars['String'];
+  input: CommentInput;
+  mention?: InputMaybe<MentionsInput>;
 };
 
 
@@ -1521,6 +1628,13 @@ export type MutationUnfollowUserArgs = {
 };
 
 
+export type MutationUpdateCommentArgs = {
+  commentId: Scalars['String'];
+  input: CommentInput;
+  mention?: InputMaybe<MentionsInput>;
+};
+
+
 export type MutationUpdateCommunityPolicyArgs = {
   id: Scalars['String'];
   input: CommunityPolicyUpdateInput;
@@ -1577,6 +1691,11 @@ export type OtpPayload = {
   errors?: Maybe<Array<CustomError>>;
   otp?: Maybe<Otp>;
   otpCheck?: Maybe<Scalars['Boolean']>;
+};
+
+export type OrderCommentList = {
+  direction: OrderDirection;
+  orderBy: CommunityPostCommentOrderBy;
 };
 
 export type OrderCommentsList = {
@@ -1704,6 +1823,7 @@ export type Query = {
   companyPostsFollowedByUser?: Maybe<PostPagination>;
   discussionVoteCount: Scalars['Float'];
   getBranchesByCompanyId: GetCompanyBranchPayload;
+  getComments: FirstLevelCommentPaginatedPayload;
   getCommunity: GetCommunityPayload;
   getCommunityById: CommunityPayload;
   getCommunityMember: GetCommunityMemberPayload;
@@ -1790,6 +1910,16 @@ export type QueryDiscussionVoteCountArgs = {
 
 export type QueryGetBranchesByCompanyIdArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryGetCommentsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderCommentList>;
+  postId: Scalars['String'];
 };
 
 
@@ -2064,6 +2194,55 @@ export type ResetPasswordInput = {
   token: Scalars['String'];
 };
 
+export type SecondLevelComment = {
+  __typename?: 'SecondLevelComment';
+  authorId?: Maybe<Scalars['String']>;
+  commentId?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  creator: User;
+  firstLevelComment?: Maybe<FirstLevelComment>;
+  id: Scalars['ID'];
+  thirdLevelComment: ThirdLevelCommentPagination;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+export type SecondLevelCommentThirdLevelCommentArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderCommentList>;
+};
+
+export type SecondLevelCommentEdge = {
+  __typename?: 'SecondLevelCommentEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<SecondLevelComment>;
+};
+
+export type SecondLevelCommentPageInfo = {
+  __typename?: 'SecondLevelCommentPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type SecondLevelCommentPagination = {
+  __typename?: 'SecondLevelCommentPagination';
+  edges?: Maybe<Array<SecondLevelCommentEdge>>;
+  pageInfo?: Maybe<SecondLevelCommentPageInfo>;
+  totalCount?: Maybe<Scalars['Float']>;
+};
+
+export type SecondLevelCommentPayload = {
+  __typename?: 'SecondLevelCommentPayload';
+  comment?: Maybe<SecondLevelComment>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
 export type SignupInput = {
   email: Scalars['String'];
   fullName?: InputMaybe<Scalars['String']>;
@@ -2099,6 +2278,45 @@ export type TagPagination = {
 
 export type TagQuery = {
   name?: InputMaybe<Scalars['String']>;
+};
+
+export type ThirdLevelComment = {
+  __typename?: 'ThirdLevelComment';
+  authorId?: Maybe<Scalars['String']>;
+  commentId?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  creator: User;
+  id: Scalars['ID'];
+  secondLevelComment?: Maybe<SecondLevelComment>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ThirdLevelCommentEdge = {
+  __typename?: 'ThirdLevelCommentEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<ThirdLevelComment>;
+};
+
+export type ThirdLevelCommentPageInfo = {
+  __typename?: 'ThirdLevelCommentPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type ThirdLevelCommentPagination = {
+  __typename?: 'ThirdLevelCommentPagination';
+  edges?: Maybe<Array<ThirdLevelCommentEdge>>;
+  pageInfo?: Maybe<ThirdLevelCommentPageInfo>;
+  totalCount?: Maybe<Scalars['Float']>;
+};
+
+export type ThirdLevelCommentPayload = {
+  __typename?: 'ThirdLevelCommentPayload';
+  comment?: Maybe<ThirdLevelComment>;
+  errors?: Maybe<Array<CustomError>>;
 };
 
 export type Token = {

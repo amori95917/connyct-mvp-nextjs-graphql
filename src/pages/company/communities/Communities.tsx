@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { UilPlus } from '@iconscout/react-unicons';
 
 import { CommunitiesLoader } from '@/shared-components/skeleton-loader/CommunitiesLoader';
 import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
@@ -33,7 +33,7 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 						<button
 							className='bg-primary flex font-bold gap-1 items-center justify-center p-4 rounded-md text-white w-full hover:bg-primary'
 							onClick={handleDrawerToggle}>
-							<AiOutlinePlus fill='#FFFFFF' size={20} />
+							<UilPlus fill='#FFFFFF' size={20} />
 							<span>Create a new community</span>
 						</button>
 					</div>

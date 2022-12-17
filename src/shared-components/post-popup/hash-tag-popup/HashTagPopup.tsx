@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
+import { UilTimes } from '@iconscout/react-unicons';
 import { HashTag } from '@/shared-components/hash-tag';
 
 const HashTagPopup = React.forwardRef(({ setShowHashTagPopup, setHashTags, hashTags }, ref) => {
@@ -26,7 +26,7 @@ const HashTagPopup = React.forwardRef(({ setShowHashTagPopup, setHashTags, hashT
 							onClick={() => {
 								setShowHashTagPopup(false);
 							}}>
-							<AiOutlineClose size={25} />
+							<UilTimes size={25} />
 						</button>
 					</div>
 					<div className='flex ml-5 mt-5 w'>
@@ -55,7 +55,7 @@ const HashTagPopup = React.forwardRef(({ setShowHashTagPopup, setHashTags, hashT
 								<div key={index} className='flex ml-3'>
 									<HashTag text={tag} />
 									<button type='button' onClick={() => onDeleteRecentTag(tag)} className='-ml-2 mb-2'>
-										<AiOutlineClose size={28} />
+										<UilTimes size={28} />
 									</button>
 								</div>
 							);

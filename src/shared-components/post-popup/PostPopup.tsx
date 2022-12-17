@@ -1,19 +1,20 @@
-import { AiOutlineClose } from 'react-icons/ai';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
-import { FormTextArea, FormSelect } from '@/shared-components/forms';
-import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
-import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
+import {
+	UilImages,
+	UilImagePlus,
+	UilVideoQuestion,
+	UilShoppingBag,
+	UilTimes,
+} from '@iconscout/react-unicons';
 import { Controller } from 'react-hook-form';
 import Cookies from 'js-cookie';
 import { useMutation } from '@apollo/client';
+
+import { FormTextArea, FormSelect } from '@/shared-components/forms';
 import { CREATE_POST } from '@/graphql/company';
-import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
-import { BiImages } from 'react-icons/bi';
-import { BsCameraVideo } from 'react-icons/bs';
-import { BsCalendar3Event } from 'react-icons/bs';
-import { RiStockLine } from 'react-icons/ri';
 import { useClickOutside } from '@/hooks/useClickOutside';
 // import { HashTagPopup } from './hash-tag-popup/HashTagPopup';
 import { GET_COMPANY_POST } from '@/graphql/feeds';
@@ -202,7 +203,7 @@ export const PostPopup = React.forwardRef(({ company, setShowPostPopup, visitedC
 																	<div className='h-full items-center w-full' {...getRootProps()}>
 																		<input className='' {...getInputProps()} />
 																		<div className='flex flex-col h-full items-center justify-center p-3'>
-																			<MdOutlineAddPhotoAlternate fill='#666' size={30} />
+																			<UilImagePlus fill='#666' size={30} />
 																			<p className='text-gray-400'>Click or drag and drop it here</p>
 																		</div>
 																	</div>
@@ -224,7 +225,7 @@ export const PostPopup = React.forwardRef(({ company, setShowPostPopup, visitedC
 														type='button'
 														onClick={() => onSelectedImageRemoveHandler(image)}
 														className='-mr-2 -mt-2 absolute bg-gray-300 flex h-6 items-center justify-center outline outline-4 outline-offset-0 outline-white right-0 rounded-full w-6 z-50'>
-														<AiOutlineClose size={20} />
+														<UilTimes size={20} />
 													</button>
 													<Image
 														src={URL.createObjectURL(image)}
@@ -386,31 +387,19 @@ export const PostPopup = React.forwardRef(({ company, setShowPostPopup, visitedC
 							type='button'
 							onClick={() => handlePostAction('images')}
 							className={`${postButtonClassName} ${postActionType === 'images' && 'text-green-400'}`}>
-							<BiImages fill='#50c7a6' size={25} /> Photos
+							<UilImages fill='#50c7a6' size={25} /> Photos
 						</button>
 						<button
 							type='button'
 							onClick={() => handlePostAction('videos')}
 							className={`${postButtonClassName} ${postActionType === 'videos' && 'text-green-400'}`}>
-							<BsCameraVideo fill='#EB4D89' size={25} /> Videos
-						</button>
-						<button
-							type='button'
-							onClick={() => handlePostAction('events')}
-							className={`${postButtonClassName} ${postActionType === 'events' && 'text-green-400'}`}>
-							<BsCalendar3Event fill='#5abff8' size={20} /> Events
-						</button>
-						<button
-							type='button'
-							onClick={() => handlePostAction('promotions')}
-							className={`${postButtonClassName} ${postActionType === 'promotions' && 'text-green-400'}`}>
-							<RiStockLine fill='#5abff8' size={25} /> Promotions
+							<UilVideoQuestion fill='#EB4D89' size={25} /> Videos
 						</button>
 						<button
 							type='button'
 							onClick={() => handlePostAction('products')}
 							className={`${postButtonClassName} ${postActionType === 'products' && 'text-green-400'}`}>
-							<MdOutlineProductionQuantityLimits fill='#DCA3F7' size={25} /> Products
+							<UilShoppingBag fill='#DCA3F7' size={25} /> Products
 						</button>
 					</div>
 				</form>

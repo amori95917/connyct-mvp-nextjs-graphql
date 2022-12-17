@@ -101,6 +101,7 @@ export const GET_COMMUNITIES = gql`
 						description
 						type
 						profile
+						coverImage
 						companyId
 						creatorId
 						slug
@@ -200,6 +201,7 @@ export const GET_COMMUNITIES_BY_ID = gql`
 				type
 				companyId
 				profile
+				coverImage
 				slug
 				followersCount
 			}
@@ -241,13 +243,28 @@ export const EDIT_COMMUNITY = gql`
 	mutation companyCommunityEdit(
 		$communityId: String!
 		$input: CommunityEditInput!
-		$profile: Upload!
+		$profile: Upload
+		$coverImage: Upload
 	) {
-		companyCommunityEdit(communityId: $communityId, input: $input, profile: $profile) {
+		companyCommunityEdit(
+			communityId: $communityId
+			input: $input
+			profile: $profile
+			coverImage: $coverImage
+		) {
 			errors {
 				message
 				code
 				statusCode
+			}
+			community {
+				id
+				name
+				slug
+				profile
+				coverImage
+				type
+				description
 			}
 		}
 	}
@@ -346,4 +363,59 @@ export const DELETE_COMMUNITY_POLICY = gql`
 		}
 	}
 	${COMMUNITY_POLICY_FRAGMENT}
+`;
+
+export const COMMUNITY_FEEDS = gql`
+	query communityPost(
+		$communityId: String!
+		$before: String
+		$after: String
+		$first: Float
+		$last: Float
+	) {
+		communityPost(
+			communityId: $communityId
+			before: $before
+			after: $after
+			first: $first
+			last: $last
+		) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			communityPost {
+				edges {
+					cursor
+					node {
+						id
+						createdAt
+						updatedAt
+						text
+						communityId
+						slug
+						isDeleted
+						isApproved
+						communityPostMedia {
+							id
+							createdAt
+							updatedAt
+							metaTitle
+							description
+							imageURL
+							communityPostId
+						}
+					}
+				}
+				pageInfo {
+					hasNextPage
+					hasPreviousPage
+					startCursor
+					endCursor
+				}
+				totalCount
+			}
+		}
+	}
 `;

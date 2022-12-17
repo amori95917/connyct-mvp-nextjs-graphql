@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { BiCommentDetail, BiDownArrowAlt, BiUpArrowAlt } from 'react-icons/bi';
+import { UilCommentInfo, UilAngleDown, UilAngleUp } from '@iconscout/react-unicons';
 import { formatDistance } from 'date-fns';
 import ReactHtmlParser from 'react-html-parser';
 
@@ -23,11 +23,11 @@ const Discussion = (props: DiscussionProps) => {
 				<div className='bg-white flex gap-4 p-3 rounded-md'>
 					<div className='flex flex-col items-center justify-center px-5'>
 						<button className='p-4 text-slate-600 hover:text-blue-600' onClick={() => handelVoteUp()}>
-							<BiUpArrowAlt size={40} />
+							<UilAngleUp size={40} />
 						</button>
 						<span className='font-semibold text-2xl text-primary'>{discussion.upVote}</span>
 						<button className='p-4 text-slate-600 hover:text-rose-600' onClick={() => handelVoteDown()}>
-							<BiDownArrowAlt size={40} />
+							<UilAngleDown size={40} />
 						</button>
 					</div>
 					<div className='flex flex-col grow px-4'>
@@ -70,7 +70,7 @@ const Discussion = (props: DiscussionProps) => {
 							<div className='flex gap-3'>
 								<div className='flex gap-1 items-center'>
 									<span>
-										<BiCommentDetail fill='#50c7a6' />
+										<UilCommentInfo fill='#50c7a6' />
 									</span>
 									{/* TODO: total count number of comments/answers to get from api */}
 									<span>{0}</span>

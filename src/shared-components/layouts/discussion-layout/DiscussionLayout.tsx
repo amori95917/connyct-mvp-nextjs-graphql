@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { UilPlus } from '@iconscout/react-unicons';
 
 import { Contributor } from '@/shared-components/contributor';
 import { RightDrawerLayout } from '../right-drawer-layout';
@@ -72,7 +72,7 @@ export const DiscussionLayout = ({
 						<button
 							className='bg-primary flex font-bold gap-1 items-center justify-center p-4 rounded-md text-white w-full hover:bg-primary'
 							onClick={handleDrawerToggle}>
-							<AiOutlinePlus fill='#FFFFFF' size={20} />
+							<UilPlus fill='#FFFFFF' size={20} />
 							<span>Start a New Topic</span>
 						</button>
 					</div>
