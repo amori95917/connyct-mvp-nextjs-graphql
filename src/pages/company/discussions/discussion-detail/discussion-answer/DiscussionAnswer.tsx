@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { UilAngleDown, UilAngleUp, UilEllipsisV } from '@iconscout/react-unicons';
-import ReactHtmlParser from 'react-html-parser';
+import parse from 'html-react-parser';
 
 import { CreatorContainer } from '@/shared-components/creator-container/CreatorContainer';
 import { DiscussionAnswer as DiscussionAnswerType } from '@/generated/graphql';
@@ -62,7 +62,7 @@ export const DiscussionAnswer = ({
 				</div>
 			</div>
 			<div className='mt-2 reply'>
-				<div className='text-slate-800'>{ReactHtmlParser(answer.answer || '')}</div>
+				<div className='text-slate-800'>{parse(answer.answer || '')}</div>
 			</div>
 			<div className='bg-slate-200 h-px mt-4'></div>
 			<div className='flex items-center pt-4'>

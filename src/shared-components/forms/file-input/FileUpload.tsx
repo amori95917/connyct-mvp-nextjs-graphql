@@ -102,8 +102,8 @@ export const FileUpload = (props: FileUploadProps) => {
 						reader.readAsDataURL(file);
 						reader.onloadend = () => {};
 					});
-					console.log('name', name, acceptedFile);
-					onChange(name, acceptedFile);
+					console.log('name', name, acceptedFile, onChange);
+					onChange({ name, acceptedFile });
 				}
 			}
 		},

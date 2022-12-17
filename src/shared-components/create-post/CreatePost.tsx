@@ -10,7 +10,7 @@ import { RightDrawerLayout } from '../layouts/right-drawer-layout';
 import { ProductPostForm } from './product-post-form';
 
 const CreatePost = props => {
-	const { visitedCompany } = props;
+	const { actions, onPostSubmit } = props;
 	const [showPostPopup, setShowPostPopup] = useState(false);
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const { ref, isClose, setIsClose } = useClickOutside();
@@ -25,6 +25,10 @@ const CreatePost = props => {
 		setIsDrawerOpen(!isDrawerOpen);
 	};
 
+	const handlePostSubmit = value => {
+		onPostSubmit(value);
+	};
+
 	const postButtonClassName = 'flex justify-center p-2 rounded-full grow hover:bg-gray-300';
 	return (
 		<>
@@ -33,11 +37,11 @@ const CreatePost = props => {
 					company={company}
 					setShowPostPopup={setShowPostPopup}
 					ref={ref}
-					visitedCompany={visitedCompany}
+					handlePostSubmit={handlePostSubmit}
 				/>
 			)}
 			{
-				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
+				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} drawerSize='3xl'>
 					<ProductPostForm />
 				</RightDrawerLayout>
 			}
@@ -61,15 +65,21 @@ const CreatePost = props => {
 					</div>
 				</div>
 				<div className='flex gap-4 justify-center mt-2 w-full'>
-					<button onClick={onCommonButtonClickHandler} className={postButtonClassName}>
-						<UilImages fill='#50c7a6' className='mr-2' size={25} /> Media
-					</button>
-					<button onClick={onCommonButtonClickHandler} className={postButtonClassName}>
-						<UilCalender className='mr-2' fill='#5abff8' size={20} /> Events
-					</button>
-					<button onClick={onProductClickHandler} className={postButtonClassName}>
-						<UilLabelAlt className='mr-2' fill='#DCA3F7' size={25} /> Products
-					</button>
+					{actions.includes('media') && (
+						<button onClick={onCommonButtonClickHandler} className={postButtonClassName}>
+							<UilImages fill='#50c7a6' className='mr-2' size={25} /> Media
+						</button>
+					)}
+					{actions.includes('events') && (
+						<button onClick={onCommonButtonClickHandler} className={postButtonClassName}>
+							<UilCalender className='mr-2' fill='#5abff8' size={20} /> Events
+						</button>
+					)}
+					{actions.includes('products') && (
+						<button onClick={onProductClickHandler} className={postButtonClassName}>
+							<UilLabelAlt className='mr-2' fill='#DCA3F7' size={25} /> Products
+						</button>
+					)}
 				</div>
 			</div>
 		</>

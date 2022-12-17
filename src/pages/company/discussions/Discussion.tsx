@@ -2,7 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { UilCommentInfo, UilAngleDown, UilAngleUp } from '@iconscout/react-unicons';
 import { formatDistance } from 'date-fns';
-import ReactHtmlParser from 'react-html-parser';
+import parse from 'html-react-parser';
+// import ReactHtmlParser from 'react-html-p÷arser';
 
 import { CompanyDiscussion, Maybe } from '@/generated/graphql';
 import { useDiscussionVote } from './useDiscussionHooks';
@@ -41,7 +42,7 @@ const Discussion = (props: DiscussionProps) => {
 								</div>
 							</Link>
 							<div className='pb-4'>
-								<div className='text-slate-600'>{ReactHtmlParser(discussion.description || '')}</div>
+								<div className='text-slate-600'>{parse(discussion.description || '')}</div>
 							</div>
 							<hr className='bg-gray-200 border-0 h-px mb-4 pl-10 dark:bg-gray-700' />
 						</div>

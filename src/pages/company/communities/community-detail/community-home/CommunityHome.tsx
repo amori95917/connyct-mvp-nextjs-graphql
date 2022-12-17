@@ -5,6 +5,7 @@ import { Feed } from '@/shared-components/community/community-feeds';
 import { InfiniteScroller } from '@/shared-components/infinite-scroller';
 import { LoaderDataComponent } from '@/shared-components/loader-data-component';
 import { FeedLoader } from '@/shared-components/skeleton-loader/FeedLoader';
+import { useCommunityFeedCreateMutation } from '@/hooks/services/useCommunityFeedMutation';
 
 type CommunityHomeProps = {
 	communitySlug: string;
@@ -13,9 +14,28 @@ type CommunityHomeProps = {
 const CommunityHome = (props: CommunityHomeProps) => {
 	const { communitySlug } = props;
 	const { response, loading, hasNextPage, onLoadMore } = useCommunityFeedsQuery(communitySlug);
+	const {
+		createCommunityFeed,
+		loading: feedCreationLoading,
+		error,
+	} = useCommunityFeedCreateMutation(communitySlug);
+	const onPostSubmit = async val => {
+		console.log('val', val);
+		await createCommunityFeed({
+			variables: {
+				input: {
+					text: val.status || '',
+					tags: val.tags || [],
+					communityId: communitySlug,
+					description: val.status || '',
+				},
+				...(val.files?.length > 0 && { files: val.files }),
+			},
+		});
+	};
 	return (
 		<>
-			<CreatePost />
+			<CreatePost actions={['media', 'events', 'products']} onPostSubmit={onPostSubmit} />
 			<LoaderDataComponent isLoading={loading} data={response} fallback={<FeedLoader />}>
 				<InfiniteScroller
 					loading={loading}

@@ -18,6 +18,7 @@ export const FileInput = (props: FileInputProps) => {
 				control={control}
 				defaultValue={initialValues}
 				render={({ field }) => {
+					console.log('field', field);
 					const { onChange, onBlur, value } = field;
 					console.log('value', value);
 					return (
@@ -25,8 +26,10 @@ export const FileInput = (props: FileInputProps) => {
 							{...rest}
 							name={name}
 							errors={errors}
-							onChange={(name, val) => {
-								return onChange(name, val);
+							onChange={({ name, acceptedFile }) => {
+								console.log('name ------->', acceptedFile);
+								// return onChange({ name, acceptedFile });
+								return onChange(acceptedFile);
 							}}
 							value={value}
 							renderUpload={(onDrop, files, handleRemove) => {

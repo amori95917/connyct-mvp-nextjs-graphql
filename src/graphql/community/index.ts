@@ -11,3 +11,5 @@ export {
 	GET_COMMUNITIES_MEMBERS,
 	COMMUNITY_FEEDS,
 } from './resolver';
+
+export { CREATE_COMMUNITY_POST } from './mutation';

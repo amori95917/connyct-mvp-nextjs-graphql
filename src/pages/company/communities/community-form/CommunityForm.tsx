@@ -34,53 +34,52 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 	const [editCommunity, { loading: editLoading }] = useMutation(EDIT_COMMUNITY);
 
 	const onSubmit = handleSubmit(async input => {
-		console.log(input);
 		const { coverImage, profile, ...restInput } = input;
-		// if (!community?.id) {
-		// 	try {
-		// 		const response = await createCommunity({
-		// 			variables: {
-		// 				input: { ...restInput, companyId: companySlug },
-		// 				profile: profile?.[0],
-		// 				coverImage: coverImage?.[0],
-		// 			},
-		// 			refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: companySlug } }],
-		// 		});
+		if (!community?.id) {
+			try {
+				const response = await createCommunity({
+					variables: {
+						input: { ...restInput, companyId: companySlug },
+						profile: profile?.[0],
+						coverImage: coverImage?.[0],
+					},
+					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: companySlug } }],
+				});
 
-		// 		if (response) {
-		// 			setIsOpen(false);
-		// 			reset();
-		// 		}
-		// 	} catch (e) {
-		// 		console.log(e, '####');
-		// 	}
-		// } else {
-		// 	try {
-		// 		const response = await editCommunity({
-		// 			variables: {
-		// 				communityId: community.id,
-		// 				input: { ...restInput },
-		// 				profile: profile?.[0],
-		// 				coverImage: coverImage?.[0],
-		// 			},
-		// 			refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: community.id } }],
-		// 		});
+				if (response) {
+					setIsOpen(false);
+					reset();
+				}
+			} catch (e) {
+				console.log(e, '####');
+			}
+		} else {
+			try {
+				const response = await editCommunity({
+					variables: {
+						communityId: community.id,
+						input: { ...restInput },
+						profile: profile?.[0],
+						coverImage: coverImage?.[0],
+					},
+					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: community.id } }],
+				});
 
-		// 		if (response) {
-		// 			setIsOpen(false);
-		// 			reset();
-		// 		}
-		// 	} catch (e) {
-		// 		console.log(e, '####');
-		// 	}
-		// }
+				if (response) {
+					setIsOpen(false);
+					reset();
+				}
+			} catch (e) {
+				console.log(e, '####');
+			}
+		}
 	});
 
 	return (
 		<>
 			<form onSubmit={onSubmit} className='md:px-3'>
 				<p className='font-semibold mb-10 text-gray-600 text-xl'>Create a new community</p>
-				{/* <FileInput
+				<FileInput
 					label='Upload profile picture of community'
 					control={control}
 					name={'profile'}
@@ -125,7 +124,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 					}}
 					labelClassName='mt-4'
 					errors={errors}
-				/> */}
+				/>
 
 				<div className='w-full'>
 					<FormInput

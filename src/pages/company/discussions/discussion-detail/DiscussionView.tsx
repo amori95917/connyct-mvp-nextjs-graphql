@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { UilAngleDown, UilAngleUp, UilEllipsisV } from '@iconscout/react-unicons';
-import ReactHtmlParser from 'react-html-parser';
+import parse from 'html-react-parser';
 
 import { useDiscussionAnswersQuery } from '@/hooks/services/useDiscussionAnswerQuery';
 import { DiscussionAnswer as DiscussionAnswerType } from '@/generated/graphql';
@@ -52,7 +52,7 @@ export const DiscussionView = ({ discussion }) => {
 			</div>
 			<div className='flex flex-col'>
 				<p className='font-2xl font-bold mt-2'>{discussion?.title}</p>
-				<div className='mt-5 text-slate-800'>{ReactHtmlParser(discussion?.description || '')}</div>
+				<div className='mt-5 text-slate-800'>{parse(discussion?.description || '')}</div>
 			</div>
 			<div className='bg-slate-200 h-px mt-4'></div>
 			<div className='flex items-center mt-3 text-gray-600'>
