@@ -53,7 +53,7 @@ export const Community = ({
 				onClick={() => onCommunityClickHandler(community.id)}
 				className='cursor-pointer h-52 relative w-full'>
 				<Image
-					src={community?.profile || ''}
+					src={community?.coverImage || 'https://i.pravatar.cc'}
 					fill
 					alt='participant-avatar'
 					className='contain rounded-md'
@@ -61,7 +61,7 @@ export const Community = ({
 			</div>
 			<div className='cursor-pointer flex justify-between mt-5'>
 				<Image
-					src='https://i.pravatar.cc'
+					src={community?.profile || 'https://i.pravatar.cc'}
 					width={40}
 					height={40}
 					alt='participant-avatar'

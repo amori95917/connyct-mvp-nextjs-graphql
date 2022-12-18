@@ -54,14 +54,30 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 				console.log(e, '####');
 			}
 		} else {
+			// Create an empty variables object
+			const variables: any = {};
+			if (
+				profile?.length !== getInitialValues(community).profile?.length ||
+				!profile?.every((val, i) => val.preview === getInitialValues(community).profile?.[i]?.preview)
+			) {
+				variables.profile = profile[0];
+			}
+
+			if (
+				coverImage?.length !== getInitialValues(community).coverImage?.length ||
+				!coverImage?.every(
+					(val, i) => val.preview === getInitialValues(community).coverImage?.[i]?.preview
+				)
+			) {
+				variables.coverImage = coverImage[0];
+			}
+
+			variables.input = restInput;
+			variables.communityId = community.id;
+
 			try {
 				const response = await editCommunity({
-					variables: {
-						communityId: community.id,
-						input: { ...restInput },
-						profile: profile?.[0],
-						coverImage: coverImage?.[0],
-					},
+					variables,
 					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: community.id } }],
 				});
 
