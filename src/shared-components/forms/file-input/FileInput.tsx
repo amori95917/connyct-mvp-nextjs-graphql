@@ -9,8 +9,7 @@ export interface FileInputProps extends FileUploadProps {
 }
 
 export const FileInput = (props: FileInputProps) => {
-	const { name, control, setValue, initialValues, errors, renderUpload, renderPreview, ...rest } =
-		props;
+	const { name, control, initialValues, errors, renderUpload, renderPreview, ...rest } = props;
 	return (
 		<>
 			<Controller
@@ -25,7 +24,6 @@ export const FileInput = (props: FileInputProps) => {
 							name={name}
 							errors={errors}
 							onChange={({ name, acceptedFile }) => {
-								console.log('name ------->', acceptedFile);
 								// return onChange({ name, acceptedFile });
 								return onChange(acceptedFile);
 							}}

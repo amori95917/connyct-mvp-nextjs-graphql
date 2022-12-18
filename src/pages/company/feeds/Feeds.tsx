@@ -10,6 +10,11 @@ import { TrendingTopics } from '@/shared-components/trending-topics';
 import CreatePost from '@/shared-components/create-post/CreatePost';
 import { PostEdge } from '@/generated/graphql';
 import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
+import { useMutation } from '@apollo/client';
+import { CREATE_POST } from '@/graphql/company';
+import { GET_COMPANY_POST } from '@/graphql/feeds';
+import { getCookie } from '@/utils/cookies';
+import produce from 'immer';
 
 type CompanyFeedsProps = {
 	companySlug: string;
@@ -18,9 +23,56 @@ type CompanyFeedsProps = {
 const CompanyFeeds = (props: CompanyFeedsProps) => {
 	const { companySlug } = props;
 	const { feeds, loading, hasNextPage, onLoadMore } = useCompanyFeedsQuery(companySlug);
+	const [post, { error, loading: postLoading, data }] = useMutation(CREATE_POST);
 	const { currentUser } = useCurrentUser();
-	const onPostSubmit = (value: any) => {
-		console.log('val', value);
+
+	// TODO move this logic to service repository pattern
+	const onPostSubmit = async (input: any, cb?: () => void) => {
+		const { company } = getCookie('CONNYCT_USER');
+		const { tags = [], images = [], ...rest } = input;
+		const tempTags = tags
+			? tags?.map(tag => {
+					return tag.value;
+			  })
+			: [];
+		try {
+			const response = await post({
+				variables: {
+					companyId: company[0].id,
+					data: {
+						text: input.status,
+						tags: tempTags || [],
+					},
+					file: input.images,
+				},
+
+				update: (cache, { data: { post } }) => {
+					// post.post
+					const companyPosts = cache.readQuery({
+						query: GET_COMPANY_POST,
+						variables: { id: company[0].id, first: 10 },
+					});
+					const updatedCompanyPosts = produce(companyPosts, (draft: any) => {
+						if (draft?.postsByCompanyId?.edges) {
+							draft.postsByCompanyId.edges.push({
+								__typename: 'PostEdge',
+								cursor: post.post.id,
+								node: {
+									...post.post,
+									comments: [],
+								},
+							});
+						}
+					});
+					cache.writeQuery({
+						query: GET_COMPANY_POST,
+						variables: { id: company[0].id, first: companyPosts?.postsByCompanyId?.edges.length + 1 },
+						data: updatedCompanyPosts,
+					});
+				},
+			});
+			cb?.();
+		} catch (err) {}
 	};
 
 	return (

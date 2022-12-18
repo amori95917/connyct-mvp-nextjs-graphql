@@ -25,8 +25,9 @@ const CreatePost = props => {
 		setIsDrawerOpen(!isDrawerOpen);
 	};
 
-	const handlePostSubmit = value => {
+	const handlePostSubmit = (value: any, cb?: () => void) => {
 		onPostSubmit(value);
+		cb && cb();
 	};
 
 	const postButtonClassName = 'flex justify-center p-2 rounded-full grow hover:bg-gray-300';

@@ -18,6 +18,8 @@ export type FileUploadProps = {
 	helperText?: string;
 	isRequired?: boolean;
 	label?: string;
+	wrapperClassName?: string;
+	previewClassName?: string;
 	labelClassName?: string;
 	helperTextClassName?: string;
 	maxFiles?: number;
@@ -43,6 +45,8 @@ export const FileUpload = (props: FileUploadProps) => {
 		helperText,
 		isRequired = false,
 		label,
+		wrapperClassName = '',
+		previewClassName = '',
 		labelClassName = '',
 		helperTextClassName = '',
 		maxFiles = 1,
@@ -102,7 +106,6 @@ export const FileUpload = (props: FileUploadProps) => {
 						reader.readAsDataURL(file);
 						reader.onloadend = () => {};
 					});
-					console.log('name', name, acceptedFile, onChange);
 					onChange({ name, acceptedFile });
 				}
 			}
@@ -127,10 +130,12 @@ export const FileUpload = (props: FileUploadProps) => {
 	);
 
 	return (
-		<div className='file-upload'>
+		<div className={`file-upload ${wrapperClassName}`}>
 			{label && <Label id={name} className={labelClassName} label={label} />}
 			{renderUpload(onDrop, files, handleRemove)}
-			{renderPreview && <div className='file-preview'>{renderPreview(files, handleRemove)}</div>}
+			{renderPreview && (
+				<div className={`file-upload ${previewClassName}`}>{renderPreview(files, handleRemove)}</div>
+			)}
 			{helperText && typeof helperText === 'string' ? (
 				<p className={classNames('italic text-gray-600 text-xs', helperTextClassName)}>{helperText}</p>
 			) : (
