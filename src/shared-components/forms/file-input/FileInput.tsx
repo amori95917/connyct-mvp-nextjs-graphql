@@ -18,9 +18,7 @@ export const FileInput = (props: FileInputProps) => {
 				control={control}
 				defaultValue={initialValues}
 				render={({ field }) => {
-					console.log('field', field);
 					const { onChange, onBlur, value } = field;
-					console.log('value', value);
 					return (
 						<FileUpload
 							{...rest}

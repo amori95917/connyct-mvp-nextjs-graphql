@@ -11,6 +11,9 @@ export type FormCheckboxProps<TFormValues> = {
 	label?: string | React.ReactNode;
 	helperText?: string | React.ReactNode;
 	errors?: Partial<DeepMap<TFormValues, FieldError>>;
+	inputClassName?: string;
+	labelClassName?: string;
+	wrapperClassName?: string;
 	register?: UseFormRegister<TFormValues>;
 } & Omit<CheckboxProps, 'name'>;
 
@@ -22,6 +25,9 @@ export const FormCheckboxField = <TFormValues extends Record<string, unknown>>({
 	errors,
 	register,
 	className,
+	inputClassName,
+	labelClassName,
+	wrapperClassName = '',
 	...props
 }: FormCheckboxProps<TFormValues>): JSX.Element => {
 	const errorMessages = get(errors, name);
@@ -31,8 +37,12 @@ export const FormCheckboxField = <TFormValues extends Record<string, unknown>>({
 			<FormCheckbox
 				id={id}
 				name={name}
+				label={label}
+				helperText={helperText}
 				aria-invalid={hasError}
-				className={classNames({ ' ': hasError })}
+				labelClassName={labelClassName}
+				wrapperClassName={wrapperClassName}
+				inputClassName={classNames({ '': hasError }, inputClassName)}
 				{...props}
 				{...(register && register(name))}
 			/>

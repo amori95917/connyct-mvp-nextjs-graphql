@@ -1779,6 +1779,13 @@
     "@types/htmlparser2" "*"
     "@types/react" "*"
 
+"@types/react-table@^7.7.12":
+  version "7.7.12"
+  resolved "https://registry.yarnpkg.com/@types/react-table/-/react-table-7.7.12.tgz#628011d3cb695b07c678704a61f2f1d5b8e567fd"
+  integrity sha512-bRUent+NR/WwtDGwI/BqhZ8XnHghwHw0HUKeohzB5xN3K2qKWYE5w19e7GCuOkL1CXD9Gi1HFy7TIm2AvgWUHg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-transition-group@^4.4.0":
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.5.tgz#aae20dcf773c5aa275d5b9f7cdbca638abc5e416"
@@ -5633,6 +5640,11 @@ react-simple-image-viewer@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/react-simple-image-viewer/-/react-simple-image-viewer-1.2.2.tgz#2a93413512b76ce8d336dd5fa19660a970d05be4"
   integrity sha512-Vk9p6Glm7uE4cSEBGkqZPGC3qoZcAwd48nq5/JN13NKd9rUrUIWZWFEmRzO+FVwl6c0UdjSDkthGoaoiYeWVjg==
+
+react-table@^7.8.0:
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.8.0.tgz#07858c01c1718c09f7f1aed7034fcfd7bda907d2"
+  integrity sha512-hNaz4ygkZO4bESeFfnfOft73iBUj8K5oKi1EcSHPAibEydfsX2MyU6Z8KCr3mv3C9Kqqh71U+DhZkFvibbnPbA==
 
 react-test-renderer@^18.2.0:
   version "18.2.0"

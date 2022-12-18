@@ -5,6 +5,10 @@
   flex-direction: column;
   min-height: 100vh;
 }
+:root {
+  --color-primary: #5A6399;
+  --color-secondary: #ea9a7e;
+}
 
 .anim {
   @apply duration-100 ease-linear transition-all;

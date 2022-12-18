@@ -3,13 +3,13 @@ import { DetailedHTMLProps, forwardRef, InputHTMLAttributes } from 'react';
 import classnames from 'classnames';
 
 export type CheckboxProps = {
-	className?: string;
+	inputClassName?: string;
 	id: string;
 	name: string;
 } & Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, ''>;
 
 export const Checkbox: React.FC<CheckboxProps> = forwardRef<HTMLInputElement, CheckboxProps>(
-	({ className = '', id, name, ...props }, ref) => {
+	({ inputClassName = '', id, name, ...props }, ref) => {
 		// const ref = useRef<HTMLInputElement>(null);
 		// useImperativeHandle(inRef, () => ref.current!, [ref])
 		const _class =
@@ -18,7 +18,7 @@ export const Checkbox: React.FC<CheckboxProps> = forwardRef<HTMLInputElement, Ch
 			<input
 				name={name}
 				ref={ref}
-				className={classnames(_class, className)}
+				className={classnames(_class, inputClassName)}
 				type='checkbox'
 				value=''
 				id={id}

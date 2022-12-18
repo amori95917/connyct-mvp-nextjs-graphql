@@ -92,7 +92,12 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 									<section>
 										<div {...getRootProps()}>
 											<input {...getInputProps()} />
-											{files.length > 0 ? (
+											<div className='bg-gray-100 h-28 overflow-hidden relative rounded-full w-28 hover:brightness-50'>
+												<div className='flex h-full items-center justify-center rounded-md w-full'>
+													<UilCloudUpload size={25} />
+												</div>
+											</div>
+											{/* {files.length > 0 ? (
 												files.map(file => {
 													return (
 														<div className='file-preview relative' key={file.name}>
@@ -115,12 +120,36 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 														<UilCloudUpload size={25} />
 													</div>
 												</div>
-											)}
+											)} */}
 										</div>
 									</section>
 								)}
 							</Dropzone>
 						);
+					}}
+					renderPreview={(files, handleRemove) => {
+						{
+							files?.length > 0 ? (
+								files.map(file => {
+									return (
+										<div className='file-preview relative' key={file.name}>
+											<Image
+												src={file.preview}
+												alt={file.name || 'avatar'}
+												width={100}
+												height={100}
+												className='object-cover rounded-full'
+											/>
+											<span onClick={() => handleRemove(file)}>
+												<UilTimes size={20} />
+											</span>
+										</div>
+									);
+								})
+							) : (
+								<div>No Preview</div>
+							);
+						}
 					}}
 					labelClassName='mt-4'
 					errors={errors}
