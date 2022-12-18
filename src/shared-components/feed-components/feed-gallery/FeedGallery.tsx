@@ -20,11 +20,17 @@ export const FeedGallery = (props: FeedGalleryProps) => {
 				<Image key={image.id} src={image.imageURL} alt='brand-feed-image' width={400} height={200} />
 			))}
 			{images.length > 3 && (
-				<div className='backdrop-blur-2xl bg-clip-padding bg-opacity-100 bg-primary flex shadow-md w-full'>
-					<div className='flex items-center'>
-						<p className='flex font-bold h-full items-center justify-center text-2xl text-brandSecondary w-full'>
+				<div className='relative w-full'>
+					<div className='backdrop-blur-2xl flex items-center'>
+						<Image
+							src={images[3].imageURL}
+							alt='brand-feed-image bg-primary backdrop-blur-2xl'
+							width={400}
+							height={200}
+						/>
+						{/* <p className='flex font-bold h-full items-center justify-center text-2xl text-brandSecondary w-full'>
 							View More
-						</p>
+						</p> */}
 					</div>
 				</div>
 			)}
