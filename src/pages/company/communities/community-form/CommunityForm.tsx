@@ -92,35 +92,13 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 									<section>
 										<div {...getRootProps()}>
 											<input {...getInputProps()} />
-											<div className='bg-gray-100 h-28 overflow-hidden relative rounded-full w-28 hover:brightness-50'>
-												<div className='flex h-full items-center justify-center rounded-md w-full'>
-													<UilCloudUpload size={25} />
-												</div>
-											</div>
-											{/* {files.length > 0 ? (
-												files.map(file => {
-													return (
-														<div className='file-preview relative' key={file.name}>
-															<Image
-																src={file.preview}
-																alt={file.name || 'avatar'}
-																width={100}
-																height={100}
-																className='object-cover rounded-full'
-															/>
-															<span onClick={() => handleRemove(file)}>
-																<UilTimes size={20} />
-															</span>
-														</div>
-													);
-												})
-											) : (
+											{!files?.length && (
 												<div className='bg-gray-100 h-28 overflow-hidden relative rounded-full w-28 hover:brightness-50'>
 													<div className='flex h-full items-center justify-center rounded-md w-full'>
 														<UilCloudUpload size={25} />
 													</div>
 												</div>
-											)} */}
+											)}
 										</div>
 									</section>
 								)}
@@ -128,34 +106,35 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 						);
 					}}
 					renderPreview={(files, handleRemove) => {
-						{
-							files?.length > 0 ? (
-								files.map(file => {
-									return (
-										<div className='file-preview relative' key={file.name}>
-											<Image
-												src={file.preview}
-												alt={file.name || 'avatar'}
-												width={100}
-												height={100}
-												className='object-cover rounded-full'
-											/>
-											<span onClick={() => handleRemove(file)}>
-												<UilTimes size={20} />
-											</span>
-										</div>
-									);
-								})
-							) : (
-								<div>No Preview</div>
-							);
-						}
+						return (
+							<>
+								{files?.length > 0 &&
+									files.map(file => {
+										return (
+											<div className='file-preview relative rounded-full w-28' key={file.name}>
+												<Image
+													src={file.preview}
+													alt={file.name || 'avatar'}
+													width='120'
+													height='120'
+													className='rounded-full'
+												/>
+												<span
+													onClick={() => handleRemove(file)}
+													className='absolute cursor-pointer font-extrabold right-0 text-primary top-0'>
+													<UilTimes size={24} />
+												</span>
+											</div>
+										);
+									})}
+							</>
+						);
 					}}
 					labelClassName='mt-4'
 					errors={errors}
 				/>
 
-				<div className='w-full'>
+				<div className='mt-6 w-full'>
 					<FormInput
 						name={`name`}
 						id='name'
@@ -166,7 +145,9 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 						errors={errors}
 					/>
 				</div>
-				<p className='font-semibold mb-4 text-grey-600'>Community Privacy</p>
+				<p className='font-semibold mb-4 mt-4 text-sm tracking-wide ttext-gray-700 uppercase'>
+					Community Privacy
+				</p>
 				<div className='flex mb-5'>
 					<div className='w-1/2'>
 						<FormRadio
@@ -207,54 +188,6 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 						errors={errors}
 					/>
 				</div>
-				{/* {getValues('coverPicture')?.length
-					? getValues('coverPicture').map((image: any, index: any) => {
-							return (
-								<div className='h-72 mt-5 relative rounded-md w-96' key={index}>
-									<button
-										type='button'
-										onClick={() => onSelectedImageRemoveHandler(image)}
-										className='-mr-2 -mt-2 absolute bg-gray-300 flex h-6 items-center justify-center outline outline-4 outline-offset-0 outline-white right-0 rounded-full w-6 z-50'>
-										<AiOutlineClose size={20} />
-									</button>
-									<Image
-										className='object-cover rounded-md'
-										alt='test'
-										src={URL.createObjectURL(image)}
-										fill
-									/>
-								</div>
-							);
-					  })
-					: ''} */}
-				{/* {!getValues('coverPicture')?.length && (
-					<>
-						<label className='flex font-semibold items-center mb-0 mt-4 text-gray-700 text-sm tracking-wide uppercase'>
-							Cover photo
-						</label>
-						<div className='bg-gray-100 cursor-pointer flex h-72 justify-center mt-5 p-5 rounded-md w-96'>
-							<FormDropFile
-								label={'Cover picture'}
-								control={control}
-								name={'coverPicture'}
-								errors={errors}
-								onDrop={onDrop}
-								isHidden={false}
-							/>
-						</div>
-						<p className='block text-left text-red-600 text-sm'>{errors?.profilePicture?.message}</p>
-					</>
-				)} */}
-				{/* <FileInput
-					label='Cover photo'
-					control={control}
-					name={'coverPicture'}
-					multiple={false}
-					defaultValue={community?.coverPicture}
-					uploadComponent={<CoverPhotoUploadForm />}
-					labelClassName='mt-4'
-					errors={errors}
-				/> */}
 				<FileInput
 					label='Cover Photo'
 					control={control}
@@ -270,30 +203,36 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 									<section>
 										<div {...getRootProps()}>
 											<input {...getInputProps()} />
-											{files.length > 0 ? (
-												files.map(file => {
-													return (
-														<div className='file-preview relative' key={file.name}>
-															<Image
-																src={file.preview}
-																alt={file.name || 'avatar'}
-																width={200}
-																height={200}
-																className='object-cover rounded-md'
-															/>
-															<span onClick={() => handleRemove(file)}>
-																<UilTimes size={20} />
-															</span>
-														</div>
-													);
-												})
-											) : (
-												<CoverPhotoUploadForm />
-											)}
+											{!files?.length && <CoverPhotoUploadForm />}
 										</div>
 									</section>
 								)}
 							</Dropzone>
+						);
+					}}
+					renderPreview={(files, handleRemove) => {
+						return (
+							<>
+								{files.length > 0 &&
+									files.map(file => {
+										return (
+											<div className='file-preview relative' key={file.name}>
+												<Image
+													src={file.preview}
+													alt={file.name || 'avatar'}
+													width={200}
+													height={200}
+													className='object-cover relative rounded-md'
+												/>
+												<span
+													onClick={() => handleRemove(file)}
+													className='absolute cursor-pointer font-extrabold right-0 text-primary top-0'>
+													<UilTimes size={24} />
+												</span>
+											</div>
+										);
+									})}
+							</>
 						);
 					}}
 					labelClassName='mt-4'
