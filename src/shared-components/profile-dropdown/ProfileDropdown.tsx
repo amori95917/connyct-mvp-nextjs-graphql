@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 // import { useQuery } from '@apollo/client';
 import {
+	UilCreateDashboard,
+	UilEnvelopeSend,
 	UilSetting,
 	UilUserSquare,
 	UilSignout,
@@ -78,7 +80,7 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 	};
 
 	const buttonClass =
-		'bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300';
+		'bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-brandSecondary';
 
 	return (
 		<div className='container mx-auto relative z-10'>
@@ -101,15 +103,21 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 							{company ? company[0]?.legalName : user.email}
 						</span>
 					</div>
-					<button className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-indigo-300'>
-						{/* <FcInvite size={25} fill='#00E0FF' /> */}
+					<Link href={`/dashboard`} passHref>
+						<button className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
+							<UilCreateDashboard size={25} className='fill-primary' />
+							<span className='ml-5'>Dashboard</span>
+						</button>
+					</Link>
+					<button className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
+						<UilEnvelopeSend size={25} className='fill-primary' />
 						<span className='ml-5'>Invite</span>
 					</button>
 					<button
 						onClick={() => onClickHandler('setting')}
-						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
+						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
 						<span className='flex'>
-							<UilSetting size={25} fill='#00E0FF' />
+							<UilSetting size={25} className='fill-primary' />
 							<span className='ml-5'>Settings</span>
 						</span>
 						<span className='text-2xl'>
@@ -118,9 +126,9 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 					</button>
 					<button
 						onClick={() => onClickHandler('manage')}
-						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-indigo-300'>
+						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
 						<span className='flex'>
-							<UilUserSquare size={25} fill='#00E0FF' />
+							<UilUserSquare size={25} className='fill-primary' />
 							<span className='ml-5'>Manage</span>
 						</span>
 						<span className='text-2xl'>
@@ -129,9 +137,9 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 					</button>
 					<button
 						onClick={() => onClickHandler('other')}
-						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-indigo-300'>
+						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
 						<span className='flex'>
-							<UilEllipsisV rotate={'-180deg'} size={25} fill='#00E0FF' />
+							<UilEllipsisV rotate={'-180deg'} size={25} className='fill-primary' />
 							<span className='ml-5'>Other</span>
 						</span>
 						<span className='text-2xl'>
@@ -140,8 +148,8 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 					</button>
 					<button
 						onClick={onClickLogoutHandle}
-						className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-indigo-300'>
-						<UilSignout size={25} fill='#00E0FF' />
+						className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
+						<UilSignout size={25} className='fill-primary' />
 						<span className='ml-5'>Logout</span>
 					</button>
 				</div>
@@ -152,9 +160,9 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 						</button>{' '}
 						<span className='bold ml-5 text-2xl'>Settings</span>
 					</span>
-					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
+					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
 						<span className='flex'>
-							<UilSetting size={25} fill='#00E0FF' />
+							<UilSetting size={25} className='fill-primary' />
 							<span className='ml-5'>Settings</span>
 						</span>
 						<span className='text-2xl'>
@@ -169,17 +177,17 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 						</button>{' '}
 						<span className='bold ml-5 text-2xl'>Manage</span>
 					</span>
-					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
+					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
 						<Link href={`/company/${slug}/edit/business-information/general`} passHref>
 							<button className='flex'>
-								<UilSetting size={25} fill='#00E0FF' />
+								<UilSetting size={25} className='fill-primary' />
 								<span className='ml-5'>Edit Profile</span>
 							</button>
 						</Link>
 					</button>
-					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
+					<button className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
 						<span className='flex'>
-							<UilSetting size={25} fill='#00E0FF' />
+							<UilSetting size={25} className='fill-primary' />
 							<span className='ml-5'>Manage</span>
 						</span>
 						<span className='text-2xl'>
@@ -194,9 +202,9 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 						</button>{' '}
 						<span className='bold ml-5 text-2xl'>Other</span>
 					</span>
-					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300'>
+					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
 						<span className='flex'>
-							<UilSetting size={25} fill='#00E0FF' />
+							<UilSetting size={25} className='fill-primary' />
 							<span className='ml-5'>Other</span>
 						</span>
 					</button>
