@@ -10,7 +10,7 @@ import { RightDrawerLayout } from '../layouts/right-drawer-layout';
 import { ProductPostForm } from './product-post-form';
 
 const CreatePost = props => {
-	const { actions, onPostSubmit } = props;
+	const { actions, onPostSubmit, currentUser } = props;
 	const [showPostPopup, setShowPostPopup] = useState(false);
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const { ref, isClose, setIsClose } = useClickOutside();
@@ -35,6 +35,7 @@ const CreatePost = props => {
 			{showPostPopup && isClose && (
 				<PostPopup
 					company={company}
+					currentUser={currentUser}
 					setShowPostPopup={setShowPostPopup}
 					ref={ref}
 					handlePostSubmit={handlePostSubmit}
@@ -52,8 +53,8 @@ const CreatePost = props => {
 							className='rounded-full'
 							width={45}
 							height={45}
-							src='https://i.pravatar.cc'
-							alt='Sunset in the mountains'
+							src={currentUser?.userProfile?.profileImage || 'https://i.pravatar.cc'}
+							alt='avatar'
 						/>
 					</div>
 					<div className='grow ml-5 rounded-full'>

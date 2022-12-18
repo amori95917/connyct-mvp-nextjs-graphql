@@ -18,11 +18,24 @@ export const POST_FRAGMENT = gql`
 			id
 			fullName
 			email
+			userProfile {
+				id
+				profileImage
+			}
 		}
 		company {
 			id
 			legalName
 			name
+		}
+		postImage {
+			id
+			createdAt
+			updatedAt
+			metaTitle
+			imageURL
+			description
+			postId
 		}
 	}
 `;

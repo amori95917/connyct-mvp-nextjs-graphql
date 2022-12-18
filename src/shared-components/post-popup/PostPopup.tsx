@@ -39,7 +39,7 @@ const verifyFile = files => {
 };
 
 export const PostPopup = React.forwardRef(
-	({ company, setShowPostPopup, handlePostSubmit }, ref) => {
+	({ company, setShowPostPopup, handlePostSubmit, currentUser }, ref) => {
 		const [rerender, setRerender] = useState(true);
 		const [showHashTagPopup, setShowHashTagPopup] = useState(false);
 		const { setIsClose, isClose } = useClickOutside();
@@ -254,7 +254,7 @@ export const PostPopup = React.forwardRef(
 													className='rounded-full'
 													width={45}
 													height={45}
-													src='https://i.pravatar.cc'
+													src={currentUser?.userProfile?.profileImage || 'https://i.pravatar.cc'}
 													alt='Sunset in the mountains'
 												/>
 											</div>

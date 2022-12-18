@@ -8,26 +8,26 @@ export const USER_FRAGMENT = gql`
 		fullName
 		username
 		email
-		isValid
+		userProfile {
+			id
+			profileImage
+		}
+		isEmailVerified
 		isSuperuser
+		isAdmin
+		isValid
 		confirm
 		emailToken
-		# posts: [Post!] use post fragment
-		# company: [Company!] use company fragment
-		isAdmin
 	}
 `;
 
 export const CURRENT_USER_QUERY = gql`
 	query me {
-		id
-		fullName
-		email
-		isValid
-		isSuperuser
-		confirm
-		isAdmin
+		me {
+			...UserFragment
+		}
 	}
+	${USER_FRAGMENT}
 `;
 
 export const GET_USER = gql`

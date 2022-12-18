@@ -1,10 +1,4 @@
-import {
-	ApolloClient,
-	ApolloLink,
-	InMemoryCache,
-	NormalizedCacheObject,
-	split,
-} from '@apollo/client';
+import { ApolloClient, ApolloLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
 import { onError } from '@apollo/link-error';
 import { createUploadLink } from 'apollo-upload-client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';

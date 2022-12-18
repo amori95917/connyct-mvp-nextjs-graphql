@@ -2,13 +2,8 @@ import { useRouter } from 'next/router';
 
 import { Navbar } from '@/shared-components/navbar';
 import { CompanyLayout } from '@/shared-components/layouts';
-import { Feeds as CompanyFeeds } from '@/shared-components/feeds';
-
-function getSlug(slug: string | string[] | undefined) {
-	if (slug === undefined) return '';
-	if (typeof slug === 'string') return slug;
-	if (Array.isArray(slug)) return slug[0];
-}
+import { CompanyFeeds } from '@/pages/company/feeds';
+import { getSlug } from '@/utils/getSlug';
 
 const CompanyFeedsPage = () => {
 	const router = useRouter();
