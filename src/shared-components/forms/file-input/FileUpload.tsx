@@ -20,6 +20,7 @@ export type FileUploadProps = {
 	label?: string;
 	wrapperClassName?: string;
 	previewClassName?: string;
+	uploadFormClassName?: string;
 	labelClassName?: string;
 	helperTextClassName?: string;
 	maxFiles?: number;

@@ -1,0 +1,1 @@
+export { FeedGallery } from './FeedGallery';

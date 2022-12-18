@@ -48,7 +48,17 @@ export const Gallery = (props: FeedGalleryProps) => {
 	return <>{children}</>;
 };
 
+type FeedActionsProps = {
+	children: React.ReactNode;
+};
+
+export const Actions = (props: FeedActionsProps) => {
+	const { children } = props;
+	return <>{children}</>;
+};
+
 Feed.CreatorProfile = CreatorProfile;
 Feed.Title = Title;
 Feed.Description = Description;
 Feed.Gallery = Gallery;
+Feed.Actions = Actions;

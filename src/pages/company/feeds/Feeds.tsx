@@ -1,3 +1,6 @@
+import { useMutation } from '@apollo/client';
+import produce from 'immer';
+
 // API SERVICES
 import { useCompanyFeedsQuery } from '@/hooks/services/useCompanyFeedsQuery';
 // LOCAL COMPONENTS
@@ -10,11 +13,9 @@ import { TrendingTopics } from '@/shared-components/trending-topics';
 import CreatePost from '@/shared-components/create-post/CreatePost';
 import { PostEdge } from '@/generated/graphql';
 import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
-import { useMutation } from '@apollo/client';
 import { CREATE_POST } from '@/graphql/company';
 import { GET_COMPANY_POST } from '@/graphql/feeds';
 import { getCookie } from '@/utils/cookies';
-import produce from 'immer';
 
 type CompanyFeedsProps = {
 	companySlug: string;
@@ -22,7 +23,7 @@ type CompanyFeedsProps = {
 
 const CompanyFeeds = (props: CompanyFeedsProps) => {
 	const { companySlug } = props;
-	const { feeds, loading, hasNextPage, onLoadMore } = useCompanyFeedsQuery(companySlug);
+	const { feeds, loading, hasNextPage, onLoadMore } = useCompanyFeedsQuery(companySlug, 10);
 	const [post, { error, loading: postLoading, data }] = useMutation(CREATE_POST);
 	const { currentUser } = useCurrentUser();
 

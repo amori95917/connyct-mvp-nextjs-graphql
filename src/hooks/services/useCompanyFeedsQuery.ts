@@ -11,7 +11,7 @@ export function useCompanyFeedsQuery(companySlug: string, first: number = 2) {
 		fetchPolicy: 'cache-and-network',
 		variables: {
 			id: companySlug,
-			first: first,
+			first,
 		},
 	});
 
