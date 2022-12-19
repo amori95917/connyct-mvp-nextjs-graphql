@@ -397,6 +397,16 @@ export const COMMUNITY_FEEDS = gql`
 						slug
 						isDeleted
 						isApproved
+						creator {
+							id
+							fullName
+							username
+							email
+							userProfile {
+								id
+								profileImage
+							}
+						}
 						communityPostMedia {
 							id
 							createdAt

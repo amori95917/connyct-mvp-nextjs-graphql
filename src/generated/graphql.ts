@@ -40,13 +40,13 @@ export type Branch = {
   contactEmail: Scalars['String'];
   contactNumber: Scalars['String'];
   country: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
   state?: Maybe<Scalars['String']>;
   street?: Maybe<Scalars['String']>;
   type: BranchType;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
   zipCode?: Maybe<Scalars['String']>;
 };
 
@@ -63,10 +63,10 @@ export type ChangePasswordInput = {
 
 export type Comment = {
   __typename?: 'Comment';
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   creator: User;
   creatorId: Scalars['String'];
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   mentions: Array<User>;
   myRatingStatus: RatingStatus;
   post?: Maybe<Post>;
@@ -76,7 +76,7 @@ export type Comment = {
   repliedToReplyId?: Maybe<Scalars['String']>;
   replies?: Maybe<RepliesPagination>;
   text: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 
@@ -140,12 +140,12 @@ export type CommentReactions = {
   __typename?: 'CommentReactions';
   comment?: Maybe<Comment>;
   commentId?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   creatorId?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   reactionId?: Maybe<Scalars['String']>;
   reactors?: Maybe<Array<User>>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type CommentReactionsEdge = {
@@ -190,18 +190,18 @@ export type Community = {
   company?: Maybe<Company>;
   companyId?: Maybe<Scalars['String']>;
   coverImage?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   createdBy?: Maybe<User>;
   creatorId?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   followersCount?: Maybe<Scalars['Float']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   members?: Maybe<CommunityMemberPaginated>;
   name?: Maybe<Scalars['String']>;
   profile?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 
@@ -243,12 +243,12 @@ export type CommunityMember = {
   community?: Maybe<Community>;
   communityId?: Maybe<Scalars['String']>;
   communityRole: CommunityRole;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
   invitedById?: Maybe<Scalars['String']>;
   member?: Maybe<User>;
   memberId?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type CommunityMemberEdge = {
@@ -330,11 +330,11 @@ export type CommunityPoliciesPayload = {
 export type CommunityPolicy = {
   __typename?: 'CommunityPolicy';
   communityId?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type CommunityPolicyDeletePayload = {
@@ -386,14 +386,14 @@ export type CommunityPost = {
   community?: Maybe<Community>;
   communityId?: Maybe<Scalars['String']>;
   communityPostMedia?: Maybe<CommunityPostMedia>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   creator?: Maybe<User>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   isApproved?: Maybe<Scalars['Boolean']>;
   isDeleted?: Maybe<Scalars['Boolean']>;
   slug?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 /** Order by:createdAt */
@@ -419,12 +419,12 @@ export type CommunityPostMedia = {
   __typename?: 'CommunityPostMedia';
   communityPost?: Maybe<CommunityPost>;
   communityPostId?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   imageURL?: Maybe<Scalars['String']>;
   metaTitle?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type CommunityPostPageInfo = {
@@ -465,10 +465,10 @@ export type CommunityRole = {
   community?: Maybe<Community>;
   communityId?: Maybe<Scalars['String']>;
   company?: Maybe<Company>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
   role?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
   user?: Maybe<User>;
   userId?: Maybe<Scalars['String']>;
 };
@@ -489,11 +489,11 @@ export type Company = {
   companyStage?: Maybe<Scalars['String']>;
   contactEmail?: Maybe<Scalars['String']>;
   contactNumber?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
   establishedDate?: Maybe<Scalars['DateTime']>;
   followers?: Maybe<Scalars['Float']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   isActive?: Maybe<Scalars['Boolean']>;
   isVerified?: Maybe<Scalars['Boolean']>;
   legalName?: Maybe<Scalars['String']>;
@@ -507,7 +507,7 @@ export type Company = {
   registrationNumberType?: Maybe<Scalars['String']>;
   slogan?: Maybe<Scalars['String']>;
   transactions?: Maybe<Scalars['Float']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
   vision?: Maybe<Scalars['String']>;
   website?: Maybe<Scalars['String']>;
 };
@@ -555,15 +555,15 @@ export type CompanyDiscussion = {
   __typename?: 'CompanyDiscussion';
   company?: Maybe<Company>;
   companyId?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   createdBy?: Maybe<CreatedBy>;
   description?: Maybe<Scalars['String']>;
   discussionAnswer?: Maybe<DiscussionAnswerPaginated>;
   discussionVote?: Maybe<Array<DiscussionVote>>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   title?: Maybe<Scalars['String']>;
   upVote?: Maybe<Scalars['Float']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
   user: User;
   userId?: Maybe<Scalars['String']>;
 };
@@ -618,11 +618,11 @@ export type CompanyDocument = {
   __typename?: 'CompanyDocument';
   company?: Maybe<Company>;
   companyId?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   document?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   type?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type CompanyDocumentEditInput = {
@@ -762,14 +762,14 @@ export type DiscussionAnswer = {
   __typename?: 'DiscussionAnswer';
   answer?: Maybe<Scalars['String']>;
   answerReply?: Maybe<DiscussionAnswerReplyPaginated>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   createdBy?: Maybe<CreatedBy>;
   discussion?: Maybe<CompanyDiscussion>;
   discussionId?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   mentions?: Maybe<Array<User>>;
   upVote?: Maybe<Scalars['Float']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
   user: User;
   userId?: Maybe<Scalars['String']>;
 };
@@ -830,15 +830,15 @@ export type DiscussionAnswerPayload = {
 export type DiscussionAnswerReply = {
   __typename?: 'DiscussionAnswerReply';
   answer?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   createdBy?: Maybe<CreatedBy>;
   discussion?: Maybe<CompanyDiscussion>;
   discussionId?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   parentAnswer?: Maybe<DiscussionAnswer>;
   repliedToAnswerId?: Maybe<Scalars['String']>;
   upVote?: Maybe<Scalars['Float']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
   user: User;
   userId?: Maybe<Scalars['String']>;
 };
@@ -877,12 +877,12 @@ export type DiscussionAnswerUpdateInput = {
 
 export type DiscussionAnswerVote = {
   __typename?: 'DiscussionAnswerVote';
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   discussion?: Maybe<CompanyDiscussion>;
   discussionAnswer?: Maybe<DiscussionAnswer>;
   discussionId?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  updatedAt: Scalars['DateTime'];
+  id?: Maybe<Scalars['ID']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
   user?: Maybe<User>;
   userId?: Maybe<Scalars['String']>;
   vote?: Maybe<Scalars['String']>;
@@ -915,11 +915,11 @@ export type DiscussionPaginated = {
 
 export type DiscussionVote = {
   __typename?: 'DiscussionVote';
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   discussion?: Maybe<CompanyDiscussion>;
   discussionId?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  updatedAt: Scalars['DateTime'];
+  id?: Maybe<Scalars['ID']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
   user?: Maybe<Array<User>>;
   userId?: Maybe<Scalars['String']>;
   vote?: Maybe<Scalars['String']>;
@@ -953,12 +953,12 @@ export type FirstLevelComment = {
   communityPost?: Maybe<CommunityPost>;
   communityPostId?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   creator: User;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   mentions: Array<User>;
   secondLevelComment: SecondLevelCommentPagination;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 
@@ -1060,12 +1060,12 @@ export type GetCompanyBranchPayload = {
 
 export type Industry = {
   __typename?: 'Industry';
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   isActive?: Maybe<Scalars['Boolean']>;
   type: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type IndustryInput = {
@@ -1105,12 +1105,12 @@ export type JoinCommunityPayload = {
 
 export type Likes = {
   __typename?: 'Likes';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
   postId: Scalars['String'];
   reactionId: Scalars['String'];
   reactions?: Maybe<Reactions>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
   user?: Maybe<User>;
   userId: Scalars['String'];
 };
@@ -1678,11 +1678,11 @@ export type NewReplyPayload = MutationPayload & {
 
 export type Otp = {
   __typename?: 'OTP';
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   expirationDate?: Maybe<Scalars['DateTime']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   otp?: Maybe<Scalars['Float']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
   userId?: Maybe<Scalars['String']>;
 };
 
@@ -1784,13 +1784,13 @@ export type PostEdge = {
 
 export type PostImage = {
   __typename?: 'PostImage';
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   imageURL?: Maybe<Scalars['String']>;
   metaTitle?: Maybe<Scalars['String']>;
   postId?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type PostPageInfo = {
@@ -2059,10 +2059,10 @@ export enum RatingStatus {
 
 export type Reactions = {
   __typename?: 'Reactions';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
   reactionType: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 /** Order By:createdAt */
@@ -2085,10 +2085,10 @@ export type ReactionsPagination = {
 
 export type Replies = {
   __typename?: 'Replies';
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   creator: User;
   creatorId?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   mentions: Array<User>;
   post?: Maybe<Post>;
   postId?: Maybe<Scalars['String']>;
@@ -2096,7 +2096,7 @@ export type Replies = {
   repliedToCommentId?: Maybe<Scalars['String']>;
   replies: RepliesToRepliesPagination;
   text?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 
@@ -2131,15 +2131,15 @@ export type RepliesPagination = {
 
 export type RepliesToReplies = {
   __typename?: 'RepliesToReplies';
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   creator?: Maybe<User>;
   creatorId?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   repliedToCommentId?: Maybe<Scalars['String']>;
   repliedToParentComment?: Maybe<Comment>;
   repliedToReplyId?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type RepliesToRepliesEdge = {
@@ -2194,17 +2194,22 @@ export type ResetPasswordInput = {
   token: Scalars['String'];
 };
 
+export type Role = {
+  __typename?: 'Role';
+  name: Scalars['String'];
+};
+
 export type SecondLevelComment = {
   __typename?: 'SecondLevelComment';
   authorId?: Maybe<Scalars['String']>;
   commentId?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   creator: User;
   firstLevelComment?: Maybe<FirstLevelComment>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   thirdLevelComment: ThirdLevelCommentPagination;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 
@@ -2285,11 +2290,11 @@ export type ThirdLevelComment = {
   authorId?: Maybe<Scalars['String']>;
   commentId?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   creator: User;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   secondLevelComment?: Maybe<SecondLevelComment>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type ThirdLevelCommentEdge = {
@@ -2379,17 +2384,18 @@ export type User = {
   __typename?: 'User';
   company?: Maybe<Array<Company>>;
   confirm?: Maybe<Scalars['Boolean']>;
-  createdAt: Scalars['DateTime'];
+  createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   emailToken?: Maybe<Scalars['String']>;
   fullName?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   isAdmin: Scalars['Boolean'];
   isEmailVerified?: Maybe<Scalars['Boolean']>;
   isSuperuser?: Maybe<Scalars['Boolean']>;
   isValid?: Maybe<Scalars['Boolean']>;
   posts?: Maybe<Array<Post>>;
-  updatedAt: Scalars['DateTime'];
+  role?: Maybe<Role>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
   userProfile?: Maybe<UserProfile>;
   username?: Maybe<Scalars['String']>;
 };
@@ -2435,11 +2441,11 @@ export type UserPaginated = {
 export type UserProfile = {
   __typename?: 'UserProfile';
   address?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
   phoneNo?: Maybe<Scalars['String']>;
   profileImage?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
   user?: Maybe<User>;
 };
 

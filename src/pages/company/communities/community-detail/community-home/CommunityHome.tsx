@@ -6,6 +6,7 @@ import { InfiniteScroller } from '@/shared-components/infinite-scroller';
 import { LoaderDataComponent } from '@/shared-components/loader-data-component';
 import { FeedLoader } from '@/shared-components/skeleton-loader/FeedLoader';
 import { useCommunityFeedCreateMutation } from '@/hooks/services/useCommunityFeedMutation';
+import { CommunityFeeds } from '@/shared-components/feed-components/community-feeds';
 
 type CommunityHomeProps = {
 	communitySlug: string;
@@ -35,21 +36,25 @@ const CommunityHome = (props: CommunityHomeProps) => {
 	};
 	return (
 		<>
-			<CreatePost actions={['media', 'events', 'products']} onPostSubmit={onPostSubmit} />
-			<LoaderDataComponent isLoading={loading} data={response} fallback={<FeedLoader />}>
-				<InfiniteScroller
-					loading={loading}
-					scrollableTop={true}
-					hasNextPage={hasNextPage}
-					onLoadMore={onLoadMore}>
-					{(response || []).map((postNode: CommunityPostEdge) => {
-						const { node } = postNode;
-						if (node) {
-							return <Feed key={node?.id} name={'User'} post={node} isOnSale={false} />;
-						}
-					})}
-				</InfiniteScroller>
-			</LoaderDataComponent>
+			<div className='flex flex-col'>
+				<div className='mb-10'>
+					<CreatePost actions={['media', 'events', 'products']} onPostSubmit={onPostSubmit} />
+				</div>
+				<LoaderDataComponent isLoading={loading} data={response} fallback={<FeedLoader />}>
+					<InfiniteScroller
+						loading={loading}
+						scrollableTop={true}
+						hasNextPage={hasNextPage}
+						onLoadMore={onLoadMore}>
+						{(response || []).map((postNode: CommunityPostEdge) => {
+							const { node } = postNode;
+							if (node) {
+								return <CommunityFeeds key={node?.id} items={node} />;
+							}
+						})}
+					</InfiniteScroller>
+				</LoaderDataComponent>
+			</div>
 		</>
 	);
 };

@@ -25,25 +25,20 @@ export const Feeds = (props: FeedsProps) => {
 						</div>
 					</Feed.CreatorProfile>
 					<Feed.Description>
-						<div className='ml-12 mt-4'>
+						<div className='ml-16 mt-4'>
 							<p>{items.text}</p>
 						</div>
 					</Feed.Description>
-					{items.postImage?.length > 0 && (
+					{items.communityPostMedia?.length > 0 && (
 						<Feed.Gallery>
-							<div className='ml-12 mt-4'>
-								<FeedGallery images={items.postImage} />
+							<div className='ml-16 mt-4'>
+								<FeedGallery images={items.communityPostMedia} />
 							</div>
 						</Feed.Gallery>
 					)}
 					<Feed.Actions>
-						<div className='bg-slate-50 feed-actions mt-2 pb-4 pt-4 px-8 shadow-sm'>
-							<FeedActions
-								postId={items.id}
-								likesData={[]}
-								commentLength={items.comments.length}
-								isOnSale={items.isOnSale}
-							/>
+						<div className='bg-slate-50 feed-actions mt-2 pb-4 pt-4 px-14 shadow-sm'>
+							<FeedActions postId={items.id} likesData={[]} commentLength={0} isOnSale={false} />
 						</div>
 					</Feed.Actions>
 				</Feed>

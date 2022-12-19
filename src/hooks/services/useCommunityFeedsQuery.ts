@@ -16,9 +16,9 @@ export function useCommunityFeedsQuery(communitySlug: string, first: number = 2)
 	});
 
 	// const feeds = useMemo(() => data?.postsByCompanyId?.edges ?? [], [data]);
-	const response = data?.communityPost?.edges ?? [];
-	const hasNextPage = data?.communityPost?.pageInfo?.hasNextPage;
-	const after = data?.communityPost?.pageInfo?.endCursor;
+	const response = data?.communityPost?.communityPost?.edges ?? [];
+	const hasNextPage = data?.communityPost?.communityPost?.pageInfo?.hasNextPage;
+	const after = data?.communityPost?.communityPost?.pageInfo?.endCursor;
 
 	useEffect(() => {
 		const currentObserver = observerRef?.current;
