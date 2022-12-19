@@ -6,7 +6,7 @@ type AvatarProps = {
 	as?: React.ElementType;
 	imgSrc?: string | null;
 	alt?: string;
-	name?: string; // To not break existing functionality I have made this optional but this will be required
+	name: string; // To not break existing functionality I have made this optional but this will be required
 	size?: AvatarSize;
 	className?: string;
 	wrapperClassName?: string;
@@ -48,7 +48,7 @@ const Avatar = (props: AvatarProps) => {
 	if (wrapperClassName) {
 		wrapperClasses += wrapperClassName;
 	}
-	const initial = name?.charAt(0).toLocaleLowerCase();
+	const initial = name.charAt(0).toLocaleLowerCase();
 	return (
 		<Element className={wrapperClasses}>
 			{imgSrc ? (

@@ -1,7 +1,7 @@
 import { sha1 } from 'crypto-hash';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const COLOR_NAMES = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'] as const;
+const COLOR_NAMES = ['red', 'orange', 'yellow', 'redPink', 'blue', 'purple'] as const;
 
 const COLOR_SHADES = [500, 600, 700, 800] as const;
 
@@ -24,17 +24,17 @@ const COLORS: Record<typeof COLOR_NAMES[number], Record<typeof COLOR_SHADES[numb
 		700: '#5c4716',
 		800: '#41320c',
 	},
-	green: {
-		500: '#27b648',
-		600: '#13862e',
-		700: '#19652a',
-		800: '#10481d',
+	redPink: {
+		500: '#F72676',
+		600: '#F61067',
+		700: '#EC0960',
+		800: '#EC0960',
 	},
 	blue: {
-		500: '#1e9de7',
-		600: '#0e73cc',
-		700: '#144eb6',
-		800: '#0e3682',
+		500: '#7383AB', // Glaucous
+		600: '#6677A3', // blue yonder
+		700: '#5C6D99', // blue yonder
+		800: '#54648C', // dark blue gray
 	},
 	purple: {
 		500: '#8467f3',
@@ -61,14 +61,7 @@ async function generateSVG(name: string) {
 
 	const svg = `
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="12" cy="12" r="12" fill="url(#gradient)" transform="rotate(-90, 12, 12)" />
-  <defs>
-    <radialGradient id="gradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(20.5 2) rotate(127.694) scale(27.8029 21.5408)">
-      <stop stop-color="${colors[0]}"/>
-      <stop offset="0.751919" stop-color="${colors[1]}"/>
-      <stop offset="0.976459" stop-color="${colors[2]}"/>
-    </radialGradient>
-  </defs>
+  <circle cx="12" cy="12" r="12" fill="${colors[0]}" transform="rotate(-90, 12, 12)" />
 </svg>
   `.trim();
 
