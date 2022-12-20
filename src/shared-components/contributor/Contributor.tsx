@@ -2,7 +2,7 @@ import { UilCommentInfo } from '@iconscout/react-unicons';
 import { Avatar } from '../avatar';
 
 type ContibuitorsProps = {
-	imgSrc: string;
+	imgSrc: string | null;
 	name: string;
 	replies: number;
 };
@@ -14,6 +14,7 @@ const Contributor = (props: ContibuitorsProps) => {
 			<div className='flex gap-4 items-center justify-start'>
 				<Avatar
 					imgSrc={imgSrc}
+					name={name}
 					alt=''
 					className='rounded-full'
 					wrapperClassName='cursor-pointer h-8 relative rounded-full w-8'

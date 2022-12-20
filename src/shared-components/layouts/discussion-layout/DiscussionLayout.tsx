@@ -8,25 +8,25 @@ import { RightDrawerLayout } from '../right-drawer-layout';
 const Contributors = [
 	{
 		id: 1,
-		imageSrc: 'https://i.pravatar.cc/500',
+		imageSrc: '',
 		name: 'Kiran Budhathoki',
 		replies: 102,
 	},
 	{
 		id: 2,
-		imageSrc: 'https://i.pravatar.cc/500',
+		imageSrc: '',
 		name: 'Kiran Budhathoki',
 		replies: 102,
 	},
 	{
 		id: 3,
-		imageSrc: 'https://i.pravatar.cc/500',
+		imageSrc: '',
 		name: 'Kiran Budhathoki',
 		replies: 102,
 	},
 	{
 		id: 4,
-		imageSrc: 'https://i.pravatar.cc/500',
+		imageSrc: '',
 		name: 'Kiran Budhathoki',
 		replies: 102,
 	},

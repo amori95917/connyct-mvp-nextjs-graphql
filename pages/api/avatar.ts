@@ -1,67 +1,33 @@
 import { sha1 } from 'crypto-hash';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const COLOR_NAMES = ['red', 'orange', 'yellow', 'redPink', 'blue', 'purple'] as const;
-
-const COLOR_SHADES = [500, 600, 700, 800] as const;
-
-const COLORS: Record<typeof COLOR_NAMES[number], Record<typeof COLOR_SHADES[number], string>> = {
-	red: {
-		500: '#ff455d',
-		600: '#dd243c',
-		700: '#c11027',
-		800: '#8f0718',
-	},
-	orange: {
-		500: '#f35815',
-		600: '#c43c02',
-		700: '#962d00',
-		800: '#672002',
-	},
-	yellow: {
-		500: '#a78103',
-		600: '#835c01',
-		700: '#5c4716',
-		800: '#41320c',
-	},
-	redPink: {
-		500: '#F72676',
-		600: '#F61067',
-		700: '#EC0960',
-		800: '#EC0960',
-	},
-	blue: {
-		500: '#7383AB', // Glaucous
-		600: '#6677A3', // blue yonder
-		700: '#5C6D99', // blue yonder
-		800: '#54648C', // dark blue gray
-	},
-	purple: {
-		500: '#8467f3',
-		600: '#624bbb',
-		700: '#4b3990',
-		800: '#3e1f75',
-	},
-};
+const BEAUTIFUL_TRENDY_COLORS = [
+	'#ff9a9e', // Pink
+	'#fad0c4', // Peach
+	'#f8b195', // Coral
+	'#f67280', // Red
+	'#c06c84', // Burgundy
+	'#6c567b', // Purple
+	'#355c7d', // Teal
+	'#2e86de', // Blue
+	'#00b894', // Mint
+	'#f5d76e', // Yellow
+	'#eccc68', // Mustard
+	'#a3e4d7', // Turquoise
+	'#54a0ff', // Sky Blue
+	'#2d3436', // Charcoal
+] as const;
 
 async function generateSVG(name: string) {
 	const hash = await sha1(name);
-
-	const colors = [...Array(3)].map((_, idx) => {
-		const colorHash = hash.slice(idx * 2, idx * 2 + 2);
-
-		const nameDecimal = parseInt(colorHash[0], 16);
-		const colorName = COLOR_NAMES[nameDecimal % COLOR_NAMES.length];
-
-		const shadeDecimal = parseInt(colorHash[1], 16);
-		const colorShade = COLOR_SHADES[shadeDecimal % COLOR_SHADES.length];
-
-		return COLORS[colorName][colorShade];
-	});
+	const colorIndex = parseInt(hash.slice(0, 2), 16) % BEAUTIFUL_TRENDY_COLORS.length;
+	const color = BEAUTIFUL_TRENDY_COLORS[colorIndex];
+	const initial = name.charAt(0).toUpperCase();
 
 	const svg = `
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="12" cy="12" r="12" fill="${colors[0]}" transform="rotate(-90, 12, 12)" />
+  <circle cx="12" cy="12" r="12" fill="${color}" />
+  <text x="12" y="16" text-anchor="middle" fill="#ffffff" font-size="14" font-family="sans-serif">${initial}</text>
 </svg>
   `.trim();
 
@@ -90,7 +56,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		);
 		res.statusCode = 200;
 		res.send(svg);
-	} catch (error: any) {
-		return res.status(500).json({ message: error.message });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Internal Server Error' });
 	}
 }

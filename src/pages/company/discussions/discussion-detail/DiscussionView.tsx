@@ -34,6 +34,7 @@ export const DiscussionView = ({ discussion }) => {
 		<div className='bg-white p-5'>
 			<div className='flex items-center justify-between'>
 				<CreatorContainer
+					userName={discussion?.createdBy?.userName || discussion?.createdBy?.fullName}
 					fullName={discussion?.createdBy?.fullName}
 					createdAt={discussion?.createdAt}
 					avatar={discussion.createdBy?.image}

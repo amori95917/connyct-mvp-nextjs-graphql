@@ -48,7 +48,12 @@ export const DiscussionAnswer = ({
 	return (
 		<div className='bg-gray-50 mt-5 px-4 py-2 rounded-md'>
 			<div className='flex justify-between'>
-				<CreatorContainer fullName={answer?.user?.fullName} createdAt={answer?.createdAt} avatar={''} />
+				<CreatorContainer
+					userName={answer?.user?.username || answer?.user?.fullName}
+					fullName={answer?.user?.fullName}
+					createdAt={answer?.createdAt}
+					avatar={null}
+				/>
 				<div className='mb-5'>
 					<button
 						onClick={onActionClickHandler}

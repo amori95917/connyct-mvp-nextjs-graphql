@@ -7,7 +7,7 @@ type CreatorContainerProps = {
 	fullName: string;
 	userName: string;
 	createdAt?: string;
-	avatar: string;
+	avatar?: string | null;
 };
 
 export const CreatorContainer: React.FC<CreatorContainerProps> = props => {

@@ -23,11 +23,11 @@ const Discussion = (props: DiscussionProps) => {
 				{/* my design */}
 				<div className='bg-white flex gap-4 p-3 rounded-md'>
 					<div className='flex flex-col items-center justify-center px-5'>
-						<button className='p-4 text-slate-600 hover:text-blue-600' onClick={() => handelVoteUp()}>
+						<button className='p-4 text-slate-600 hover:text-blue-600' onClick={handelVoteUp}>
 							<UilAngleUp size={40} />
 						</button>
 						<span className='font-semibold text-2xl text-primary'>{discussion.upVote}</span>
-						<button className='p-4 text-slate-600 hover:text-rose-600' onClick={() => handelVoteDown()}>
+						<button className='p-4 text-slate-600 hover:text-rose-600' onClick={handelVoteDown}>
 							<UilAngleDown size={40} />
 						</button>
 					</div>

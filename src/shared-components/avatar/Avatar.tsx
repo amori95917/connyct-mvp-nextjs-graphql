@@ -67,12 +67,6 @@ const Avatar = (props: AvatarProps) => {
 							height={dimension[size]}
 						/>
 					</div>
-					{isCharacterALetter(initial) && (
-						<div className='col-end-1 col-start-1 flex items-center justify-center relative row-end-1 row-start-1'>
-							{/* eslint-disable-next-line @next/next/no-img-element */}
-							<img src={`/images/letters/${initial}.svg`} className={initialSize[size]} alt='' />
-						</div>
-					)}
 				</div>
 			)}
 		</Element>
