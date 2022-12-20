@@ -49,11 +49,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				const cachedUser = await cache.readQuery({
 					query: CURRENT_USER_QUERY,
 				});
+				console.info('CACHED USER', cachedUser);
 				if (!cachedUser?.me) {
 					const { data } = await apolloClient.query({
 						query: CURRENT_USER_QUERY,
 					});
-					setUser(data.me);
+					console.info('NON CACHED USER', data);
+					if (data?.me) {
+						setUser(data.me);
+					}
 				} else {
 					setUser(cachedUser.me);
 				}
@@ -72,31 +76,30 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		const token = getCookie('CONNYCT_USER');
 		if (!token) return;
 		authenticate(token);
-	}, []);
+	}, [authenticate]);
+
+	const Component = useMemo(
+		() => (React.isValidElement(children) ? children.type : undefined),
+		[children]
+	);
 
 	// If we're not loading give the try to authenticate with the given
 	useEffect(() => {
-		if (!React.isValidElement(children)) return;
-
-		const Component = children.type;
-
+		if (!Component) return;
 		// If it doesn't require auth, everything's good.
 		if (!Component.requiresAuth) return;
-
 		// If we're already authenticated, everything's good.
 		if (isAuthenticated) return;
-
 		// If we don't have a token in the cookies, logout
 		const token = getCookie('CONNYCT_USER');
 		if (!token) {
 			return logout({ redirectLocation: Component.redirectUnauthenticatedTo });
 		}
-
 		// If we're not loading give the try to authenticate with the given token.
 		if (!isLoading) {
 			authenticate(token);
 		}
-	}, [children, logout, isLoading, isAuthenticated, authenticate]);
+	}, [Component, isAuthenticated, isLoading, logout, authenticate]);
 
 	const authContextValue = useMemo(
 		() => ({
