@@ -74,6 +74,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	useEffect(() => {
 		const token = getCookie('CONNYCT_USER');
+		console.log('##TOKEN##', token);
 		if (!token) return;
 		authenticate(token);
 	}, [authenticate]);

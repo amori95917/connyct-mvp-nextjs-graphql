@@ -25,4 +25,5 @@ const CompanySecurityPage = () => {
 	);
 };
 
+CompanySecurityPage.auth = true;
 export default CompanySecurityPage;

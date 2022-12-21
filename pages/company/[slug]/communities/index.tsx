@@ -21,4 +21,5 @@ const CommunitiesPage = () => {
 	);
 };
 
+CommunitiesPage.auth = true;
 export default CommunitiesPage;

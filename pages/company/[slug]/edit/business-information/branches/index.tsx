@@ -24,4 +24,5 @@ const CompanyBranchesPage = () => {
 	);
 };
 
+CompanyBranchesPage.auth = true;
 export default CompanyBranchesPage;

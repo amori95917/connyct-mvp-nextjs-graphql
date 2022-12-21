@@ -22,4 +22,5 @@ const CompanyFeedsPage = () => {
 	);
 };
 
+CompanyFeedsPage.auth = true;
 export default CompanyFeedsPage;

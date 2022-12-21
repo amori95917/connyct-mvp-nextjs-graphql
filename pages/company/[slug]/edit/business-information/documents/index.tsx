@@ -24,4 +24,5 @@ const BusinessDocumentEditPage = () => {
 	);
 };
 
+BusinessDocumentEditPage.auth = true;
 export default BusinessDocumentEditPage;

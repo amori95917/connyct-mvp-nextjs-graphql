@@ -22,4 +22,5 @@ const DiscussionsPage = () => {
 	);
 };
 
+DiscussionsPage.auth = true;
 export default DiscussionsPage;

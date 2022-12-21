@@ -24,4 +24,5 @@ const BusinessGeneralEditPage = () => {
 	);
 };
 
+BusinessGeneralEditPage.auth = true;
 export default BusinessGeneralEditPage;

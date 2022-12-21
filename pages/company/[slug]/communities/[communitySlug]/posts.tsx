@@ -2,13 +2,8 @@ import { useRouter } from 'next/router';
 import { Navbar } from '@/shared-components/navbar';
 
 import { CompanyLayout } from '@/shared-components/layouts';
+import { getSlug } from '@/utils/getSlug';
 // import CommunityHome from '@/components/brand/community/community-home';
-
-function getSlug(slug: string | string[] | undefined) {
-	if (slug === undefined) return '';
-	if (typeof slug === 'string') return slug;
-	if (Array.isArray(slug)) return slug[0];
-}
 
 const CommunityPostsPage = () => {
 	const router = useRouter();
