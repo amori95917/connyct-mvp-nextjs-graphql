@@ -46,6 +46,14 @@ const SIGNUP_MUTATION = gql`
 			company {
 				id
 				legalName
+				avatar
+				companyStage
+				isActive
+				isVerified
+				ownerId
+				followers
+				accountStatus
+				reason
 			}
 			user {
 				id
@@ -63,9 +71,18 @@ const LOGIN_MUTATION = gql`
 		login(data: $data) {
 			accessToken
 			refreshToken
+			role
 			company {
 				id
 				legalName
+				avatar
+				companyStage
+				isActive
+				isVerified
+				ownerId
+				followers
+				accountStatus
+				reason
 			}
 			user {
 				id

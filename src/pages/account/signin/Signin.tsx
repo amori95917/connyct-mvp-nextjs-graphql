@@ -41,12 +41,13 @@ const Signin = () => {
 			console.time();
 			if (response?.data?.login) {
 				setError({});
-				const { accessToken, refreshToken, company, user } = response.data.login;
+				const { accessToken, refreshToken, company, user, role } = response.data.login;
 				const cookieToSet = {
 					accessToken,
 					refreshToken,
 					user,
 					company,
+					role,
 				};
 				setCookie('CONNYCT_USER', cookieToSet);
 				console.timeEnd();

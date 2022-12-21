@@ -27,6 +27,14 @@ export const POST_FRAGMENT = gql`
 			id
 			legalName
 			name
+			avatar
+			companyStage
+			isActive
+			isVerified
+			ownerId
+			followers
+			accountStatus
+			reason
 		}
 		postImage {
 			id

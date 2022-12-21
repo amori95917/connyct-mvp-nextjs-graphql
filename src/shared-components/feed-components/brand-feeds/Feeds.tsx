@@ -17,9 +17,9 @@ export const Feeds = (props: FeedsProps) => {
 					<Feed.CreatorProfile>
 						<div className='flex justify-between pl-2 pt-2'>
 							<CreatorContainer
-								avatar={items?.creator?.userProfile?.profileImage}
-								userName={items?.creator?.username || items.creator?.fullName}
-								fullName={items.creator?.fullName}
+								avatar={items?.company?.avatar}
+								userName={items?.company?.name || items?.company?.legalName}
+								fullName={items?.company?.legalName}
 								createdAt={items.createdAt}
 							/>
 						</div>

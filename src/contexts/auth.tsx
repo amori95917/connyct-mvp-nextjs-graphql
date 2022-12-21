@@ -43,13 +43,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		async token => {
 			setIsLoading(true);
 			try {
+				// Validate the token object to make sure it has the required fields
+				if (!token || !token.accessToken) {
+					throw new Error('Invalid token object provided');
+				}
 				if (isTokenExpired(token.accessToken)) {
 					throw new Error('Token has expired');
 				}
+				// Read the user from the cache
 				const cachedUser = await cache.readQuery({
 					query: CURRENT_USER_QUERY,
 				});
 				console.info('CACHED USER', cachedUser);
+				// If the user is not in the cache, fetch it from the server
 				if (!cachedUser?.me) {
 					const { data } = await apolloClient.query({
 						query: CURRENT_USER_QUERY,
@@ -59,11 +65,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 						setUser(data.me);
 					}
 				} else {
+					// If the user is in the cache, set it as the current user
 					setUser(cachedUser.me);
 				}
 				setCookie('CONNYCT_USER', token);
 			} catch (error) {
-				console.log({ error });
+				console.error({ error });
 				setUser(null);
 				deleteCookie('CONNYCT_USER');
 			}

@@ -11,6 +11,7 @@ import {
 	BrandFeedUploadForm,
 	BrandFeedUploadPreview,
 } from '../feed-components/brand-feeds/BrandFeedUpload';
+import { Avatar } from '../avatar';
 
 export const PostPopup = React.forwardRef(
 	({ company, setShowPostPopup, handlePostSubmit, currentUser }, ref) => {
@@ -102,13 +103,12 @@ export const PostPopup = React.forwardRef(
 								<div className='flex flex-col h-full justify-between'>
 									<div className='flex flex-col h-full'>
 										<div className='flex items-center'>
-											<div className=''>
-												<Image
+											<div className='h-16 relative w-16'>
+												<Avatar
 													className='rounded-full'
-													width={45}
-													height={45}
-													src={currentUser?.userProfile?.profileImage || 'https://i.pravatar.cc'}
-													alt='Sunset in the mountains'
+													imgSrc={company[0]?.avatar}
+													name={company[0]?.name || company[0].legalName}
+													alt={company[0]?.name || company[0].legalName || 'brand-avatar'}
 												/>
 											</div>
 											<div className='flex flex-col font-semibold items-start ml-5 text-lg whitespace-nowrap'>

@@ -15,7 +15,7 @@ export const CreatorContainer: React.FC<CreatorContainerProps> = props => {
 	return (
 		<>
 			<div className='flex items-center'>
-				<div className='h-12 relative w-12'>
+				<div className='h-14 relative w-14'>
 					<Avatar imgSrc={avatar} name={userName || fullName} />
 				</div>
 				<div className='flex flex-col ml-2'>

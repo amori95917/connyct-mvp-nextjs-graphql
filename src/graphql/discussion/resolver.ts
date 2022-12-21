@@ -195,7 +195,6 @@ export const GET_DISCUSSION_ANSWER = gql`
 								answer
 								discussionId
 								userId
-
 								user {
 									id
 									fullName
@@ -235,6 +234,7 @@ export const GET_DISCUSSION_BY_ID = gql`
 			createdBy {
 				id
 				fullName
+				image
 			}
 		}
 	}

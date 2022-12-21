@@ -8,6 +8,7 @@ import { getCookie } from '@/utils/cookies';
 import { PostPopup } from '../post-popup';
 import { RightDrawerLayout } from '../layouts/right-drawer-layout';
 import { ProductPostForm } from './product-post-form';
+import { Avatar } from '../avatar';
 
 const CreatePost = props => {
 	const { actions, onPostSubmit, currentUser } = props;
@@ -49,13 +50,12 @@ const CreatePost = props => {
 			}
 			<div className='bg-white flex flex-col p-5 rounded-md w-full'>
 				<div className='flex'>
-					<div>
-						<Image
+					<div className='h-16 relative w-16'>
+						<Avatar
 							className='rounded-full'
-							width={45}
-							height={45}
-							src={currentUser?.userProfile?.profileImage || 'https://i.pravatar.cc'}
-							alt='avatar'
+							imgSrc={company[0]?.avatar}
+							name={company[0]?.name || company[0].legalName}
+							alt={company[0]?.name || company[0].legalName || 'brand-avatar'}
 						/>
 					</div>
 					<div className='grow ml-5 rounded-full'>
