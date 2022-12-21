@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { formatDistance } from 'date-fns';
-import parse from 'html-react-parser';
+// import parse from 'html-react-parser';
 import { UilAngleDown, UilAngleUp, UilEllipsisV } from '@iconscout/react-unicons';
 
 import { DiscussionActionsDropdown } from '../drop-down/DiscussionActionsDropdown';
@@ -62,7 +62,10 @@ export const DiscussionReply = ({ index, node }: { index: number | string }) => 
 					</div>
 				</div>
 				<div>
-					<div className='mt-2 text-md text-slate-800'>{parse(node.answer || '')}</div>
+					<div
+						className='mt-2 text-md text-slate-800'
+						dangerouslySetInnerHTML={{ __html: node.answer || '' }}
+					/>
 				</div>
 				<div className='bg-slate-300 h-px mt-4'></div>
 				<div className='flex items-center pt-4'>

@@ -48,7 +48,7 @@ const Avatar = (props: AvatarProps) => {
 	if (wrapperClassName) {
 		wrapperClasses += wrapperClassName;
 	}
-	const initial = name.charAt(0).toLocaleLowerCase();
+	// const initial = name.charAt(0).toLocaleLowerCase();
 	return (
 		<Element className={wrapperClasses}>
 			{imgSrc ? (

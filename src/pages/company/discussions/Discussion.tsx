@@ -2,11 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { UilCommentInfo, UilAngleDown, UilAngleUp } from '@iconscout/react-unicons';
 import { formatDistance } from 'date-fns';
-import parse from 'html-react-parser';
 // import ReactHtmlParser from 'react-html-p÷arser';
 
 import { CompanyDiscussion, Maybe } from '@/generated/graphql';
 import { useDiscussionVote } from './useDiscussionHooks';
+import { Avatar } from '@/shared-components/avatar';
 
 type DiscussionProps = {
 	discussion: Maybe<CompanyDiscussion> | undefined;
@@ -42,19 +42,21 @@ const Discussion = (props: DiscussionProps) => {
 								</div>
 							</Link>
 							<div className='pb-4'>
-								<div className='text-slate-600'>{parse(discussion.description || '')}</div>
+								<div
+									className='text-slate-600'
+									dangerouslySetInnerHTML={{ __html: discussion.description || '' }}
+								/>
 							</div>
 							<hr className='bg-gray-200 border-0 h-px mb-4 pl-10 dark:bg-gray-700' />
 						</div>
 						<div className='flex items-center justify-between w-full'>
 							<div className='flex gap-2 items-center'>
 								<div className='cursor-pointer h-8 relative rounded-full w-8'>
-									<Image
-										src={discussion.createdBy?.image || 'https://i.pravatar.cc/'}
-										alt=''
+									<Avatar
+										imgSrc={discussion.createdBy?.image}
+										name={discussion.createdBy?.fullName || ''}
 										className='rounded-full'
-										width='50'
-										height='50'
+										size='md'
 									/>
 								</div>
 								<span className='cursor-pointer text-slate-600 text-sm'>

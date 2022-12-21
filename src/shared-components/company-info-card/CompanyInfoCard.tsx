@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { UilMedal } from '@iconscout/react-unicons';
+import { Avatar } from '../avatar';
 
 const slateSecondaryClassNames = 'text-slate-400';
 const boldSecondaryTextClassNames = 'font-bold text-xl';
@@ -18,12 +19,12 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 					<div className='bg-gray-100 flex flex-col p-3 rounded-md'>
 						<div className='flex items-center'>
 							<div className='h-16 relative rounded-full w-16'>
-								<Image
-									className='rounded-full'
-									width='200'
-									height='200'
-									src={data?.getCompanyById?.avatar ?? '/images/nike.jpeg'}
+								<Avatar
+									imgSrc={data?.getCompanyById?.avatar}
+									name={data?.getCompanyById?.name}
 									alt={data?.getCompanyById?.name}
+									className='rounded-full'
+									size='lg'
 								/>
 							</div>
 							{/* TODO need to change visitor by using the graphql call */}
