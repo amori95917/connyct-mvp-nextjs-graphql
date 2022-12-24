@@ -25,7 +25,7 @@ export type DocumentsProps = {
 };
 
 export type DocumentsFormFields = {
-	documentType: any;
+	registrationNumberType: any;
 	documentFile: any;
 };
 

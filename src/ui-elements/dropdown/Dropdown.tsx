@@ -26,7 +26,7 @@ import { DropdownContext } from './context';
 export const Dropdown = (props: DropdownProps) => {
 	const { children, open = false, ...rest } = props;
 	const [isToggle, setIsToggle] = useState(open);
-	const handleToggle = useCallback(() => setIsToggle(prevIsToggle => !prevIsToggle), [isToggle]);
+	const handleToggle = useCallback(() => setIsToggle(prevIsToggle => !prevIsToggle), []);
 	const value = useMemo(
 		() => ({
 			handleToggle,

@@ -22,12 +22,16 @@ export const generalFromInitialValues = (data: any) => {
 };
 
 export const documentsFormInitialValues = (data: any) => {
-	const registrationNumberType = data?.registrationNumberType;
-	return { documentType: registrationNumberType || 'VAT', documentFile: null };
+	console.log('data', data);
+	const registrationNumberType = data?.getCompanyById?.registrationNumberType;
+	return { registrationNumberType: registrationNumberType || 'VAT', documentFile: null };
 };
 export const documentsRegistrationFormInitialValues = (data: any) => {
-	const registrationNumberType = data?.registrationNumberType;
-	return { documentType: registrationNumberType || 'COMPANY_REGISTRATION', documentFile: null };
+	const registrationNumberType = data?.getCompanyById?.registrationNumberType;
+	return {
+		registrationNumberType: registrationNumberType || 'COMPANY_REGISTRATION',
+		documentFile: null,
+	};
 };
 
 function getCompanyStage(companyStage: string | null) {

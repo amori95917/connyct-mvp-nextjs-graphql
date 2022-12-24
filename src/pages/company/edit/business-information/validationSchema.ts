@@ -8,7 +8,7 @@ export const generalFormValidationSchema = yup.object({
 });
 
 export const documentsFormValidationSchema = yup.object({
-	documentFile: yup.mixed().required('File is required.'),
+	registrationNumberType: yup.mixed().required('File is required.'),
 });
 
 export const CitizenshipUploadValidationSchema = yup.object({

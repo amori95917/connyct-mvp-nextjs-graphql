@@ -18,8 +18,8 @@ export const EmptyComponent = (props: EmptyComponentProps) => {
 		<>
 			<div className='bg-white flex flex-col h-128 items-center justify-center mt-5 rounded-md w-full'>
 				{icon}
-				<span className='font-semibold mt-2 text-lg'>{text}</span>
-				<span className='text-sm'>{subText}</span>
+				<span className='font-semibold mt-2 text-lg text-primary'>{text}</span>
+				<span className='text-brandSecondary text-sm'>{subText}</span>
 				{ctaButton}
 			</div>
 		</>

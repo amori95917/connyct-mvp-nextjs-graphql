@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { FOLLOW_COMPANY, UNFOLLOW_COMPANY } from '@/graphql/follow-company';
 import { useMutation } from '@apollo/client';
+import { USER_CONNECTIONS_SUMMARY } from '@/graphql/user';
 
 const useCompanySuggestion = () => {
 	const [followedCompanies, setFollowedCompanies] = useState<string[]>([]);
@@ -15,6 +16,7 @@ const useCompanySuggestion = () => {
 					followedToId: companyId,
 				},
 			},
+			refetchQueries: [{ query: USER_CONNECTIONS_SUMMARY }],
 		});
 		const followedCompanyId = response.data.followCompany.followedToId;
 		if (!followedCompanies.includes(followedCompanyId)) {
@@ -29,6 +31,7 @@ const useCompanySuggestion = () => {
 					companyId,
 				},
 			},
+			refetchQueries: [{ query: USER_CONNECTIONS_SUMMARY }],
 		});
 		setFollowedCompanies(followedCompanies.filter(item => item != companyId));
 	};

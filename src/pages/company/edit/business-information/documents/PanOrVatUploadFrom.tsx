@@ -62,7 +62,7 @@ export const PanOrVatUploadFrom: React.FC<DocumentUploadProps> = ({
 				variables: {
 					input: {
 						companyId: companySlug,
-						type: input.documentType,
+						type: input.registrationNumberType,
 					},
 					document: input.documentFile,
 				},
@@ -128,7 +128,7 @@ export const PanOrVatUploadFrom: React.FC<DocumentUploadProps> = ({
 
 				<div className='mt-10'>
 					<FormInput
-						name='documentType'
+						name='registrationNumberType'
 						id='document'
 						label='Document Type'
 						register={register}

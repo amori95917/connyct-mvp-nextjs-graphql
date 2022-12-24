@@ -1,1 +1,1 @@
-export { SIGNUP_MUTATION, LOGIN_MUTATION } from './resolver'
+export { SIGNUP_MUTATION, LOGIN_MUTATION, SWITCH_ACCOUNT } from './resolver';

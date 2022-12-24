@@ -8,11 +8,9 @@ const MyConnectPage = () => {
 			<HeaderLayout>
 				<div className='container mx-auto'>
 					<div className='flex'>
-						{/* <Sidebar /> */}
 						<div className='w-full'>
 							<MyConnects />
 						</div>
-						{/* <Widgets /> */}
 					</div>
 				</div>
 			</HeaderLayout>

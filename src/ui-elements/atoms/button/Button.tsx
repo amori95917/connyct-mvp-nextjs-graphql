@@ -18,11 +18,18 @@ interface ButtonProps {
 // TODO: use theme and make our own css-in-js.
 
 export function Button(props: ButtonProps) {
-	const { children, loading, loadingComponent = 'loading...', ...otherProps } = props;
+	const {
+		children,
+		loading,
+		loadingComponent = 'loading...',
+		variant = 'contained',
+		color = 'primary',
+		...otherProps
+	} = props;
 
 	const getColor = (color: string) => {
 		if (color === 'primary') return '#5A6399';
-		if (color === 'secondary') return '#ffa000';
+		if (color === 'secondary') return '#ea9a7e';
 		return color;
 	};
 
@@ -45,20 +52,17 @@ export function Button(props: ButtonProps) {
 			...getSize(props.size),
 		},
 		contained: {
-			backgroundColor: props => getColor(props.color),
+			backgroundColor: getColor(color),
 			color: 'white',
 			'&:hover': {
-				backgroundColor: props => {
-					if (props.color === 'secondary') return '#ff8f00';
-					if (props.color === 'primary') return '#5A6399';
-					return 'rgba(0, 0, 0, 0.1)';
-				},
+				backgroundColor:
+					color === 'secondary' ? '#ea9a7e' : color === 'primary' ? '#5A6399' : 'rgba(0, 0, 0, 0.1)',
 			},
 		},
 		outlined: {
 			border: '1px solid',
-			color: props => getColor(props.color),
-			borderColor: props => getColor(props.color),
+			color: getColor(color),
+			borderColor: getColor(color),
 		},
 		disabled: {
 			pointerEvents: 'none',
@@ -67,10 +71,10 @@ export function Button(props: ButtonProps) {
 	};
 
 	let className = 'button';
-	if (props.variant === 'outlined') {
+	if (variant === 'outlined') {
 		className += ' outlined';
 	}
-	if (props.color === 'secondary') {
+	if (color === 'secondary') {
 		className += ' secondary';
 	}
 	if (props.disabled) {
@@ -85,8 +89,8 @@ export function Button(props: ButtonProps) {
 			style={Object.assign(
 				{},
 				styles.base,
-				props.variant === 'contained' && styles.contained,
-				props.variant === 'outlined' && styles.outlined,
+				variant === 'contained' && styles.contained,
+				variant === 'outlined' && styles.outlined,
 				props.disabled && styles.disabled
 			)}
 			disabled={loading || props.disabled}

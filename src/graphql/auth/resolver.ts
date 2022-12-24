@@ -1,95 +1,69 @@
 import { gql } from '@apollo/client';
 
-// const USER_FRAGMENT =  gql`
-//   fragment UserFragment on User {
-//     id
-//     createdAt
-//     updatedAt
-//     firstName
-//     lastName
-//     email
-//     isValid
-//     isSuperuser
-//     confirm
-//     emailToken
-//     posts {
-
-//     }
-//     company {
-
-//     }
-//     isAdmin
-//   }
-// `
-
-// const AUTH_FRAGMENT = gql`
-// fragment AuthFragment on Auth {
-//   accessToken
-//   refreshToken
-//   user {
-//     ...UserFragment
-//   }
-//   role
-//   company {
-
-//   }
-// }
-// ${USER_FRAGMENT}
-// `
+export const AUTH_FRAGMENT = gql`
+	fragment AuthFragment on Auth {
+		accessToken
+		refreshToken
+		company {
+			id
+			name
+			legalName
+			avatar
+			companyStage
+			isActive
+			isVerified
+			ownerId
+			followers
+			accountStatus
+			reason
+		}
+		user {
+			id
+			email
+			username
+			isValid
+			isEmailVerified
+			userProfile {
+				id
+				profileImage
+			}
+			roles {
+				id
+				name
+			}
+			activeRole {
+				id
+				name
+			}
+		}
+	}
+`;
 
 const SIGNUP_MUTATION = gql`
 	mutation signup($data: SignupInput!) {
 		signup(data: $data) {
-			accessToken
-			refreshToken
-			role
-			company {
-				id
-				legalName
-				avatar
-				companyStage
-				isActive
-				isVerified
-				ownerId
-				followers
-				accountStatus
-				reason
-			}
-			user {
-				id
-				fullName
-				email
-				isValid
-				isAdmin
-			}
+			...AuthFragment
 		}
 	}
+	${AUTH_FRAGMENT}
 `;
 
 const LOGIN_MUTATION = gql`
 	mutation login($data: LoginInput!) {
 		login(data: $data) {
-			accessToken
-			refreshToken
-			role
-			company {
-				id
-				legalName
-				avatar
-				companyStage
-				isActive
-				isVerified
-				ownerId
-				followers
-				accountStatus
-				reason
-			}
-			user {
-				id
-				email
-			}
+			...AuthFragment
 		}
 	}
+	${AUTH_FRAGMENT}
 `;
 
-export { SIGNUP_MUTATION, LOGIN_MUTATION };
+const SWITCH_ACCOUNT = gql`
+	mutation switchAccount($input: SwitchAccountInput!) {
+		switchAccount(input: $input) {
+			...AuthFragment
+		}
+	}
+	${AUTH_FRAGMENT}
+`;
+
+export { SIGNUP_MUTATION, LOGIN_MUTATION, SWITCH_ACCOUNT };

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
-import Image from 'next/image';
 import Link from 'next/link';
-// import { useQuery } from '@apollo/client';
 import {
 	UilCreateDashboard,
 	UilEnvelopeSend,
@@ -12,12 +10,17 @@ import {
 	UilEllipsisV,
 	UilAngleLeft,
 	UilAngleRightB,
+	UilAngleUp,
+	UilAngleDown,
 } from '@iconscout/react-unicons';
-
-// import { GET_USER } from '@/graphql/user';
-import { deleteCookie, getCookie } from '@/utils/cookies';
+import { useAccountSwitchMutation } from '@/hooks/services/useAccountSwitchMutation';
+import { deleteCookie, getCookie, setCookie } from '@/utils/cookies';
+import { Dropdown } from '@/ui-elements/dropdown';
+import { Button } from '@/ui-elements/atoms/button';
+import { Avatar } from '../avatar';
 
 export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
+	const { switchAccount, data: switchAccountData } = useAccountSwitchMutation();
 	const { company, user } = getCookie('CONNYCT_USER');
 
 	const slug = data?.getCompanyById?.id;
@@ -73,35 +76,70 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 		}
 	};
 
-	const getAvatar = () => {
-		if (data?.getCompanyById?.avatar) {
-			return data.getCompanyById.avatar;
+	// const buttonClass =
+	// 	'bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-brandSecondary';
+
+	const handleAccountSwitch = async (accountType: string) => {
+		if (user?.id) {
+			await switchAccount({
+				variables: {
+					input: {
+						userId: user.id,
+						accountType,
+					},
+				},
+			});
+			if (switchAccountData?.switchAccount) {
+				setCookie('CONNYCT_USER', switchAccountData?.switchAccount);
+				Router.push('/feeds');
+			}
 		}
 	};
-
-	const buttonClass =
-		'bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-brandSecondary';
 
 	return (
 		<div className='container mx-auto relative z-10'>
 			{/* <div className='arrow-up fixed right-3 right-8 top-14 z-20'></div> */}
 			<div
 				ref={ref}
-				className={`bg-gray-50 fixed flex ${classes.mainHeight} duration-200 ease-in-out  no-scrollbar  overflow-hidden p-3 right-5 rounded-md shadow-lg top-16 w-80`}>
+				className={`bg-gray-50 fixed flex ${classes.mainHeight} duration-200 ease-in-out  no-scrollbar  overflow-y-auto p-3 right-5 rounded-md shadow-lg top-16 w-80`}>
 				<div className={`ml-1 ${classes.main} absolute w-72`}>
 					<div className='bg-primary flex flex-col items-center rounded-md shadow-sm'>
 						<div className='bg-white h-24 mt-5 overflow-hidden relative rounded-full w-24'>
-							<Image
-								src={getAvatar()}
-								alt='profile-photo'
-								fill
-								objectFit='cover'
-								className={'rounded-full'}
+							<Avatar
+								imgSrc={data?.getCompanyById?.avatar || company[0]?.avatar}
+								name={company[0]?.name || company[0]?.legalName}
+								alt={company[0]?.legalName || 'brand-avatar'}
 							/>
 						</div>
-						<span className='font-semibold text-white text-xl'>
-							{company ? company[0]?.legalName : user.email}
-						</span>
+						{/* TODO: Need to check if user has both account or not or user has brand account. If user has only user account then no need of dropdown */}
+						<Dropdown>
+							<Dropdown.Action>
+								{isToggle => (
+									<Button
+										color='secondary'
+										className='font-semibold text-md text-white'
+										endIcon={isToggle ? <UilAngleUp size={20} /> : <UilAngleDown size={20} />}>
+										Choose Profile
+									</Button>
+								)}
+							</Dropdown.Action>
+							<Dropdown.Menu>
+								<Dropdown.Option>
+									<span
+										className='cursor-pointer font-semibold text-md text-white'
+										onClick={() => handleAccountSwitch('OWNER')}>
+										{company ? company[0]?.name : company[0]?.legalName}
+									</span>
+								</Dropdown.Option>
+								<Dropdown.Option>
+									<span
+										className='cursor-pointer font-semibold text-md text-white'
+										onClick={() => handleAccountSwitch('USER')}>
+										{user ? user?.username : user.email}
+									</span>
+								</Dropdown.Option>
+							</Dropdown.Menu>
+						</Dropdown>
 					</div>
 					<Link href={`/dashboard`} passHref>
 						<button className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
@@ -181,7 +219,15 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 						<Link href={`/company/${slug}/edit/business-information/general`} passHref>
 							<button className='flex'>
 								<UilSetting size={25} className='fill-primary' />
-								<span className='ml-5'>Edit Profile</span>
+								<span className='ml-5'>Edit Brand Profile</span>
+							</button>
+						</Link>
+					</button>
+					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
+						<Link href={`/user/profile`} passHref>
+							<button className='flex'>
+								<UilSetting size={25} className='fill-primary' />
+								<span className='ml-5'>Edit Personal Profile</span>
 							</button>
 						</Link>
 					</button>

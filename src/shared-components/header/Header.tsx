@@ -31,7 +31,7 @@ const Header = () => {
 						<Link href='/' passHref>
 							<span>Home</span>
 						</Link>
-						<Link href='/myconnect' passHref>
+						<Link href='/my-connects' passHref>
 							<span>Connects</span>
 						</Link>
 						<Link href='/' passHref>

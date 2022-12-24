@@ -18,6 +18,14 @@ export const USER_FRAGMENT = gql`
 		isValid
 		confirm
 		emailToken
+		roles {
+			id
+			name
+		}
+		activeRole {
+			id
+			name
+		}
 	}
 `;
 
@@ -75,4 +83,21 @@ export const GET_USERS = gql`
 		}
 	}
 	${USER_FRAGMENT}
+`;
+
+export const USER_CONNECTIONS_SUMMARY = gql`
+	query userConnectionsSummary {
+		userConnectionsSummary {
+			id
+			username
+			fullName
+			isValid
+			summary {
+				connectedBrands
+				connectedEvangelists
+				evangelers
+				connectedCommunities
+			}
+		}
+	}
 `;
