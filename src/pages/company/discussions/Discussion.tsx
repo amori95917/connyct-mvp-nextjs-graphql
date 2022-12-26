@@ -34,7 +34,7 @@ const Discussion = (props: DiscussionProps) => {
 					<div className='flex flex-col grow px-4'>
 						<div className='flex flex-col'>
 							<Link
-								href={`/company/${companySlug}/discussions/${discussion.id}`}
+								href={`/brand/${companySlug}/discussions/${discussion.id}`}
 								passHref
 								key={discussion?.id}>
 								<div className='py-3'>

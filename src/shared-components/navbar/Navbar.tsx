@@ -9,10 +9,13 @@ import { useClickOutside } from '@/hooks/useClickOutside';
 import { getCookie } from '@/utils/cookies';
 import { useQuery } from '@apollo/client';
 import { GET_COMPANY } from '@/graphql/company';
+import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
+import { Avatar } from '../avatar';
 
 export const Navbar = () => {
 	const [showDropdown, setShowDropDown] = useState(false);
 	const { ref, isClose, setIsClose } = useClickOutside();
+	const { currentUser } = useCurrentUser();
 	const cookie = getCookie('CONNYCT_USER');
 	const { company } = cookie ?? {};
 	const { data } = useQuery(GET_COMPANY, {
@@ -25,12 +28,20 @@ export const Navbar = () => {
 	};
 
 	const getAvatar = () => {
-		if (data?.getCompanyById?.avatar) {
-			return data.getCompanyById.avatar;
-		} else {
-			return 'https://i.pravatar.cc/300';
+		let avatar;
+		let name;
+		if (currentUser?.activeRole?.name === 'USER') {
+			avatar = currentUser?.userProfile?.profileImage;
+			name = currentUser?.username || currentUser?.fullName;
 		}
+		if (currentUser?.activeRole?.name === 'OWNER') {
+			avatar = currentUser?.company[0]?.avatar;
+			name = currentUser?.company[0].name || currentUser?.company[0].legalName;
+		}
+		return { avatar, name };
 	};
+
+	console.log('currentUser', currentUser);
 	return (
 		<div className='flex flex-col'>
 			<nav className='bg-white fixed h-18 pl-5 pr-5 py-3 top-0 w-full z-10'>
@@ -46,7 +57,7 @@ export const Navbar = () => {
 						<Link href='/' passHref>
 							<span>Home</span>
 						</Link>
-						<Link href='/myconnect' passHref>
+						<Link href='/my-connects' passHref>
 							<span>Connects</span>
 						</Link>
 						<Link href='/' passHref>
@@ -55,7 +66,12 @@ export const Navbar = () => {
 						<button
 							onClick={handleDropdown}
 							className='aspect-square overflow-hidden relative rounded-full w-10'>
-							<Image src={getAvatar()} alt='profile-photo' fill />
+							<Avatar
+								imgSrc={getAvatar()['avatar']}
+								name={getAvatar()['name']}
+								size='md'
+								alt={getAvatar()['name']}
+							/>
 						</button>
 					</div>
 				</div>

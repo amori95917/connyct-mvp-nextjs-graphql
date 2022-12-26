@@ -9,7 +9,7 @@ export const FollowedBrand = () => {
 		<>
 			<div className='bg-white brands p-4 rounded-small'>
 				<span className='flex justify-between'>
-					<p className='font-bold text-gray text-lg'>Followed Brands</p>
+					<p className='font-bold text-gray text-lg'>Connected Brands</p>
 				</span>
 				<div className='brands gap-6 grid grid-cols-4 pt-1'>
 					{(response || []).map((companyEdge: CompanyEdge) => {

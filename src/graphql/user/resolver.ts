@@ -17,6 +17,7 @@ export const USER_FRAGMENT = gql`
 			ownerId
 			legalName
 			name
+			avatar
 		}
 		isEmailVerified
 		isSuperuser

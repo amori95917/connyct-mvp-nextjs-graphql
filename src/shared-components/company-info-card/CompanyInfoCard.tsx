@@ -75,7 +75,7 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 						</div>
 					</div>
 				</div>
-				<div className='actions ml-5 mr-5 py-2'>
+				<div className='actions ml-5 mr-5 pb-4'>
 					<div className='align-center flex justify-between'>
 						<button className='bg-gray-100 font-semibold px-10 py-3'>Contact</button>
 						{currentUser?.activeRole.name === 'USER' && (
@@ -91,14 +91,14 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 						)}
 					</div>
 				</div>
-				<div className='py-4 rating-section'>
+				{/* <div className='py-4 rating-section'>
 					<div className='bg-slate-200 h-px ml-5 mr-5 mt-3'></div>
 					<div className='py-5 rating text-center'>
 						<span className='font-bold text-3xl text-primary'>4.5/5</span>
 						<span className='ml-1 text-gray-500'>Satisfied</span>
 					</div>
 					<div className='bg-slate-200 h-px ml-5 mr-5 mt-3'></div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

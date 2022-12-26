@@ -4,7 +4,7 @@ import produce from 'immer';
 // API SERVICES
 import { useCompanyFeedsQuery } from '@/hooks/services/useCompanyFeedsQuery';
 // LOCAL COMPONENTS
-import { CompanyRecommendation } from '@/shared-components/company-recommendation';
+import { BrandRecommendations } from '@/shared-components/widgets/brand-recommendation';
 import { LoaderDataComponent } from '@/shared-components/loader-data-component';
 import { BrandFeeds } from '@/shared-components/feed-components/brand-feeds';
 import { FeedLoader } from '@/shared-components/skeleton-loader/FeedLoader';
@@ -16,6 +16,7 @@ import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
 import { CREATE_POST } from '@/graphql/company';
 import { GET_COMPANY_POST } from '@/graphql/feeds';
 import { getCookie } from '@/utils/cookies';
+import Widget from '@/shared-components/widgets/Widget';
 
 type CompanyFeedsProps = {
 	companySlug: string;
@@ -126,10 +127,14 @@ const CompanyFeeds = (props: CompanyFeedsProps) => {
 					</div>
 				</div>
 				<div className='widgets'>
-					<div className='flex flex-col h-full sticky top-24 w-full'>
+					<div className='flex flex-col mb-4 w-full'>
 						<TrendingTopics />
+					</div>
+					<div className='flex flex-col w-full'>
 						{/* TODO: if a user is viewing a company profile then show CompanyRecommendation else different things */}
-						<CompanyRecommendation />
+						<Widget>
+							<BrandRecommendations first={4} />
+						</Widget>
 					</div>
 				</div>
 			</div>

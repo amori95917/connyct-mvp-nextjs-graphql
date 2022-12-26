@@ -27,7 +27,7 @@ const FeedActions = (props: FeedActionProps) => {
 						{/* {showHideReaction && <Reaction postId={postId} />} */}
 						<UilHeart size={24} className='fill-primary' />
 						<span className='ml-2 text-muted'>
-							Liked by {likesData?.getLikesByPost?.totalCount} <b></b>
+							Reacted by {likesData?.getLikesByPost?.totalCount} <b></b>
 						</span>
 					</span>
 				</div>
@@ -39,7 +39,7 @@ const FeedActions = (props: FeedActionProps) => {
 				</div>
 				<div className='flex items-center'>
 					<UilFileShareAlt size={24} className='fill-primary' />
-					<span className='ml-2 text-muted'>shared</span>
+					<span className='ml-2 text-muted'>share</span>
 				</div>
 				{/* {isOnSale && (
 					<button className='bg-primary font-semibold p-2 rounded-md text-white w-30'>Buy Now</button>
