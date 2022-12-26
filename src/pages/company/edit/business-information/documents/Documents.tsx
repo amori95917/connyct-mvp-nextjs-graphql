@@ -123,7 +123,7 @@ const Documents: React.FC<DocumentsProps> = props => {
 						})}
 					</div>
 				</div>
-				<p className='mt-1 mt-10 mt-5 text-gray-400'>Upload Company Registration</p>
+				<p className='mt-5 text-gray-400'>Upload Company Registration</p>
 				<div className='mt-6 upload-section'>
 					<div className='flex uploads-row md:flex-row'>
 						<div
@@ -178,12 +178,12 @@ const Documents: React.FC<DocumentsProps> = props => {
 					</form>
 					{avatarFileError && <p className='text-red-400'>{avatarFileError}</p>}
 					<div className='flex gap-2 justify-end mb-5 mt-4 w-full'>
-						<Link href={`/company/${companySlug}/edit/business-information/general`}>
+						<Link href={`/brand/${companySlug}/edit/business-information/general`}>
 							<button type='button' className={buttonClass}>
 								Previous
 							</button>
 						</Link>
-						<Link href={`/company/${companySlug}/edit/business-information/branches`}>
+						<Link href={`/brand/${companySlug}/edit/business-information/branches`}>
 							<button type='button' className={buttonClass}>
 								Continue
 							</button>

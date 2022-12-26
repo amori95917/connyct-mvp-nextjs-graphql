@@ -55,8 +55,8 @@ const Signup = () => {
 				// create a constant for redirection routes like REDIRECTION_TO_COMPANY_AFTER_SIGNUP
 				// REDIRECTION_TO_USER_AFTER_SIGNUP
 				company
-					? router.push(`/company/${company[0].id}/edit/business-information/general`)
-					: router.push(`/company-suggestions`);
+					? router.push(`/brand/${company[0].id}/edit/business-information/general`)
+					: router.push(`/brand-suggestions`);
 			}
 		} catch (err: any) {
 			setErrorUserAlreadyExists(err.message);

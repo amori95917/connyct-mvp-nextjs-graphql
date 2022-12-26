@@ -46,13 +46,13 @@ export const DiscussionLayout = ({
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
 
 	const onClickHandler = () => {
-		router.push(`/company/${companySlug}/discussions`);
+		router.push(`/brand/${companySlug}/discussions`);
 	};
 
 	// TODO we get user and comment associated with this we need to redirect accordingly
 
 	const onContributorClickHandler = () => {
-		router.push(`/company/${companySlug}/discussions`);
+		router.push(`/brand/${companySlug}/discussions`);
 	};
 	return (
 		<>

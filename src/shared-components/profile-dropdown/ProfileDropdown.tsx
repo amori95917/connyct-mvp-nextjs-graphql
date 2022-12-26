@@ -216,7 +216,7 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 						<span className='bold ml-5 text-2xl'>Manage</span>
 					</span>
 					<button className='bg-slate-100 flex items-center justify-between mt-3 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
-						<Link href={`/company/${slug}/edit/business-information/general`} passHref>
+						<Link href={`/brand/${slug}/edit/business-information/general`} passHref>
 							<button className='flex'>
 								<UilSetting size={25} className='fill-primary' />
 								<span className='ml-5'>Edit Brand Profile</span>

@@ -17,31 +17,31 @@ const Menus = props => {
 	return (
 		<>
 			<div className='bg-slate-100 flex no-scrollbar overflow-scroll w-full md:justify-center'>
-				<Link href={`/company/${slug}/about-us`} passHref className='mr-6'>
+				<Link href={`/brand/${slug}/about-us`} passHref className='mr-6'>
 					<button className={downMenusButtonClassNames}>
 						<UilStore size={25} fill={'#5A6399'} className={svgClassNames} />
 						<span className='ml-5 whitespace-nowrap'>About us</span>
 					</button>
 				</Link>
-				<Link href={`/company/${slug}/feeds`} passHref className='mr-6'>
+				<Link href={`/brand/${slug}/feeds`} passHref className='mr-6'>
 					<button className={downMenusButtonClassNames}>
 						<UilPostcard size={25} fill={'#5A6399'} className={svgClassNames} />
 						<span className='ml-5'>Feeds</span>
 					</button>
 				</Link>
-				<Link href={`/company/${slug}/products`} passHref className='mr-6'>
+				<Link href={`/brand/${slug}/products`} passHref className='mr-6'>
 					<button className={downMenusButtonClassNames}>
 						<UilShoppingBag size={25} fill={'#5A6399'} className={svgClassNames} />
 						<span className='ml-5'>Products</span>
 					</button>
 				</Link>
-				<Link href={`/company/${slug}/communities`} passHref className='mr-6'>
+				<Link href={`/brand/${slug}/communities`} passHref className='mr-6'>
 					<button className={downMenusButtonClassNames}>
 						<UilChannel size={25} fill={'#5A6399'} className={svgClassNames} />
 						<span className='ml-5'>Communities</span>
 					</button>
 				</Link>
-				<Link href={`/company/${slug}/discussions`} passHref>
+				<Link href={`/brand/${slug}/discussions`} passHref>
 					<button className={downMenusButtonClassNames}>
 						<UilCommentsAlt size={25} fill={'#5A6399'} className={svgClassNames} />
 						<span className='ml-5'>Discussions</span>

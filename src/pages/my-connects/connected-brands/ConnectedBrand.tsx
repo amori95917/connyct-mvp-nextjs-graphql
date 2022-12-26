@@ -7,12 +7,6 @@ type ConnectedBrandProps = {
 };
 const ConnectedBrand = (props: ConnectedBrandProps) => {
 	const { brand } = props;
-	const handleFollow = (brandId: string) => {
-		console.log('Follow');
-	};
-	const handleUnfollow = (brandId: string) => {
-		console.log('unfollow');
-	};
 	return (
 		<>
 			<div className='flex items-center justify-between mt-5 w-full'>
@@ -33,12 +27,12 @@ const ConnectedBrand = (props: ConnectedBrandProps) => {
 					</div>
 				</div>
 				<div className='flex justify-end w-full'>
-					<Link href={`/brands/${brand.id}/products`}>
+					<Link href={`/brand/${brand.id}/products`}>
 						<button className='bg-brandSecondary cursor-pointer flex flex-col h-10 items-center mr-4 py-2 rounded-md text-white w-28 hover:font-bold hover:shadow-xl'>
 							Products
 						</button>
 					</Link>
-					<Link href={`/brands/${brand.id}/feeds`}>
+					<Link href={`/brand/${brand.id}/feeds`}>
 						<button className='bg-primary cursor-pointer flex flex-col h-10 items-center py-2 rounded-md text-white w-28 hover:font-bold hover:shadow-xl'>
 							Feeds
 						</button>

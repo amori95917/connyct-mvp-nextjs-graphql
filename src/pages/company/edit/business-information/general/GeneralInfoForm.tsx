@@ -52,7 +52,7 @@ const GeneralInfoForm = props => {
 
 			if (response?.data) {
 				console.log(response);
-				router.push(`/company/${companySlug}/edit/business-information/documents`);
+				router.push(`/brand/${companySlug}/edit/business-information/documents`);
 			}
 		} catch (err: any) {
 			console.log(err);

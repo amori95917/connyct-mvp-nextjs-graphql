@@ -11,7 +11,7 @@ import { FeedLoader } from '@/shared-components/skeleton-loader/FeedLoader';
 import { InfiniteScroller } from '@/shared-components/infinite-scroller';
 import { TrendingTopics } from '@/shared-components/trending-topics';
 import CreatePost from '@/shared-components/create-post/CreatePost';
-import { PostEdge } from '@/generated/graphql';
+import { Company, PostEdge } from '@/generated/graphql';
 import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
 import { CREATE_POST } from '@/graphql/company';
 import { GET_COMPANY_POST } from '@/graphql/feeds';
@@ -76,18 +76,39 @@ const CompanyFeeds = (props: CompanyFeedsProps) => {
 		} catch (err) {}
 	};
 
+	const hasCompanySlugMatched = (brandIdToMatch: string, brand: [Company]) => {
+		return brand.some(b => b.id === brandIdToMatch);
+	};
+
+	const hasOwnerIdMatched = (ownerIdToMatch: string, brand: [Company]) => {
+		return brand.some(b => b.ownerId === ownerIdToMatch);
+	};
+
+	const isOwner = () => {
+		{
+			/* MANAGER, EDITOR can also view it where we need to check brandId and currentUser company id are same */
+		}
+		return (
+			currentUser?.activeRole.name === 'OWNER' &&
+			hasCompanySlugMatched(companySlug, currentUser?.company) &&
+			hasOwnerIdMatched(currentUser?.id, currentUser?.company)
+		);
+	};
+
 	return (
 		<>
 			<div className='gap-4 grid md:grid-cols-3'>
 				<div className='col-span-2'>
 					<div className='flex flex-col'>
-						<div className='mb-10'>
-							<CreatePost
-								actions={['media', 'events', 'products']}
-								onPostSubmit={onPostSubmit}
-								currentUser={currentUser}
-							/>
-						</div>
+						{isOwner() && (
+							<div className='mb-10'>
+								<CreatePost
+									actions={['media', 'events', 'products']}
+									onPostSubmit={onPostSubmit}
+									currentUser={currentUser}
+								/>
+							</div>
+						)}
 						<LoaderDataComponent isLoading={loading} data={feeds} fallback={<FeedLoader />}>
 							<InfiniteScroller
 								loading={loading}

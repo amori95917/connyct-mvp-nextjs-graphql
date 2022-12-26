@@ -35,6 +35,7 @@ export const GET_COMPANY = gql`
 				type
 				document
 			}
+			hasFollowedByUser
 		}
 	}
 `;

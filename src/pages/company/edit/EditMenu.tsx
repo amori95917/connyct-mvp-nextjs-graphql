@@ -22,22 +22,22 @@ const EditMenu: React.FC<EditMenuProps> = props => {
 		<>
 			<div className='flex flex-col mt-0 md:flex-row md:gap-3'>
 				<div className='bg-primary p-4 text-white w-full md:basis-1/6'>
-					<Link href={`/company/${companySlug}/edit/business-information/general`}>
+					<Link href={`/brand/${companySlug}/edit/business-information/general`}>
 						<button className='mt-4 pb-4 text-left text-lg w-full whitespace-nowrap hover:font-bold'>
 							Business Information
 						</button>
 					</Link>
-					<Link href={`/company/${companySlug}/edit/account/`}>
+					<Link href={`/brand/${companySlug}/edit/account/`}>
 						<button className='py-4 text-left text-lg w-full hover:font-bold'>Account</button>
 					</Link>
-					<Link href={`/company/${companySlug}/edit/security/`}>
+					<Link href={`/brand/${companySlug}/edit/security/`}>
 						<button className='py-4 text-left text-lg w-full hover:font-bold'>Security</button>
 					</Link>
 				</div>
 				{type === 'business-information' && (
 					<div className='mt-4 text-left w-full md:basis-1/4'>
 						{/** TODO: find which button is active and activate the sub-menus accordingly */}
-						<Link href={`/company/${companySlug}/edit/business-information/general`}>
+						<Link href={`/brand/${companySlug}/edit/business-information/general`}>
 							<button className='font-bold p-2 text-gray-600 text-left text-md w-full'>General</button>
 							<p className='p-2 text-gray-400'>
 								Fill out the general information which is must for better visibility
@@ -45,7 +45,7 @@ const EditMenu: React.FC<EditMenuProps> = props => {
 						</Link>
 						<Link
 							className={isEnabled(data) ? '' : 'pointer-events-none'}
-							href={`/company/${companySlug}/edit/business-information/documents`}>
+							href={`/brand/${companySlug}/edit/business-information/documents`}>
 							<button
 								className={`flex font-bold items-center p-2 text-gray-600 text-left text-md w-full ${
 									isEnabled(data) ? '' : 'text-slate-300'
@@ -59,7 +59,7 @@ const EditMenu: React.FC<EditMenuProps> = props => {
 						</Link>
 						<Link
 							className={isEnabled(data) ? '' : 'pointer-events-none'}
-							href={`/company/${companySlug}/edit/business-information/branches`}>
+							href={`/brand/${companySlug}/edit/business-information/branches`}>
 							<button
 								className={`flex font-bold items-center p-2 text-gray-700 text-left text-md w-full ${
 									isEnabled(data) ? '' : 'text-slate-300'

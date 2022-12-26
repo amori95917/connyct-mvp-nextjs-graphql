@@ -71,8 +71,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				setCookie('CONNYCT_USER', token);
 			} catch (error) {
 				console.error({ error });
-				setUser(null);
-				deleteCookie('CONNYCT_USER');
+				// setUser(null);
+				// deleteCookie('CONNYCT_USER');
 			}
 			setIsLoading(false);
 		},

@@ -30,12 +30,11 @@ export const Community = ({
 	const handleInviteDrawerToggle = () => setIsInviteDrawerOpen(!isInviteDrawerOpen);
 
 	const onCommunityClickHandler = (communityId: string) => {
-		router.push(`/company/${companySlug}/communities/${communityId}`);
+		router.push(`/brand/${companySlug}/communities/${communityId}`);
 	};
 
 	return (
 		<>
-			{console.log('isDrawerOpen', isDrawerOpen)}
 			{isDrawerOpen && (
 				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} drawerSize='lg'>
 					<CommunityForm setIsOpen={setIsDrawerOpen} companySlug={companySlug} community={community} />
