@@ -10,33 +10,39 @@ import { ConferenceIcon } from '@/shared-components/icons';
 import { CommunityForm } from './community-form';
 import { Community } from './Community';
 import { CommunityEdge } from '@/generated/graphql';
+import { isOwner } from '@/utils/permissions';
+import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
 
 const Communities = ({ companySlug }: { companySlug: string }) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
 	const { communities, loading } = useCommunityQuery(companySlug);
+	const { currentUser } = useCurrentUser();
 
 	return (
 		<>
-			{isDrawerOpen && (
+			{isOwner(currentUser, companySlug) && isDrawerOpen && (
 				<RightDrawerLayout isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
 					<CommunityForm setIsOpen={setIsDrawerOpen} companySlug={companySlug} />
 				</RightDrawerLayout>
 			)}
+
 			<div className='heading'>
 				<div className='flex justify-between'>
 					<div className='flex flex-col'>
 						<h1 className='font-bold text-lg'>{communities?.[0]?.company?.legalName}</h1>
 						<p className='text-gray-400'>{communities?.length} Communities</p>
 					</div>
-					<div className='px-5'>
-						<button
-							className='bg-primary flex font-bold gap-1 items-center justify-center p-4 rounded-md text-white w-full hover:bg-primary'
-							onClick={handleDrawerToggle}>
-							<UilPlus fill='#FFFFFF' size={20} />
-							<span>Create a new community</span>
-						</button>
-					</div>
+					{isOwner(currentUser, companySlug) && (
+						<div className='px-5'>
+							<button
+								className='bg-primary flex font-bold gap-1 items-center justify-center p-4 rounded-md text-white w-full hover:bg-primary'
+								onClick={handleDrawerToggle}>
+								<UilPlus fill='#FFFFFF' size={20} />
+								<span>Create a new community</span>
+							</button>
+						</div>
+					)}
 				</div>
 				<LoaderDataComponent
 					isLoading={loading}
@@ -54,10 +60,11 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 					<div className='gap-4 grid grid-cols-1 pt-4 md:grid-cols-2 lg:grid-cols-3'>
 						{communities?.map((communityNode: CommunityEdge) => {
 							const { node } = communityNode;
+							// Need a flag to identify if a member can view particular community (both private and public)
 							if (node) {
 								return (
-									<div key={node.id} className={'bg-white p-5 rounded-lg shadow-sm'}>
-										<Community community={node} companySlug={companySlug} />
+									<div key={node.id} className={'bg-white p-5 rounded-lg shadow-sm relative'}>
+										<Community community={node} companySlug={companySlug} currentUser={currentUser} />
 									</div>
 								);
 							}

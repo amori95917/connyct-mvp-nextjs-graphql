@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@apollo/client';
 
 import { FormInput, FormEditor } from '@/shared-components/forms';
-import { DISCUSSION_POST_ANSWER } from '@/graphql/discussion/resolver';
+import { DISCUSSION_POST_ANSWER, GET_DISCUSSION_ANSWER } from '@/graphql/discussion/resolver';
 import { schema } from './schema';
 import { initialValues } from './initialValues';
 import { DiscussionCommentFormFields, DiscussionCommentFormProps } from './types';
@@ -37,6 +37,7 @@ const DiscussionCommentForm: React.FC<DiscussionCommentFormProps> = ({
 						discussionId,
 					},
 				},
+				refetchQueries: [{ query: GET_DISCUSSION_ANSWER, variables: { discussionId, first: 10 } }],
 			});
 		} catch (e) {
 			console.error(new Error(e as string));

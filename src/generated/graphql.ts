@@ -25,12 +25,13 @@ export type Auth = {
   __typename?: 'Auth';
   /** JWT access token */
   accessToken?: Maybe<Scalars['String']>;
+  activeRole?: Maybe<Role>;
   company?: Maybe<Array<Company>>;
   errors?: Maybe<Array<CustomError>>;
   otp?: Maybe<Otp>;
   /** JWT refresh token */
   refreshToken?: Maybe<Scalars['String']>;
-  role?: Maybe<Scalars['String']>;
+  role?: Maybe<Array<Role>>;
   user?: Maybe<User>;
 };
 
@@ -383,15 +384,18 @@ export type CommunityPolicyUpdateInput = {
 export type CommunityPost = {
   __typename?: 'CommunityPost';
   authorId?: Maybe<Scalars['String']>;
+  commentCount?: Maybe<Scalars['Float']>;
   community?: Maybe<Community>;
   communityId?: Maybe<Scalars['String']>;
-  communityPostMedia?: Maybe<CommunityPostMedia>;
+  communityPostMedia?: Maybe<Array<CommunityPostMedia>>;
   createdAt?: Maybe<Scalars['DateTime']>;
   creator?: Maybe<User>;
   id?: Maybe<Scalars['ID']>;
   isApproved?: Maybe<Scalars['Boolean']>;
   isDeleted?: Maybe<Scalars['Boolean']>;
+  reactionCount?: Maybe<Scalars['Float']>;
   slug?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Tag>>;
   text?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -400,6 +404,59 @@ export type CommunityPost = {
 export enum CommunityPostCommentOrderBy {
   CreatedAt = 'createdAt'
 }
+
+export type CommunityPostCommentReaction = {
+  __typename?: 'CommunityPostCommentReaction';
+  communityPostCommentId?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
+  reactions?: Maybe<Scalars['String']>;
+  reactor?: Maybe<User>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type CommunityPostCommentReactionEdge = {
+  __typename?: 'CommunityPostCommentReactionEdge';
+  cursor: Scalars['String'];
+  node: CommunityPostCommentReaction;
+};
+
+export type CommunityPostCommentReactionInput = {
+  communityPostCommentId: Scalars['String'];
+  reactionType: Scalars['String'];
+};
+
+export type CommunityPostCommentReactionPaginationPayload = {
+  __typename?: 'CommunityPostCommentReactionPaginationPayload';
+  data?: Maybe<CommunityPostCommentReactionsPagination>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type CommunityPostCommentReactionPayload = {
+  __typename?: 'CommunityPostCommentReactionPayload';
+  data?: Maybe<CommunityPostCommentReaction>;
+  errors?: Maybe<Array<CustomError>>;
+  isDisliked?: Maybe<Scalars['Boolean']>;
+};
+
+/** Order By:createdAt */
+export enum CommunityPostCommentReactionsOrderBy {
+  CreatedAt = 'createdAt'
+}
+
+export type CommunityPostCommentReactionsOrderList = {
+  direction: OrderDirection;
+  orderBy: CommunityPostCommentReactionsOrderBy;
+};
+
+export type CommunityPostCommentReactionsPagination = {
+  __typename?: 'CommunityPostCommentReactionsPagination';
+  edges?: Maybe<Array<CommunityPostCommentReactionEdge>>;
+  hasNextPage: Scalars['Boolean'];
+  nodes?: Maybe<Array<CommunityPostCommentReaction>>;
+  totalCount: Scalars['Int'];
+};
 
 export type CommunityPostEdge = {
   __typename?: 'CommunityPostEdge';
@@ -445,9 +502,25 @@ export type CommunityPostPaginated = {
 export type CommunityPostPayload = {
   __typename?: 'CommunityPostPayload';
   communityPost?: Maybe<CommunityPost>;
-  communityPostMedia?: Maybe<Array<CommunityPostMedia>>;
   errors?: Maybe<Array<CustomError>>;
-  tags?: Maybe<Array<Tag>>;
+};
+
+/** Order By:createdAt */
+export enum CommunityPostReactionsOrderBy {
+  CreatedAt = 'createdAt'
+}
+
+export type CommunityPostReactionsOrderList = {
+  direction: OrderDirection;
+  orderBy: CommunityPostReactionsOrderBy;
+};
+
+export type CommunityPostReactionsPagination = {
+  __typename?: 'CommunityPostReactionsPagination';
+  edges?: Maybe<Array<ReactionEdge>>;
+  hasNextPage: Scalars['Boolean'];
+  nodes?: Maybe<Array<Reaction>>;
+  totalCount: Scalars['Int'];
 };
 
 /** Order by: createdAt */
@@ -493,6 +566,7 @@ export type Company = {
   description?: Maybe<Scalars['String']>;
   establishedDate?: Maybe<Scalars['DateTime']>;
   followers?: Maybe<Scalars['Float']>;
+  hasFollowedByUser?: Maybe<Scalars['Boolean']>;
   id?: Maybe<Scalars['ID']>;
   isActive?: Maybe<Scalars['Boolean']>;
   isVerified?: Maybe<Scalars['Boolean']>;
@@ -1155,8 +1229,10 @@ export type Mutation = {
   commentReply: ReplyToCommentPayload;
   commentToPost: NewReplyPayload;
   commentUpdate: NewReplyPayload;
+  communityPostCommentReactionCreate: CommunityPostCommentReactionPayload;
   communityPostCreate: CommunityPostPayload;
   communityPostDelete: DeleteCommunityPostPayload;
+  communityPostReactionCreate: ReactionPayload;
   communityPostUpdate: UpdateCommunityPostPayload;
   companyAccountStatus: CompanyPayload;
   companyAvatar: CompanyPayload;
@@ -1218,6 +1294,7 @@ export type Mutation = {
   resendOtp: OtpPayload;
   resetPassword: Token;
   signup: Auth;
+  switchAccount: Auth;
   unfollowCompany: Scalars['String'];
   unfollowUser: Scalars['String'];
   updateComment: FirstLevelCommentPayload;
@@ -1277,6 +1354,11 @@ export type MutationCommentUpdateArgs = {
 };
 
 
+export type MutationCommunityPostCommentReactionCreateArgs = {
+  input: CommunityPostCommentReactionInput;
+};
+
+
 export type MutationCommunityPostCreateArgs = {
   files?: InputMaybe<Array<Scalars['Upload']>>;
   input: CommunityPostInput;
@@ -1285,6 +1367,11 @@ export type MutationCommunityPostCreateArgs = {
 
 export type MutationCommunityPostDeleteArgs = {
   postId: Scalars['String'];
+};
+
+
+export type MutationCommunityPostReactionCreateArgs = {
+  data: ReactionInput;
 };
 
 
@@ -1618,6 +1705,11 @@ export type MutationSignupArgs = {
 };
 
 
+export type MutationSwitchAccountArgs = {
+  input: SwitchAccountInput;
+};
+
+
 export type MutationUnfollowCompanyArgs = {
   data: UnfollowCompanyInput;
 };
@@ -1818,6 +1910,8 @@ export type Query = {
   commentReactions: CommentReactionPaginationPayload;
   comments: CommentPaginationPayload;
   communityPost: GetCommunityPostPayload;
+  communityPostCommentReaction: CommunityPostCommentReactionPaginationPayload;
+  communityPostReaction: ReactionPaginationPayload;
   companies: CompanyPaginated;
   companiesSuggestions: CompanyPaginated;
   companyPostsFollowedByUser?: Maybe<PostPagination>;
@@ -1841,9 +1935,12 @@ export type Query = {
   getTags: TagPagination;
   getUser: User;
   getUsersByPostReaction: ReactionsPagination;
+  listByReactionType: ReactionPaginationPayload;
+  listCommentByReactionType: CommunityPostCommentReactionPaginationPayload;
   listUsers: UserPaginated;
   me: User;
   postsByCompanyId: PostPagination;
+  userConnectionsSummary: UserConnectionsSummaryEntity;
 };
 
 
@@ -1871,6 +1968,26 @@ export type QueryCommunityPostArgs = {
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   order?: InputMaybe<CommunityPostsOrderList>;
+};
+
+
+export type QueryCommunityPostCommentReactionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  communityPostCommentId: Scalars['String'];
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<CommunityPostCommentReactionsOrderList>;
+};
+
+
+export type QueryCommunityPostReactionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<CommunityPostReactionsOrderList>;
+  postId: Scalars['String'];
 };
 
 
@@ -2027,6 +2144,28 @@ export type QueryGetUsersByPostReactionArgs = {
 };
 
 
+export type QueryListByReactionTypeArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<CommunityPostReactionsOrderList>;
+  postId: Scalars['String'];
+  reactionType: ReactionTypeInput;
+};
+
+
+export type QueryListCommentByReactionTypeArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  communityPostCommentId: Scalars['String'];
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<CommunityPostCommentReactionsOrderList>;
+  reactionType: ReactionTypeInput;
+};
+
+
 export type QueryListUsersArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -2056,6 +2195,46 @@ export enum RatingStatus {
   Neutral = 'NEUTRAL',
   Upvoted = 'UPVOTED'
 }
+
+export type Reaction = {
+  __typename?: 'Reaction';
+  communityPost?: Maybe<CommunityPost>;
+  communityPostId?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
+  reactions?: Maybe<Scalars['String']>;
+  reactor?: Maybe<User>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type ReactionEdge = {
+  __typename?: 'ReactionEdge';
+  cursor: Scalars['String'];
+  node: Reaction;
+};
+
+export type ReactionInput = {
+  postId: Scalars['String'];
+  reactionType: Scalars['String'];
+};
+
+export type ReactionPaginationPayload = {
+  __typename?: 'ReactionPaginationPayload';
+  data?: Maybe<CommunityPostReactionsPagination>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type ReactionPayload = {
+  __typename?: 'ReactionPayload';
+  data?: Maybe<Reaction>;
+  errors?: Maybe<Array<CustomError>>;
+  isDisliked?: Maybe<Scalars['Boolean']>;
+};
+
+export type ReactionTypeInput = {
+  reactionType: Scalars['String'];
+};
 
 export type Reactions = {
   __typename?: 'Reactions';
@@ -2196,7 +2375,10 @@ export type ResetPasswordInput = {
 
 export type Role = {
   __typename?: 'Role';
-  name: Scalars['String'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
+  name?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type SecondLevelComment = {
@@ -2254,6 +2436,11 @@ export type SignupInput = {
   isCompanyAccount?: InputMaybe<Scalars['Boolean']>;
   legalName?: InputMaybe<Scalars['String']>;
   password: Scalars['String'];
+};
+
+export type SwitchAccountInput = {
+  accountType: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type Tag = {
@@ -2350,9 +2537,7 @@ export type UpdateCommunityPostInput = {
 export type UpdateCommunityPostPayload = {
   __typename?: 'UpdateCommunityPostPayload';
   communityPost?: Maybe<CommunityPost>;
-  communityPostMedia?: Maybe<CommunityPostMedia>;
   errors?: Maybe<Array<CustomError>>;
-  tags?: Maybe<Array<Tag>>;
 };
 
 export type UpdatePostInput = {
@@ -2382,6 +2567,7 @@ export type UpdateUserInput = {
 
 export type User = {
   __typename?: 'User';
+  activeRole?: Maybe<Role>;
   company?: Maybe<Array<Company>>;
   confirm?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -2394,9 +2580,29 @@ export type User = {
   isSuperuser?: Maybe<Scalars['Boolean']>;
   isValid?: Maybe<Scalars['Boolean']>;
   posts?: Maybe<Array<Post>>;
-  role?: Maybe<Role>;
+  role: Role;
+  roles?: Maybe<Array<Role>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   userProfile?: Maybe<UserProfile>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type UserConnectionsSummary = {
+  __typename?: 'UserConnectionsSummary';
+  connectedBrands?: Maybe<Scalars['Float']>;
+  connectedCommunities?: Maybe<Scalars['Float']>;
+  /** Evangelists I have followed */
+  connectedEvangelists?: Maybe<Scalars['Float']>;
+  /** Evangelists that follow me */
+  evangelers?: Maybe<Scalars['Float']>;
+};
+
+export type UserConnectionsSummaryEntity = {
+  __typename?: 'UserConnectionsSummaryEntity';
+  fullName?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  isValid?: Maybe<Scalars['Boolean']>;
+  summary?: Maybe<UserConnectionsSummary>;
   username?: Maybe<Scalars['String']>;
 };
 

@@ -1,7 +1,6 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { UilAngleDown, UilAngleUp, UilEllipsisV } from '@iconscout/react-unicons';
-import dynamic from 'next/dynamic';
 
 import { useDiscussionAnswersQuery } from '@/hooks/services/useDiscussionAnswerQuery';
 import { DiscussionAnswer as DiscussionAnswerType } from '@/generated/graphql';

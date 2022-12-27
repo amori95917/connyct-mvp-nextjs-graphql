@@ -22,7 +22,7 @@ const DiscussionForm = ({
 		control,
 		handleSubmit,
 		reset,
-		formState: { errors, touchedFields },
+		formState: { errors },
 	} = useForm<DiscussionFormFields>({
 		mode: 'onChange',
 		resolver: yupResolver(schema),
@@ -37,30 +37,31 @@ const DiscussionForm = ({
 				variables: {
 					input: { ...input, companyId: companySlug },
 				},
-				update: (cache, { data: { companyDiscussion } }) => {
-					const discussionQuery: any = cache.readQuery({
-						query: GET_DISCUSSION,
-						variables: { companyId: companySlug, first: 10 },
-					});
+				refetchQueries: [{ query: GET_DISCUSSION, variables: { companyId: companySlug, first: 10 } }],
+				// update: (cache, { data: { companyDiscussion } }) => {
+				// 	const discussionQuery: any = cache.readQuery({
+				// 		query: GET_DISCUSSION,
+				// 		variables: { companyId: companySlug, first: 10 },
+				// 	});
 
-					// TODO need to correct this cache update of discussion
+				// 	// TODO need to correct this cache update of discussion
 
-					const updatedDiscussion = produce(discussionQuery, (draft: any) => {
-						if (draft?.getCompanyDiscussion) {
-							draft.getCompanyDiscussion.edges.push({
-								...draft.getCompanyDiscussion.edges.node,
-							});
-						}
-					});
-					cache.writeQuery({
-						query: GET_DISCUSSION,
-						variables: {
-							companyId: companySlug,
-							first: 10,
-						},
-						data: updatedDiscussion,
-					});
-				},
+				// 	const updatedDiscussion = produce(discussionQuery, (draft: any) => {
+				// 		if (draft?.getCompanyDiscussion) {
+				// 			draft.getCompanyDiscussion.edges.push({
+				// 				...draft.getCompanyDiscussion.edges.node,
+				// 			});
+				// 		}
+				// 	});
+				// 	cache.writeQuery({
+				// 		query: GET_DISCUSSION,
+				// 		variables: {
+				// 			companyId: companySlug,
+				// 			first: 10,
+				// 		},
+				// 		data: updatedDiscussion,
+				// 	});
+				// },
 			});
 
 			if (response) {
