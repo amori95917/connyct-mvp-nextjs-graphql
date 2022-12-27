@@ -9,12 +9,17 @@ import {
 	UilEllipsisV,
 	UilAngleLeft,
 	UilAngleRightB,
+	UilExchangeAlt,
 } from '@iconscout/react-unicons';
-import Image from 'next/image';
+import { User } from '@/generated/graphql';
+import { Avatar } from '../avatar';
+import { useAccountSwitchMutation } from '@/hooks/services/useAccountSwitchMutation';
+import { setCookie } from '@/utils/cookies';
 
-export const Dropdown = React.forwardRef(({}, ref) => {
+export const Dropdown = React.forwardRef(({ currentUser }: { currentUser: User }, ref) => {
 	const cookie = Cookies.get('CONNYCT_USER') || '';
 	const { company, user } = cookie && JSON.parse(cookie);
+	const { switchAccount, data: switchAccountData } = useAccountSwitchMutation();
 
 	const [classes, setClasses] = useState({
 		main: '',
@@ -67,6 +72,23 @@ export const Dropdown = React.forwardRef(({}, ref) => {
 		}
 	};
 
+	const handleAccountSwitch = async (accountType: string) => {
+		if (user?.id) {
+			await switchAccount({
+				variables: {
+					input: {
+						userId: user.id,
+						accountType,
+					},
+				},
+			});
+			if (switchAccountData?.switchAccount) {
+				setCookie('CONNYCT_USER', switchAccountData?.switchAccount);
+				Router.push('/feeds');
+			}
+		}
+	};
+
 	const buttonClass =
 		'bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-indigo-300';
 
@@ -77,19 +99,39 @@ export const Dropdown = React.forwardRef(({}, ref) => {
 				ref={ref}
 				className={`bg-gray-50 fixed flex ${classes.mainHeight} duration-200 ease-in-out  no-scrollbar  overflow-hidden p-3 right-5 rounded-md shadow-lg top-16 w-80`}>
 				<div className={`ml-1 ${classes.main} absolute w-72`}>
-					<div className='bg-primary flex flex-col h-32 items-center rounded-md shadow-sm'>
-						<span className='mt-5'>
-							<Image
-								src='https://i.pravatar.cc/300'
-								alt='profile-photo'
-								width={60}
-								height={60}
-								className={'rounded-full'}
+					<div className='bg-primary flex flex-col items-center rounded-md shadow-sm'>
+						<div className='mt-5'>
+							<Avatar
+								imgSrc={currentUser?.profileImage}
+								name={currentUser?.username || currentUser?.fullName || ''}
+								alt={currentUser?.username || currentUser?.fullName || ''}
+								size='md'
 							/>
-						</span>
-						<span className='font-semibold text-white text-xl'>
-							{company ? company[0]?.legalName : user.email}
-						</span>
+						</div>
+						{currentUser && currentUser?.company.length > 0 && (
+							<div
+								className='bg-brandSecondary cursor-pointer mt-4 py-3 w-full'
+								onClick={() => handleAccountSwitch('USER')}>
+								<div className='flex justify-between'>
+									<div className='flex gap-2 items-center pl-4'>
+										<Avatar
+											imgSrc={currentUser.company[0].avatar}
+											name={currentUser.company[0].name || currentUser.company[0]?.legalName}
+											alt={currentUser?.company[0].name || currentUser.company[0]?.legalName || 'user-avatar'}
+											size='sm'
+										/>
+										<p className='font-semibold text-center text-md text-white'>
+											{currentUser.company[0].name || currentUser.company[0]?.legalName}
+										</p>
+									</div>
+									<UilExchangeAlt fill='white' size={32} className='mr-4' />
+								</div>
+							</div>
+						)}
+
+						{/* <span className='font-semibold text-lg text-white'>
+							{currentUser?.username || currentUser?.fullName}
+						</span> */}
 					</div>
 					<button className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-indigo-300'>
 						{/* <FcInvite size={25} fill='#00E0FF' /> */}

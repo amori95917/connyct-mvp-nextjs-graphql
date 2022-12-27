@@ -6,11 +6,14 @@ import { ConnyctLogo } from '@/shared-components/icons';
 import { Dropdown } from './Dropdown';
 
 import { useClickOutside } from '@/hooks/useClickOutside';
+import { Avatar } from '../avatar';
+import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
 
 const Header = () => {
 	const [showDropdown, setShowDropDown] = useState(false);
 
 	const { ref, isClose, setIsClose } = useClickOutside();
+	const { currentUser } = useCurrentUser();
 
 	const handleDropdown = () => {
 		setShowDropDown(!showDropdown);
@@ -40,12 +43,17 @@ const Header = () => {
 						<button
 							onClick={handleDropdown}
 							className='aspect-square overflow-hidden relative rounded-full w-10'>
-							<Image src='https://i.pravatar.cc/300' alt='profile-photo' width='40' height='40' />
+							<Avatar
+								imgSrc={currentUser?.profileImage}
+								name={currentUser?.username || currentUser?.fullName || ''}
+								alt={currentUser?.username || currentUser?.fullName || ''}
+								size='md'
+							/>
 						</button>
 					</div>
 				</div>
 			</nav>
-			{showDropdown && isClose && <Dropdown ref={ref} />}
+			{showDropdown && isClose && <Dropdown ref={ref} currentUser={currentUser} />}
 		</div>
 	);
 };

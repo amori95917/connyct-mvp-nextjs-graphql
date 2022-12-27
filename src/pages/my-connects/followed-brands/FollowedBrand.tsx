@@ -11,7 +11,7 @@ export const FollowedBrand = () => {
 				<span className='flex justify-between'>
 					<p className='font-bold text-gray text-lg'>Connected Brands</p>
 				</span>
-				<div className='brands gap-6 grid grid-cols-4 pt-1'>
+				<div className='brands gap-6 grid grid-cols-4 pb-2 pt-4'>
 					{(response || []).map((companyEdge: CompanyEdge) => {
 						const { node: company } = companyEdge;
 						return <FollowedCompany key={company?.id} company={company} />;

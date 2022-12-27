@@ -41,7 +41,6 @@ export const Navbar = () => {
 		return { avatar, name };
 	};
 
-	console.log('currentUser', currentUser);
 	return (
 		<div className='flex flex-col'>
 			<nav className='bg-white fixed h-18 pl-5 pr-5 py-3 top-0 w-full z-10'>
@@ -76,7 +75,7 @@ export const Navbar = () => {
 					</div>
 				</div>
 			</nav>
-			{showDropdown && isClose && <ProfileDropdown data={data} ref={ref} />}
+			{showDropdown && isClose && <ProfileDropdown data={data} ref={ref} currentUser={currentUser} />}
 		</div>
 	);
 };

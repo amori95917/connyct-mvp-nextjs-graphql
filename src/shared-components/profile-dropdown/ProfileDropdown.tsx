@@ -12,14 +12,13 @@ import {
 	UilAngleRightB,
 	UilAngleUp,
 	UilAngleDown,
+	UilExchangeAlt,
 } from '@iconscout/react-unicons';
 import { useAccountSwitchMutation } from '@/hooks/services/useAccountSwitchMutation';
 import { deleteCookie, getCookie, setCookie } from '@/utils/cookies';
-import { Dropdown } from '@/ui-elements/dropdown';
-import { Button } from '@/ui-elements/atoms/button';
 import { Avatar } from '../avatar';
 
-export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
+export const ProfileDropdown = React.forwardRef(({ data, currentUser }, ref) => {
 	const { switchAccount, data: switchAccountData } = useAccountSwitchMutation();
 	const { company, user } = getCookie('CONNYCT_USER');
 
@@ -104,42 +103,31 @@ export const ProfileDropdown = React.forwardRef(({ data }, ref) => {
 				className={`bg-gray-50 fixed flex ${classes.mainHeight} duration-200 ease-in-out  no-scrollbar  overflow-y-auto p-3 right-5 rounded-md shadow-lg top-16 w-80`}>
 				<div className={`ml-1 ${classes.main} absolute w-72`}>
 					<div className='bg-primary flex flex-col items-center rounded-md shadow-sm'>
-						<div className='bg-white h-24 mt-5 overflow-hidden relative rounded-full w-24'>
+						<div className='mt-5'>
 							<Avatar
-								imgSrc={data?.getCompanyById?.avatar || company[0]?.avatar}
-								name={company[0]?.name || company[0]?.legalName}
-								alt={company[0]?.legalName || 'brand-avatar'}
+								imgSrc={data?.getCompanyById?.avatar || currentUser?.company[0]?.avatar}
+								name={currentUser?.company[0]?.name || currentUser?.company[0]?.legalName}
+								alt={currentUser?.company[0]?.legalName || 'brand-avatar'}
 							/>
 						</div>
-						{/* TODO: Need to check if user has both account or not or user has brand account. If user has only user account then no need of dropdown */}
-						<Dropdown>
-							<Dropdown.Action>
-								{isToggle => (
-									<Button
-										color='secondary'
-										className='font-semibold text-md text-white'
-										endIcon={isToggle ? <UilAngleUp size={20} /> : <UilAngleDown size={20} />}>
-										Choose Profile
-									</Button>
-								)}
-							</Dropdown.Action>
-							<Dropdown.Menu>
-								<Dropdown.Option>
-									<span
-										className='cursor-pointer font-semibold text-md text-white'
-										onClick={() => handleAccountSwitch('OWNER')}>
-										{company ? company[0]?.name : company[0]?.legalName}
-									</span>
-								</Dropdown.Option>
-								<Dropdown.Option>
-									<span
-										className='cursor-pointer font-semibold text-md text-white'
-										onClick={() => handleAccountSwitch('USER')}>
-										{user ? user?.username : user.email}
-									</span>
-								</Dropdown.Option>
-							</Dropdown.Menu>
-						</Dropdown>
+						<div
+							className='bg-brandSecondary cursor-pointer mt-4 py-3 w-full'
+							onClick={() => handleAccountSwitch('USER')}>
+							<div className='flex justify-between'>
+								<div className='flex gap-2 items-center pl-4'>
+									<Avatar
+										imgSrc={currentUser?.profileImage}
+										name={currentUser?.username || currentUser?.fullName}
+										alt={currentUser?.username || currentUser?.fullName || 'user-avatar'}
+										size='sm'
+									/>
+									<p className='font-semibold text-center text-md text-white'>
+										{currentUser ? currentUser?.username : currentUser.fullName}
+									</p>
+								</div>
+								<UilExchangeAlt fill='white' size={32} className='mr-4' />
+							</div>
+						</div>
 					</div>
 					<Link href={`/dashboard`} passHref>
 						<button className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
