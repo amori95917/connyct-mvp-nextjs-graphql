@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router';
 
-import { Navbar } from '@/shared-components/navbar';
-import { CompanyLayout } from '@/shared-components/layouts';
 import { Communities } from '@/pages/company/communities';
+import { AuthorizationWrapper } from '@/shared-components/authorization-wrapper';
+import { Header } from '@/shared-components/header';
+import { CompanyLayout } from '@/shared-components/layouts';
+import { Navbar } from '@/shared-components/navbar';
 import { getSlug } from '@/utils/getSlug';
 
 const CommunitiesPage = () => {
@@ -11,15 +13,25 @@ const CommunitiesPage = () => {
 	let companySlug = getSlug(slug);
 	return (
 		<>
-			<Navbar />
-			{companySlug && (
-				<CompanyLayout companySlug={companySlug}>
-					<Communities companySlug={companySlug} />
-				</CompanyLayout>
-			)}
+			<AuthorizationWrapper allowedRoles={['USER', 'OWNER']}>
+				{authorizedUser => {
+					if (authorizedUser) {
+						return (
+							<>
+								{authorizedUser?.activeRole?.name === 'USER' ? <Header /> : <Navbar />}
+								{companySlug && (
+									<CompanyLayout companySlug={companySlug} user={authorizedUser}>
+										<Communities companySlug={companySlug} />
+									</CompanyLayout>
+								)}
+							</>
+						);
+					}
+					return <p>You do not have access to this page.</p>;
+				}}
+			</AuthorizationWrapper>
 		</>
 	);
 };
 
-CommunitiesPage.auth = true;
 export default CommunitiesPage;

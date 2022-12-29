@@ -13,7 +13,7 @@ type AllowedRoles = 'USER' | 'OWNER' | 'MANAGER' | 'EDITOR' | 'STAFF';
 type AuthorizationWrapperProps = {
 	allowedRoles: AllowedRoles[];
 	// currentUser: User;
-	children: ReactNode;
+	children: ReactNode | ((authenticatedUser: User | undefined) => ReactNode);
 };
 
 type AuthError = {
@@ -38,7 +38,7 @@ const AuthroizationWrapper = (props: AuthorizationWrapperProps) => {
 	if (isAuthLoading) {
 		return <Loader />;
 	}
-	return <>{children}</>;
+	return typeof children === 'function' ? children(authenticatedUser) : children;
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {

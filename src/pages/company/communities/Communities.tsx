@@ -1,22 +1,23 @@
-import { useState } from 'react';
 import { UilPlus } from '@iconscout/react-unicons';
+import { useState } from 'react';
 
-import { CommunitiesLoader } from '@/shared-components/skeleton-loader/CommunitiesLoader';
+import { CommunityEdge } from '@/generated/graphql';
+import { useCommunityQuery } from '@/hooks/services/useCommunityQuery';
+import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
+import { ConferenceIcon } from '@/shared-components/icons';
 import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
 import { LoaderDataComponent } from '@/shared-components/loader-data-component';
-import { useCommunityQuery } from '@/hooks/services/useCommunityQuery';
+import { CommunitiesLoader } from '@/shared-components/skeleton-loader/CommunitiesLoader';
 import { EmptyComponent } from '@/ui-elements/atoms/empty-component';
-import { ConferenceIcon } from '@/shared-components/icons';
-import { CommunityForm } from './community-form';
-import { Community } from './Community';
-import { CommunityEdge } from '@/generated/graphql';
 import { isOwner } from '@/utils/permissions';
-import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
+import { Community } from './Community';
+import { CommunityForm } from './community-form';
 
 const Communities = ({ companySlug }: { companySlug: string }) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
 	const { communities, loading } = useCommunityQuery(companySlug);
+	// MAYBE NOT NEEDED TO CALL AS CommunitiesPage can transfer this as a props where we are already using it
 	const { currentUser } = useCurrentUser();
 
 	return (

@@ -106,6 +106,7 @@ export const GET_COMMUNITIES = gql`
 						companyId
 						creatorId
 						slug
+						isConnected
 						company {
 							id
 							name
@@ -205,6 +206,7 @@ export const GET_COMMUNITIES_BY_ID = gql`
 				coverImage
 				slug
 				followersCount
+				isConnected
 			}
 		}
 	}

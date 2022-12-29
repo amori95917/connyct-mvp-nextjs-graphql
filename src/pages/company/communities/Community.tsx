@@ -1,14 +1,15 @@
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { UilImageEdit } from '@iconscout/react-unicons';
-import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
-import { CommunityForm } from './community-form';
-import { InviteMembers } from './invite-memers';
 import { Community as CommunityTypes, User } from '@/generated/graphql';
 import { Avatar } from '@/shared-components/avatar';
+import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
+import { Button } from '@/ui-elements/atoms/button';
 import { isOwner } from '@/utils/permissions';
+import { UilImageEdit } from '@iconscout/react-unicons';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { CommunityForm } from './community-form';
+import { InviteMembers } from './invite-memers';
 
 // Todo show proper count
 const count = 0;
@@ -37,6 +38,8 @@ export const Community = ({
 		router.push(`/brand/${companySlug}/communities/${communityId}`);
 	};
 
+	console.log('community', community);
+
 	return (
 		<>
 			{isOwner(currentUser, companySlug) && isDrawerOpen && (
@@ -60,7 +63,7 @@ export const Community = ({
 				</button>
 			)}
 			<div
-				onClick={() => onCommunityClickHandler(community.id)}
+				onClick={() => onCommunityClickHandler(community.id as string)}
 				className='cursor-pointer h-52 relative w-full'>
 				<Image
 					src={community?.coverImage || 'https://i.pravatar.cc'}
@@ -81,7 +84,9 @@ export const Community = ({
 				<Link href={`/brand/${companySlug}/communities/${community.id}`}>
 					<p className='cursor-pointer font-bold ml-3 text-md text-primary'>{community.name}</p>
 					<p className='cursor-pointer font-bold ml-3 text-gray-400 text-md'>
-						{community?.type === 'PRIVATE' ? 'Private Community' : 'Open Community'}
+						{/* WE WILL SHOW ICON FOR OPEN AND PRIVATE COMMUNITY */}
+						{community?.type === 'PRIVATE' ? 'Private Community' : 'Open Community '}
+						{count} members
 					</p>
 				</Link>
 			</div>
@@ -95,7 +100,11 @@ export const Community = ({
 							Invite members
 						</button>
 					)}
-					<p className='grow mr-2 text-gray-600 text-right'>{count} members</p>
+					{!isOwner(currentUser, companySlug) && !community?.isConnected && (
+						<Button className='bg-primary cursor-pointer px-2 py-2 rounded-md shadow-xl text-white'>
+							Connect
+						</Button>
+					)}
 					{/* {[1, 2, 3].map((image, index) => (
 						<Image
 							key={image}
