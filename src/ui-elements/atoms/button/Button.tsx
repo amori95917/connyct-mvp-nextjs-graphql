@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { LoadingDots } from '../loading-dots';
 
-interface ButtonProps {
+export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
 	children: React.ReactNode;
 	variant?: 'contained' | 'outlined';
 	color?: 'primary' | 'secondary' | string;
@@ -12,7 +12,7 @@ interface ButtonProps {
 	disabled?: boolean;
 	className?: string;
 	size?: 'small' | 'medium' | 'large';
-}
+};
 
 // NOTE: Please change in here should be a last resort if you want to customize the styling.
 // First priority should be give to shared-component Button where project wide customization is done

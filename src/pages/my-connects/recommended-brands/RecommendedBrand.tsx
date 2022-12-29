@@ -1,16 +1,24 @@
+import { useState } from 'react';
+
 import { Company } from '@/generated/graphql';
 import { Avatar } from '@/shared-components/avatar';
+import { Button } from '@/ui-elements/atoms/button';
 
 type RecommendedBrandProps = {
 	brand: Company;
 	handleFollowUnfolllow: (brandId: string) => void;
 	followedCompanies: Array<string>;
+	followLoading: boolean;
+	unfollowLoading: boolean;
 };
 const RecommendedBrand = (props: RecommendedBrandProps) => {
+	const [submitting, setSubmitting] = useState(false);
 	const { brand, handleFollowUnfolllow, followedCompanies } = props;
 	const onFollowUnfolllow = () => {
+		setSubmitting(true);
 		if (brand.id) {
 			handleFollowUnfolllow(brand.id);
+			setSubmitting(false);
 		}
 	};
 	if (brand.id) {
@@ -39,9 +47,9 @@ const RecommendedBrand = (props: RecommendedBrandProps) => {
 						</div>
 					</div>
 					<div className='flex justify-end w-full'>
-						<button onClick={onFollowUnfolllow} className={_followUnfollowClassName}>
+						<Button className={_followUnfollowClassName} onClick={onFollowUnfolllow} loading={submitting}>
 							{followedCompanies.includes(brand.id) ? 'Connected' : 'Connect'}
-						</button>
+						</Button>
 					</div>
 				</div>
 			</>

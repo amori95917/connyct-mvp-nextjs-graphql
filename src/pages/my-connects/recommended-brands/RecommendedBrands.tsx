@@ -7,10 +7,10 @@ import { Box } from '@/ui-elements/atoms/box';
 import RecommendedBrand from './RecommendedBrand';
 
 const RecommendedBrands = () => {
-	const { onFollow, onUnfollow, followedCompanies } = useCompanySuggestion();
+	const { onFollow, onUnfollow, followedCompanies, followLoading, unfollowLoading } =
+		useCompanySuggestion();
 	const { response, loading, hasNextPage, onLoadMore } = useRecommendedCompanies(10);
 	const handleFollowUnfolllow = (brandId: string) => {
-		console.log(brandId);
 		if (followedCompanies.includes(brandId)) {
 			// this means user is already connected so further click will unfollow brand
 			onUnfollow(brandId);
@@ -38,6 +38,8 @@ const RecommendedBrands = () => {
 											brand={brand}
 											handleFollowUnfolllow={handleFollowUnfolllow}
 											followedCompanies={followedCompanies}
+											followLoading={followLoading}
+											unfollowLoading={unfollowLoading}
 										/>
 									);
 								}

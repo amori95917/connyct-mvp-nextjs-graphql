@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 import { FOLLOW_COMPANY, UNFOLLOW_COMPANY } from '@/graphql/follow-company';
-import { useMutation } from '@apollo/client';
 import { USER_CONNECTIONS_SUMMARY } from '@/graphql/user';
+import { useMutation } from '@apollo/client';
 
 const useCompanySuggestion = () => {
 	const [followedCompanies, setFollowedCompanies] = useState<string[]>([]);
-	const [followCompany] = useMutation(FOLLOW_COMPANY);
-	const [unfollowCompany] = useMutation(UNFOLLOW_COMPANY);
+	const [followCompany, { loading: followLoading }] = useMutation(FOLLOW_COMPANY);
+	const [unfollowCompany, { loading: unfollowLoading }] = useMutation(UNFOLLOW_COMPANY);
 
 	const onFollow = async (companyId: string) => {
 		const response = await followCompany({
@@ -46,6 +46,8 @@ const useCompanySuggestion = () => {
 
 	return {
 		followedCompanies,
+		followLoading,
+		unfollowLoading,
 		onFollow,
 		onUnfollow,
 		onContinue,
