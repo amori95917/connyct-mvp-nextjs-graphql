@@ -9,7 +9,7 @@ import Menus from './Menus';
 type CompanyLayoutProps = {
 	children: React.ReactNode;
 	companySlug: string;
-	user: User;
+	user?: User;
 };
 
 //  w-[400px]

@@ -20,7 +20,7 @@ const CommunitiesPage = () => {
 							<>
 								{authorizedUser?.activeRole?.name === 'USER' ? <Header /> : <Navbar />}
 								{companySlug && (
-									<CompanyLayout companySlug={companySlug} user={authorizedUser}>
+									<CompanyLayout companySlug={companySlug}>
 										<Communities companySlug={companySlug} />
 									</CompanyLayout>
 								)}
