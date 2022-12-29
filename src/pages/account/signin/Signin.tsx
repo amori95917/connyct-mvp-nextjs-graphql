@@ -39,7 +39,6 @@ const Signin = () => {
 				},
 			});
 			console.time();
-			debugger;
 			if (response?.data?.login) {
 				setError({});
 				const { accessToken, refreshToken, company, user } = response.data.login;

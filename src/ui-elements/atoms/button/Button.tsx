@@ -1,4 +1,5 @@
 import React from 'react';
+import { LoadingDots } from '../loading-dots';
 
 interface ButtonProps {
 	children: React.ReactNode;
@@ -21,7 +22,7 @@ export function Button(props: ButtonProps) {
 	const {
 		children,
 		loading,
-		loadingComponent = 'loading...',
+		loadingComponent = <LoadingDots />,
 		variant = 'contained',
 		color = 'primary',
 		size = 'medium',

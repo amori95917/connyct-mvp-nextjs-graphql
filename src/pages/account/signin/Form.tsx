@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { FormInput, FormPasswordInput } from '@/shared-components/forms';
 import { FormProps } from './types';
+import { Button } from '@/ui-elements/atoms/button';
 
 const Form: React.FC<FormProps> = ({ onSubmit, register, errors, formError }) => {
 	const buttonClass =
@@ -47,7 +48,9 @@ const Form: React.FC<FormProps> = ({ onSubmit, register, errors, formError }) =>
 				</div>
 				<div className='-mx-3 flex'>
 					<div className='mb-5 pl-3 pr-5 w-full'>
-						<button className={buttonClass}>Sign In</button>
+						<Button className={buttonClass} variant='contained' loading={false} size='large'>
+							Sign In
+						</Button>
 					</div>
 				</div>
 				<div className='flex justify-center'>
