@@ -52,7 +52,7 @@ const Signin = () => {
 				console.timeEnd();
 				company.length > 0
 					? router.push(`/brand/${company[0].id}/edit/business-information/general`)
-					: router.push(`/brand-suggestions`);
+					: router.push(`/feeds`);
 			}
 		} catch (e) {
 			setError({ message: e.message, code: 'INVALID_USERNAME_PASSWORD' });

@@ -1,12 +1,11 @@
+import { ApolloProvider } from '@apollo/client';
+import { Raleway } from '@next/font/google';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { ApolloProvider } from '@apollo/client';
-import { Raleway } from '@next/font/google';
 
-import { AuthProvider } from '@/contexts/auth';
-import '@/styles/tailwind.css';
 import '@/styles/global.css';
+import '@/styles/tailwind.css';
 import { useApollo } from '../lib/apollo';
 
 const poppins = Raleway({ weight: '400' });
@@ -31,26 +30,11 @@ export default function App({ Component, pageProps }: CustomAppProps) {
 						font-family: ${poppins.className};
 					}
 				`}</style>
-				{Component.requiresAuth && (
-					<script
-						// If no token is found, redirect inmediately
-						dangerouslySetInnerHTML={{
-							__html: `if(!document.cookie || document.cookie.indexOf('CONNYCT_USER') === -1)
-            {location.replace(
-              "/account/login?next=" +
-                encodeURIComponent(location.pathname + location.search)
-            )}
-            else {document.documentElement.classList.add("render")}`,
-						}}
-					/>
-				)}
 			</Head>
 			<ApolloProvider client={apolloClient}>
-				<AuthProvider>
-					<div className={`${poppins.className}`}>
-						<Component {...pageProps} />
-					</div>
-				</AuthProvider>
+				<div className={`${poppins.className}`}>
+					<Component {...pageProps} />
+				</div>
 			</ApolloProvider>
 		</>
 	);

@@ -43,7 +43,7 @@ export function Button(props: ButtonProps) {
 
 	const styles = {
 		base: {
-			display: 'inline-flex',
+			display: 'flex',
 			alignItems: 'center',
 			justifyContent: 'center',
 			border: 'none',

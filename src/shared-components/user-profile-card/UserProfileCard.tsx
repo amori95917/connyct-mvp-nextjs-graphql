@@ -1,9 +1,8 @@
+import { Suspense } from 'react';
+
 import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
 import { Avatar } from '../avatar';
-
-const slateSecondaryClassNames = 'text-slate-400';
-const boldSecondaryTextClassNames = 'font-bold text-xl';
-const spanContainerClassNames = 'flex flex-col items-center';
+import UserSummary from './UserSummary';
 
 const UserProfileCard = () => {
 	const { currentUser, loading } = useCurrentUser();
@@ -35,18 +34,9 @@ const UserProfileCard = () => {
 								</div>
 							</div>
 							<div className='flex justify-around mt-5 w-full'>
-								<span className={spanContainerClassNames}>
-									<span className={boldSecondaryTextClassNames}>80</span>
-									<span className={slateSecondaryClassNames}>Brands Followed</span>
-								</span>
-								<span className={spanContainerClassNames}>
-									<span className={boldSecondaryTextClassNames}>369</span>
-									<span className={slateSecondaryClassNames}>Following</span>
-								</span>
-								<span className={spanContainerClassNames}>
-									<span className={boldSecondaryTextClassNames}>180</span>
-									<span className={slateSecondaryClassNames}>Followers</span>
-								</span>
+								<Suspense fallback={<p>Loading...</p>}>
+									<UserSummary />
+								</Suspense>
 							</div>
 						</div>
 					</div>

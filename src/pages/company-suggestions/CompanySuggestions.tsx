@@ -1,9 +1,9 @@
-import React from 'react';
-import { useRecommendedCompanies } from '@/hooks/services/useRecommendedCompanies';
-import { Box } from 'src/ui-elements/atoms/box';
 import { CompanyEdge } from '@/generated/graphql';
-import { LoaderDataComponent } from '@/shared-components/loader-data-component';
+import { useRecommendedCompanies } from '@/hooks/services/useRecommendedCompanies';
 import { InfiniteScroller } from '@/shared-components/infinite-scroller';
+import { LoaderDataComponent } from '@/shared-components/loader-data-component';
+import React from 'react';
+import { Box } from 'src/ui-elements/atoms/box';
 import useCompanySuggestion from './hooks';
 
 const CompanySuggestion = React.lazy(() => import('./CompanySuggestion'));
@@ -24,43 +24,6 @@ const CompanySuggestions = () => {
 
 	const handleSkip = () => onSkip();
 
-	// const [followedCompanies, setFollowedCompanies] = useState<string[]>([]);
-
-	// const [followCompany] = useMutation(FOLLOW_COMPANY);
-	// const [unfollowCompany] = useMutation(UNFOLLOW_COMPANY);
-
-	// const handleFollow = async (companyId: string) => {
-	// 	const response = await followCompany({
-	// 		variables: {
-	// 			data: {
-	// 				followedToId: companyId,
-	// 			},
-	// 		},
-	// 	});
-	// 	const followedCompanyId = response.data.followCompany.followedToId;
-	// 	if (!followedCompanies.includes(followedCompanyId)) {
-	// 		setFollowedCompanies([...followedCompanies, followedCompanyId]);
-	// 	} else setFollowedCompanies(followedCompanies.filter(item => item != followedCompanyId));
-	// };
-
-	// const handleUnfollow = async (companyId: string) => {
-	// 	await unfollowCompany({
-	// 		variables: {
-	// 			data: {
-	// 				companyId,
-	// 			},
-	// 		},
-	// 	});
-	// 	setFollowedCompanies(followedCompanies.filter(item => item != companyId));
-	// };
-
-	// const handleContinue = () => {
-	// 	location.href = `/feeds`;
-	// };
-
-	// const handleSkip = () => {
-	// 	location.href = `/feeds`;
-	// };
 	return (
 		<>
 			<div className='container flex mx-auto px-5'>

@@ -1,9 +1,9 @@
-import Link from 'next/link';
 import { FormInput, FormPasswordInput } from '@/shared-components/forms';
-import { FormProps } from './types';
 import { Button } from '@/ui-elements/atoms/button';
+import Link from 'next/link';
+import { FormProps } from './types';
 
-const Form: React.FC<FormProps> = ({ onSubmit, register, errors, formError }) => {
+const Form: React.FC<FormProps> = ({ onSubmit, register, errors, loading, formError }) => {
 	const buttonClass =
 		'bg-primary block font-semibold max-w-xs mx-auto px-3 py-3 rounded-lg text-white w-full hover:bg-primary focus:bg-primary';
 	return (
@@ -12,7 +12,7 @@ const Form: React.FC<FormProps> = ({ onSubmit, register, errors, formError }) =>
 				<h1 className='font-bold text-3xl text-gray-900'>LOGIN</h1>
 				<p>Enter your information to login</p>
 			</div>
-			{formError?.message && (
+			{formError && formError?.message && (
 				<div className='bg-red-400 mb-4 mx-auto p-2 rounded-md w-72'>
 					<span className='leading-4 text-justify text-white w-full'>
 						Sorry, we couldn&apos;t find an account with that username. Can we help you recover your{' '}
@@ -48,7 +48,7 @@ const Form: React.FC<FormProps> = ({ onSubmit, register, errors, formError }) =>
 				</div>
 				<div className='-mx-3 flex'>
 					<div className='mb-5 pl-3 pr-5 w-full'>
-						<Button className={buttonClass} variant='contained' loading={false} size='large'>
+						<Button className={buttonClass} variant='contained' loading={loading}>
 							Sign In
 						</Button>
 					</div>

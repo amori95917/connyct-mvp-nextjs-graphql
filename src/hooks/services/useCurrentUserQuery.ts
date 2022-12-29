@@ -1,17 +1,16 @@
 import { useQuery } from '@apollo/client';
 
-import { cache } from '@/lib/apollo';
 import { CURRENT_USER_QUERY } from '@/graphql/user';
 
 export const useCurrentUser = () => {
-	const { data, loading } = useQuery(CURRENT_USER_QUERY);
+	const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
 	// const cachedUserData = cache.readQuery({ query: CURRENT_USER_QUERY });
 	// console.log('cachedUserData', cachedUserData);
 	const currentUser = data?.me;
-	console.log('currentUser', currentUser);
 	return {
 		currentUser,
 		loading,
+		error,
 	};
 };
 

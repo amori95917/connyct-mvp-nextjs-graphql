@@ -1,23 +1,24 @@
 // import { Sidebar, Widgets } from '@/components/feeds';
-import { HeaderLayout } from '@/shared-components/layouts';
 import { MyConnects } from '@/pages/my-connects';
+import { AuthorizationWrapper } from '@/shared-components/authorization-wrapper';
+import { HeaderLayout } from '@/shared-components/layouts';
 
 const MyConnectPage = () => {
 	return (
 		<>
-			<HeaderLayout>
-				<div className='container mx-auto'>
-					<div className='flex'>
-						<div className='w-full'>
-							<MyConnects />
+			<AuthorizationWrapper allowedRoles={['USER']}>
+				<HeaderLayout>
+					<div className='container mx-auto'>
+						<div className='flex'>
+							<div className='w-full'>
+								<MyConnects />
+							</div>
 						</div>
 					</div>
-				</div>
-			</HeaderLayout>
+				</HeaderLayout>
+			</AuthorizationWrapper>
 		</>
 	);
 };
-
-MyConnectPage.auth = true;
 
 export default MyConnectPage;

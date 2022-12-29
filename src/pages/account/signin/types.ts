@@ -13,5 +13,5 @@ export type FormProps = {
 	register: any;
 	errors: any;
 	loading: boolean;
-	formError: FormError;
+	formError: FormError | {};
 };
