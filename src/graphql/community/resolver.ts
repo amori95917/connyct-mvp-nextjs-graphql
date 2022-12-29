@@ -61,6 +61,7 @@ export const CREATE_COMMUNITY = gql`
 				description
 				type
 				profile
+				coverImage
 				companyId
 				creatorId
 				slug

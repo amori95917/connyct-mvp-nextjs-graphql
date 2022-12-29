@@ -56,9 +56,6 @@ export const Navbar = () => {
 						<Link href='/' passHref>
 							<span>Home</span>
 						</Link>
-						<Link href='/my-connects' passHref>
-							<span>Connects</span>
-						</Link>
 						<Link href='/' passHref>
 							<span>Notifications</span>
 						</Link>

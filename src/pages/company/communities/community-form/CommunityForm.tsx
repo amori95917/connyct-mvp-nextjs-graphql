@@ -43,7 +43,7 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 						profile: profile?.[0],
 						coverImage: coverImage?.[0],
 					},
-					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: companySlug } }],
+					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: companySlug, first: 10 } }],
 				});
 
 				if (response) {
@@ -78,7 +78,9 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 			try {
 				const response = await editCommunity({
 					variables,
-					refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: community.id } }],
+					refetchQueries: [
+						{ query: GET_COMMUNITIES, variables: { companyId: community.id, first: 10 } },
+					],
 				});
 
 				if (response) {

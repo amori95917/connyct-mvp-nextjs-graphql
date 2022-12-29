@@ -79,19 +79,16 @@ export const ProfileDropdown = React.forwardRef(({ data, currentUser }, ref) => 
 	// 	'bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-72 w-full active:bg-brandSecondary';
 
 	const handleAccountSwitch = async (accountType: string) => {
-		if (user?.id) {
-			await switchAccount({
-				variables: {
-					input: {
-						userId: user.id,
-						accountType,
-					},
+		await switchAccount({
+			variables: {
+				input: {
+					accountType,
 				},
-			});
-			if (switchAccountData?.switchAccount) {
-				setCookie('CONNYCT_USER', switchAccountData?.switchAccount);
-				Router.push('/feeds');
-			}
+			},
+		});
+		if (switchAccountData?.switchAccount) {
+			setCookie('CONNYCT_USER', switchAccountData?.switchAccount);
+			Router.push('/feeds');
 		}
 	};
 

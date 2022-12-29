@@ -17,9 +17,7 @@ import { useAccountSwitchMutation } from '@/hooks/services/useAccountSwitchMutat
 import { setCookie } from '@/utils/cookies';
 
 export const Dropdown = React.forwardRef(({ currentUser }: { currentUser: User }, ref) => {
-	const cookie = Cookies.get('CONNYCT_USER') || '';
-	const { company, user } = cookie && JSON.parse(cookie);
-	const { switchAccount, data: switchAccountData } = useAccountSwitchMutation();
+	const { switchAccount } = useAccountSwitchMutation();
 
 	const [classes, setClasses] = useState({
 		main: '',
@@ -73,20 +71,21 @@ export const Dropdown = React.forwardRef(({ currentUser }: { currentUser: User }
 	};
 
 	const handleAccountSwitch = async (accountType: string) => {
-		if (user?.id) {
-			await switchAccount({
-				variables: {
-					input: {
-						userId: user.id,
-						accountType,
-					},
+		await switchAccount({
+			variables: {
+				input: {
+					accountType,
 				},
-			});
-			if (switchAccountData?.switchAccount) {
-				setCookie('CONNYCT_USER', switchAccountData?.switchAccount);
-				Router.push('/feeds');
-			}
-		}
+			},
+			onCompleted: data => {
+				console.log('switchAccountData', data);
+				setCookie('CONNYCT_USER', data.switchAccount);
+				Router.push(`/brand/${data.switchAccount.company[0].id}/feeds`);
+			},
+			onError: error => {
+				console.error(error);
+			},
+		});
 	};
 
 	const buttonClass =
@@ -111,7 +110,7 @@ export const Dropdown = React.forwardRef(({ currentUser }: { currentUser: User }
 						{currentUser && currentUser?.company.length > 0 && (
 							<div
 								className='bg-brandSecondary cursor-pointer mt-4 py-3 w-full'
-								onClick={() => handleAccountSwitch('USER')}>
+								onClick={() => handleAccountSwitch('OWNER')}>
 								<div className='flex justify-between'>
 									<div className='flex gap-2 items-center pl-4'>
 										<Avatar

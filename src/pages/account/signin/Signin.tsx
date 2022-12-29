@@ -39,6 +39,7 @@ const Signin = () => {
 				},
 			});
 			console.time();
+			debugger;
 			if (response?.data?.login) {
 				setError({});
 				const { accessToken, refreshToken, company, user } = response.data.login;
@@ -50,7 +51,7 @@ const Signin = () => {
 				};
 				setCookie('CONNYCT_USER', cookieToSet);
 				console.timeEnd();
-				company
+				company.length > 0
 					? router.push(`/brand/${company[0].id}/edit/business-information/general`)
 					: router.push(`/brand-suggestions`);
 			}
