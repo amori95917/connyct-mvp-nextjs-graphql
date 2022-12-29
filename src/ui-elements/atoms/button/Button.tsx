@@ -24,6 +24,7 @@ export function Button(props: ButtonProps) {
 		loadingComponent = 'loading...',
 		variant = 'contained',
 		color = 'primary',
+		size = 'medium',
 		...otherProps
 	} = props;
 
@@ -49,7 +50,7 @@ export function Button(props: ButtonProps) {
 			fontWeight: 500,
 			cursor: 'pointer',
 			outline: 'none',
-			...getSize(props.size),
+			...getSize(size),
 		},
 		contained: {
 			backgroundColor: getColor(color),
