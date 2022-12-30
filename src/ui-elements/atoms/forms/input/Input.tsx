@@ -1,5 +1,5 @@
-import React, { FC, forwardRef, DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import classnames from 'classnames';
+import { DetailedHTMLProps, FC, forwardRef, InputHTMLAttributes } from 'react';
 
 export type InputSize = 'medium' | 'large';
 export type InputType = 'text' | 'email' | 'date' | 'password';
@@ -46,7 +46,7 @@ export const Input: FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 					className={classnames([
 						atomClassName
 							? atomClassName
-							: 'relative appearance-none block w-full transition-colors ease-in-out bg-gray-200 text-gray-700 border border-red-500 rounded py-4 px-3 mb-2 leading-tight focus:outline-none disabled:cursor-not-allowed disabled:opacity-40',
+							: 'relative appearance-none block w-full transition-colors ease-in-out bg-gray-200 text-gray-700 border rounded py-4 px-3 mb-2 leading-tight focus:outline-none disabled:cursor-not-allowed disabled:opacity-40',
 						sizeMap[size],
 						className,
 					])}
