@@ -35,6 +35,7 @@ const CommunityDetail = (props: CommunityDetailProps) => {
 					{page === 'HOME' && (
 						<CommunityHome
 							communitySlug={communitySlug}
+							companySlug={companySlug}
 							community={community}
 							authorizedUser={authorizedUser}
 						/>
@@ -42,6 +43,7 @@ const CommunityDetail = (props: CommunityDetailProps) => {
 					{page === 'MEMBERS' && (
 						<CommunityMembers
 							communitySlug={communitySlug}
+							companySlug={companySlug}
 							community={community}
 							authorizedUser={authorizedUser}
 						/>
@@ -49,6 +51,7 @@ const CommunityDetail = (props: CommunityDetailProps) => {
 					{page === 'POLICY' && (
 						<Policies
 							communitySlug={communitySlug}
+							companySlug={companySlug}
 							community={community}
 							authorizedUser={authorizedUser}
 						/>

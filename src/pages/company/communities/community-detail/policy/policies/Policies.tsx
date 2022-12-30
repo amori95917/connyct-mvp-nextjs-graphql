@@ -48,8 +48,7 @@ const Policies = (props: PolicyProps) => {
 							</>
 						}
 					/>
-				}
-			>
+				}>
 				{response.map((communityPolicyNode: CommunityPolicyEdge) => {
 					const { node } = communityPolicyNode;
 					if (node) {
