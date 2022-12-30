@@ -12,7 +12,6 @@ const CommunityPage = () => {
 	const { slug, communitySlug: communitySlugVal } = router.query;
 	let companySlug = getSlug(slug);
 	let communitySlug = getSlug(communitySlugVal);
-
 	return (
 		<>
 			<AuthorizationWrapper allowedRoles={['USER', 'OWNER']}>

@@ -22,7 +22,7 @@ const CommunityDetail = (props: CommunityDetailProps) => {
 
 	const { community } = communityData ?? {};
 
-	if (community) {
+	if (community?.id) {
 		return (
 			<>
 				<CommunityHead

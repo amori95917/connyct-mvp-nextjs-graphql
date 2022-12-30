@@ -67,3 +67,104 @@ export const JOIN_PUBLIC_COMMUNITY = gql`
 		}
 	}
 `;
+
+export const CREATE_FIRST_LEVEL_COMMENT = gql`
+	mutation createFirstLevelComment(
+		$postId: String!
+		$input: CommentInput!
+		$mention: MentionsInput
+	) {
+		createFirstLevelComment(postId: $postId, input: $input, mention: $mention) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			comment {
+				id
+				content
+				communityPostId
+				authorId
+				creator {
+					id
+					fullName
+					username
+					userProfile {
+						id
+						profileImage
+					}
+				}
+				createdAt
+				updatedAt
+			}
+		}
+	}
+`;
+
+export const CREATE_SECOND_LEVEL_COMMENT = gql`
+	mutation createSecondLevelComment(
+		$commentId: String!
+		$input: CommentInput!
+		$mention: MentionsInput
+	) {
+		createSecondLevelComment(commentId: $commentId, input: $input, mention: $mention) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			comment {
+				id
+				content
+				communityPostId
+				authorId
+				commentId
+				creator {
+					id
+					fullName
+					username
+					userProfile {
+						id
+						profileImage
+					}
+				}
+				createdAt
+				updatedAt
+			}
+		}
+	}
+`;
+
+export const CREATE_THIRD_LEVEL_COMMENT = gql`
+	mutation createThirdLevelComment(
+		$commentId: String!
+		$input: CommentInput!
+		$mention: MentionsInput
+	) {
+		createThirdLevelComment(commentId: $commentId, input: $input, mention: $mention) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			comment {
+				id
+				content
+				communityPostId
+				authorId
+				commentId
+				creator {
+					id
+					fullName
+					username
+					userProfile {
+						id
+						profileImage
+					}
+				}
+				createdAt
+				updatedAt
+			}
+		}
+	}
+`;

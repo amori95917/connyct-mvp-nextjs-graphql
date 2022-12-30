@@ -8,7 +8,7 @@ import { PostPopup } from '../post-popup';
 import { ProductPostForm } from './product-post-form';
 
 const CreatePost = props => {
-	const { actions, onPostSubmit, currentUser } = props;
+	const { actions, onPostSubmit, authorizedUser, submitting } = props;
 	const [showPostPopup, setShowPostPopup] = useState(false);
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const { ref, isClose, setIsClose } = useClickOutside();
@@ -33,15 +33,17 @@ const CreatePost = props => {
 
 	const postButtonClassName = 'flex justify-center p-2 rounded-full grow hover:bg-gray-300';
 
+	console.log('authorizedUser', authorizedUser);
+
 	return (
 		<>
 			{showPostPopup && isClose && (
 				<PostPopup
-					company={currentUser?.company}
-					currentUser={currentUser}
+					authorizedUser={authorizedUser}
 					setShowPostPopup={setShowPostPopup}
 					ref={ref}
 					handlePostSubmit={handlePostSubmit}
+					submitting={submitting}
 				/>
 			)}
 			{
@@ -55,27 +57,26 @@ const CreatePost = props => {
 						<Avatar
 							className='rounded-full'
 							imgSrc={
-								getActiveRole(currentUser) === 'USER'
-									? currentUser?.user?.userProfile?.profileImage
-									: currentUser?.company[0]?.avatar
+								getActiveRole(authorizedUser) === 'USER'
+									? authorizedUser?.userProfile?.profileImage
+									: authorizedUser?.company[0]?.avatar
 							}
 							name={
-								getActiveRole(currentUser) === 'USER'
-									? currentUser?.user?.username || currentUser?.user?.fullName
-									: currentUser?.company[0]?.name || currentUser?.company[0]?.legalName
+								getActiveRole(authorizedUser) === 'USER'
+									? authorizedUser?.username || authorizedUser?.fullName
+									: authorizedUser?.company[0]?.name || authorizedUser?.company[0]?.legalName
 							}
 							alt={
-								getActiveRole(currentUser) === 'USER'
-									? currentUser?.user?.username || currentUser?.user?.fullName
-									: currentUser?.company[0]?.name || currentUser?.company[0]?.legalName
+								getActiveRole(authorizedUser) === 'USER'
+									? authorizedUser?.username || authorizedUser?.fullName
+									: authorizedUser?.company[0]?.name || authorizedUser?.company[0]?.legalName
 							}
 						/>
 					</div>
-					<div className='grow ml-5 rounded-full'>
+					<div className='grow ml-4 rounded-full'>
 						<button
 							onClick={onCommonButtonClickHandler}
-							className='bg-gray-200 p-3 rounded-full text-gray-400 text-left w-full hover:bg-gray-300'
-						>
+							className='bg-gray-200 p-3 rounded-full text-gray-400 text-left w-full hover:bg-gray-300'>
 							say something that inspires
 						</button>
 					</div>

@@ -9,14 +9,20 @@ const hasOwnerIdMatched = (ownerIdToMatch: string, brand: [Company]) => {
 };
 
 const isOwner = (currentUser: User, companySlug: string) => {
-	{
-		/* MANAGER, EDITOR can also view it where we need to check brandId and currentUser company id are same */
-	}
+	/* MANAGER, EDITOR can also view it where we need to check brandId and currentUser company id are same */
 	return (
-		currentUser?.activeRole.name === 'OWNER' &&
+		getUserRoleName(currentUser) === 'OWNER' &&
 		hasCompanySlugMatched(companySlug, currentUser?.company) &&
 		hasOwnerIdMatched(currentUser?.id, currentUser?.company)
 	);
 };
 
-export { hasCompanySlugMatched, hasOwnerIdMatched, isOwner };
+const getUserRoleName = (currentUser: User) => {
+	if (currentUser?.activeRole) return currentUser?.activeRole.name;
+};
+
+const getUserRoleId = (currentUser: User) => {
+	if (currentUser?.activeRole) return currentUser?.activeRole.id;
+};
+
+export { hasCompanySlugMatched, hasOwnerIdMatched, isOwner, getUserRoleName, getUserRoleId };

@@ -1,20 +1,20 @@
+import { UilImages, UilShoppingBag, UilTimes, UilVideoQuestion } from '@iconscout/react-unicons';
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { useForm } from 'react-hook-form';
-import { UilImages, UilVideoQuestion, UilShoppingBag, UilTimes } from '@iconscout/react-unicons';
 
-import { FormTextArea, FormSelect, FileInput } from '@/shared-components/forms';
+import { FileInput, FormSelect, FormTextArea } from '@/shared-components/forms';
 // import { useClickOutside } from '@/hooks/useClickOutside';
 // import { HashTagPopup } from './hash-tag-popup/HashTagPopup';
 // import { PostHastag } from '@/components/ui/shared-components/hash-tag/PostHastag';
+import { getUserRoleName } from '@/utils/permissions';
+import { Avatar } from '../avatar';
 import {
 	BrandFeedUploadForm,
 	BrandFeedUploadPreview,
 } from '../feed-components/brand-feeds/BrandFeedUpload';
-import { Avatar } from '../avatar';
 
 export const PostPopup = React.forwardRef(
-	({ company, setShowPostPopup, handlePostSubmit, currentUser }, ref) => {
+	({ setShowPostPopup, handlePostSubmit, authorizedUser, submitting }, ref) => {
 		// const [showHashTagPopup, setShowHashTagPopup] = useState(false);
 		// const { setIsClose, isClose } = useClickOutside();
 		// const [hashTags, setHashTags] = useState([]);
@@ -52,6 +52,8 @@ export const PostPopup = React.forwardRef(
 
 		const images = watch('images');
 
+		console.log('authorizedUser', authorizedUser);
+
 		return (
 			<div className='items-center justify-center popup'>
 				<div ref={ref} className='bg-white relative rounded-md md:w-6/12'>
@@ -60,19 +62,17 @@ export const PostPopup = React.forwardRef(
 							className='p-1 rounded-md hover:bg-gray-300'
 							onClick={() => {
 								setShowPostPopup(false);
-							}}
-						>
+							}}>
 							<UilTimes size={20} />
 						</button>
 						{/* TODO: use FileInput and on renderUpload have button as a component and do not use renderPreview */}
 						{images?.length > 0 && <span>Add more images</span>}
 						<span>Create Post</span>
 						<button
-							className='bg-primary flex font-semibold h-10 items-center justify-center px-3 py-3 rounded-lg text-white w-32 w-full w-full hover:bg-indigo-700 focus:bg-indigo-700'
+							className='bg-primary flex font-semibold h-10 items-center justify-center px-3 py-3 rounded-lg text-white w-full'
 							type='submit'
 							title={'post'}
-							form={'create-post-form-id'}
-						>
+							form={'create-post-form-id'}>
 							Post
 						</button>
 					</div>
@@ -108,13 +108,27 @@ export const PostPopup = React.forwardRef(
 											<div className='h-16 relative w-16'>
 												<Avatar
 													className='rounded-full'
-													imgSrc={company[0]?.avatar}
-													name={company[0]?.name || company[0].legalName}
-													alt={company[0]?.name || company[0].legalName || 'brand-avatar'}
+													imgSrc={
+														getUserRoleName(authorizedUser) === 'USER'
+															? authorizedUser?.userProfile?.profileImage
+															: authorizedUser?.company[0].avatar
+													}
+													name={
+														getUserRoleName(authorizedUser) === 'USER'
+															? authorizedUser?.username || authorizedUser?.fullName
+															: authorizedUser?.company[0].name || authorizedUser?.company[0].legalName
+													}
+													alt={
+														getUserRoleName(authorizedUser) === 'USER'
+															? authorizedUser?.username || authorizedUser?.fullName
+															: authorizedUser?.company[0].name || authorizedUser?.company[0].legalName
+													}
 												/>
 											</div>
 											<div className='flex flex-col font-semibold items-start ml-5 text-lg whitespace-nowrap'>
-												{company[0].legalName}
+												{getUserRoleName(authorizedUser) === 'USER'
+													? authorizedUser?.username
+													: authorizedUser?.company[0].name}
 											</div>
 										</div>
 										<div className='h-full py-5'>
@@ -160,22 +174,19 @@ export const PostPopup = React.forwardRef(
 							<button
 								type='button'
 								onClick={() => handlePostAction('images')}
-								className={`${postButtonClassName} ${postActionType === 'images' && 'text-green-400'}`}
-							>
+								className={`${postButtonClassName} ${postActionType === 'images' && 'text-green-400'}`}>
 								<UilImages fill='#50c7a6' size={25} /> Photos
 							</button>
 							<button
 								type='button'
 								onClick={() => handlePostAction('videos')}
-								className={`${postButtonClassName} ${postActionType === 'videos' && 'text-green-400'}`}
-							>
+								className={`${postButtonClassName} ${postActionType === 'videos' && 'text-green-400'}`}>
 								<UilVideoQuestion fill='#EB4D89' size={25} /> Videos
 							</button>
 							<button
 								type='button'
 								onClick={() => handlePostAction('products')}
-								className={`${postButtonClassName} ${postActionType === 'products' && 'text-green-400'}`}
-							>
+								className={`${postButtonClassName} ${postActionType === 'products' && 'text-green-400'}`}>
 								<UilShoppingBag fill='#DCA3F7' size={25} /> Products
 							</button>
 						</div>

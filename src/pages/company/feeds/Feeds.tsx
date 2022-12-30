@@ -4,19 +4,19 @@ import produce from 'immer';
 // API SERVICES
 import { useCompanyFeedsQuery } from '@/hooks/services/useCompanyFeedsQuery';
 // LOCAL COMPONENTS
-import { BrandRecommendations } from '@/shared-components/widgets/brand-recommendation';
-import { LoaderDataComponent } from '@/shared-components/loader-data-component';
-import { BrandFeeds } from '@/shared-components/feed-components/brand-feeds';
-import { FeedLoader } from '@/shared-components/skeleton-loader/FeedLoader';
-import { InfiniteScroller } from '@/shared-components/infinite-scroller';
-import { TrendingTopics } from '@/shared-components/trending-topics';
-import CreatePost from '@/shared-components/create-post/CreatePost';
 import { Company, PostEdge } from '@/generated/graphql';
-import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
 import { CREATE_POST } from '@/graphql/company';
 import { GET_COMPANY_POST } from '@/graphql/feeds';
-import { getCookie } from '@/utils/cookies';
+import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
+import CreatePost from '@/shared-components/create-post/CreatePost';
+import { BrandFeeds } from '@/shared-components/feed-components/brand-feeds';
+import { InfiniteScroller } from '@/shared-components/infinite-scroller';
+import { LoaderDataComponent } from '@/shared-components/loader-data-component';
+import { FeedLoader } from '@/shared-components/skeleton-loader/FeedLoader';
+import { TrendingTopics } from '@/shared-components/trending-topics';
+import { BrandRecommendations } from '@/shared-components/widgets/brand-recommendation';
 import Widget from '@/shared-components/widgets/Widget';
+import { getCookie } from '@/utils/cookies';
 
 type CompanyFeedsProps = {
 	companySlug: string;
@@ -106,7 +106,7 @@ const CompanyFeeds = (props: CompanyFeedsProps) => {
 								<CreatePost
 									actions={['media', 'events', 'products']}
 									onPostSubmit={onPostSubmit}
-									currentUser={currentUser}
+									authorizedUser={currentUser}
 								/>
 							</div>
 						)}
@@ -115,8 +115,7 @@ const CompanyFeeds = (props: CompanyFeedsProps) => {
 								loading={loading}
 								scrollableTop={true}
 								hasNextPage={hasNextPage}
-								onLoadMore={onLoadMore}
-							>
+								onLoadMore={onLoadMore}>
 								{(feeds || []).map((postNode: PostEdge) => {
 									const { node } = postNode;
 									if (node) {
