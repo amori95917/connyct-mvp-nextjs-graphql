@@ -16,14 +16,16 @@ const TrendingTopics = () => {
 			<LoaderDataComponent
 				isLoading={loading}
 				data={data?.getTags?.nodes}
-				emptyComponent={<EmptyComponent text='No tags found' />}>
+				emptyComponent={<EmptyComponent text='No tags found' />}
+			>
 				{data?.getTags?.nodes.map(hashTag => {
 					return (
 						<Link
 							key={hashTag.id}
 							href={BRAND_ROUTES.FEEDS_BY_HASHTAGS(hashTag.name)}
 							className='cursor-pointer'
-							passHref>
+							passHref
+						>
 							<div key={hashTag.id}>
 								<p className='flex ml-5 mt-2'>
 									{/* <span className='font-semibold'>Zara- </span> */}

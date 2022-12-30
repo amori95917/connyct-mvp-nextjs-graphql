@@ -21,12 +21,14 @@ const ConnectedEvangelists = () => {
 								text='No mutual evangelists'
 								subText='We recommend you to follow as much evangelists you can from the brands you are connected'
 							/>
-						}>
+						}
+					>
 						<InfiniteScroller
 							loading={loading}
 							scrollableTop={true}
 							hasNextPage={hasNextPage}
-							onLoadMore={onLoadMore}>
+							onLoadMore={onLoadMore}
+						>
 							{(response || []).map((recommendedBrand: CompanyEdge) => {
 								const { node: brand } = recommendedBrand;
 								if (brand?.id) {

@@ -38,7 +38,8 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 						<div className='px-5'>
 							<button
 								className='bg-primary flex font-bold gap-1 items-center justify-center p-4 rounded-md text-white w-full hover:bg-primary'
-								onClick={handleDrawerToggle}>
+								onClick={handleDrawerToggle}
+							>
 								<UilPlus fill='#FFFFFF' size={20} />
 								<span>Create a new community</span>
 							</button>
@@ -56,7 +57,8 @@ const Communities = ({ companySlug }: { companySlug: string }) => {
 							subText='Please create a new community'
 							icon={<ConferenceIcon width='4em' height='4em' className='fill-primary' />}
 						/>
-					}>
+					}
+				>
 					{/** TODO improve types for community after api enhanced, this should be paginate */}
 					<div className='gap-4 grid grid-cols-1 pt-4 md:grid-cols-2 lg:grid-cols-3'>
 						{communities?.map((communityNode: CommunityEdge) => {

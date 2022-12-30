@@ -26,14 +26,17 @@ export const RightDrawerLayout: FC<ProductPostDrawerType> = ({
 	return (
 		<>
 			<div
-				className={`${initialDrawerClassName} ${isOpen ? openDrawerClassName : closeDrawerClassName}`}>
+				className={`${initialDrawerClassName} ${isOpen ? openDrawerClassName : closeDrawerClassName}`}
+			>
 				<div
 					className={
 						`md:w-${drawerSize} right-0 absolute bg-white h-full shadow-xl duration-300 ease-in-out transition-all transform ` +
 						(isOpen ? openDrawerClassName : closeDrawerClassName)
-					}>
+					}
+				>
 					<div
-						className={`flex flex-col h-full md:w-${drawerSize} no-scrollbar overflow-y-scroll p-5 pb-10 space-y-6`}>
+						className={`flex flex-col h-full md:w-${drawerSize} no-scrollbar overflow-y-scroll p-5 pb-10 space-y-6`}
+					>
 						<div className='flex justify-between'>
 							<div className='flex'>
 								<ConnyctLogo height={'2em'} width={'6em'} />
@@ -41,17 +44,20 @@ export const RightDrawerLayout: FC<ProductPostDrawerType> = ({
 							<button
 								type='button'
 								onClick={onCloseHandler}
-								className='bg-transparent inline-flex items-center p-1.5 right-2.5 rounded-lg text-gray-400 text-sm top-2.5 dark:hover:bg-gray-600 dark:hover:text-white hover:bg-gray-200 hover:text-gray-900'>
+								className='bg-transparent inline-flex items-center p-1.5 right-2.5 rounded-lg text-gray-400 text-sm top-2.5 dark:hover:bg-gray-600 dark:hover:text-white hover:bg-gray-200 hover:text-gray-900'
+							>
 								<svg
 									aria-hidden='true'
 									className='h-5 w-5'
 									fill='currentColor'
 									viewBox='0 0 20 20'
-									xmlns='http://www.w3.org/2000/svg'>
+									xmlns='http://www.w3.org/2000/svg'
+								>
 									<path
 										fillRule='evenodd'
 										d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
-										clipRule='evenodd'></path>
+										clipRule='evenodd'
+									></path>
 								</svg>
 							</button>
 						</div>

@@ -43,3 +43,27 @@ export const CREATE_COMMUNITY_POST = gql`
 		}
 	}
 `;
+
+export const JOIN_PUBLIC_COMMUNITY = gql`
+	mutation joinPublicCommunity($input: CommunityMemberInput!) {
+		joinPublicCommunity(input: $input) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			joinCommunity {
+				id
+				createdAt
+				updatedAt
+				communityId
+				invitedById
+				memberId
+				communityRole {
+					id
+					role
+				}
+			}
+		}
+	}
+`;

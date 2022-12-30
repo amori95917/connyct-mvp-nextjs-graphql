@@ -97,7 +97,8 @@ export const ProfileDropdown = React.forwardRef(({ data, currentUser }, ref) => 
 			{/* <div className='arrow-up fixed right-3 right-8 top-14 z-20'></div> */}
 			<div
 				ref={ref}
-				className={`bg-gray-50 fixed flex ${classes.mainHeight} duration-200 ease-in-out  no-scrollbar  overflow-y-auto p-3 right-5 rounded-md shadow-lg top-16 w-80`}>
+				className={`bg-gray-50 fixed flex ${classes.mainHeight} duration-200 ease-in-out  no-scrollbar  overflow-y-auto p-3 right-5 rounded-md shadow-lg top-16 w-80`}
+			>
 				<div className={`ml-1 ${classes.main} absolute w-72`}>
 					<div className='bg-primary flex flex-col items-center rounded-md shadow-sm'>
 						<div className='mt-5'>
@@ -109,7 +110,8 @@ export const ProfileDropdown = React.forwardRef(({ data, currentUser }, ref) => 
 						</div>
 						<div
 							className='bg-brandSecondary cursor-pointer mt-4 py-3 w-full'
-							onClick={() => handleAccountSwitch('USER')}>
+							onClick={() => handleAccountSwitch('USER')}
+						>
 							<div className='flex justify-between'>
 								<div className='flex gap-2 items-center pl-4'>
 									<Avatar
@@ -138,7 +140,8 @@ export const ProfileDropdown = React.forwardRef(({ data, currentUser }, ref) => 
 					</button>
 					<button
 						onClick={() => onClickHandler('setting')}
-						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
+						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'
+					>
 						<span className='flex'>
 							<UilSetting size={25} className='fill-primary' />
 							<span className='ml-5'>Settings</span>
@@ -149,7 +152,8 @@ export const ProfileDropdown = React.forwardRef(({ data, currentUser }, ref) => 
 					</button>
 					<button
 						onClick={() => onClickHandler('manage')}
-						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
+						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'
+					>
 						<span className='flex'>
 							<UilUserSquare size={25} className='fill-primary' />
 							<span className='ml-5'>Manage</span>
@@ -160,7 +164,8 @@ export const ProfileDropdown = React.forwardRef(({ data, currentUser }, ref) => 
 					</button>
 					<button
 						onClick={() => onClickHandler('other')}
-						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
+						className='bg-slate-100 flex items-center justify-between mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'
+					>
 						<span className='flex'>
 							<UilEllipsisV rotate={'-180deg'} size={25} className='fill-primary' />
 							<span className='ml-5'>Other</span>
@@ -171,7 +176,8 @@ export const ProfileDropdown = React.forwardRef(({ data, currentUser }, ref) => 
 					</button>
 					<button
 						onClick={onClickLogoutHandle}
-						className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'>
+						className='bg-slate-100 flex mt-2 p-3 rounded-md text-left w-full active:bg-brandSecondary'
+					>
 						<UilSignout size={25} className='fill-primary' />
 						<span className='ml-5'>Logout</span>
 					</button>

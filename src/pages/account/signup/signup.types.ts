@@ -14,5 +14,5 @@ export type FormProps = {
 	accountType: 'individual' | 'company';
 	loading: boolean;
 	errorUserAlreadyExists: string;
-  formError: any
+	formError: any;
 };

@@ -1,2 +1,2 @@
-import Staffs from './Staffs'
-export default Staffs
+import Staffs from './Staffs';
+export default Staffs;

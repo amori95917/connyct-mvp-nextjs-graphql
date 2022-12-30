@@ -22,7 +22,8 @@ const FeedActions = (props: FeedActionProps) => {
 				<div className='flex items-center relative'>
 					<span
 						className='cursor-pointer flex items-center whitespace-nowrap'
-						onClick={handleReactionClick}>
+						onClick={handleReactionClick}
+					>
 						{/* {showHideReaction && <Reaction postId={postId} />} */}
 						<LikeIcon />
 						<span className='ml-2 text-muted'>

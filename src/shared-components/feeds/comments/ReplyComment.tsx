@@ -105,7 +105,8 @@ const ReplyComment = React.forwardRef(({ postId, commentId }: createCommentReply
 					</div>
 					<button
 						type='submit'
-						className='bg-slate-100 h-10 ml-2 p-2 rounded-md w-10 hover:bg-slate-200'>
+						className='bg-slate-100 h-10 ml-2 p-2 rounded-md w-10 hover:bg-slate-200'
+					>
 						<UilMessage fill='#2599c0' size={25} />
 					</button>
 				</form>

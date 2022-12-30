@@ -17,7 +17,8 @@ const ConnectedBrands = () => {
 							loading={loading}
 							scrollableTop={true}
 							hasNextPage={hasNextPage}
-							onLoadMore={onLoadMore}>
+							onLoadMore={onLoadMore}
+						>
 							{(response || []).map((recommendedBrand: CompanyEdge) => {
 								const { node: brand } = recommendedBrand;
 								if (brand?.id) {

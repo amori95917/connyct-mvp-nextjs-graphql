@@ -7,9 +7,5 @@ export type FormErrorMessageProps = {
 };
 
 export const FormErrorMessage: FC<FormErrorMessageProps> = ({ children, className }) => (
-	<p className={classNames('block text-left text-red-600 text-sm', className)}>
-		{children}
-	</p>
+	<p className={classNames('block text-left text-red-600 text-sm', className)}>{children}</p>
 );
-
-

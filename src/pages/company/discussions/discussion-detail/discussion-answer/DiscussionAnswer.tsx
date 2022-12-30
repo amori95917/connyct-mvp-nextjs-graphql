@@ -60,7 +60,8 @@ export const DiscussionAnswer = ({
 						id='dropdownDefault'
 						data-dropdown-toggle='dropdown'
 						className='font-medium inline-flex items-center px-4 py-2.5 rounded-lg text-center text-sm text-white hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-300'
-						type='button'>
+						type='button'
+					>
 						<UilEllipsisV fill='black' />
 					</button>
 					{showActions && <DiscussionActionsDropdown />}
@@ -97,7 +98,8 @@ export const DiscussionAnswer = ({
 					<div className='bg-gray-100 flex items-center shadow-sm'>
 						<div
 							className='bg-gray-200 cursor-pointer mt-2 px-2 py-4 rounded-md w-full'
-							onClick={() => handleReplyFormClick(index)}>
+							onClick={() => handleReplyFormClick(index)}
+						>
 							<span className='font-medium'>Write a reply</span>
 						</div>
 					</div>

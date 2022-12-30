@@ -1,21 +1,23 @@
 import { useState } from 'react';
 
-import { Input } from '@/ui-elements/atoms/forms/input';
+import { CommunityMemberEdge, User } from '@/generated/graphql';
 import { useCommunityMembers } from '@/hooks/services/useCommunityMembers';
+import { ConferenceIcon } from '@/shared-components/icons';
+import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
 import { LoaderDataComponent } from '@/shared-components/loader-data-component';
 import { EmptyComponent } from '@/ui-elements/atoms/empty-component';
-import { ConferenceIcon } from '@/shared-components/icons';
-import { CommunityMemberEdge } from '@/generated/graphql';
-import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
-import Member from './Member';
+import { Input } from '@/ui-elements/atoms/forms/input';
 import { InviteMembers } from '../../invite-memers';
+import Member from './Member';
 
 type CommunityMemberProps = {
 	communitySlug: string;
+	companySlug: string;
+	authorizedUser: User;
 };
 
 export const CommunityMembers = (props: CommunityMemberProps) => {
-	const { communitySlug } = props;
+	const { communitySlug, authorizedUser } = props;
 	const { response, loading, totalCount } = useCommunityMembers(communitySlug);
 	const [isInviteDrawerOpen, setIsInviteDrawerOpen] = useState(false);
 	const handleInviteDrawerToggle = () => setIsInviteDrawerOpen(!isInviteDrawerOpen);
@@ -26,7 +28,8 @@ export const CommunityMembers = (props: CommunityMemberProps) => {
 				<RightDrawerLayout
 					isOpen={isInviteDrawerOpen}
 					setIsOpen={setIsInviteDrawerOpen}
-					drawerSize='xl'>
+					drawerSize='xl'
+				>
 					<InviteMembers />
 				</RightDrawerLayout>
 			)}
@@ -35,7 +38,7 @@ export const CommunityMembers = (props: CommunityMemberProps) => {
 				<div className='py-4'>
 					<Input id='member' name='member' placeholder='Find a member' />
 				</div>
-				<hr className='bg-gray-200 border-0 h-px mb-4 pl-10 dark:bg-gray-700' />
+				<hr className='bg-gray-200 border-0 h-px mb-4 pl-10 dark:bg-gray-200' />
 				<LoaderDataComponent
 					isLoading={loading}
 					data={response}
@@ -48,17 +51,19 @@ export const CommunityMembers = (props: CommunityMemberProps) => {
 								<>
 									<button
 										className='bg-primary mt-4 px-4 py-2 text-white'
-										onClick={handleInviteDrawerToggle}>
+										onClick={handleInviteDrawerToggle}
+									>
 										Invite Members
 									</button>
 								</>
 							}
 						/>
-					}>
+					}
+				>
 					{response.map((communityMemberNode: CommunityMemberEdge) => {
 						const { node } = communityMemberNode;
 						if (node) {
-							return <Member data={node} key={node?.id} />;
+							return <Member data={node} key={node?.id} authorizedUser={authorizedUser} />;
 						}
 					})}
 				</LoaderDataComponent>
@@ -83,7 +88,7 @@ export const CommunityMembers = (props: CommunityMemberProps) => {
 						info='This is me'
 					/>
 				</div> */}
-				<hr className='bg-gray-200 border-0 h-px mb-4 pl-10 dark:bg-gray-700' />
+				<hr className='bg-gray-200 border-0 h-px mb-4 pl-10 dark:bg-gray-200' />
 				{/* <div>
 					<span className='font-bold py-3 text-lg'>Members &bull;8</span>
 					<ProfileCard

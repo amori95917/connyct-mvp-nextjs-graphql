@@ -42,7 +42,8 @@ const Header = () => {
 						</Link>
 						<button
 							onClick={handleDropdown}
-							className='aspect-square overflow-hidden relative rounded-full w-10'>
+							className='aspect-square overflow-hidden relative rounded-full w-10'
+						>
 							<Avatar
 								imgSrc={currentUser?.profileImage}
 								name={currentUser?.username || currentUser?.fullName || ''}

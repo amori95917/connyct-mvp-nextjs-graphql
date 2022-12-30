@@ -1,155 +1,153 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap'); */
 
 #__next {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 :root {
-  --color-primary: #5A6399;
-  --color-secondary: #ea9a7e;
+	--color-primary: #5a6399;
+	--color-secondary: #ea9a7e;
 }
 
 .anim {
-  @apply duration-100 ease-linear transition-all;
+	@apply duration-100 ease-linear transition-all;
 }
 
 .mention,
 .hashtag {
-  @apply text-primary;
+	@apply text-primary;
 
-  &:hover {
-    @apply underline;
-  }
+	&:hover {
+		@apply underline;
+	}
 }
 
 .min-w-half {
-  min-width: 50%;
+	min-width: 50%;
 }
 
 .widget {
-  @apply bg-white overflow-hidden rounded-xl shadow-md;
-  width: 320px;
+	@apply bg-white overflow-hidden rounded-xl shadow-md;
+	width: 320px;
 
-  @screen lg {
-    width: 350px;
-  }
+	@screen lg {
+		width: 350px;
+	}
 }
 
 .absolute-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }
 
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  list-style: none;
-  border: none;
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	list-style: none;
+	border: none;
 }
 
-
 body {
-  font-style: normal;
-  overflow-x: hidden;
+	font-style: normal;
+	overflow-x: hidden;
 }
 
 .no-scrollbar::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 .sticky {
-  position: -webkit-sticky;
+	position: -webkit-sticky;
 }
 
 .transparent-left {
-  background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255));
+	background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255));
 }
 
 .transparent-right {
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255));
+	background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255));
 }
 
 .popup {
-  background-color: rgba(128, 128, 128, 0.5);
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  justify-items: center;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 50;
-  height: 100vh;
-  width: 100%;
+	background-color: rgba(128, 128, 128, 0.5);
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	justify-items: center;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 50;
+	height: 100vh;
+	width: 100%;
 }
 
 .arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
 
-  border-bottom: 8px solid #e2e8f0;
+	border-bottom: 8px solid #e2e8f0;
 }
 
 #dot-loader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 #dot-loader div {
-  width: 8px;
-  height: 8px;
-  background: white;
-  border-radius: 50%;
-  display: inline-block;
-  animation: slideDotLoader 0.75s linear infinite normal both;
-  margin-left: 4px;
-  margin-right: 4px;
+	width: 8px;
+	height: 8px;
+	background: white;
+	border-radius: 50%;
+	display: inline-block;
+	animation: slideDotLoader 0.75s linear infinite normal both;
+	margin-left: 4px;
+	margin-right: 4px;
 }
 
 #dot-loader div:nth-child(1) {
-  animation-delay: 0.1s;
+	animation-delay: 0.1s;
 }
 
 #dot-loader div:nth-child(2) {
-  animation-delay: 0.3s;
+	animation-delay: 0.3s;
 }
 
 #dot-loader div:nth-child(3) {
-  animation-delay: 0.5s;
+	animation-delay: 0.5s;
 }
 
 @keyframes slideDotLoader {
-  0% {
-    transform: scale(1);
-  }
+	0% {
+		transform: scale(1);
+	}
 
-  50% {
-    transform: scale(1.4);
-  }
+	50% {
+		transform: scale(1.4);
+	}
 
-  100% {
-    transform: scale(1);
-  }
+	100% {
+		transform: scale(1);
+	}
 }
 
-.low_image_brightness{
-  filter: brightness(25%);
-  }
-  
+.low_image_brightness {
+	filter: brightness(25%);
+}

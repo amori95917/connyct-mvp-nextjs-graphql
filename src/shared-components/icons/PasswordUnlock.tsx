@@ -12,7 +12,8 @@ export const PasswordUnlock = props => {
 			height={height}
 			fill={color}
 			viewBox='0 0 486.8 486.8'
-			xmlSpace='preserve'>
+			xmlSpace='preserve'
+		>
 			<g>
 				<g>
 					<path

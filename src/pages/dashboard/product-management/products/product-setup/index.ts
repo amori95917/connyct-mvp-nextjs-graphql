@@ -1,3 +1,3 @@
-import ProductSetup from './ProductSetup'
+import ProductSetup from './ProductSetup';
 
-export default ProductSetup
+export default ProductSetup;

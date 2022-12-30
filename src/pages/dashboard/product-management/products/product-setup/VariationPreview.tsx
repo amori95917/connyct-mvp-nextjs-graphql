@@ -38,7 +38,7 @@ const VariationPreview = ({ variations }) => {
 	const allVariationCombinations = getAllCombinations(variations);
 	return (
 		<>
-			<div className='overflow-hidden mt-4 ring-1 ring-black ring-opacity-5 shadow md:rounded-lg'>
+			<div className='mt-4 overflow-hidden ring-1 ring-black ring-opacity-5 shadow md:rounded-lg'>
 				<table className='divide-gray-300 divide-y min-w-full'>
 					<thead className='bg-gray-50'>
 						<tr>
@@ -46,33 +46,39 @@ const VariationPreview = ({ variations }) => {
 								<th
 									key={variation.option}
 									scope='col'
-									className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+									className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'
+								>
 									{variation.option}
 								</th>
 							))}
 							<th
 								scope='col'
-								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'
+							>
 								Image
 							</th>
 							<th
 								scope='col'
-								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'
+							>
 								Price
 							</th>
 							<th
 								scope='col'
-								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'
+							>
 								Quantity
 							</th>
 							<th
 								scope='col'
-								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'
+							>
 								SKU
 							</th>
 							<th
 								scope='col'
-								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'
+							>
 								Barcode
 							</th>
 						</tr>

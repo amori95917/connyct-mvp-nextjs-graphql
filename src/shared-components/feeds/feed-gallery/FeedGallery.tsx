@@ -117,7 +117,8 @@ const FeedGallery = (props: FeedGalleryProps) => {
 										<div
 											key={index}
 											onClick={() => openImageViewer(index)}
-											className={`${getClassName(index)}`}>
+											className={`${getClassName(index)}`}
+										>
 											<Image
 												key={index}
 												className={`${getImageClassName(index)} rounded-md cursor-pointer`}

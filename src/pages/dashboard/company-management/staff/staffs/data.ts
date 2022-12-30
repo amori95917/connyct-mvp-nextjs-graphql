@@ -6,7 +6,7 @@ const getData = () => {
 			image: '/images/product/air.jpeg',
 			team: 'CEO',
 			status: 'accepted',
-			email: 'ptushaantk@gmail.com'
+			email: 'ptushaantk@gmail.com',
 		},
 		{
 			id: 2,
@@ -14,7 +14,7 @@ const getData = () => {
 			image: '/images/product/dri-fit.jpeg',
 			team: 'CEO',
 			status: 'accepted',
-			email: 'abiseriwaz@gmail.com'
+			email: 'abiseriwaz@gmail.com',
 		},
 		{
 			id: 2,
@@ -22,7 +22,7 @@ const getData = () => {
 			image: '/images/product/dri-fit.jpeg',
 			team: 'CEO',
 			status: 'accepted',
-			email: 'rafin.karki@gmail.com'
+			email: 'rafin.karki@gmail.com',
 		},
 	];
 	return data;

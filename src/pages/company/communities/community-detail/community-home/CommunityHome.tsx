@@ -45,7 +45,8 @@ const CommunityHome = (props: CommunityHomeProps) => {
 						loading={loading}
 						scrollableTop={true}
 						hasNextPage={hasNextPage}
-						onLoadMore={onLoadMore}>
+						onLoadMore={onLoadMore}
+					>
 						{(response || []).map((postNode: CommunityPostEdge) => {
 							const { node } = postNode;
 							if (node) {

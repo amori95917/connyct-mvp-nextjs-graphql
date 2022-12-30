@@ -55,7 +55,8 @@ export const DiscussionReply = ({ index, node }: { index: number | string }) => 
 							id='dropdownDefault'
 							data-dropdown-toggle='dropdown'
 							className='font-medium inline-flex items-center px-4 py-2.5 rounded-lg text-center text-sm text-white hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-300'
-							type='button'>
+							type='button'
+						>
 							<UilEllipsisV fill='black' />
 						</button>
 						{showActions.show && index == showActions.index && <DiscussionActionsDropdown />}

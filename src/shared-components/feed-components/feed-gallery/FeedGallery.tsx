@@ -15,7 +15,8 @@ export const FeedGallery = (props: FeedGalleryProps) => {
 				'@media (max-width: 767px)': {
 					gridTemplateColumns: 'repeat(1, 1fr)',
 				},
-			}}>
+			}}
+		>
 			{images.slice(0, 3).map(image => (
 				<Image key={image.id} src={image.imageURL} alt='brand-feed-image' width={400} height={200} />
 			))}

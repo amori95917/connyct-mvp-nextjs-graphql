@@ -79,7 +79,8 @@ const Setup = () => {
 									<div
 										className={`border-solid ${
 											getValues('team') === team.value ? 'border-primary' : 'border-gray-100'
-										} border-x border-y lg:mb-2`}>
+										} border-x border-y lg:mb-2`}
+									>
 										<div className='flex'>
 											<div className='pl-1 radio-select shadow-sm'>
 												<FormRadio
@@ -94,7 +95,8 @@ const Setup = () => {
 											</div>
 											<div className='content p-4'>
 												<h2
-													className={`${getValues('team') === team.value ? 'text-primary' : 'text-gray-800'}`}>
+													className={`${getValues('team') === team.value ? 'text-primary' : 'text-gray-800'}`}
+												>
 													{team.name}
 												</h2>
 												<p className='py-4 text-gray-400'>{team.description}</p>
@@ -153,7 +155,8 @@ const Setup = () => {
 							<div className='mb-5 px-3'>
 								<button
 									type='submit'
-									className='bg-primary block font-semibold max-w-xs mx-auto px-3 py-3 rounded-lg text-white w-full'>
+									className='bg-primary block font-semibold max-w-xs mx-auto px-3 py-3 rounded-lg text-white w-full'
+								>
 									Send Invitation
 								</button>
 							</div>

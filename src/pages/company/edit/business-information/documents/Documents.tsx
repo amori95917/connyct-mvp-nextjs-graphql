@@ -94,13 +94,15 @@ const Documents: React.FC<DocumentsProps> = props => {
 					<div className='flex uploads-row md:flex-row'>
 						<div
 							onClick={() => onClickHandler(uploadFormTypes.panOrVat)}
-							className='bg-light-bg cursor-pointer flex flex-col items-center p-10 rounded text-center w-full md:w-1/4'>
+							className='bg-light-bg cursor-pointer flex flex-col items-center p-10 rounded text-center w-full md:w-1/4'
+						>
 							<svg
 								className='h-6 mr-1 text-current-50 w-6'
 								xmlns='http://www.w3.org/2000/svg'
 								fill='none'
 								viewBox='0 0 24 24'
-								stroke='currentColor'>
+								stroke='currentColor'
+							>
 								<path
 									strokeLinecap='round'
 									strokeLinejoin='round'
@@ -116,7 +118,8 @@ const Documents: React.FC<DocumentsProps> = props => {
 								return (
 									<div
 										key={id}
-										className='bg-white flex flex-col items-center p-10 relative rounded shadow-md text-center w-full md:ml-6 md:w-1/4'>
+										className='bg-white flex flex-col items-center p-10 relative rounded shadow-md text-center w-full md:ml-6 md:w-1/4'
+									>
 										<Image src={document || ''} alt={'doc'} fill />
 									</div>
 								);
@@ -128,13 +131,15 @@ const Documents: React.FC<DocumentsProps> = props => {
 					<div className='flex uploads-row md:flex-row'>
 						<div
 							onClick={() => onClickHandler(uploadFormTypes.registration)}
-							className='bg-light-bg cursor-pointer flex flex-col items-center p-10 rounded text-center w-full md:w-1/4'>
+							className='bg-light-bg cursor-pointer flex flex-col items-center p-10 rounded text-center w-full md:w-1/4'
+						>
 							<svg
 								className='h-6 mr-1 text-current-50 w-6'
 								xmlns='http://www.w3.org/2000/svg'
 								fill='none'
 								viewBox='0 0 24 24'
-								stroke='currentColor'>
+								stroke='currentColor'
+							>
 								<path
 									strokeLinecap='round'
 									strokeLinejoin='round'
@@ -150,7 +155,8 @@ const Documents: React.FC<DocumentsProps> = props => {
 								return (
 									<div
 										key={id}
-										className='bg-white flex flex-col items-center p-10 relative rounded shadow-md text-center w-full md:ml-6 md:w-1/4'>
+										className='bg-white flex flex-col items-center p-10 relative rounded shadow-md text-center w-full md:ml-6 md:w-1/4'
+									>
 										<Image src={document || ''} alt={'doc'} fill />
 									</div>
 								);
@@ -165,7 +171,8 @@ const Documents: React.FC<DocumentsProps> = props => {
 					<form>
 						<div
 							className='bg-gray-100 h-40 overflow-hidden relative rounded-full w-40 hover:brightness-50'
-							{...getRootProps()}>
+							{...getRootProps()}
+						>
 							<Image src={getProfilePicture()} alt='Image' fill />
 							<input
 								className='bg-light-bg cursor-pointer flex h-full items-center justify-center rounded-full w-full'

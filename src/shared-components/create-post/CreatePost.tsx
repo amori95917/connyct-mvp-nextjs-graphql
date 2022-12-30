@@ -1,21 +1,17 @@
+import { UilCalender, UilImages, UilLabelAlt } from '@iconscout/react-unicons';
 import { useState } from 'react';
-import Image from 'next/image';
-
-import { UilImages, UilCalender, UilLabelAlt } from '@iconscout/react-unicons';
 
 import { useClickOutside } from '@/hooks/useClickOutside';
-import { getCookie } from '@/utils/cookies';
-import { PostPopup } from '../post-popup';
-import { RightDrawerLayout } from '../layouts/right-drawer-layout';
-import { ProductPostForm } from './product-post-form';
 import { Avatar } from '../avatar';
+import { RightDrawerLayout } from '../layouts/right-drawer-layout';
+import { PostPopup } from '../post-popup';
+import { ProductPostForm } from './product-post-form';
 
 const CreatePost = props => {
 	const { actions, onPostSubmit, currentUser } = props;
 	const [showPostPopup, setShowPostPopup] = useState(false);
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const { ref, isClose, setIsClose } = useClickOutside();
-	const { company } = getCookie('CONNYCT_USER') ?? {};
 
 	const onCommonButtonClickHandler = () => {
 		setShowPostPopup(true);
@@ -31,12 +27,17 @@ const CreatePost = props => {
 		cb && cb();
 	};
 
+	const getActiveRole = user => {
+		return user?.activeRole?.name;
+	};
+
 	const postButtonClassName = 'flex justify-center p-2 rounded-full grow hover:bg-gray-300';
+
 	return (
 		<>
 			{showPostPopup && isClose && (
 				<PostPopup
-					company={company}
+					company={currentUser?.company}
 					currentUser={currentUser}
 					setShowPostPopup={setShowPostPopup}
 					ref={ref}
@@ -53,15 +54,28 @@ const CreatePost = props => {
 					<div className='h-16 relative w-16'>
 						<Avatar
 							className='rounded-full'
-							imgSrc={company[0]?.avatar}
-							name={company[0]?.name || company[0].legalName}
-							alt={company[0]?.name || company[0].legalName || 'brand-avatar'}
+							imgSrc={
+								getActiveRole(currentUser) === 'USER'
+									? currentUser?.user?.userProfile?.profileImage
+									: currentUser?.company[0]?.avatar
+							}
+							name={
+								getActiveRole(currentUser) === 'USER'
+									? currentUser?.user?.username || currentUser?.user?.fullName
+									: currentUser?.company[0]?.name || currentUser?.company[0]?.legalName
+							}
+							alt={
+								getActiveRole(currentUser) === 'USER'
+									? currentUser?.user?.username || currentUser?.user?.fullName
+									: currentUser?.company[0]?.name || currentUser?.company[0]?.legalName
+							}
 						/>
 					</div>
 					<div className='grow ml-5 rounded-full'>
 						<button
 							onClick={onCommonButtonClickHandler}
-							className='bg-gray-200 p-3 rounded-full text-gray-400 text-left w-full hover:bg-gray-300'>
+							className='bg-gray-200 p-3 rounded-full text-gray-400 text-left w-full hover:bg-gray-300'
+						>
 							say something that inspires
 						</button>
 					</div>

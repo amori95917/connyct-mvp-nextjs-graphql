@@ -46,11 +46,13 @@ export const BrandFeedUploadPreview = (props: BrandFeedUploadPreviewPropsp) => {
 					return (
 						<div
 							className='flex h-full min-w-min mr-2 mt-5 relative w-full'
-							key={file.name || file.preview}>
+							key={file.name || file.preview}
+						>
 							<button
 								type='button'
 								onClick={() => handleRemove(file)}
-								className='-mr-2 -mt-2 absolute bg-gray-300 flex h-6 items-center justify-center outline outline-4 outline-offset-0 outline-white right-0 rounded-full w-6 z-50'>
+								className='-mr-2 -mt-2 absolute bg-gray-300 flex h-6 items-center justify-center outline outline-4 outline-offset-0 outline-white right-0 rounded-full w-6 z-50'
+							>
 								<UilTimes size={20} />
 							</button>
 							<Image

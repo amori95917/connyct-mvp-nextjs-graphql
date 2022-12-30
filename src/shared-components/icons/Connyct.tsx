@@ -15,7 +15,8 @@ export function ConnyctLogo({
 				id='SvgjsSvg1038'
 				width={width}
 				height={height}
-				version='1.1'>
+				version='1.1'
+			>
 				<defs id='SvgjsDefs1039' />
 				<g id='SvgjsG1040'>
 					<svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} viewBox='0 0 20 8'>

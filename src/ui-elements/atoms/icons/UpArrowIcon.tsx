@@ -18,7 +18,8 @@ export function UpArrowIcon({
 				width={width}
 				height={height}
 				viewBox='0 0 29 29'
-				xmlSpace='preserve'>
+				xmlSpace='preserve'
+			>
 				<path
 					fill='none'
 					stroke='#000'

@@ -16,8 +16,8 @@ export function CompanyIcon({
 				width={width}
 				height={height}
 				stroke='var(--color-primary)'
-				fill="none"
-				>
+				fill='none'
+			>
 				<path
 					d='M43,22h-3v-2c0-1.6543-1.3457-3-3-3H27c-1.6543,0-3,1.3457-3,3v2h-3c-1.6543,0-3,1.3457-3,3v13c0,0.5522,0.4473,1,1,1h6h4
 		c0.5527,0,1-0.4478,1-1v-4c0-0.5513,0.4482-1,1-1h2c0.5518,0,1,0.4487,1,1v4c0,0.5522,0.4473,1,1,1h4h6c0.5527,0,1-0.4478,1-1V25

@@ -290,7 +290,8 @@ const ProductSetup = () => {
 								<button
 									className='bg-gray-200 p-3'
 									type='button'
-									onClick={() => append({ option: '', value: '' })}>
+									onClick={() => append({ option: '', value: '' })}
+								>
 									Add option
 								</button>
 								<div className='divide-y'></div>

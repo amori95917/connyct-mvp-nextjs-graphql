@@ -1,2 +1,2 @@
-import Setup from './Setup'
-export default Setup
+import Setup from './Setup';
+export default Setup;

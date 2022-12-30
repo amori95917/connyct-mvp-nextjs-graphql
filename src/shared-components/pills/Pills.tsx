@@ -15,7 +15,8 @@ export const Pills = (props: PillsProps) => {
 	return (
 		<Component
 			{...rest}
-			className='bg-gray-200 duration-150 ease-in-out font-medium inline-block leading-tight my-2 px-6 py-2.5 rounded-full shadow-md text-gray-700 text-xs transition uppercase hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:outline-none focus:ring-0 focus:shadow-lg active:bg-gray-400 active:shadow-lg'>
+			className='bg-gray-200 duration-150 ease-in-out font-medium inline-block leading-tight my-2 px-6 py-2.5 rounded-full shadow-md text-gray-700 text-xs transition uppercase hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:outline-none focus:ring-0 focus:shadow-lg active:bg-gray-400 active:shadow-lg'
+		>
 			{children}
 		</Component>
 	);

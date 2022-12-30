@@ -7,7 +7,8 @@ const SignupIllustration = () => {
 				xmlns='http://www.w3.org/2000/svg'
 				width='100%'
 				height='100%'
-				viewBox='0 0 744.84799 747.07702'>
+				viewBox='0 0 744.84799 747.07702'
+			>
 				<path
 					id='fa3b9e12-7275-481e-bee9-64fd9595a50d'
 					data-name='Path 1'

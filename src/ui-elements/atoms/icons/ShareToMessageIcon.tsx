@@ -20,7 +20,8 @@ export const ShareToMessageIcon = ({
 			width={width}
 			height={height}
 			enableBackground='new 0 0 48 48'
-			viewBox='0 0 48 48'>
+			viewBox='0 0 48 48'
+		>
 			<path
 				fill={fillColor}
 				fillRule='evenodd'

@@ -1,20 +1,23 @@
 import { useState } from 'react';
 
-import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
-import PolicyForm from '../PolicyForm';
+import { CommunityPolicyEdge, User } from '@/generated/graphql';
 import { useCommunityPoliciesQuery } from '@/hooks/services/useCommunityPolicy';
+import { ConferenceIcon } from '@/shared-components/icons';
+import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
 import { LoaderDataComponent } from '@/shared-components/loader-data-component';
 import { EmptyComponent } from '@/ui-elements/atoms/empty-component';
-import { ConferenceIcon } from '@/shared-components/icons';
-import { CommunityPolicyEdge } from '@/generated/graphql';
+import { isOwner } from '@/utils/permissions';
+import PolicyForm from '../PolicyForm';
 import Policy from './Policy';
 
 type PolicyProps = {
 	communitySlug: string;
+	companySlug: string;
+	authorizedUser: User;
 };
 
 const Policies = (props: PolicyProps) => {
-	const { communitySlug } = props;
+	const { communitySlug, companySlug, authorizedUser } = props;
 	const { response, loading } = useCommunityPoliciesQuery(communitySlug);
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen);
@@ -37,13 +40,16 @@ const Policies = (props: PolicyProps) => {
 						icon={<ConferenceIcon width='4em' height='4em' className='fill-primary' />}
 						ctaButton={
 							<>
-								<button className='bg-primary mt-4 px-4 py-2 text-white' onClick={handleDrawerToggle}>
-									Get Started
-								</button>
+								{isOwner(authorizedUser, companySlug) && (
+									<button className='bg-primary mt-4 px-4 py-2 text-white' onClick={handleDrawerToggle}>
+										Get Started
+									</button>
+								)}
 							</>
 						}
 					/>
-				}>
+				}
+			>
 				{response.map((communityPolicyNode: CommunityPolicyEdge) => {
 					const { node } = communityPolicyNode;
 					if (node) {

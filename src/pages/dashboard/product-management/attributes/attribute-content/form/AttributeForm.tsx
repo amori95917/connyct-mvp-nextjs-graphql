@@ -175,7 +175,8 @@ const AttributeForm = () => {
 
 				<button
 					className='bg-primary duration-200 font-semibold mt-4 px-4 py-2 rounded shadow-md text-white transform hover:-translate-y-1 hover:text-brandSecondary focus:outline-none focus:translate-y-1 disabled:opacity-50'
-					type='submit'>
+					type='submit'
+				>
 					Create new attribute
 				</button>
 			</form>

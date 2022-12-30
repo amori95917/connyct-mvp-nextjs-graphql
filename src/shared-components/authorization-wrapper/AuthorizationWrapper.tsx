@@ -24,7 +24,6 @@ type AuthError = {
 const AuthroizationWrapper = (props: AuthorizationWrapperProps) => {
 	const { allowedRoles, children } = props;
 	const { authError, isAuthLoading, authenticatedUser } = useAuth(allowedRoles);
-	console.log('currentUser in authorizationWrapper', authenticatedUser);
 	if (authError) {
 		switch (authError.errorType) {
 			case 'invalid_token':

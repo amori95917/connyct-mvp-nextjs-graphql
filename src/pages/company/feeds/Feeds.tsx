@@ -115,7 +115,8 @@ const CompanyFeeds = (props: CompanyFeedsProps) => {
 								loading={loading}
 								scrollableTop={true}
 								hasNextPage={hasNextPage}
-								onLoadMore={onLoadMore}>
+								onLoadMore={onLoadMore}
+							>
 								{(feeds || []).map((postNode: PostEdge) => {
 									const { node } = postNode;
 									if (node) {

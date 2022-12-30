@@ -36,7 +36,8 @@ const Discussion = (props: DiscussionProps) => {
 							<Link
 								href={`/brand/${companySlug}/discussions/${discussion.id}`}
 								passHref
-								key={discussion?.id}>
+								key={discussion?.id}
+							>
 								<div className='py-3'>
 									<span className='cursor-pointer font-semibold text-lg'>{discussion.title}</span>
 								</div>

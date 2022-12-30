@@ -69,7 +69,8 @@ const SideMenuHeader = ({ menu }) => {
 		<>
 			<div
 				className='block font-medium mt-3 px-4 py-3 text-base text-gray-600 hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:text-gray-900'
-				onClick={onExpandChange}>
+				onClick={onExpandChange}
+			>
 				<span className='flex justify-between'>
 					<MenuItem name={name} icon={icon} />
 					<span className='ml-4'>{expanded ? <UpArrowIcon /> : <DownArrowIcon />}</span>
@@ -90,7 +91,8 @@ const SideMenuHeader = ({ menu }) => {
 								href={resolveLinkPath(href, menu.href)}
 								key={key}
 								passHref
-								className='block font-medium mt-3 px-6 py-3 text-base text-gray-500 hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:text-gray-900'>
+								className='block font-medium mt-3 px-6 py-3 text-base text-gray-500 hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:text-gray-900'
+							>
 								<span className='flex'>
 									<span className='mr-4'>{icon}</span>
 									<span>{name}</span>
@@ -122,7 +124,8 @@ const SideMenu = ({ menu }) => {
 				href={href}
 				key={`${name}-${id}`}
 				className='block font-medium mt-3 px-4 py-3 text-base text-gray-600 hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:text-gray-900'
-				passHref>
+				passHref
+			>
 				<MenuItem name={name} icon={icon} />
 			</Link>
 		</>

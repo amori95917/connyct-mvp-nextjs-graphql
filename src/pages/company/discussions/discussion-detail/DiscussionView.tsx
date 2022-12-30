@@ -45,7 +45,8 @@ export const DiscussionView = ({ discussion }) => {
 							id='dropdownDefault'
 							data-dropdown-toggle='dropdown'
 							className='font-medium inline-flex items-center px-4 py-2.5 rounded-lg text-center text-sm text-white hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-300'
-							type='button'>
+							type='button'
+						>
 							<UilEllipsisV fill='black' />
 						</button>
 						{showActions && <DiscussionActionsDropdown />}
@@ -81,7 +82,8 @@ export const DiscussionView = ({ discussion }) => {
 							subText='Be the first to answer'
 							icon={<ConferenceIcon width='4em' height='4em' className='fill-primary' />}
 						/>
-					}>
+					}
+				>
 					{discussionAnswers?.map((discussionAnswer: DiscussionAnswerType, index: number) => {
 						const { node } = discussionAnswer;
 						return <DiscussionAnswer key={index} answer={node} index={index} loading={loading} />;

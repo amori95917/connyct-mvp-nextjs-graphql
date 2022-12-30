@@ -1,26 +1,26 @@
-import Image from 'next/image';
-import React, { useState } from 'react';
+import { User } from '@/generated/graphql';
+import { Avatar } from '../avatar';
 
 type ProfileProps = {
 	profileImage: string;
 	name: string;
 	role: string;
 	info: string;
+	userId: string;
+	authorizedUser: User;
 };
 export const ProfileCard = (props: ProfileProps) => {
-	const { profileImage, name, role, info } = props;
+	const { profileImage, name, role, info, userId, authorizedUser } = props;
 	return (
 		<>
 			<div className='flex justify-between px-5 py-3 relative'>
 				{/* image */}
 				<div className='flex gap-4'>
-					<div className='h-28 relative rounded-full w-28'>
-						<Image
-							id='image'
-							src={profileImage}
-							alt='profile'
-							width='40'
-							height='40'
+					<div className='h-10 relative rounded-full w-10'>
+						<Avatar
+							imgSrc={profileImage}
+							name={name}
+							alt={name || 'community-member'}
 							className='cursor-pointer rounded-full'
 						/>
 					</div>
@@ -39,9 +39,11 @@ export const ProfileCard = (props: ProfileProps) => {
 						</div>
 					</div>
 				</div>
-				<div className='flex items-center'>
-					<button className='bg-primary px-6 py-2 text-white'>Connect</button>
-				</div>
+				{userId !== authorizedUser?.id && (
+					<div className='flex items-center'>
+						<button className='bg-primary px-6 py-2 text-white'>Connect</button>
+					</div>
+				)}
 			</div>
 		</>
 	);

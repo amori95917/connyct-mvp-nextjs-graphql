@@ -97,7 +97,8 @@ export function Button(props: ButtonProps) {
 			)}
 			disabled={loading || props.disabled}
 			className={className}
-			{...otherProps}>
+			{...otherProps}
+		>
 			{props.startIcon}
 			{loading ? loadingComponent : children}
 			{props.endIcon}

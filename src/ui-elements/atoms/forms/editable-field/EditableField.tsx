@@ -23,7 +23,8 @@ export const EditableField: FC<EditableFieldProps> = forwardRef<HTMLDivElement, 
 					contentEditable={isEditable}
 					suppressContentEditableWarning={true}
 					className={classnames(['p-1 rounded-md', className])}
-					{...props}>
+					{...props}
+				>
 					{text}
 				</div>
 			</>

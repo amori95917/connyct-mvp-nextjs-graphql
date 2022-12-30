@@ -35,13 +35,15 @@ const CompanySuggestion = (props: CompanySuggestionProps) => {
 							{followedCompanies?.includes(company.id) ? (
 								<button
 									onClick={() => handleUnfollow(company.id)}
-									className='bg-gray-300 cursor-pointer flex flex-col h-10 items-center py-2 rounded-md text-white w-28 hover:font-bold hover:shadow-xl'>
+									className='bg-gray-300 cursor-pointer flex flex-col h-10 items-center py-2 rounded-md text-white w-28 hover:font-bold hover:shadow-xl'
+								>
 									Unfollow
 								</button>
 							) : (
 								<button
 									onClick={() => handleFollow(company.id)}
-									className='bg-primary cursor-pointer flex flex-col h-10 items-center py-2 rounded-md text-white w-28 hover:font-bold hover:shadow-xl'>
+									className='bg-primary cursor-pointer flex flex-col h-10 items-center py-2 rounded-md text-white w-28 hover:font-bold hover:shadow-xl'
+								>
 									Follow
 								</button>
 							)}

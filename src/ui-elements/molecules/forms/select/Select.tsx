@@ -37,7 +37,8 @@ export const FormSelect = <TFormValues extends Record<string, unknown>>({
 				{label && (
 					<label
 						className='block font-bold mb-2 text-gray-700 text-xs tracking-wide uppercase'
-						htmlFor={id}>
+						htmlFor={id}
+					>
 						{label}
 					</label>
 				)}
@@ -47,7 +48,8 @@ export const FormSelect = <TFormValues extends Record<string, unknown>>({
 					placeholder={placeholder}
 					aria-invalid={hasError}
 					{...props}
-					{...(register && register(name))}>
+					{...(register && register(name))}
+				>
 					{children}
 				</Select>
 				<div className='mt-1'>

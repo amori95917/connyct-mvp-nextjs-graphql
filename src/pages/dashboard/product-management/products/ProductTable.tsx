@@ -56,7 +56,8 @@ const ProductTable = ({ columns, data }) => {
 												scope='col'
 												className='font-medium group px-6 py-3 text-gray-500 text-left text-xs tracking-wider uppercase'
 												{...column.getHeaderProps(column.getSortByToggleProps())}
-												key={id}>
+												key={id}
+											>
 												<div className='flex items-center justify-between'>
 													{column.render('Header')}
 													{/* Add a sort direction indicator */}
@@ -89,7 +90,8 @@ const ProductTable = ({ columns, data }) => {
 														key={i}
 														{...cell.getCellProps()}
 														className='px-6 py-4 whitespace-nowrap'
-														role='cell'>
+														role='cell'
+													>
 														{cell.column.Cell.name === 'defaultRenderer' ? (
 															<div className='text-gray-500 text-sm'>{cell.render('Cell')}</div>
 														) : (

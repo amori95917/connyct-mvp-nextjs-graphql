@@ -36,7 +36,8 @@ export const EditableFormField = <TFormValues extends Record<string, unknown>>({
 			{label && (
 				<label
 					className='block font-bold mb-2 text-gray-700 text-xs tracking-wide uppercase'
-					htmlFor={id}>
+					htmlFor={id}
+				>
 					{label}
 				</label>
 			)}

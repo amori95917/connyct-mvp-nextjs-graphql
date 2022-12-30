@@ -22,7 +22,8 @@ export const Feeds = ({ companySlug }: { companySlug: string }) => {
 								loading={loading}
 								scrollableTop={true}
 								hasNextPage={hasNextPage}
-								onLoadMore={onLoadMore}>
+								onLoadMore={onLoadMore}
+							>
 								{(feeds || []).map((postNode: PostEdge) => {
 									const { node } = postNode;
 									console.log(node);

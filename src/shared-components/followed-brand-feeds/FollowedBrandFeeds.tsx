@@ -26,12 +26,14 @@ const FollowedBrandFeeds = () => {
 							</Link>
 						}
 					/>
-				}>
+				}
+			>
 				<InfiniteScroller
 					loading={false}
 					scrollableTop={true}
 					hasNextPage={false}
-					onLoadMore={() => console.log('load more')}>
+					onLoadMore={() => console.log('load more')}
+				>
 					{[].length > 0 ? <p>Data</p> : null}
 				</InfiniteScroller>
 			</LoaderDataComponent>

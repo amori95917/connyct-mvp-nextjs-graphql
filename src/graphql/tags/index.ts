@@ -1,1 +1,1 @@
-export { GET_TAGS } from './resolvers'
+export { GET_TAGS } from './resolvers';

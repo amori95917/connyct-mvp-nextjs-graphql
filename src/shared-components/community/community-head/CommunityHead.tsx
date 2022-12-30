@@ -1,31 +1,30 @@
-import { useCommunityQueryById } from '@/hooks/services/useCommunityQuery';
-import { CommunityForm } from '@/pages/company/communities/community-form';
-import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
-import Image from 'next/image';
+import { UilLayerGroup, UilPen } from '@iconscout/react-unicons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { UilPen, UilLayerGroup } from '@iconscout/react-unicons';
+
+import { Community, User } from '@/generated/graphql';
+import { CommunityForm } from '@/pages/company/communities/community-form';
+import { Avatar } from '@/shared-components/avatar';
+import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
+import { isOwner } from '@/utils/permissions';
 
 type CommunityHeadProps = {
-	coverImage: string;
-	profileImage: string;
-	communityName: string;
-	groupStatus: string;
-	members: string;
 	companySlug: string | undefined;
 	communitySlug: string;
+	authorizedUser: User;
+	community: Community;
 };
+
+const NavButtonClassName = 'cursor-pointer p-2 pr-6 text-center hover:bg-gray-200 rounded-md';
+const defaultNavClass = `cursor-pointer text-center p-2 pr-6 text-primary`;
+
 export const CommunityHead = (props: CommunityHeadProps) => {
-	const { communitySlug, profileImage, companySlug } = props;
+	const { communitySlug, companySlug, authorizedUser, community } = props;
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-	const { loading, communityData } = useCommunityQueryById(communitySlug);
-	const NavButtonClassName = 'cursor-pointer p-2 pr-6 text-center hover:bg-gray-200 rounded-md';
-	const defaultNavClass = `cursor-pointer text-center p-2 pr-6 text-primary`;
 	const router = useRouter();
 	const navPath = router.pathname.split('/')[5];
-	const { community } = communityData ?? {};
 
 	const handleDrawerToggle = () => {
 		setIsDrawerOpen(!isDrawerOpen);
@@ -45,14 +44,14 @@ export const CommunityHead = (props: CommunityHeadProps) => {
 				<div className='p-5'>
 					<div className='bg-white flex items-center pl-10 relative w-full'>
 						<div className='border-4 border-solid border-white h-20 relative rounded-full w-20'>
-							<Image
-								src={community?.profile ?? profileImage}
-								alt='community'
-								fill
+							<Avatar
+								imgSrc={community?.profile}
+								name={community?.name}
+								alt={community?.name || 'community'}
 								className='rounded-full'
 							/>
 						</div>
-						<div className='flex flex-col grow px-7 py-7'>
+						<div className='flex flex-col grow pb-6 pt-2 px-7'>
 							<div>
 								<span className='font-bold text-3xl'>{community?.name}</span>
 							</div>
@@ -61,14 +60,17 @@ export const CommunityHead = (props: CommunityHeadProps) => {
 									<UilLayerGroup size={20} />
 								</span>
 								<span className='pl-1 text-lg'>{community?.type}</span>
-								<span className='pl-1 text-lg'>{community?.followersCount} members</span>
+								<span className='pl-4 text-lg'>{community?.followersCount} members</span>
 							</div>
 						</div>
-						<button
-							className='absolute flex gap-1 items-center right-0 top-0'
-							onClick={handleDrawerToggle}>
-							<UilPen />
-						</button>
+						{isOwner(authorizedUser, companySlug) && (
+							<button
+								className='absolute flex gap-1 items-center right-0 top-0'
+								onClick={handleDrawerToggle}
+							>
+								<UilPen />
+							</button>
+						)}
 						<div className='relative'>
 							<div className='flex flex-col relative top-7'>
 								<button className='bg-primary font-bold p-2 px-6 rounded-md text-lg text-white'>
@@ -82,7 +84,7 @@ export const CommunityHead = (props: CommunityHeadProps) => {
 						</div>
 					</div>
 				</div>
-				<hr className='bg-gray-100 border-0 h-px pl-10 dark:bg-gray-700' />
+				<hr className='bg-slate-100 border-0 h-px pl-10 dark:bg-slate-200' />
 				{/* group navigation */}
 				<div className='p-2 text-bold'>
 					<div className='flex pl-10'>

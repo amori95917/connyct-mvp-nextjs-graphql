@@ -139,7 +139,8 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 												/>
 												<span
 													onClick={() => handleRemove(file)}
-													className='absolute cursor-pointer font-extrabold right-0 text-primary top-0'>
+													className='absolute cursor-pointer font-extrabold right-0 text-primary top-0'
+												>
 													<UilTimes size={24} />
 												</span>
 											</div>
@@ -244,7 +245,8 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 												/>
 												<span
 													onClick={() => handleRemove(file)}
-													className='absolute cursor-pointer font-extrabold right-0 text-primary top-0'>
+													className='absolute cursor-pointer font-extrabold right-0 text-primary top-0'
+												>
 													<UilTimes size={24} />
 												</span>
 											</div>
@@ -259,7 +261,8 @@ const CommunityForm: React.FC<CommunityFormPropsTypes> = ({
 				<div className='flex justify-center mb-5 mt-5'>
 					<button
 						disabled={isSubmitting}
-						className='bg-primary p-3 rounded-md text-white text-xl w-full disabled:opacity-50'>
+						className='bg-primary p-3 rounded-md text-white text-xl w-full disabled:opacity-50'
+					>
 						{isSubmitting ? 'Submitting' : community?.id ? 'Edit Community' : 'Add Community'}
 					</button>
 				</div>

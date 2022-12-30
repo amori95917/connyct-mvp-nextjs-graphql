@@ -10,7 +10,8 @@ export const UsersIcon = ({ className = '', ...props }: { className?: string }) 
 			fill='none'
 			viewBox='0 0 24 24'
 			stroke='currentColor'
-			{...props}>
+			{...props}
+		>
 			<path
 				strokeLinecap='round'
 				strokeLinejoin='round'

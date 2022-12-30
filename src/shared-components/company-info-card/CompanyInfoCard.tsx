@@ -82,7 +82,8 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 							<button
 								className={`${
 									showConnectOrDisconnect() ? 'bg-brandSecondary' : 'bg-primary'
-								} font-semibold px-10 py-3 text-white`}>
+								} font-semibold px-10 py-3 text-white`}
+							>
 								{showConnectOrDisconnect()}
 							</button>
 						)}

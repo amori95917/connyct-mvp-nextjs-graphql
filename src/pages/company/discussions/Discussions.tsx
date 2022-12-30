@@ -24,7 +24,8 @@ const Discussions = ({ companySlug }: { companySlug: string }) => {
 							subText='Please create a new discussion'
 							icon={<ConferenceIcon width='4em' height='4em' className='fill-primary' />}
 						/>
-					}>
+					}
+				>
 					{discussions.map((discussionNode: CompanyDiscussionEdge) => {
 						const { node } = discussionNode;
 						return <Discussion key={node?.id} discussion={node} companySlug={companySlug} />;

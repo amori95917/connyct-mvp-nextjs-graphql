@@ -61,7 +61,8 @@ export const Navbar = () => {
 						</Link>
 						<button
 							onClick={handleDropdown}
-							className='aspect-square overflow-hidden relative rounded-full w-10'>
+							className='aspect-square overflow-hidden relative rounded-full w-10'
+						>
 							<Avatar
 								imgSrc={getAvatar()['avatar']}
 								name={getAvatar()['name']}

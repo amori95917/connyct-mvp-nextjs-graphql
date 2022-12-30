@@ -71,7 +71,8 @@ export const CitizenshipUploadForm = ({ data, setIsDrawerOpen }) => {
 										<button
 											type='button'
 											onClick={() => onSelectedImageRemoveHandler('front')}
-											className='-mr-2 -mt-2 absolute bg-gray-300 flex h-6 items-center justify-center outline outline-4 outline-offset-0 outline-white right-0 rounded-full w-6 z-50'>
+											className='-mr-2 -mt-2 absolute bg-gray-300 flex h-6 items-center justify-center outline outline-4 outline-offset-0 outline-white right-0 rounded-full w-6 z-50'
+										>
 											<UilTimes size={20} />
 										</button>
 										<Image
@@ -94,7 +95,8 @@ export const CitizenshipUploadForm = ({ data, setIsDrawerOpen }) => {
 										<button
 											type='button'
 											onClick={() => onSelectedImageRemoveHandler('back')}
-											className='-mr-2 -mt-2 absolute bg-gray-300 flex h-6 items-center justify-center outline outline-4 outline-offset-0 outline-white right-0 rounded-full w-6 z-50'>
+											className='-mr-2 -mt-2 absolute bg-gray-300 flex h-6 items-center justify-center outline outline-4 outline-offset-0 outline-white right-0 rounded-full w-6 z-50'
+										>
 											<UilTimes size={20} />
 										</button>
 										<Image

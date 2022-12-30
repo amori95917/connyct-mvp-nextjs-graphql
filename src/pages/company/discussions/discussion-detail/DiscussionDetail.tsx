@@ -27,7 +27,8 @@ export const DiscussionDetail = ({
 					subText='Please create a new discussion'
 					icon={<ConferenceIcon width='4em' height='4em' className='fill-primary' />}
 				/>
-			}>
+			}
+		>
 			<DiscussionView discussion={discussion} />
 			{/* <DiscussionViewLoader /> */}
 		</LoaderDataComponent>

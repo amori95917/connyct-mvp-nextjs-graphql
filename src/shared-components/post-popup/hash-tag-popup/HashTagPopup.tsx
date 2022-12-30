@@ -25,7 +25,8 @@ const HashTagPopup = React.forwardRef(({ setShowHashTagPopup, setHashTags, hashT
 						<button
 							onClick={() => {
 								setShowHashTagPopup(false);
-							}}>
+							}}
+						>
 							<UilTimes size={25} />
 						</button>
 					</div>
@@ -67,7 +68,8 @@ const HashTagPopup = React.forwardRef(({ setShowHashTagPopup, setHashTags, hashT
 					<div className='flex justify-center mt-8'>
 						<button
 							onClick={() => setShowHashTagPopup(false)}
-							className='bg-primary h-10 p-2 rounded-md text-white w-24'>
+							className='bg-primary h-10 p-2 rounded-md text-white w-24'
+						>
 							Done
 						</button>
 					</div>

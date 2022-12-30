@@ -13,7 +13,8 @@ export function DataNotFound({
 			data-name='Layer 1'
 			viewBox='0 0 32 32'
 			width={width}
-			height={height}>
+			height={height}
+		>
 			<path
 				fill='none'
 				stroke='#29abe2'

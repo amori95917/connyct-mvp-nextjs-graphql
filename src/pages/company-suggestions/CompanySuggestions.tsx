@@ -41,7 +41,8 @@ const CompanySuggestions = () => {
 											onClick={handleSkip}
 											className={`${
 												followedCompanies.length === 0 ? 'bg-primary' : 'bg-gray-200'
-											}  px-5 py-2 rounded-md text-white w-28`}>
+											}  px-5 py-2 rounded-md text-white w-28`}
+										>
 											Skip
 										</button>
 										<button
@@ -49,7 +50,8 @@ const CompanySuggestions = () => {
 											onClick={handleContinue}
 											className={`${
 												followedCompanies.length === 0 ? 'bg-gray-200' : 'bg-primary'
-											} px-5 py-2 rounded-md ml-2 text-white w-28`}>
+											} px-5 py-2 rounded-md ml-2 text-white w-28`}
+										>
 											Continue
 										</button>
 									</div>
@@ -62,7 +64,8 @@ const CompanySuggestions = () => {
 									loading={loading}
 									scrollableTop={true}
 									hasNextPage={hasNextPage}
-									onLoadMore={onLoadMore}>
+									onLoadMore={onLoadMore}
+								>
 									{(response || []).map((suggestedCompany: CompanyEdge) => {
 										const { node: company } = suggestedCompany;
 										return (

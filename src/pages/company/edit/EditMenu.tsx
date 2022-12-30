@@ -45,11 +45,13 @@ const EditMenu: React.FC<EditMenuProps> = props => {
 						</Link>
 						<Link
 							className={isEnabled(data) ? '' : 'pointer-events-none'}
-							href={`/brand/${companySlug}/edit/business-information/documents`}>
+							href={`/brand/${companySlug}/edit/business-information/documents`}
+						>
 							<button
 								className={`flex font-bold items-center p-2 text-gray-600 text-left text-md w-full ${
 									isEnabled(data) ? '' : 'text-slate-300'
-								}`}>
+								}`}
+							>
 								Uploads
 							</button>
 							<p className='p-2 text-gray-400'>
@@ -59,11 +61,13 @@ const EditMenu: React.FC<EditMenuProps> = props => {
 						</Link>
 						<Link
 							className={isEnabled(data) ? '' : 'pointer-events-none'}
-							href={`/brand/${companySlug}/edit/business-information/branches`}>
+							href={`/brand/${companySlug}/edit/business-information/branches`}
+						>
 							<button
 								className={`flex font-bold items-center p-2 text-gray-700 text-left text-md w-full ${
 									isEnabled(data) ? '' : 'text-slate-300'
-								}`}>
+								}`}
+							>
 								Branches
 							</button>
 							<p className='p-2 text-gray-400'>

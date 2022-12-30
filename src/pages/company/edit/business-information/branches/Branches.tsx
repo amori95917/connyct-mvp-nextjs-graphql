@@ -39,13 +39,15 @@ const Branches = ({ companySlug }) => {
 					<div className='gap-3 grid grid-cols-3'>
 						<div
 							onClick={handleDrawerToggle}
-							className='bg-light-bg cursor-pointer flex flex-col items-center p-10 rounded text-center w-full'>
+							className='bg-light-bg cursor-pointer flex flex-col items-center p-10 rounded text-center w-full'
+						>
 							<svg
 								className='h-6 mr-1 text-current-50 w-6'
 								xmlns='http://www.w3.org/2000/svg'
 								fill='none'
 								viewBox='0 0 24 24'
-								stroke='currentColor'>
+								stroke='currentColor'
+							>
 								<path
 									strokeLinecap='round'
 									strokeLinejoin='round'
@@ -60,7 +62,8 @@ const Branches = ({ companySlug }) => {
 								<div
 									key={branch.id}
 									onClick={() => onBranchClickHandler(branch)}
-									className='bg-white cursor-pointer flex flex-col items-center p-10 rounded shadow-md text-center'>
+									className='bg-white cursor-pointer flex flex-col items-center p-10 rounded shadow-md text-center'
+								>
 									<span>{branch?.type}</span>
 									<span>{branch?.country}</span>
 									<span>{branch?.city}</span>

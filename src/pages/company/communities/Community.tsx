@@ -1,8 +1,10 @@
 import { Community as CommunityTypes, User } from '@/generated/graphql';
+import { GET_COMMUNITIES, JOIN_PUBLIC_COMMUNITY } from '@/graphql/community';
 import { Avatar } from '@/shared-components/avatar';
 import { RightDrawerLayout } from '@/shared-components/layouts/right-drawer-layout';
 import { Button } from '@/ui-elements/atoms/button';
 import { isOwner } from '@/utils/permissions';
+import { useMutation } from '@apollo/client';
 import { UilImageEdit } from '@iconscout/react-unicons';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -27,6 +29,7 @@ export const Community = ({
 
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [isInviteDrawerOpen, setIsInviteDrawerOpen] = useState(false);
+	const [joinPubicCommunity, { loading }] = useMutation(JOIN_PUBLIC_COMMUNITY);
 
 	const handleDrawerToggle = () => {
 		console.log('toggled');
@@ -36,6 +39,23 @@ export const Community = ({
 
 	const onCommunityClickHandler = (communityId: string) => {
 		router.push(`/brand/${companySlug}/communities/${communityId}`);
+	};
+
+	const handleCommunityJoin = async () => {
+		if (community.id && community.type === 'PUBLIC') {
+			await joinPubicCommunity({
+				variables: {
+					input: {
+						communityId: community.id,
+						companyId: companySlug,
+					},
+				},
+				refetchQueries: [{ query: GET_COMMUNITIES, variables: { companyId: companySlug, first: 10 } }],
+				onCompleted(data) {
+					router.push(`/brand/${companySlug}/communities/${community.id}`);
+				},
+			});
+		}
 	};
 
 	console.log('community', community);
@@ -51,20 +71,23 @@ export const Community = ({
 				<RightDrawerLayout
 					isOpen={isInviteDrawerOpen}
 					setIsOpen={setIsInviteDrawerOpen}
-					drawerSize='2xl'>
+					drawerSize='2xl'
+				>
 					<InviteMembers />
 				</RightDrawerLayout>
 			)}
 			{isOwner(currentUser, companySlug) && (
 				<button
 					className='absolute bg-slate-50 flex h-10 items-center justify-center right-0 rounded-full top-0 w-10 z-9'
-					onClick={handleDrawerToggle}>
+					onClick={handleDrawerToggle}
+				>
 					<UilImageEdit />
 				</button>
 			)}
 			<div
 				onClick={() => onCommunityClickHandler(community.id as string)}
-				className='cursor-pointer h-52 relative w-full'>
+				className='cursor-pointer h-52 relative w-full'
+			>
 				<Image
 					src={community?.coverImage || 'https://i.pravatar.cc'}
 					fill
@@ -96,12 +119,17 @@ export const Community = ({
 					{community?.type === 'PRIVATE' && isOwner(currentUser, companySlug) && (
 						<button
 							className='bg-primary cursor-pointer px-2 py-2 rounded-md shadow-xl text-white'
-							onClick={handleInviteDrawerToggle}>
+							onClick={handleInviteDrawerToggle}
+						>
 							Invite members
 						</button>
 					)}
 					{!isOwner(currentUser, companySlug) && !community?.isConnected && (
-						<Button className='bg-primary cursor-pointer px-2 py-2 rounded-md shadow-xl text-white'>
+						<Button
+							className='bg-primary cursor-pointer px-2 py-2 rounded-md shadow-xl text-white'
+							loading={loading}
+							onClick={handleCommunityJoin}
+						>
 							Connect
 						</Button>
 					)}

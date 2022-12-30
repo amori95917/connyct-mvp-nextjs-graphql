@@ -60,7 +60,8 @@ export const PostPopup = React.forwardRef(
 							className='p-1 rounded-md hover:bg-gray-300'
 							onClick={() => {
 								setShowPostPopup(false);
-							}}>
+							}}
+						>
 							<UilTimes size={20} />
 						</button>
 						{/* TODO: use FileInput and on renderUpload have button as a component and do not use renderPreview */}
@@ -70,7 +71,8 @@ export const PostPopup = React.forwardRef(
 							className='bg-primary flex font-semibold h-10 items-center justify-center px-3 py-3 rounded-lg text-white w-32 w-full w-full hover:bg-indigo-700 focus:bg-indigo-700'
 							type='submit'
 							title={'post'}
-							form={'create-post-form-id'}>
+							form={'create-post-form-id'}
+						>
 							Post
 						</button>
 					</div>
@@ -158,19 +160,22 @@ export const PostPopup = React.forwardRef(
 							<button
 								type='button'
 								onClick={() => handlePostAction('images')}
-								className={`${postButtonClassName} ${postActionType === 'images' && 'text-green-400'}`}>
+								className={`${postButtonClassName} ${postActionType === 'images' && 'text-green-400'}`}
+							>
 								<UilImages fill='#50c7a6' size={25} /> Photos
 							</button>
 							<button
 								type='button'
 								onClick={() => handlePostAction('videos')}
-								className={`${postButtonClassName} ${postActionType === 'videos' && 'text-green-400'}`}>
+								className={`${postButtonClassName} ${postActionType === 'videos' && 'text-green-400'}`}
+							>
 								<UilVideoQuestion fill='#EB4D89' size={25} /> Videos
 							</button>
 							<button
 								type='button'
 								onClick={() => handlePostAction('products')}
-								className={`${postButtonClassName} ${postActionType === 'products' && 'text-green-400'}`}>
+								className={`${postButtonClassName} ${postActionType === 'products' && 'text-green-400'}`}
+							>
 								<UilShoppingBag fill='#DCA3F7' size={25} /> Products
 							</button>
 						</div>

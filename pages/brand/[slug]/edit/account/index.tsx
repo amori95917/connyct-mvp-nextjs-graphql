@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
 
-import { Navbar } from '@/shared-components/navbar';
-import { CompanyEditLayout } from '@/shared-components/layouts/company-edit-layout/CompanyEditLayout';
 import { Account } from '@/pages/company/edit/account';
+import { AuthorizationWrapper } from '@/shared-components/authorization-wrapper';
+import { CompanyEditLayout } from '@/shared-components/layouts/company-edit-layout/CompanyEditLayout';
+import { Navbar } from '@/shared-components/navbar';
 
 function getSlug(slug: string | string[] | undefined) {
 	if (slug === undefined) return '';
@@ -17,10 +18,12 @@ const CompanySecurityPage = () => {
 
 	return (
 		<>
-			<Navbar />
-			<CompanyEditLayout companySlug={companySlug || ''} type='account'>
-				<Account />
-			</CompanyEditLayout>
+			<AuthorizationWrapper allowedRoles={['OWNER']}>
+				<Navbar />
+				<CompanyEditLayout companySlug={companySlug || ''} type='account'>
+					<Account />
+				</CompanyEditLayout>
+			</AuthorizationWrapper>
 		</>
 	);
 };
