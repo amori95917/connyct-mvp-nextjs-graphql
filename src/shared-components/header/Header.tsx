@@ -8,6 +8,7 @@ import { Dropdown } from './Dropdown';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { Avatar } from '../avatar';
 import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
+import { ProfileDropdown } from '../profile-dropdown';
 
 const Header = () => {
 	const [showDropdown, setShowDropDown] = useState(false);
@@ -42,8 +43,7 @@ const Header = () => {
 						</Link>
 						<button
 							onClick={handleDropdown}
-							className='aspect-square overflow-hidden relative rounded-full w-10'
-						>
+							className='aspect-square overflow-hidden relative rounded-full w-10'>
 							<Avatar
 								imgSrc={currentUser?.profileImage}
 								name={currentUser?.username || currentUser?.fullName || ''}
@@ -54,7 +54,7 @@ const Header = () => {
 					</div>
 				</div>
 			</nav>
-			{showDropdown && isClose && <Dropdown ref={ref} currentUser={currentUser} />}
+			{showDropdown && isClose && <ProfileDropdown ref={ref} currentUser={currentUser} />}
 		</div>
 	);
 };

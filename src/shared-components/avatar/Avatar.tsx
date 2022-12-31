@@ -44,7 +44,7 @@ const Avatar = (props: AvatarProps) => {
 		size = 'md',
 	} = props;
 	const Element = as;
-	let wrapperClasses = 'relative inline-flex flex-shrink-0 rounded-full';
+	let wrapperClasses = '';
 	if (wrapperClassName) {
 		wrapperClasses += wrapperClassName;
 	}
@@ -53,7 +53,7 @@ const Avatar = (props: AvatarProps) => {
 		<Element className={wrapperClasses}>
 			{imgSrc ? (
 				<>
-					<Image width={width} height={height} src={imgSrc} alt={alt} className={className} />
+					<Image fill src={imgSrc} alt={alt} className={className} />
 					<div className='absolute border border-[rgba(0,0,0,0.04)] inset-0 rounded-full' />
 				</>
 			) : (

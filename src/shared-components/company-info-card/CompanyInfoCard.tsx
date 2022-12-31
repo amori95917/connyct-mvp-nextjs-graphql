@@ -44,7 +44,8 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 									imgSrc={data?.getCompanyById?.avatar}
 									name={data?.getCompanyById?.name}
 									alt={data?.getCompanyById?.name}
-									className='rounded-full'
+									className='object-cover rounded-full'
+									wrapperClassName='h-16 w-16'
 									size='md'
 								/>
 							</div>
@@ -82,8 +83,7 @@ const CompanyInfoCard = ({ companySlug = '', data }: { companySlug: string; data
 							<button
 								className={`${
 									showConnectOrDisconnect() ? 'bg-brandSecondary' : 'bg-primary'
-								} font-semibold px-10 py-3 text-white`}
-							>
+								} font-semibold px-10 py-3 text-white`}>
 								{showConnectOrDisconnect()}
 							</button>
 						)}

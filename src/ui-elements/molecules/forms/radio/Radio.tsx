@@ -20,11 +20,10 @@ export const FormRadio: React.FC<FormRadioProps> = forwardRef<HTMLInputElement, 
 			<>
 				<div
 					className={classNames(
-						'appearance-none border border-gray-300 flex h-full items-center rounded-sm w-full',
+						'appearance-none flex h-full items-center p-2 rounded-sm w-full',
 						wrapperClassName
 					)}
-					aria-live='polite'
-				>
+					aria-live='polite'>
 					<Radio
 						id={id}
 						name={name}

@@ -25,8 +25,9 @@ const Form: React.FC<FormProps> = ({
 							User already exists. You want to
 							<span>
 								<Link href='/account/login' className='underline'>
+									{' '}
 									Login
-								</Link>
+								</Link>{' '}
 								instead?
 							</span>
 						</span>
