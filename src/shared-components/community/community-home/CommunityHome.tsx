@@ -40,7 +40,6 @@ const CommunityHome = (props: CommunityHomeProps) => {
 			],
 		});
 	};
-
 	return (
 		<div>
 			<div className='flex'>
@@ -62,7 +61,7 @@ const CommunityHome = (props: CommunityHomeProps) => {
 							{(response || []).map((postNode: CommunityPostEdge) => {
 								const { node } = postNode;
 								if (node) {
-									return <CommunityFeeds key={node.id} items={node} />;
+									return <CommunityFeeds key={node.id} items={node} authorizedUser={authorizedUser} />;
 								}
 							})}
 						</InfiniteScroller>

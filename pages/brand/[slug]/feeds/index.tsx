@@ -22,7 +22,7 @@ const CompanyFeedsPage = () => {
 								{authorizedUser?.activeRole?.name === 'USER' ? <Header /> : <Navbar />}
 								{companySlug && (
 									<CompanyLayout companySlug={companySlug}>
-										<CompanyFeeds companySlug={companySlug} />
+										<CompanyFeeds companySlug={companySlug} authorizedUser={authorizedUser} />
 									</CompanyLayout>
 								)}
 							</>

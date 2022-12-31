@@ -432,3 +432,67 @@ export const COMMUNITY_FEEDS = gql`
 		}
 	}
 `;
+
+export const GET_FIRST_LEVEL_COMMENTS = gql`
+	query getComments(
+		$postId: String!
+		$before: String
+		$after: String
+		$first: Float
+		$last: Float
+		$order: OrderCommentList = { direction: asc, orderBy: createdAt }
+	) {
+		getComments(
+			postId: $postId
+			before: $before
+			after: $after
+			first: $first
+			last: $last
+			order: $order
+		) {
+			errors {
+				code
+				message
+				statusCode
+			}
+			comment {
+				edges {
+					cursor
+					node {
+						id
+						createdAt
+						updatedAt
+						content
+						communityPostId
+						authorId
+						creator {
+							id
+							username
+							fullName
+							activeRole {
+								id
+								name
+							}
+							userProfile {
+								id
+								profileImage
+							}
+						}
+						mentions {
+							id
+							fullName
+							username
+						}
+					}
+				}
+				pageInfo {
+					hasNextPage
+					hasPreviousPage
+					startCursor
+					endCursor
+				}
+				totalCount
+			}
+		}
+	}
+`;

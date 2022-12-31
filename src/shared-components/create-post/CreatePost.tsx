@@ -2,6 +2,7 @@ import { UilCalender, UilImages, UilLabelAlt } from '@iconscout/react-unicons';
 import { useState } from 'react';
 
 import { useClickOutside } from '@/hooks/useClickOutside';
+import { getUserImageFromRole, getUserNameFromRole } from '@/utils/permissions';
 import { Avatar } from '../avatar';
 import { RightDrawerLayout } from '../layouts/right-drawer-layout';
 import { PostPopup } from '../post-popup';
@@ -27,13 +28,7 @@ const CreatePost = props => {
 		cb && cb();
 	};
 
-	const getActiveRole = user => {
-		return user?.activeRole?.name;
-	};
-
 	const postButtonClassName = 'flex justify-center p-2 rounded-full grow hover:bg-gray-300';
-
-	console.log('authorizedUser', authorizedUser);
 
 	return (
 		<>
@@ -56,21 +51,9 @@ const CreatePost = props => {
 					<div className='h-16 relative w-16'>
 						<Avatar
 							className='rounded-full'
-							imgSrc={
-								getActiveRole(authorizedUser) === 'USER'
-									? authorizedUser?.userProfile?.profileImage
-									: authorizedUser?.company[0]?.avatar
-							}
-							name={
-								getActiveRole(authorizedUser) === 'USER'
-									? authorizedUser?.username || authorizedUser?.fullName
-									: authorizedUser?.company[0]?.name || authorizedUser?.company[0]?.legalName
-							}
-							alt={
-								getActiveRole(authorizedUser) === 'USER'
-									? authorizedUser?.username || authorizedUser?.fullName
-									: authorizedUser?.company[0]?.name || authorizedUser?.company[0]?.legalName
-							}
+							imgSrc={getUserImageFromRole(authorizedUser)}
+							name={getUserNameFromRole(authorizedUser) || ''}
+							alt={getUserNameFromRole(authorizedUser) || ''}
 						/>
 					</div>
 					<div className='grow ml-4 rounded-full'>

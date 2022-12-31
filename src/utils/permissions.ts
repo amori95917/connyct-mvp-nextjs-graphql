@@ -25,4 +25,31 @@ const getUserRoleId = (currentUser: User) => {
 	if (currentUser?.activeRole) return currentUser?.activeRole.id;
 };
 
-export { hasCompanySlugMatched, hasOwnerIdMatched, isOwner, getUserRoleName, getUserRoleId };
+const getUserImageFromRole = (currentUser: User) => {
+	return getUserRoleName(currentUser) === 'USER'
+		? currentUser?.userProfile?.profileImage
+		: currentUser?.company[0]?.avatar;
+};
+
+const getUserNameFromRole = (currentUser: User) => {
+	return getUserRoleName(currentUser) === 'USER'
+		? currentUser?.username
+		: currentUser?.company[0]?.name;
+};
+
+const getUserFullNameFromRole = (currentUser: User) => {
+	return getUserRoleName(currentUser) === 'USER'
+		? currentUser?.fullName
+		: currentUser?.company[0]?.legalName;
+};
+
+export {
+	hasCompanySlugMatched,
+	hasOwnerIdMatched,
+	isOwner,
+	getUserRoleName,
+	getUserRoleId,
+	getUserImageFromRole,
+	getUserNameFromRole,
+	getUserFullNameFromRole,
+};

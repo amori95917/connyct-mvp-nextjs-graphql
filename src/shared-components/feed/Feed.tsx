@@ -57,8 +57,18 @@ export const Actions = (props: FeedActionsProps) => {
 	return <>{children}</>;
 };
 
+type FeedCommentsProps = {
+	children: React.ReactNode;
+};
+
+export const Comments = (props: FeedCommentsProps) => {
+	const { children } = props;
+	return <>{children}</>;
+};
+
 Feed.CreatorProfile = CreatorProfile;
 Feed.Title = Title;
 Feed.Description = Description;
 Feed.Gallery = Gallery;
 Feed.Actions = Actions;
+Feed.Comments = Comments;
