@@ -496,3 +496,62 @@ export const GET_FIRST_LEVEL_COMMENTS = gql`
 		}
 	}
 `;
+
+export const GET_SECOND_LEVEL_COMMENTS = gql`
+	query getSecondLevelComments(
+		$commentId: String!
+		$before: String
+		$after: String
+		$first: Float
+		$last: Float
+		$order: OrderCommentList = { direction: asc, orderBy: createdAt }
+	) {
+		getSecondLevelComments(
+			commentId: $commentId
+			before: $before
+			after: $after
+			first: $first
+			last: $last
+			order: $order
+		) {
+			errors {
+				code
+				message
+				statusCode
+			}
+			comment {
+				edges {
+					cursor
+					node {
+						id
+						createdAt
+						updatedAt
+						content
+						authorId
+						commentId
+						creator {
+							id
+							username
+							fullName
+							activeRole {
+								id
+								name
+							}
+							userProfile {
+								id
+								profileImage
+							}
+						}
+					}
+				}
+				pageInfo {
+					hasNextPage
+					hasPreviousPage
+					startCursor
+					endCursor
+				}
+				totalCount
+			}
+		}
+	}
+`;

@@ -18,7 +18,7 @@ const InlinePostForm = (props: InlinePostFormProps) => {
 		reset,
 		formState: { errors },
 	} = useForm({});
-	const onSubmit = handleSubmit(val => onFormSubmit(val, () => reset({ name: '' })));
+	const onSubmit = handleSubmit(val => onFormSubmit(val, () => reset({ [name]: '' })));
 	return (
 		<>
 			<div className='flex gap-4 pt-2'>

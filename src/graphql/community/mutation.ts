@@ -116,7 +116,6 @@ export const CREATE_SECOND_LEVEL_COMMENT = gql`
 			comment {
 				id
 				content
-				communityPostId
 				authorId
 				commentId
 				creator {

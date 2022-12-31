@@ -5,7 +5,7 @@ import { useGetFirstLevelCommunityPostComments } from '@/hooks/services/useGetFi
 import { InfiniteScroller } from '@/shared-components/infinite-scroller';
 import { LoaderDataComponent } from '@/shared-components/loader-data-component';
 import { useMutation } from '@apollo/client';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { InlinePostForm } from '../../inline-post-form';
 import CommunityComment from './CommunityComment';
 
@@ -56,7 +56,7 @@ const CommunityComments = (props: CommunityCommentsProps) => {
 					onFormSubmit={onCommentSubmit}
 				/>
 				{firstLevelComments.length > 0 && (
-					<div className='comments px-14'>
+					<div className='comments'>
 						<LoaderDataComponent
 							isLoading={loading}
 							data={firstLevelComments}
@@ -69,7 +69,17 @@ const CommunityComments = (props: CommunityCommentsProps) => {
 								{(firstLevelComments || []).map((firstLevelCommentNode: FirstLevelCommentEdge) => {
 									const { node } = firstLevelCommentNode;
 									if (node) {
-										return <CommunityComment key={node?.id} items={node} authorizedUser={authorizedUser} />;
+										return (
+											<Fragment key={node?.id}>
+												<CommunityComment
+													key={node?.id}
+													item={node}
+													authorizedUser={authorizedUser}
+													level={1}
+												/>
+												<div className='bg-slate-100 h-[1px] mt-4 shadow-sm w-full'></div>
+											</Fragment>
+										);
 									}
 								})}
 							</InfiniteScroller>
