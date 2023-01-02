@@ -1,13 +1,13 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
 import { ConnyctLogo } from '@/shared-components/icons';
-import { Dropdown } from './Dropdown';
 
-import { useClickOutside } from '@/hooks/useClickOutside';
-import { Avatar } from '../avatar';
 import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
+import { useClickOutside } from '@/hooks/useClickOutside';
+import ConnectsIcon from '@/ui-elements/atoms/icons/ConnectsIcon';
+import HomeIcon from '@/ui-elements/atoms/icons/HomeIcon';
+import { Avatar } from '../avatar';
 import { ProfileDropdown } from '../profile-dropdown';
 
 const Header = () => {
@@ -27,18 +27,21 @@ const Header = () => {
 					<Link href='/' className='flex font-bold items-center text-primary' passHref>
 						<ConnyctLogo height='2em' width='6em' />
 					</Link>
-					{/* <div className='search-bar'>
+					<div className='search-bar'>
 						<i className='uil uil-search'></i>
 						<input type='search' placeholder='Search for brands' />
-					</div> */}
+					</div>
 					<div className='flex gap-8 items-center'>
-						<Link href='/' passHref>
+						<Link href='/' passHref className='flex items-center'>
+							<HomeIcon />
 							<span>Home</span>
 						</Link>
-						<Link href='/my-connects' passHref>
+						<Link href='/my-connects' passHref className='flex items-center'>
+							<ConnectsIcon />
 							<span>Connects</span>
 						</Link>
-						<Link href='/' passHref>
+						<Link href='/' passHref className='flex items-center'>
+							{/* <NotificationIcon /> */}
 							<span>Notifications</span>
 						</Link>
 						<button

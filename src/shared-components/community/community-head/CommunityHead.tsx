@@ -66,16 +66,17 @@ export const CommunityHead = (props: CommunityHeadProps) => {
 						{isOwner(authorizedUser, companySlug) && (
 							<button
 								className='absolute flex gap-1 items-center right-0 top-0'
-								onClick={handleDrawerToggle}
-							>
+								onClick={handleDrawerToggle}>
 								<UilPen />
 							</button>
 						)}
 						<div className='relative'>
 							<div className='flex flex-col relative top-7'>
-								<button className='bg-primary font-bold p-2 px-6 rounded-md text-lg text-white'>
-									Join Community
-								</button>
+								{!isOwner(authorizedUser, companySlug) && !community.isConnected && (
+									<button className='bg-primary font-bold p-2 px-6 rounded-md text-lg text-white'>
+										Join Community
+									</button>
+								)}
 								{/* invite button */}
 								{/* <button className='bg-primary font-bold ml-2 p-2 px-6 rounded-md text-lg text-white'>
 									Invite

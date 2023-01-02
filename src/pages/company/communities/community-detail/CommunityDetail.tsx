@@ -59,6 +59,8 @@ const CommunityDetail = (props: CommunityDetailProps) => {
 				</div>
 			</>
 		);
+	} else {
+		return <></>;
 	}
 };
 

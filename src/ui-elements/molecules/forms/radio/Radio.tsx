@@ -1,6 +1,6 @@
 import { classNames } from '@/utils/classnames';
-import { Radio, RadioProps, Label } from 'src/ui-elements/atoms/forms';
 import { forwardRef } from 'react';
+import { Label, Radio, RadioProps } from 'src/ui-elements/atoms/forms';
 
 export type FormRadioProps = {
 	name: string;
@@ -20,15 +20,15 @@ export const FormRadio: React.FC<FormRadioProps> = forwardRef<HTMLInputElement, 
 			<>
 				<div
 					className={classNames(
-						'appearance-none flex h-full items-center p-2 rounded-sm w-full',
-						wrapperClassName
+						wrapperClassName,
+						'appearance-none flex h-full items-center p-2 rounded-sm w-full'
 					)}
 					aria-live='polite'>
 					<Radio
 						id={id}
 						name={name}
 						ref={ref}
-						inputClassName={classNames('', inputClassName)}
+						inputClassName={classNames(inputClassName, '')}
 						{...props}
 					/>
 					{label && <Label id={id} className={labelClassName} label={label} />}

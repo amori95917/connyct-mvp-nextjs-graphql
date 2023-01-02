@@ -4,10 +4,9 @@ import produce from 'immer';
 // API SERVICES
 import { useCompanyFeedsQuery } from '@/hooks/services/useCompanyFeedsQuery';
 // LOCAL COMPONENTS
-import { Company, PostEdge } from '@/generated/graphql';
+import { PostEdge, User } from '@/generated/graphql';
 import { CREATE_POST } from '@/graphql/company';
 import { GET_COMPANY_POST } from '@/graphql/feeds';
-import { useCurrentUser } from '@/hooks/services/useCurrentUserQuery';
 import CreatePost from '@/shared-components/create-post/CreatePost';
 import { BrandFeeds } from '@/shared-components/feed-components/brand-feeds';
 import { InfiniteScroller } from '@/shared-components/infinite-scroller';
@@ -16,21 +15,20 @@ import { FeedLoader } from '@/shared-components/skeleton-loader/FeedLoader';
 import { TrendingTopics } from '@/shared-components/trending-topics';
 import { BrandRecommendations } from '@/shared-components/widgets/brand-recommendation';
 import Widget from '@/shared-components/widgets/Widget';
-import { getCookie } from '@/utils/cookies';
+import { isOwner } from '@/utils/permissions';
 
 type CompanyFeedsProps = {
 	companySlug: string;
+	authorizedUser: User;
 };
 
 const CompanyFeeds = (props: CompanyFeedsProps) => {
-	const { companySlug } = props;
+	const { companySlug, authorizedUser } = props;
 	const { feeds, loading, hasNextPage, onLoadMore } = useCompanyFeedsQuery(companySlug, 10);
 	const [post, { error, loading: postLoading, data }] = useMutation(CREATE_POST);
-	const { currentUser } = useCurrentUser();
 
 	// TODO move this logic to service repository pattern
 	const onPostSubmit = async (input: any, cb?: () => void) => {
-		const { company } = getCookie('CONNYCT_USER');
 		const { tags = [], images = [], ...rest } = input;
 		const tempTags = tags
 			? tags?.map(tag => {
@@ -40,7 +38,7 @@ const CompanyFeeds = (props: CompanyFeedsProps) => {
 		try {
 			const response = await post({
 				variables: {
-					companyId: company[0].id,
+					companyId: authorizedUser?.company[0].id,
 					data: {
 						text: input.status,
 						tags: tempTags || [],
@@ -52,7 +50,7 @@ const CompanyFeeds = (props: CompanyFeedsProps) => {
 					// post.post
 					const companyPosts = cache.readQuery({
 						query: GET_COMPANY_POST,
-						variables: { id: company[0].id, first: 10 },
+						variables: { id: authorizedUser?.company[0].id, first: 10 },
 					});
 					const updatedCompanyPosts = produce(companyPosts, (draft: any) => {
 						if (draft?.postsByCompanyId?.edges) {
@@ -68,7 +66,10 @@ const CompanyFeeds = (props: CompanyFeedsProps) => {
 					});
 					cache.writeQuery({
 						query: GET_COMPANY_POST,
-						variables: { id: company[0].id, first: companyPosts?.postsByCompanyId?.edges.length + 1 },
+						variables: {
+							id: authorizedUser?.company[0].id,
+							first: companyPosts?.postsByCompanyId?.edges.length + 1,
+						},
 						data: updatedCompanyPosts,
 					});
 				},
@@ -77,36 +78,17 @@ const CompanyFeeds = (props: CompanyFeedsProps) => {
 		} catch (err) {}
 	};
 
-	const hasCompanySlugMatched = (brandIdToMatch: string, brand: [Company]) => {
-		return brand.some(b => b.id === brandIdToMatch);
-	};
-
-	const hasOwnerIdMatched = (ownerIdToMatch: string, brand: [Company]) => {
-		return brand.some(b => b.ownerId === ownerIdToMatch);
-	};
-
-	const isOwner = () => {
-		{
-			/* MANAGER, EDITOR can also view it where we need to check brandId and currentUser company id are same */
-		}
-		return (
-			currentUser?.activeRole.name === 'OWNER' &&
-			hasCompanySlugMatched(companySlug, currentUser?.company) &&
-			hasOwnerIdMatched(currentUser?.id, currentUser?.company)
-		);
-	};
-
 	return (
 		<>
 			<div className='gap-4 grid md:grid-cols-3'>
 				<div className='col-span-2'>
 					<div className='flex flex-col'>
-						{isOwner() && (
+						{isOwner(authorizedUser, companySlug) && (
 							<div className='mb-10'>
 								<CreatePost
 									actions={['media', 'events', 'products']}
 									onPostSubmit={onPostSubmit}
-									authorizedUser={currentUser}
+									authorizedUser={authorizedUser}
 								/>
 							</div>
 						)}
@@ -119,7 +101,7 @@ const CompanyFeeds = (props: CompanyFeedsProps) => {
 								{(feeds || []).map((postNode: PostEdge) => {
 									const { node } = postNode;
 									if (node) {
-										return <BrandFeeds key={node.id} items={node} />;
+										return <BrandFeeds key={node.id} items={node} authorizedUser={authorizedUser} />;
 									}
 								})}
 							</InfiniteScroller>
@@ -132,7 +114,8 @@ const CompanyFeeds = (props: CompanyFeedsProps) => {
 					</div>
 					<div className='flex flex-col w-full'>
 						{/* TODO: if a user is viewing a company profile then show CompanyRecommendation else different things */}
-						<Widget>
+						<Widget widgetClassName='pt-2 p-4'>
+							<p className='font-bold text-lg text-primary'>Recommended Brands</p>
 							<BrandRecommendations first={4} />
 						</Widget>
 					</div>

@@ -11,7 +11,7 @@ export const Label = (props: LabelProps) => {
 	const defaultClassName =
 		'font-semibold flex items-center mb-2 text-gray-700 text-sm tracking-wide uppercase';
 	return (
-		<label className={classNames(defaultClassName, className)} htmlFor={id}>
+		<label className={classNames(className, defaultClassName)} htmlFor={id}>
 			{label}
 		</label>
 	);

@@ -71,23 +71,20 @@ export const Community = ({
 				<RightDrawerLayout
 					isOpen={isInviteDrawerOpen}
 					setIsOpen={setIsInviteDrawerOpen}
-					drawerSize='2xl'
-				>
+					drawerSize='2xl'>
 					<InviteMembers />
 				</RightDrawerLayout>
 			)}
 			{isOwner(currentUser, companySlug) && (
 				<button
 					className='absolute bg-slate-50 flex h-10 items-center justify-center right-0 rounded-full top-0 w-10 z-9'
-					onClick={handleDrawerToggle}
-				>
+					onClick={handleDrawerToggle}>
 					<UilImageEdit />
 				</button>
 			)}
 			<div
 				onClick={() => onCommunityClickHandler(community.id as string)}
-				className='cursor-pointer h-52 relative w-full'
-			>
+				className='cursor-pointer h-52 relative w-full'>
 				<Image
 					src={community?.coverImage || 'https://i.pravatar.cc'}
 					fill
@@ -96,13 +93,15 @@ export const Community = ({
 				/>
 			</div>
 			<div className='cursor-pointer flex items-center mt-5'>
-				<Avatar
-					imgSrc={community?.profile}
-					name={community?.name || ''}
-					alt={community?.name || 'community-profile'}
-					size='sm'
-					className='h-16 rounded-full w-16'
-				/>
+				<div className='h-10 relative w-10'>
+					<Avatar
+						imgSrc={community?.profile}
+						name={community?.name || ''}
+						alt={community?.name || 'community-profile'}
+						size='sm'
+						className='h-16 rounded-full w-16'
+					/>
+				</div>
 
 				<Link href={`/brand/${companySlug}/communities/${community.id}`}>
 					<p className='cursor-pointer font-bold ml-3 text-md text-primary'>{community.name}</p>
@@ -119,8 +118,7 @@ export const Community = ({
 					{community?.type === 'PRIVATE' && isOwner(currentUser, companySlug) && (
 						<button
 							className='bg-primary cursor-pointer px-2 py-2 rounded-md shadow-xl text-white'
-							onClick={handleInviteDrawerToggle}
-						>
+							onClick={handleInviteDrawerToggle}>
 							Invite members
 						</button>
 					)}
@@ -128,8 +126,7 @@ export const Community = ({
 						<Button
 							className='bg-primary cursor-pointer px-2 py-2 rounded-md shadow-xl text-white'
 							loading={loading}
-							onClick={handleCommunityJoin}
-						>
+							onClick={handleCommunityJoin}>
 							Connect
 						</Button>
 					)}

@@ -37,7 +37,7 @@ const Avatar = (props: AvatarProps) => {
 		imgSrc,
 		name,
 		wrapperClassName = '',
-		className = '',
+		className = 'object-cover rounded-full',
 		alt = 'avatar',
 		width = 300,
 		height = 300,

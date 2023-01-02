@@ -87,16 +87,7 @@ const CommunityComment = (props: CommunityCommentProps) => {
 							Replies
 						</button>
 					)}
-					{showReplyForm && (
-						<div className={`${level === 2 ? '-ml-16' : ''}`}>
-							<InlinePostForm
-								authorizedUser={authorizedUser}
-								name='reply'
-								placeholder='write a reply...'
-								onFormSubmit={onReplySubmit}
-							/>
-						</div>
-					)}
+
 					{repliesLoading && <p>Loading...</p>}
 					<LoaderDataComponent
 						isLoading={repliesLoading}
@@ -127,6 +118,16 @@ const CommunityComment = (props: CommunityCommentProps) => {
 							})}
 						</InfiniteScroller>
 					</LoaderDataComponent>
+					{showReplyForm && (
+						<div className={`${level === 2 ? '-ml-16' : ''}`}>
+							<InlinePostForm
+								authorizedUser={authorizedUser}
+								name='reply'
+								placeholder='write a reply...'
+								onFormSubmit={onReplySubmit}
+							/>
+						</div>
+					)}
 				</div>
 			</div>
 		</>

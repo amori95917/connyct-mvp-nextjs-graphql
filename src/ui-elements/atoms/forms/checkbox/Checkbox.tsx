@@ -13,12 +13,12 @@ export const Checkbox: React.FC<CheckboxProps> = forwardRef<HTMLInputElement, Ch
 		// const ref = useRef<HTMLInputElement>(null);
 		// useImperativeHandle(inRef, () => ref.current!, [ref])
 		const _class =
-			'form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-gray-200 checked:bg-primary checked:border-primary focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer';
+			'form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-gray-200 checked:bg-primary checked:border-primary focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer';
 		return (
 			<input
 				name={name}
 				ref={ref}
-				className={classnames(_class, inputClassName)}
+				className={classnames(inputClassName, _class)}
 				type='checkbox'
 				value=''
 				id={id}

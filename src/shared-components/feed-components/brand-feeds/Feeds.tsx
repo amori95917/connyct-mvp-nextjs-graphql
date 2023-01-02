@@ -1,15 +1,22 @@
-import { Box } from '@/ui-elements/atoms/box';
+import { User } from '@/generated/graphql';
 import { CreatorContainer } from '@/shared-components/creator-container';
 import { Feed } from '@/shared-components/feed';
-import { FeedGallery } from '../feed-gallery';
+import { Box } from '@/ui-elements/atoms/box';
+import { useState } from 'react';
 import { FeedActions } from '../feed-actions';
+import { FeedGallery } from '../feed-gallery';
 
 type FeedsProps = {
 	items: any;
+	authorizedUser: User;
 };
 
 export const Feeds = (props: FeedsProps) => {
-	const { items } = props;
+	const { items, authorizedUser } = props;
+	const [showCommentBox, setShowCommentBox] = useState(false);
+	const handleCommentShow = () => {
+		setShowCommentBox(true);
+	};
 	return (
 		<>
 			<Box className='mb-8'>
@@ -43,6 +50,7 @@ export const Feeds = (props: FeedsProps) => {
 								likesData={[]}
 								commentLength={items.comments.length}
 								isOnSale={items.isOnSale}
+								onCommentClickHandler={handleCommentShow}
 							/>
 						</div>
 					</Feed.Actions>

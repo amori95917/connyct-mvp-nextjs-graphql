@@ -33,7 +33,7 @@ const CommunityHome = (props: CommunityHomeProps) => {
 			},
 		});
 	};
-	console.log('COMMUNITYHOME', authorizedUser);
+
 	return (
 		<>
 			<div className='flex flex-col'>
