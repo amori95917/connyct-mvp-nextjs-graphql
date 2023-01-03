@@ -1,9 +1,9 @@
-const getProducts = arrays => {
+const getProducts = (arrays: string[][]): string[][] => {
 	if (arrays.length === 0) {
 		return [[]];
 	}
 
-	let results = [];
+	let results: string[][] = [];
 
 	getProducts(arrays.slice(1)).forEach(product => {
 		arrays[0].forEach(value => {
@@ -13,14 +13,16 @@ const getProducts = arrays => {
 
 	return results;
 };
-const getAllCombinations = variations => {
-	const variationName = variations.map(variation => variation.option);
-	const variationValues = variations.map(variation =>
+const getAllCombinations = (variations: VariationProps[]) => {
+	const variationName = variations.map((variation: VariationProps) => variation.option);
+	const variationValues: (string[] | undefined)[] = variations.map((variation: VariationProps) =>
 		variation.values?.map(variationVal => variationVal['value'])
 	);
-	const filteredVariationValues = variationValues.filter(variationVal => variationVal !== undefined);
+	const filteredVariationValues: string[][] = variationValues.filter(
+		variationVal => variationVal !== undefined
+	) as string[][];
 	return getProducts(filteredVariationValues).map(product => {
-		const obj = {};
+		const obj: VariationObject = {};
 		variationName.forEach((name, i) => {
 			obj['id'] = `${product.join('-')}-${i}`;
 			obj[name] = product[i];
@@ -33,9 +35,33 @@ const getAllCombinations = variations => {
 	});
 };
 
-const VariationPreview = ({ variations }) => {
+type VariationObject = {
+	[key: string]: string;
+};
+
+type ValueProps = {
+	id: number;
+	label: string;
+	value: string;
+};
+
+type VariationProps = {
+	id: number;
+	option: string;
+	values?: ValueProps[];
+};
+
+type VariationPreviewProps = {
+	variations: VariationProps[];
+	setValue: any;
+};
+
+const VariationPreview = (props: VariationPreviewProps) => {
+	const { variations, setValue } = props;
 	const variationOptions = variations.map(variation => variation.option);
 	const allVariationCombinations = getAllCombinations(variations);
+	console.log('allVariationCombinations', allVariationCombinations, setValue);
+	setValue('allVariations', allVariationCombinations);
 	return (
 		<>
 			<div className='mt-4 overflow-hidden ring-1 ring-black ring-opacity-5 shadow md:rounded-lg'>
@@ -46,33 +72,23 @@ const VariationPreview = ({ variations }) => {
 								<th
 									key={variation.option}
 									scope='col'
-									className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+									className='font-semibold pl-1 py-3.5 text-gray-900 text-left text-sm'>
 									{variation.option}
 								</th>
 							))}
-							<th
-								scope='col'
-								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+							<th scope='col' className='font-semibold py-3.5 text-gray-900 text-left text-sm'>
 								Image
 							</th>
-							<th
-								scope='col'
-								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+							<th scope='col' className='font-semibold py-3.5 text-gray-900 text-left text-sm'>
 								Price
 							</th>
-							<th
-								scope='col'
-								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+							<th scope='col' className='font-semibold py-3.5 text-gray-900 text-left text-sm'>
 								Quantity
 							</th>
-							<th
-								scope='col'
-								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+							<th scope='col' className='font-semibold py-3.5 text-gray-900 text-left text-sm'>
 								SKU
 							</th>
-							<th
-								scope='col'
-								className='font-semibold pl-4 pr-3 py-3.5 text-gray-900 text-left text-sm sm:pl-6'>
+							<th scope='col' className='font-semibold py-3.5 text-gray-900 text-left text-sm'>
 								Barcode
 							</th>
 						</tr>
@@ -82,15 +98,17 @@ const VariationPreview = ({ variations }) => {
 							return (
 								<tr key={variation.id}>
 									{variationOptions.map(option => (
-										<td key={option} className='pl-4 pr-3 py-4 text-sm whitespace-nowrap sm:pl-6'>
+										<td key={option} className='pr-3 py-4 text-sm whitespace-nowrap sm:pl-2'>
 											{variation[option]}
 										</td>
 									))}
-									<td className='px-3 py-4 text-gray-500 text-sm whitespace-nowrap'>Image</td>
-									<td className='px-3 py-4 text-gray-500 text-sm whitespace-nowrap'>{variation.price}</td>
-									<td className='px-3 py-4 text-gray-500 text-sm whitespace-nowrap'>{variation.quantity}</td>
-									<td className='px-3 py-4 text-gray-500 text-sm whitespace-nowrap'>{variation.sku}</td>
-									<td className='px-3 py-4 text-gray-500 text-sm whitespace-nowrap'>{variation.barcode}</td>
+									<td className='py-4 text-gray-500 text-sm whitespace-nowrap'>
+										<div className='bg-slate-100 h-16 w-16'></div>
+									</td>
+									<td className='py-4 text-gray-500 text-sm whitespace-nowrap'>{variation.price}</td>
+									<td className='py-4 text-gray-500 text-sm whitespace-nowrap'>{variation.quantity}</td>
+									<td className='py-4 text-gray-500 text-sm whitespace-nowrap'>{variation.sku}</td>
+									<td className='py-4 text-gray-500 text-sm whitespace-nowrap'>{variation.barcode}</td>
 								</tr>
 							);
 						})}

@@ -41,8 +41,8 @@ const Products = () => {
 											xmlns='http://www.w3.org/2000/svg'>
 											<defs>
 												<linearGradient id='gradient' x1='50%' x2='50%' y1='0%' y2='100%'>
-													<stop offset='0%' stop-color='#00B4DB' />
-													<stop offset='100%' stop-color='#0083B0' />
+													<stop offset='0%' stopColor='#00B4DB' />
+													<stop offset='100%' stopColor='#0083B0' />
 												</linearGradient>
 											</defs>
 											<path
@@ -62,9 +62,9 @@ const Products = () => {
 												xmlns='http://www.w3.org/2000/svg'>
 												<defs>
 													<linearGradient id='gradient' x1='50%' x2='50%' y1='0%' y2='100%'>
-														<stop offset='0%' stop-color='#5A6399' />
-														<stop offset='50%' stop-color='#5A6399' />
-														<stop offset='100%' stop-color='#ea9a7e' />
+														<stop offset='0%' stopColor='#5A6399' />
+														<stop offset='50%' stopColor='#5A6399' />
+														<stop offset='100%' stopColor='#ea9a7e' />
 													</linearGradient>
 												</defs>
 												<path
@@ -83,8 +83,8 @@ const Products = () => {
 												xmlns='http://www.w3.org/2000/svg'>
 												<defs>
 													<linearGradient id='gradient' x1='50%' x2='50%' y1='0%' y2='100%'>
-														<stop offset='0%' stop-color='#5A6399' />
-														<stop offset='100%' stop-color='#ea9a7e' />
+														<stop offset='0%' stopColor='#5A6399' />
+														<stop offset='100%' stopColor='#ea9a7e' />
 													</linearGradient>
 												</defs>
 												<path
@@ -110,8 +110,8 @@ const Products = () => {
 												xmlns='http://www.w3.org/2000/svg'>
 												<defs>
 													<linearGradient id='gradient' x1='50%' x2='50%' y1='0%' y2='100%'>
-														<stop offset='0%' stop-color='#5A6399' />
-														<stop offset='100%' stop-color='#ea9a7e' />
+														<stop offset='0%' stopColor='#5A6399' />
+														<stop offset='100%' stopColor='#ea9a7e' />
 													</linearGradient>
 												</defs>
 												<path
@@ -130,8 +130,8 @@ const Products = () => {
 												xmlns='http://www.w3.org/2000/svg'>
 												<defs>
 													<linearGradient id='gradient' x1='50%' x2='50%' y1='0%' y2='100%'>
-														<stop offset='0%' stop-color='#5A6399' />
-														<stop offset='100%' stop-color='#ea9a7e' />
+														<stop offset='0%' stopColor='#5A6399' />
+														<stop offset='100%' stopColor='#ea9a7e' />
 													</linearGradient>
 												</defs>
 												<path
@@ -150,8 +150,8 @@ const Products = () => {
 												xmlns='http://www.w3.org/2000/svg'>
 												<defs>
 													<linearGradient id='gradient' x1='50%' x2='50%' y1='0%' y2='100%'>
-														<stop offset='0%' stop-color='#5A6399' />
-														<stop offset='100%' stop-color='#ea9a7e' />
+														<stop offset='0%' stopColor='#5A6399' />
+														<stop offset='100%' stopColor='#ea9a7e' />
 													</linearGradient>
 												</defs>
 												<path

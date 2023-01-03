@@ -3,6 +3,7 @@ import { LoadingDots } from '../loading-dots';
 
 export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
 	children: React.ReactNode;
+	type?: 'button' | 'submit';
 	variant?: 'contained' | 'outlined';
 	color?: 'primary' | 'secondary' | string;
 	startIcon?: React.ReactNode;
@@ -21,6 +22,7 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
 export function Button(props: ButtonProps) {
 	const {
 		children,
+		type = 'button',
 		loading,
 		loadingComponent = <LoadingDots />,
 		variant = 'contained',
@@ -88,6 +90,7 @@ export function Button(props: ButtonProps) {
 
 	return (
 		<button
+			type={type}
 			style={Object.assign(
 				{},
 				styles.base,
@@ -97,8 +100,7 @@ export function Button(props: ButtonProps) {
 			)}
 			disabled={loading || props.disabled}
 			className={className}
-			{...otherProps}
-		>
+			{...otherProps}>
 			{props.startIcon}
 			{loading ? loadingComponent : children}
 			{props.endIcon}

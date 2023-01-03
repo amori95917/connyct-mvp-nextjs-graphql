@@ -6,10 +6,6 @@ export const POST_FRAGMENT = gql`
 		text
 		companyId
 		createdAt
-		comments {
-			id
-			text
-		}
 		tags {
 			id
 			name
@@ -45,6 +41,8 @@ export const POST_FRAGMENT = gql`
 			description
 			postId
 		}
+		reactionCount
+		commentCount
 	}
 `;
 
@@ -247,6 +245,104 @@ export const GET_COMMENTS = gql`
 								endCursor
 							}
 							totalCount
+						}
+					}
+				}
+				pageInfo {
+					hasNextPage
+					hasPreviousPage
+					startCursor
+					endCursor
+				}
+				totalCount
+			}
+		}
+	}
+`;
+
+export const GET_POST_FIRST_LEVEL_COMMENTS = gql`
+	query getPostsComments(
+		$postId: String!
+		$before: String
+		$after: String
+		$first: Float
+		$last: Float
+	) {
+		getPostsComments(postId: $postId, before: $before, after: $after, first: $first, last: $last) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			data {
+				edges {
+					cursor
+					node {
+						id
+						createdAt
+						updatedAt
+						content
+						postId
+						authorId
+						creator {
+							id
+							email
+							fullName
+						}
+						repliesCount
+						mentions {
+							id
+							email
+							fullName
+						}
+					}
+				}
+				pageInfo {
+					hasNextPage
+					hasPreviousPage
+					startCursor
+					endCursor
+				}
+				totalCount
+			}
+		}
+	}
+`;
+
+export const GET_POST_SECOND_LEVEL_COMMENTS = gql`
+	query getPostSecondLevelComments(
+		$commentId: String!
+		$before: String
+		$after: String
+		$first: Float
+		$last: Float
+	) {
+		getPostSecondLevelComments(
+			commentId: $commentId
+			before: $before
+			after: $after
+			first: $first
+			last: $last
+		) {
+			errors {
+				message
+				code
+				statusCode
+			}
+			data {
+				edges {
+					cursor
+					node {
+						id
+						createdAt
+						updatedAt
+						content
+						authorId
+						commentId
+						creator {
+							id
+							email
+							fullName
 						}
 					}
 				}

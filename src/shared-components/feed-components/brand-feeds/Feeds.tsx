@@ -3,6 +3,7 @@ import { CreatorContainer } from '@/shared-components/creator-container';
 import { Feed } from '@/shared-components/feed';
 import { Box } from '@/ui-elements/atoms/box';
 import { useState } from 'react';
+import { BrandComments } from '../comments/brand-feed-comments';
 import { FeedActions } from '../feed-actions';
 import { FeedGallery } from '../feed-gallery';
 
@@ -47,13 +48,20 @@ export const Feeds = (props: FeedsProps) => {
 						<div className='bg-slate-50 feed-actions mt-2 pb-4 pt-4 px-8 shadow-sm'>
 							<FeedActions
 								postId={items.id}
-								likesData={[]}
-								commentLength={items.comments.length}
+								likesData={items.reactionCount}
+								commentLength={items.commentCount}
 								isOnSale={items.isOnSale}
 								onCommentClickHandler={handleCommentShow}
 							/>
 						</div>
 					</Feed.Actions>
+					{showCommentBox && (
+						<Feed.Comments>
+							<div className='bg-slate-50 feed-actions mt-1 pb-4 shadow-sm'>
+								<BrandComments authorizedUser={authorizedUser} postId={items.id} />
+							</div>
+						</Feed.Comments>
+					)}
 				</Feed>
 			</Box>
 		</>

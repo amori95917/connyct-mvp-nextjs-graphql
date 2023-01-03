@@ -94,6 +94,7 @@ export const CREATE_FIRST_LEVEL_COMMENT = gql`
 						profileImage
 					}
 				}
+				repliesCount
 				createdAt
 				updatedAt
 			}

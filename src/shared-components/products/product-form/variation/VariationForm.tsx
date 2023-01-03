@@ -1,4 +1,5 @@
 import { FormInput, FormSelect } from '@/shared-components/forms';
+import { Button } from '@/ui-elements/atoms/button';
 import VariationPreview from './VariationPreview';
 
 type VariationFormProps = {
@@ -10,14 +11,15 @@ type VariationFormProps = {
 	getValues: any;
 	control: any;
 	watch: any;
+	setValue: any;
 };
 
 const VariationForm = (props: VariationFormProps) => {
-	const { fields, remove, append, errors, register, getValues, control, watch } = props;
-
+	const { fields, remove, append, errors, register, getValues, control, watch, setValue } = props;
+	const variations = watch('variations');
 	return (
 		<>
-			<p className='font-semibold mb-4 text-md'>Options</p>
+			<p className='font-semibold mb-4 mt-4 text-lg text-md'>Options</p>
 			{fields.map((field, index) => {
 				return (
 					<div className='flex mb-4' key={field.id}>
@@ -26,13 +28,13 @@ const VariationForm = (props: VariationFormProps) => {
 								id='option'
 								type='text'
 								name={`variations.${index}.option`}
-								label='Option'
+								label={`Option ${index + 1}`}
 								helperText='Choose option that can be applied as variants for a product'
 								errors={errors}
 								register={register}
 							/>
 						</div>
-						<div className='w-full md:ml-4 md:w-8/12'>
+						<div className='w-full md:ml-4 md:w-4/12'>
 							<FormSelect
 								name={`variations.${index}.values`}
 								label=''
@@ -51,16 +53,13 @@ const VariationForm = (props: VariationFormProps) => {
 					</div>
 				);
 			})}
-			<button
-				className='bg-gray-200 p-3'
-				type='button'
-				onClick={() => append({ option: '', value: '' })}>
+			<Button variant='outlined' type='button' onClick={() => append({ option: '', value: '' })}>
 				Add option
-			</button>
+			</Button>
 			<div className='divide-y'></div>
 			{/* PREVIEW */}
 			{/* <VariationPreview variations={[{ id: 1, option: 'size', values: ['sm', 'md']}, {id: 2, option: 'color', values: ['Red', 'Green', 'Blue']}]}/> */}
-			<VariationPreview variations={watch('variations')} />
+			{variations.length > 0 && <VariationPreview variations={variations} setValue={setValue} />}
 		</>
 	);
 };

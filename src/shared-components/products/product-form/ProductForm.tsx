@@ -1,7 +1,8 @@
 import { useFieldArray, useForm } from 'react-hook-form';
 
+import { CoverPhotoUploadForm } from '@/shared-components/cover-photo-upload-form';
 import { FormCheckbox, FormInput, FormSelect } from '@/shared-components/forms';
-import AttributeForm from './AttributeForm';
+import { Button } from '@/ui-elements/atoms/button';
 import VariationForm from './variation/VariationForm';
 
 type Attributes = {
@@ -57,24 +58,8 @@ const initialValues = {
 		quantity: 0,
 	},
 	hasVariants: false,
-	variations: [
-		{
-			id: 1,
-			option: 'Size',
-			values: [
-				{ id: 1, label: 'SM', value: 'sm' },
-				{ id: 2, label: 'MD', value: 'md' },
-			],
-		},
-		{
-			id: 2,
-			option: 'Color',
-			values: [
-				{ id: 1, label: 'Red', value: 'red' },
-				{ id: 2, label: 'Blue', value: 'blue' },
-			],
-		},
-	],
+	variations: [],
+	allVariations: [],
 	// variations: [{ id: 1, option: 'size', value: ['sm', 'md']}, {id: 2, option: 'color', value: ['Red', 'Green', 'Blue']}],
 	attributes: [],
 	status: 'draft' as const,
@@ -88,6 +73,7 @@ const ProductSetup = () => {
 		formState: { errors },
 		watch,
 		getValues,
+		setValue,
 	} = useForm<ProductFormFields>({
 		defaultValues: initialValues ?? {},
 	});
@@ -97,155 +83,215 @@ const ProductSetup = () => {
 		name: 'variations', // unique name for your Field Array
 	});
 
-	const {
-		fields: attributeFields,
-		append: appendAttribute,
-		remove: removeAttribute,
-	} = useFieldArray({
-		control, // control props comes from useForm (optional: if you are using FormContext)
-		name: 'attributes', // unique name for your Field Array
-	});
+	// const {
+	// 	fields: attributeFields,
+	// 	append: appendAttribute,
+	// 	remove: removeAttribute,
+	// } = useFieldArray({
+	// 	control, // control props comes from useForm (optional: if you are using FormContext)
+	// 	name: 'attributes', // unique name for your Field Array
+	// });
 
 	const onSubmit = handleSubmit(data => {
 		console.log('submitting...');
+		console.log('data', data);
 	});
 
 	const hasVariants = watch('hasVariants');
 	return (
 		<>
 			{/* <h1 className="font-semibold text-lg">Product Setup</h1> */}
-			<form onSubmit={onSubmit} className='flex mt-6'>
-				<div className='w-full md:mr-8 md:w-6/12'>
-					<div className='bg-white p-4 shadow-md md:mb-8'>
-						<p className='font-semibold mb-4 text-lg'>Basic Information</p>
-						<FormInput<ProductFormFields>
-							id='name'
-							type='text'
-							name='name'
-							label='Name'
-							placeholder='Name'
-							className='mb-4 mr-2'
-							register={register}
-							rules={{ required: 'You must enter the label' }}
-							errors={errors}
-						/>
-						<FormInput<ProductFormFields>
-							id='description'
-							type='text'
-							name='description'
-							label='Description'
-							placeholder='Write a description about product'
-							className='mr-2'
-							register={register}
-							rules={{ required: 'You must enter the description' }}
-							errors={errors}
-						/>
-					</div>
-					<div className='bg-white p-4 shadow-md md:mb-8'>
-						<p className='font-semibold mb-4 text-lg'>Pricing</p>
-						<div className='flex md:gap-4'>
-							<div className='w-full md:w-6/12'>
-								<FormInput<ProductFormFields>
-									id='price'
-									type='text'
-									name='pricing.price'
-									label='Price'
-									placeholder='Price of product'
-									className='mr-2'
-									register={register}
-									rules={{ required: 'You must enter the price' }}
-									errors={errors}
-								/>
+			<form onSubmit={onSubmit} className='mt-6'>
+				<div className='flex'>
+					<div className='w-full md:mr-8 md:w-7/12'>
+						<div className='bg-white p-4 md:mb-8'>
+							<p className='font-semibold mb-4 text-lg'>Basic Information</p>
+							<FormInput<ProductFormFields>
+								id='name'
+								type='text'
+								name='name'
+								label='Name'
+								placeholder='Name'
+								className='mb-4 mr-2'
+								register={register}
+								rules={{ required: 'You must enter the label' }}
+								errors={errors}
+							/>
+							<FormInput<ProductFormFields>
+								id='description'
+								type='text'
+								name='description'
+								label='Description'
+								placeholder='Write a description about product'
+								wrapperClassName='mt-4'
+								inputClassName='pb-20'
+								register={register}
+								rules={{ required: 'You must enter the description' }}
+								errors={errors}
+							/>
+						</div>
+						<div className='bg-white p-4 md:mb-8'>
+							<p className='font-semibold mb-4 text-lg'>Pricing</p>
+							<div className='flex md:gap-4'>
+								<div className='w-full md:w-6/12'>
+									<FormInput<ProductFormFields>
+										id='price'
+										type='text'
+										name='pricing.price'
+										label='Price'
+										placeholder='Price of product'
+										className='mr-2'
+										register={register}
+										rules={{ required: 'You must enter the price' }}
+										errors={errors}
+									/>
+								</div>
+								<div className='w-full md:w-6/12'>
+									<FormInput<ProductFormFields>
+										id='comparePrice'
+										type='text'
+										name='pricing.comparePrice'
+										label='Compare Price'
+										placeholder='Compare price of product'
+										className='mr-2'
+										register={register}
+										rules={{ required: 'You must enter the compare price' }}
+										helperText="To show a reduced price, move the product's original price into Compare at price. Enter a lower value into Price."
+										errors={errors}
+									/>
+								</div>
 							</div>
-							<div className='w-full md:w-6/12'>
-								<FormInput<ProductFormFields>
-									id='comparePrice'
-									type='text'
-									name='pricing.comparePrice'
-									label='Compare Price'
-									placeholder='Compare price of product'
-									className='mr-2'
-									register={register}
-									rules={{ required: 'You must enter the compare price' }}
-									helperText="To show a reduced price, move the product's original price into Compare at price. Enter a lower value into Price."
-									errors={errors}
-								/>
+							<div className='flex'>
+								<div className='w-full md:w-6/12'>
+									<FormInput<ProductFormFields>
+										id='costPrice'
+										type='text'
+										name='pricing.costPrice'
+										label='Cost price per item'
+										placeholder='Cost price of product'
+										className='mr-2'
+										register={register}
+										rules={{ required: 'You must enter the cost price' }}
+										errors={errors}
+									/>
+								</div>
 							</div>
 						</div>
-						<div className='flex'>
-							<div className='w-full md:w-6/12'>
-								<FormInput<ProductFormFields>
-									id='costPrice'
-									type='text'
-									name='pricing.costPrice'
-									label='Cost price per item'
-									placeholder='Cost price of product'
-									className='mr-2'
-									register={register}
-									rules={{ required: 'You must enter the cost price' }}
-									errors={errors}
-								/>
-							</div>
-						</div>
-					</div>
-					<div className='bg-white p-4 shadow-md md:mb-8'>
-						<p className='font-semibold mb-4 text-lg'>Inventory</p>
-						<div className='flex md:gap-4'>
-							<div className='w-full md:w-6/12'>
-								<FormInput<ProductFormFields>
-									id='sku'
-									type='text'
-									name='inventory.sku'
-									label='SKU (Stock Keeping Unit)'
-									placeholder='SKU of product'
-									className='mr-2'
-									register={register}
-									rules={{ required: 'You must enter the sku' }}
-									errors={errors}
-								/>
-							</div>
-							<div className='w-full md:w-6/12'>
-								<FormInput<ProductFormFields>
-									id='barcode'
-									type='text'
-									name='inventory.barcode'
-									label='Barcode (ISBN, UPC, GTIN, etc)'
-									placeholder='Barcode of product'
-									className='mr-2'
-									register={register}
-									rules={{ required: 'You must enter the barcode' }}
-									errors={errors}
-								/>
-							</div>
-						</div>
-						<div className='flex'>
-							<div className='mb-4 mt-4 w-full md:w-6/12'>
-								<FormCheckbox<ProductFormFields>
-									id='trackQuantity'
-									name='inventory.trackQuantity'
-									label='Track quantity'
-									labelClassName='mb-0 mr-2'
-									register={register}
-									errors={errors}
-								/>
-							</div>
-						</div>
-						<div className='flex'>
-							<div className='w-full md:w-6/12'>
-								<FormInput<ProductFormFields>
-									id='quantity'
-									type='text'
-									name='inventory.quantity'
-									label='Quantity'
-									placeholder='Quantity of product'
-									className='mr-2'
-									register={register}
-									errors={errors}
-								/>
+						<div className='bg-white p-4 md:mb-8'>
+							<h1 className='font-semibold mb-6 text-lg'>Product Images</h1>
+							<div className='mb-24'>
+								<CoverPhotoUploadForm />
 							</div>
 						</div>
 					</div>
-					<div className='bg-white p-4 shadow-md md:mb-8'>
+					<div className='w-full md:w-4/12'>
+						<div className='bg-white p-4 md:mb-8'>
+							<h1 className='font-semibold mb-6 text-lg'>Organize Product</h1>
+							<FormSelect
+								name='productType'
+								label='Product Type'
+								placeholder='Product Type'
+								options={PRODUCT_TYPE_OPTIONS}
+								helperText='Product type of an product. For e.g Clothing'
+								errors={errors}
+								register={register}
+								wrapperClassName='mb-8'
+								control={control}
+							/>
+							<FormSelect
+								name='categories'
+								label='Category'
+								placeholder='Category'
+								options={CATEGORIES}
+								helperText='Category of a product. For e.g Men'
+								errors={errors}
+								register={register}
+								wrapperClassName='mb-8'
+								control={control}
+							/>
+							<FormSelect
+								name='collections'
+								label='Collection'
+								placeholder='Collection'
+								options={COLLECTIONS}
+								helperText='Collection of a product. For e.g Winter Collection'
+								errors={errors}
+								register={register}
+								wrapperClassName='mb-8'
+								control={control}
+							/>
+							<FormSelect
+								name='tags'
+								label='Tags'
+								placeholder='Tags'
+								options={[]}
+								helperText='Tags of a product.'
+								errors={errors}
+								register={register}
+								control={control}
+							/>
+						</div>
+						<div className='bg-white p-4 md:mb-8'>
+							<p className='font-semibold mb-4 text-lg'>Inventory</p>
+							<div className='flex md:gap-4'>
+								<div className='w-full md:w-6/12'>
+									<FormInput<ProductFormFields>
+										id='sku'
+										type='text'
+										name='inventory.sku'
+										label='SKU (Stock Keeping Unit)'
+										placeholder='SKU of product'
+										className='mr-2'
+										register={register}
+										rules={{ required: 'You must enter the sku' }}
+										errors={errors}
+									/>
+								</div>
+								<div className='w-full md:w-6/12'>
+									<FormInput<ProductFormFields>
+										id='barcode'
+										type='text'
+										name='inventory.barcode'
+										label='Barcode (ISBN, UPC, GTIN, etc)'
+										placeholder='Barcode of product'
+										className='mr-2'
+										register={register}
+										rules={{ required: 'You must enter the barcode' }}
+										errors={errors}
+									/>
+								</div>
+							</div>
+							<div className='flex'>
+								<div className='mb-4 mt-4 w-full md:w-6/12'>
+									<FormCheckbox<ProductFormFields>
+										id='trackQuantity'
+										name='inventory.trackQuantity'
+										label='Track quantity'
+										labelClassName='mb-0 mr-2'
+										register={register}
+										errors={errors}
+									/>
+								</div>
+							</div>
+							<div className='flex'>
+								<div className='w-full md:w-6/12'>
+									<FormInput
+										id='quantity'
+										type='text'
+										name='inventory.quantity'
+										label='Quantity'
+										placeholder='Quantity of product'
+										className='mr-2'
+										register={register}
+										errors={errors}
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className='w-full'>
+					<div className='bg-white p-4 md:mb-8'>
 						<p className='font-semibold mb-4 text-lg'>Variants</p>
 						<div className='w-full'>
 							<FormCheckbox
@@ -260,75 +306,22 @@ const ProductSetup = () => {
 						<div className='divide-y-2'></div>
 						{hasVariants && (
 							<VariationForm
-								fields={attributeFields}
-								append={appendAttribute}
-								remove={removeAttribute}
+								fields={fields}
+								append={append}
+								remove={remove}
 								getValues={getValues}
 								errors={errors}
 								register={register}
 								control={control}
 								watch={watch}
+								setValue={setValue}
 							/>
 						)}
 					</div>
-				</div>
-				<div className='w-full md:w-4/12'>
-					<div className='bg-white p-4 shadow-md md:mb-8'>
-						<h1 className='font-semibold mb-6 text-lg'>Organize Product</h1>
-						<FormSelect
-							name='productType'
-							label='Product Type'
-							placeholder='Product Type'
-							options={PRODUCT_TYPE_OPTIONS}
-							helperText='Product type of an product. For e.g Clothing'
-							errors={errors}
-							register={register}
-							wrapperClassName='mb-8'
-							control={control}
-						/>
-						<FormSelect
-							name='categories'
-							label='Category'
-							placeholder='Category'
-							options={CATEGORIES}
-							helperText='Category of a product. For e.g Men'
-							errors={errors}
-							register={register}
-							wrapperClassName='mb-8'
-							control={control}
-						/>
-						<FormSelect
-							name='collections'
-							label='Collection'
-							placeholder='Collection'
-							options={COLLECTIONS}
-							helperText='Collection of a product. For e.g Winter Collection'
-							errors={errors}
-							register={register}
-							wrapperClassName='mb-8'
-							control={control}
-						/>
-						<FormSelect
-							name='tags'
-							label='Tags'
-							placeholder='Tags'
-							options={[]}
-							helperText='Tags of a product.'
-							errors={errors}
-							register={register}
-							control={control}
-						/>
-					</div>
-					<div className='bg-white p-4 shadow-md'>
-						<AttributeForm
-							fields={attributeFields}
-							append={appendAttribute}
-							remove={removeAttribute}
-							getValues={getValues}
-							errors={errors}
-							register={register}
-							control={control}
-						/>
+					<div className='mt-4'>
+						<div className='flex'>
+							<Button type='submit'>Create new product</Button>
+						</div>
 					</div>
 				</div>
 			</form>
