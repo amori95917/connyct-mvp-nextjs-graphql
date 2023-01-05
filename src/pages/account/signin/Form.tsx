@@ -48,7 +48,7 @@ const Form: React.FC<FormProps> = ({ onSubmit, register, errors, loading, formEr
 				</div>
 				<div className='-mx-3 flex'>
 					<div className='mb-5 pl-3 pr-5 w-full'>
-						<Button className={buttonClass} variant='contained' loading={loading}>
+						<Button type='submit' className={buttonClass} variant='contained' loading={loading}>
 							Sign In
 						</Button>
 					</div>

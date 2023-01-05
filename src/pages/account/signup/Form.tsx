@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import { FormInput, FormRadio, FormPasswordInput } from '@/shared-components/forms';
-import { FormProps } from './signup.types';
+import { FormInput, FormPasswordInput, FormRadio } from '@/shared-components/forms';
 import { Button } from '@/ui-elements/atoms/button';
+import { FormProps } from './signup.types';
 
 const Form: React.FC<FormProps> = ({
 	onSubmit,
@@ -132,7 +132,7 @@ const Form: React.FC<FormProps> = ({
 					<div className='mb-5 px-3 w-full'>
 						<div className='-mx-3 flex w-full'>
 							<div className='mb-5 pl-3 w-full'>
-								<Button className={buttonClass} loading={loading} variant='contained'>
+								<Button type='submit' className={buttonClass} loading={loading} variant='contained'>
 									Sign up
 								</Button>
 							</div>
