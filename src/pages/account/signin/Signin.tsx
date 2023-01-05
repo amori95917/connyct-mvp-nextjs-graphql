@@ -1,21 +1,19 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 
 import { LOGIN_MUTATION } from '@/graphql/auth';
 import { setCookie } from '@/utils/cookies';
+import Form from './Form';
+import { schema } from './schema';
+import { initialValues } from './signin.initialValues';
 import SigninIllustration from './SigninIllustration';
 import { SigninFormFields } from './types';
-import { initialValues } from './signin.initialValues';
-import { schema } from './schema';
-import Form from './Form';
 
 const Signin = () => {
 	const router = useRouter();
-	const [error, setError] = useState({});
-	const [login, { loading }] = useMutation(LOGIN_MUTATION);
+	const [login, { loading, error }] = useMutation(LOGIN_MUTATION);
 
 	const {
 		register,
@@ -40,7 +38,6 @@ const Signin = () => {
 			});
 			console.time();
 			if (response?.data?.login) {
-				setError({});
 				const { accessToken, refreshToken, company, user } = response.data.login;
 				const cookieToSet = {
 					accessToken,
@@ -55,7 +52,7 @@ const Signin = () => {
 					: router.push(`/feeds`);
 			}
 		} catch (e) {
-			setError({ message: e.message, code: 'INVALID_USERNAME_PASSWORD' });
+			console.error(e);
 		}
 	});
 	return (
