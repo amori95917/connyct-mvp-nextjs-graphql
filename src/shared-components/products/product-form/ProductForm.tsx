@@ -334,9 +334,11 @@ const ProductSetup = (props: ProductSetupProps) => {
 							/>
 						)}
 					</div> */}
-							<div className='mt-4'>
-								<div className='flex'>
-									<Button type='submit'>Create new product</Button>
+							<div className='bottom-4 container fixed h-20 mt-4 mx-auto shadow-md w-full'>
+								<div className='flex justify-end p-4'>
+									<Button type='submit' className='py-4'>
+										Create new product
+									</Button>
 								</div>
 							</div>
 						</div>

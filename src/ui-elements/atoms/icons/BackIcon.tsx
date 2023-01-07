@@ -5,7 +5,7 @@ type IconProps = {
 	className?: string;
 } & SVGProps<SVGSVGElement>;
 
-const NextIcon = (props: IconProps) => {
+const BackIcon = (props: IconProps) => {
 	const { className, ...rest } = props;
 	return (
 		<>
@@ -15,7 +15,6 @@ const NextIcon = (props: IconProps) => {
 				height='24'
 				viewBox='0 0 24 24'
 				fill='none'
-				style={{ transform: 'rotate(180deg)' }}
 				xmlns='http://www.w3.org/2000/svg'
 				{...rest}>
 				<defs>
@@ -34,4 +33,4 @@ const NextIcon = (props: IconProps) => {
 	);
 };
 
-export default NextIcon;
+export default BackIcon;

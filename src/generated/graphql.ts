@@ -953,6 +953,12 @@ export type FilterListUsers = {
   omni?: InputMaybe<Scalars['String']>;
 };
 
+export type FindProductPayload = {
+  __typename?: 'FindProductPayload';
+  data?: Maybe<ProductPaginated>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
 export type FirstLevelComment = {
   __typename?: 'FirstLevelComment';
   authorId?: Maybe<Scalars['String']>;
@@ -1232,7 +1238,15 @@ export type Mutation = {
   post: CreatePostPayload;
   postDelete: DeletePostPayload;
   postUpdate: UpdatePostPayload;
+  product: ProductPayload;
+  productAttributeCreate: ProductAttributePayload;
   productCategory: ProductCategoryPayload;
+  productCreate: ProductPayload;
+  productEdit: ProductPayload;
+  productEditAll: ProductPayload;
+  productMediaCreate: ProductMediaPayload;
+  productMediaEdit: ProductMediaUpdatePayload;
+  productVariationCreate: ProductVariationPayload;
   refreshToken: Token;
   removeLike: Likes;
   removeRatingFromPost: RatePayload;
@@ -1604,8 +1618,59 @@ export type MutationPostUpdateArgs = {
 };
 
 
+export type MutationProductArgs = {
+  companyId: Scalars['String'];
+  image?: InputMaybe<Array<Scalars['Upload']>>;
+  mediaType: ProductMediaInput;
+  product: ProductInput;
+};
+
+
+export type MutationProductAttributeCreateArgs = {
+  input: ProductAttributeInput;
+};
+
+
 export type MutationProductCategoryArgs = {
   input: ProductCategoryInput;
+};
+
+
+export type MutationProductCreateArgs = {
+  companyId: Scalars['String'];
+  input: ProductInput;
+};
+
+
+export type MutationProductEditArgs = {
+  input: ProductEditInput;
+  productId: Scalars['String'];
+};
+
+
+export type MutationProductEditAllArgs = {
+  image?: InputMaybe<Scalars['Upload']>;
+  mediaId: Scalars['String'];
+  product: ProductInput;
+  productId: Scalars['String'];
+};
+
+
+export type MutationProductMediaCreateArgs = {
+  media: Array<Scalars['Upload']>;
+  mediaType: ProductMediaInput;
+  productId: Scalars['String'];
+};
+
+
+export type MutationProductMediaEditArgs = {
+  media?: InputMaybe<Scalars['Upload']>;
+  mediaId: Scalars['String'];
+};
+
+
+export type MutationProductVariationCreateArgs = {
+  input: ProductVariationInput;
 };
 
 
@@ -1770,6 +1835,11 @@ export type OrderListDiscussion = {
 export type OrderListDiscussionAnswer = {
   direction: OrderDirection;
   orderBy: DiscussionAnswerOrderBy;
+};
+
+export type OrderListProduct = {
+  direction: OrderDirection;
+  orderBy: ProductOrderBy;
 };
 
 export type OrderListUsers = {
@@ -1954,9 +2024,49 @@ export enum PostsOrderBy {
   CreatedAt = 'createdAt'
 }
 
+export type Product = {
+  __typename?: 'Product';
+  category?: Maybe<ProductCategory>;
+  categoryId?: Maybe<Scalars['String']>;
+  companyId?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
+  price?: Maybe<Scalars['Float']>;
+  productAttribute?: Maybe<ProductAttribute>;
+  productMedia?: Maybe<Array<ProductMedia>>;
+  productName?: Maybe<Scalars['String']>;
+  productVariation?: Maybe<Array<ProductVariation>>;
+  sku?: Maybe<Scalars['Float']>;
+  slug?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ProductAttribute = {
+  __typename?: 'ProductAttribute';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['ID']>;
+  productId?: Maybe<Scalars['String']>;
+  productVariationId?: Maybe<Scalars['String']>;
+  specification?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ProductAttributeInput = {
+  description?: InputMaybe<Scalars['String']>;
+  productId: Scalars['String'];
+  productVariationId?: InputMaybe<Scalars['String']>;
+  specification?: InputMaybe<Scalars['String']>;
+};
+
+export type ProductAttributePayload = {
+  __typename?: 'ProductAttributePayload';
+  data?: Maybe<ProductAttribute>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
 export type ProductCategory = {
   __typename?: 'ProductCategory';
-  categoryType?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
@@ -1964,23 +2074,127 @@ export type ProductCategory = {
   isLeaf?: Maybe<Scalars['Boolean']>;
   isRoot?: Maybe<Scalars['Boolean']>;
   level?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
   parentId?: Maybe<Scalars['String']>;
   subCategory?: Maybe<Array<ProductCategory>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type ProductCategoryInput = {
-  categoryType: Scalars['String'];
   description?: InputMaybe<Scalars['String']>;
   image?: InputMaybe<Scalars['String']>;
   isLeaf?: InputMaybe<Scalars['Boolean']>;
   isRoot?: InputMaybe<Scalars['Boolean']>;
+  name: Scalars['String'];
   parentId?: InputMaybe<Scalars['String']>;
 };
 
 export type ProductCategoryPayload = {
   __typename?: 'ProductCategoryPayload';
   data?: Maybe<ProductCategory>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type ProductEdge = {
+  __typename?: 'ProductEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<Product>;
+};
+
+export type ProductEditInput = {
+  categoryId?: InputMaybe<Scalars['String']>;
+  comparePrice?: InputMaybe<Scalars['Float']>;
+  costPrice?: InputMaybe<Scalars['Float']>;
+  price?: InputMaybe<Scalars['Float']>;
+  productName?: InputMaybe<Scalars['String']>;
+  sku?: InputMaybe<Scalars['Float']>;
+};
+
+export type ProductInput = {
+  categoryId: Scalars['String'];
+  comparePrice?: InputMaybe<Scalars['Float']>;
+  costPrice?: InputMaybe<Scalars['Float']>;
+  price: Scalars['Float'];
+  productName: Scalars['String'];
+  sku: Scalars['Float'];
+};
+
+export type ProductMedia = {
+  __typename?: 'ProductMedia';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
+  mediaUrl?: Maybe<Scalars['String']>;
+  productId?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ProductMediaInput = {
+  productId: Scalars['String'];
+};
+
+export type ProductMediaPayload = {
+  __typename?: 'ProductMediaPayload';
+  data?: Maybe<Array<ProductMedia>>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type ProductMediaUpdatePayload = {
+  __typename?: 'ProductMediaUpdatePayload';
+  data?: Maybe<ProductMedia>;
+};
+
+/** Order by:createdAt */
+export enum ProductOrderBy {
+  CreatedAt = 'createdAt'
+}
+
+export type ProductPageInfo = {
+  __typename?: 'ProductPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type ProductPaginated = {
+  __typename?: 'ProductPaginated';
+  edges?: Maybe<Array<ProductEdge>>;
+  pageInfo?: Maybe<ProductPageInfo>;
+  totalCount?: Maybe<Scalars['Float']>;
+};
+
+export type ProductPayload = {
+  __typename?: 'ProductPayload';
+  data?: Maybe<Product>;
+  errors?: Maybe<Array<CustomError>>;
+};
+
+export type ProductVariation = {
+  __typename?: 'ProductVariation';
+  color?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['ID']>;
+  isAvailable?: Maybe<Scalars['Boolean']>;
+  price?: Maybe<Scalars['Float']>;
+  productId?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['String']>;
+  sku?: Maybe<Scalars['Float']>;
+  title?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ProductVariationInput = {
+  color: Scalars['String'];
+  price: Scalars['Float'];
+  productId: Scalars['String'];
+  size: Scalars['String'];
+  sku: Scalars['Float'];
+  title: Scalars['String'];
+};
+
+export type ProductVariationPayload = {
+  __typename?: 'ProductVariationPayload';
+  data?: Maybe<ProductVariation>;
   errors?: Maybe<Array<CustomError>>;
 };
 
@@ -2022,6 +2236,7 @@ export type Query = {
   me: User;
   postsByCompanyId: PostPagination;
   productCategories: Array<ProductCategory>;
+  productFindAll: FindProductPayload;
   rootCategory: Array<ProductCategory>;
   subCategoryList: Array<ProductCategory>;
   userConnectionsSummary: UserConnectionsSummaryEntity;
@@ -2286,6 +2501,16 @@ export type QueryPostsByCompanyIdArgs = {
   first?: InputMaybe<Scalars['Float']>;
   id: Scalars['String'];
   last?: InputMaybe<Scalars['Float']>;
+};
+
+
+export type QueryProductFindAllArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  companyId: Scalars['String'];
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderListProduct>;
 };
 
 

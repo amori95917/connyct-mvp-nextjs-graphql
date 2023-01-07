@@ -1,3 +1,4 @@
+export { default as BackIcon } from './BackIcon';
 export { CommentIcon } from './CommentIcon';
 export { CompanyIcon } from './CompanyIcon';
 export { CustomerIcon } from './CustomerIcon';
