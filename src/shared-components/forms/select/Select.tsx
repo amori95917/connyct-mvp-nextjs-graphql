@@ -39,6 +39,7 @@ export default function FormSelectField(props: FormSelectProps) {
 		isCreateable = false,
 		isMulti = true,
 		control,
+		...rest
 	} = props;
 	const customStyles = {
 		control: (styles, state) => ({
@@ -131,6 +132,7 @@ export default function FormSelectField(props: FormSelectProps) {
 							selectStyles={styles}
 							disabled={disabled}
 							placeholder={placeholder}
+							{...rest}
 						/>
 					);
 				}}

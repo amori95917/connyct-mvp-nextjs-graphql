@@ -1,8 +1,15 @@
+import { User } from '@/generated/graphql';
 import AddProductDrawer from '@/shared-components/drawers/add-product-drawer/AddProductDrawer';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
-const Products = () => {
+type ProductsProps = {
+	companySlug: string;
+	authorizedUser: User;
+};
+const Products = (props: ProductsProps) => {
+	const { companySlug } = props;
 	const [openDrawer, setOpenDrawer] = useState(false);
 	const handleDrawerOpen = () => setOpenDrawer(!openDrawer);
 	const handleDrawerClose = () => setOpenDrawer(false);
@@ -11,9 +18,11 @@ const Products = () => {
 		<>
 			<div className='flex items-center justify-between px-4'>
 				<p className='font-bold'>Products</p>
-				<button className='bg-primary px-4 py-2 rounded text-white' onClick={handleDrawerOpen}>
-					Add new product
-				</button>
+				<Link href={`/brand/${companySlug}/products/new`}>
+					<button className='bg-primary px-4 py-2 rounded text-white' onClick={handleDrawerOpen}>
+						Add new product
+					</button>
+				</Link>
 			</div>
 			{openDrawer && <AddProductDrawer isDrawerOpen={openDrawer} onDrawerClose={handleDrawerClose} />}
 			<div className='flex flex-wrap justify-center'>

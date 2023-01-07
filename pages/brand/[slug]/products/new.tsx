@@ -1,13 +1,12 @@
 import { useRouter } from 'next/router';
 
-import { Products } from '@/pages/company/products';
 import { AuthorizationWrapper } from '@/shared-components/authorization-wrapper';
 import { Header } from '@/shared-components/header';
-import { CompanyLayout } from '@/shared-components/layouts';
 import { Navbar } from '@/shared-components/navbar';
+import { ProductForm } from '@/shared-components/products/product-form';
 import { getSlug } from '@/utils/getSlug';
 
-const ProductPage = () => {
+const ProductNewPage = () => {
 	const router = useRouter();
 	const { slug } = router.query;
 	let companySlug = getSlug(slug);
@@ -21,9 +20,9 @@ const ProductPage = () => {
 							<>
 								{authorizedUser?.activeRole?.name === 'USER' ? <Header /> : <Navbar />}
 								{companySlug && (
-									<CompanyLayout companySlug={companySlug}>
-										<Products authorizedUser={authorizedUser} companySlug={companySlug} />
-									</CompanyLayout>
+									<div className='bg-white'>
+										<ProductForm authorizedUser={authorizedUser} companySlug={companySlug} />
+									</div>
 								)}
 							</>
 						);
@@ -35,4 +34,4 @@ const ProductPage = () => {
 	);
 };
 
-export default ProductPage;
+export default ProductNewPage;
