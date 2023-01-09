@@ -17,8 +17,19 @@ type CategoryInputProps = {
 };
 
 const CategoryInput = (props: CategoryInputProps) => {
-	const { name, label, placeholder, options, helperText, errors } = props;
-	const { reset, setValue, register, control } = useForm();
+	const {
+		name,
+		label,
+		placeholder,
+		options,
+		helperText,
+		errors,
+		setValue,
+		register,
+		control,
+		resetField,
+	} = props;
+	// const { reset } = useForm();
 	const [closeMenuOnSelect, setCloseMenuOnSelect] = useState(false);
 	const { data, loading } = useQuery(ROOT_CATEGORIES);
 	const [loadSubCategories, { data: subCategoriesData }] = useLazyQuery(SUB_CATEGORIES);
@@ -70,7 +81,7 @@ const CategoryInput = (props: CategoryInputProps) => {
 	};
 
 	const handleCategorySelect = (data: ProductCategory) => {
-		reset(data);
+		resetField(name);
 		const newData = { ...data, label: data.name, value: data.id };
 		setValue(name, newData);
 		handleCloseMenu();
@@ -85,14 +96,16 @@ const CategoryInput = (props: CategoryInputProps) => {
 			helperText={helperText}
 			errors={errors}
 			register={register}
-			wrapperClassName='mb-8'
+			wrapperClassName='mb-4'
 			control={control}
 			categoryStack={categoryStack}
 			handleCategorySelect={handleCategorySelect}
 			handleSubCategoryofCategory={handleSubCategoryofCategory}
 			handleBackButton={handleBackButton}
 			closeMenuOnSelect={closeMenuOnSelect}
-			menuIsOpen={true}
+			getOptionLabel={option => option.name}
+			getOptionValue={option => option.id}
+			// menuIsOpen={false}
 			components={{ Option: CategoryOption, MenuList }}
 		/>
 	);

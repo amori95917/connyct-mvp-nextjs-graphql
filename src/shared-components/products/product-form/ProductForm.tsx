@@ -7,6 +7,9 @@ import { Button } from '@/ui-elements/atoms/button';
 import CloseIcon from '@/ui-elements/atoms/icons/CloseIcon';
 import Link from 'next/link';
 import { CategoryInput } from '../commons/category-input';
+import Image from 'next/image';
+import ProductImages from './ProductImages';
+import { MasonryGallery } from '@/shared-components/masonry-gallery';
 
 type Attributes = {
 	id: string;
@@ -31,7 +34,7 @@ export type ProductFormFields = {
 	name: string;
 	description: string;
 	productType: string;
-	categories: Array<string>;
+	categories: string;
 	collections: Array<string>;
 	tags: Array<string>;
 	pricing: Pricing;
@@ -44,8 +47,9 @@ export type ProductFormFields = {
 
 const initialValues = {
 	name: '',
+	category: '',
 	description: '',
-	productType: { label: 'Clothing', value: 'clothing' },
+	productType: null,
 	collections: [],
 	tags: [],
 	pricing: {
@@ -60,11 +64,11 @@ const initialValues = {
 		trackQuantity: false,
 		quantity: 0,
 	},
-	hasVariants: false,
-	variations: [],
-	allVariations: [],
-	// variations: [{ id: 1, option: 'size', value: ['sm', 'md']}, {id: 2, option: 'color', value: ['Red', 'Green', 'Blue']}],
-	attributes: [],
+	media: [],
+	// hasVariants: false,
+	// variations: [],
+	// allVariations: [],
+	// attributes: [],
 	status: 'draft' as const,
 };
 
@@ -81,8 +85,9 @@ const ProductSetup = (props: ProductSetupProps) => {
 		handleSubmit,
 		formState: { errors },
 		watch,
-		getValues,
+		// getValues,
 		setValue,
+		resetField,
 	} = useForm<ProductFormFields>({
 		defaultValues: initialValues ?? {},
 	});
@@ -105,24 +110,30 @@ const ProductSetup = (props: ProductSetupProps) => {
 		console.log('data', data);
 	});
 
-	const hasVariants = watch('hasVariants');
+	console.log('cat', watch('category'));
+
+	// const hasVariants = watch('hasVariants');
 	return (
 		<>
-			<div className='container mt-16 mx-auto'>
-				<div className='flex justify-between'>
-					<h1 className='flex-1 font-bold self-center text-3xl text-center text-primary'>
-						Create a new product
-					</h1>
-					<Link href={`/brands/${companySlug}/products`}>
-						<CloseIcon className='cursor-pointer h-10 w-10' />
-					</Link>
+			<div className='bg-white mt-16'>
+				<div className='py-2'>
+					<div className='container flex justify-between mx-auto'>
+						<h1 className='flex-1 font-bold self-center text-3xl text-center text-primary'>
+							Create a new product
+						</h1>
+						<Link href={`/brands/${companySlug}/products`}>
+							<CloseIcon className='cursor-pointer h-10 w-10' />
+						</Link>
+					</div>
 				</div>
-				<div className='mt-10'>
-					<form onSubmit={onSubmit} className='mt-6'>
-						<div className='flex'>
-							<div className='w-full md:mr-8 md:w-7/12'>
-								<div className='bg-white p-4 md:mb-8'>
-									<p className='font-semibold mb-4 text-lg'>Basic Information</p>
+				<div className=''>
+					<form onSubmit={onSubmit} className=''>
+						<div
+							className='bg-white container flex gap-4 mx-auto px-4 py-6'
+							style={{ height: 'calc(100vh - 60px - 80px)', overflowY: 'auto' }}>
+							<div className='w-full md:w-4/12'>
+								<div className='bg-white md:mb-2'>
+									<p className='font-semibold mb-4 text-lg text-primary'>Basic Information</p>
 									<FormInput<ProductFormFields>
 										id='name'
 										type='text'
@@ -141,14 +152,14 @@ const ProductSetup = (props: ProductSetupProps) => {
 										label='Description'
 										placeholder='Write a description about product'
 										wrapperClassName='mt-4'
-										inputClassName='pb-20'
+										inputClassName='pb-10'
 										register={register}
 										rules={{ required: 'You must enter the description' }}
 										errors={errors}
 									/>
 								</div>
-								<div className='bg-white p-4 md:mb-8'>
-									<p className='font-semibold mb-4 text-lg'>Pricing</p>
+								<div className='bg-white md:mb-2'>
+									<p className='font-semibold mb-4 text-lg text-primary'>Pricing</p>
 									<div className='flex md:gap-4'>
 										<div className='w-full md:w-6/12'>
 											<FormInput<ProductFormFields>
@@ -194,16 +205,16 @@ const ProductSetup = (props: ProductSetupProps) => {
 										</div>
 									</div>
 								</div>
-								<div className='bg-white p-4 md:mb-8'>
-									<h1 className='font-semibold mb-6 text-lg'>Product Images</h1>
+								<div className='bg-white md:mb-2'>
+									<h1 className='font-semibold mb-6 text-lg text-primary'>Product Images</h1>
 									<div className='mb-24'>
-										<CoverPhotoUploadForm />
+										<ProductImages errors={errors} control={control} />
 									</div>
 								</div>
 							</div>
 							<div className='w-full md:w-4/12'>
-								<div className='bg-white p-4 md:mb-8'>
-									<h1 className='font-semibold mb-6 text-lg'>Organize Product</h1>
+								<div className='bg-white md:mb-8'>
+									<h1 className='font-semibold mb-4 text-lg text-primary'>Organize Product</h1>
 									<FormSelect
 										name='productType'
 										label='Product Type'
@@ -212,11 +223,13 @@ const ProductSetup = (props: ProductSetupProps) => {
 										helperText='Product type of an product. For e.g Clothing'
 										errors={errors}
 										register={register}
-										wrapperClassName='mb-8'
+										wrapperClassName='mb-4'
 										control={control}
+										isCreateable={true}
+										isMulti={false}
 									/>
 									<CategoryInput
-										name='categories'
+										name='category'
 										label='Category'
 										placeholder='Category'
 										helperText='Category of a product. For e.g Men'
@@ -224,6 +237,7 @@ const ProductSetup = (props: ProductSetupProps) => {
 										register={register}
 										control={control}
 										setValue={setValue}
+										resetField={resetField}
 									/>
 									<FormSelect
 										name='collections'
@@ -233,8 +247,9 @@ const ProductSetup = (props: ProductSetupProps) => {
 										helperText='Collection of a product. For e.g Winter Collection'
 										errors={errors}
 										register={register}
-										wrapperClassName='mb-8'
+										wrapperClassName='mb-4'
 										control={control}
+										isCreateable={true}
 									/>
 									<FormSelect
 										name='tags'
@@ -245,10 +260,11 @@ const ProductSetup = (props: ProductSetupProps) => {
 										errors={errors}
 										register={register}
 										control={control}
+										isCreateable={true}
 									/>
 								</div>
-								<div className='bg-white p-4 md:mb-8'>
-									<p className='font-semibold mb-4 text-lg'>Inventory</p>
+								<div className='bg-white md:mb-4'>
+									<p className='font-semibold mb-4 text-lg text-primary'>Inventory</p>
 									<div className='flex md:gap-4'>
 										<div className='w-full md:w-6/12'>
 											<FormInput<ProductFormFields>
@@ -305,9 +321,73 @@ const ProductSetup = (props: ProductSetupProps) => {
 									</div>
 								</div>
 							</div>
+							<div className='w-full md:w-4/12'>
+								<h1 className='font-semibold mb-1 text-lg text-primary'>Product Preview</h1>
+								<p className='italic mb-4 text-gray-600 text-xs'>
+									This is how it will look like when you add this product to feed
+								</p>
+								<div className='bg-white relative rounded-lg shadow-lg'>
+									{/* {watch('media') && (
+										<MasonryGallery
+											items={watch('media') || []}
+											itemKey={'preview'}
+											srcKey={'preview'}
+											altKey={'name'}
+										/>
+									)} */}
+									{watch('media')?.map(media => {
+										return (
+											<Image
+												key={media.preview}
+												src={media.preview}
+												alt={media.name}
+												width='0'
+												height='0'
+												sizes='100vw'
+												className='h-auto w-full'
+											/>
+										);
+									})}
+
+									<div className='p-4'>
+										<h3 className='font-bold mb-0 text-lg text-primary'>{watch('name')}</h3>
+										<div className='flex gap-1'>
+											{watch('productType') && (
+												<>
+													<span className='bg-brandSecondary font-semibold mb-2 mr-2 px-3 py-1 rounded-full text-sm text-white'>
+														{watch('productType').label}
+													</span>
+												</>
+											)}
+											{watch('category') && (
+												<>
+													<span className='bg-brandSecondary font-semibold mb-2 mr-2 px-3 py-1 rounded-full text-sm text-white'>
+														{watch('category').name}
+													</span>
+												</>
+											)}
+										</div>
+										<div className='flex gap-4'>
+											<p className='mb-2 text-gray-700'>{watch('pricing.price')}</p>
+											<p className='line-through mb-2 text-gray-700'>{watch('pricing.comparePrice')}</p>
+										</div>
+										<p className='text-gray-600 text-sm'>{watch('description')}</p>
+										<div className='add-to-cart mt-4'></div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div className='w-full'>
-							{/* <div className='bg-white p-4 md:mb-8'>
+						<div className='footer shadow-md w-full'>
+							<div className='bottom-0 container fixed h-20 mt-4 mx-auto w-full'>
+								<div className='flex justify-end p-4'>
+									<Button type='submit' className='py-4'>
+										Create new product
+									</Button>
+								</div>
+							</div>
+						</div>
+						{/* <div className='w-full'>
+							<div className='bg-white p-4 md:mb-8'>
 						<p className='font-semibold mb-4 text-lg'>Variants</p>
 						<div className='w-full'>
 							<FormCheckbox
@@ -333,15 +413,8 @@ const ProductSetup = (props: ProductSetupProps) => {
 								setValue={setValue}
 							/>
 						)}
-					</div> */}
-							<div className='bottom-4 container fixed h-20 mt-4 mx-auto shadow-md w-full'>
-								<div className='flex justify-end p-4'>
-									<Button type='submit' className='py-4'>
-										Create new product
-									</Button>
-								</div>
-							</div>
-						</div>
+					</div>
+						</div> */}
 					</form>
 				</div>
 			</div>

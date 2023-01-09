@@ -1,1 +1,0 @@
-export { CompanyRecommendation } from './CompanyRecommendation';

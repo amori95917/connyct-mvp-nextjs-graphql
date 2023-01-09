@@ -79,26 +79,32 @@ export const FileUpload = (props: FileUploadProps) => {
 					});
 				});
 			} else {
-				const acceptedFile = files
-					? [
-							...files,
-							...acceptedFiles.map((file: File) =>
-								Object.assign(file, {
-									preview: URL.createObjectURL(file),
-								})
-							),
-					  ]
-					: [
-							...acceptedFiles.map((file: File) =>
-								Object.assign(file, {
-									preview: URL.createObjectURL(file),
-								})
-							),
-					  ];
-				if (acceptedFile.length > maxFiles) {
+				const acceptedFile = acceptedFiles.map((file: File) =>
+					Object.assign(file, {
+						preview: URL.createObjectURL(file),
+					})
+				);
+				// const acceptedFile = files
+				// 	? [
+				// 			...files,
+				// 			...acceptedFiles.map((file: File) =>
+				// 				Object.assign(file, {
+				// 					preview: URL.createObjectURL(file),
+				// 				})
+				// 			),
+				// 	  ]
+				// 	: [
+				// 			...acceptedFiles.map((file: File) =>
+				// 				Object.assign(file, {
+				// 					preview: URL.createObjectURL(file),
+				// 				})
+				// 			),
+				// 	  ];
+				if (acceptedFile.length + files.length > maxFiles) {
 					validationHandler && validationHandler(name, `Maximum ${maxFiles} files allowed.`);
 				} else {
-					setFiles(acceptedFile);
+					// setFiles(acceptedFile);
+					setFiles([...files, ...acceptedFile]);
 					validationHandler && validationHandler(name, '');
 					acceptedFiles.forEach((file: File) => {
 						const reader = new FileReader();
@@ -107,6 +113,7 @@ export const FileUpload = (props: FileUploadProps) => {
 						reader.readAsDataURL(file);
 						reader.onloadend = () => {};
 					});
+					console.log('acceptedFile', acceptedFile);
 					onChange({ name, acceptedFile });
 				}
 			}

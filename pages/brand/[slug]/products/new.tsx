@@ -20,7 +20,7 @@ const ProductNewPage = () => {
 							<>
 								{authorizedUser?.activeRole?.name === 'USER' ? <Header /> : <Navbar />}
 								{companySlug && (
-									<div className='bg-white'>
+									<div className=''>
 										<ProductForm authorizedUser={authorizedUser} companySlug={companySlug} />
 									</div>
 								)}

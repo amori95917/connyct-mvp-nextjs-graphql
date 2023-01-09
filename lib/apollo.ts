@@ -66,6 +66,9 @@ const createApolloClient = (headers: IncomingHttpHeaders | null = null) => {
 				if (err.message === 'Forbidden resource') {
 					// location.replace('/account/login');
 				}
+				if (err.code === 'INVALID_TOKEN') {
+					location.replace('/account/login');
+				}
 				const { message, extensions } = err; // extensions is important but need to send from server
 				console.error(`[GraphQL error]: Message: ${message}`);
 				// switch (err.extensions.code) {

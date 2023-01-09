@@ -6,6 +6,12 @@ export interface FileInputProps extends FileUploadProps {
 	control: any;
 	initialValues?: File[];
 	errors: any;
+	renderUpload: (
+		onDrop: (acceptedFiles: File[], rejectedFiles: File[]) => void,
+		files: File[],
+		onRemove: (file: File) => void
+	) => React.ReactNode;
+	renderPreview: (files: File[], onRemove: (file: File) => void) => React.ReactNode;
 }
 
 export const FileInput = (props: FileInputProps) => {

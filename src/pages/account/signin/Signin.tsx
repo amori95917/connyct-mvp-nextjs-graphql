@@ -10,6 +10,7 @@ import { schema } from './schema';
 import { initialValues } from './signin.initialValues';
 import SigninIllustration from './SigninIllustration';
 import { SigninFormFields } from './types';
+import { Company, User } from '@/generated/graphql';
 
 const Signin = () => {
 	const router = useRouter();
@@ -24,6 +25,21 @@ const Signin = () => {
 		defaultValues: initialValues ?? {},
 		resolver: yupResolver(schema),
 	});
+
+	const redirectTo = (company: Company[], user: User) => {
+		if (user.activeRole?.name === 'USER') {
+			router.push('/feeds');
+			return;
+		} else {
+			if (user.activeRole?.name === 'OWNER' && company.length > 0) {
+				router.push(`/brand/${company[0].id}/edit/business-information/general`);
+				return;
+			} else {
+				// WILL DECIDE
+				router.push('/');
+			}
+		}
+	};
 
 	const onSubmit = handleSubmit(async input => {
 		const { username, password } = input;
@@ -47,9 +63,7 @@ const Signin = () => {
 				};
 				setCookie('CONNYCT_USER', cookieToSet);
 				console.timeEnd();
-				company.length > 0
-					? router.push(`/brand/${company[0].id}/edit/business-information/general`)
-					: router.push(`/feeds`);
+				redirectTo(company, user);
 			}
 		} catch (e) {
 			console.error(e);

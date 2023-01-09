@@ -87,7 +87,7 @@ const useAuth = (allowedRoles: string[]) => {
 
 	useEffect(() => {
 		if (!isRefreshing) {
-			const { accessToken } = getCookie('CONNYCT_USER');
+			const { accessToken } = getCookie('CONNYCT_USER') ?? '';
 			authenticateUser(currentUser, accessToken);
 		}
 	}, [currentUser, isRefreshing, authenticateUser]);
