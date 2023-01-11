@@ -11,9 +11,11 @@ import {
 const downMenusButtonClassNames =
 	'group flex items-center p-4 w-full hover:bg-primary hover:text-brandSecondary hover:font-bold hover:first:fill-brandSecondary';
 const svgClassNames = 'group-hover:fill-brandSecondary';
+
 const Menus = props => {
 	const { data } = props;
 	const slug = data?.getCompanyById?.id;
+
 	return (
 		<>
 			<div className='bg-slate-100 flex no-scrollbar overflow-scroll w-full md:justify-center'>
@@ -45,6 +47,12 @@ const Menus = props => {
 					<button className={downMenusButtonClassNames}>
 						<UilCommentsAlt size={25} fill={'#5A6399'} className={svgClassNames} />
 						<span className='ml-5'>Discussions</span>
+					</button>
+				</Link>
+				<Link href={`/brand/${slug}/staffs`} passHref>
+					<button className={downMenusButtonClassNames}>
+						<UilCommentsAlt size={25} fill={'#5A6399'} className={svgClassNames} />
+						<span className='ml-5'>Staffs</span>
 					</button>
 				</Link>
 			</div>

@@ -9,8 +9,10 @@ import ConnectsIcon from '@/ui-elements/atoms/icons/ConnectsIcon';
 import HomeIcon from '@/ui-elements/atoms/icons/HomeIcon';
 import { Avatar } from '../avatar';
 import { ProfileDropdown } from '../profile-dropdown';
+import MessageWidget from '../message-widget/MessageWidget';
 
 const Header = () => {
+	const [showMessageWidget, setShowMessageWidget] = useState(false);
 	const [showDropdown, setShowDropDown] = useState(false);
 
 	const { ref, isClose, setIsClose } = useClickOutside();
@@ -20,6 +22,9 @@ const Header = () => {
 		setShowDropDown(!showDropdown);
 		setIsClose(true);
 	};
+
+	const handleShowMessageWidget = () => setShowMessageWidget(!showMessageWidget);
+
 	return (
 		<div className='flex flex-col'>
 			<nav className='bg-white fixed h-18 pl-5 pr-5 py-3 top-0 w-full z-10'>
@@ -34,16 +39,20 @@ const Header = () => {
 					<div className='flex gap-8 items-center'>
 						<Link href='/' passHref className='flex items-center'>
 							<HomeIcon />
-							<span>Home</span>
+							{/* <span>Home</span> */}
 						</Link>
 						<Link href='/my-connects' passHref className='flex items-center'>
 							<ConnectsIcon />
-							<span>Connects</span>
+							{/* <span>Connects</span> */}
 						</Link>
 						<Link href='/' passHref className='flex items-center'>
 							{/* <NotificationIcon /> */}
 							<span>Notifications</span>
 						</Link>
+						<span className='cursor-pointer flex items-center' onClick={handleShowMessageWidget}>
+							{/* <NotificationIcon /> */}
+							<span>Messages</span>
+						</span>
 						<button
 							onClick={handleDropdown}
 							className='aspect-square overflow-hidden relative rounded-full w-10'>
@@ -58,6 +67,7 @@ const Header = () => {
 				</div>
 			</nav>
 			{showDropdown && isClose && <ProfileDropdown ref={ref} currentUser={currentUser} />}
+			{showMessageWidget && <MessageWidget />}
 		</div>
 	);
 };
