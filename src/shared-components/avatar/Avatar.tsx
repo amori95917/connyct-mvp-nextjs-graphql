@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 type AvatarSize = 'sm' | 'md' | 'lg';
 
-type AvatarProps = {
+export type AvatarProps = {
 	as?: React.ElementType;
 	imgSrc?: string | null;
 	alt?: string;

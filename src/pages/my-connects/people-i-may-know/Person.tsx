@@ -1,6 +1,8 @@
 import Image from 'next/image';
 
 import { User, Maybe } from '@/generated/graphql';
+import { Button } from '@/ui-elements/atoms/button';
+import { CardView } from '@/shared-components/view/card-view';
 
 type PersonProps = {
 	user: Maybe<User> | undefined;
@@ -11,20 +13,21 @@ const Person = (props: PersonProps) => {
 	return (
 		<>
 			{user ? (
-				<div className='flex flex-col items-center mr-2 p-1 pb-3 rounded-md shadow-lg'>
-					<div className='flex h-36 overflow-hidden rounded-md w-36'>
-						<Image width={144} height={144} src={`https://i.pravatar.cc`} alt='Sunset in the mountains' />
-					</div>
-					<div className='flex flex-col'>
-						<span className='font-bold ml-1 mt-1'>{user.fullName}</span>
-						<span className='ml-1 mt-1 text-slate-400 text-sm'>{user.username}</span>
-						<div className='flex mt-2'>
-							<button className='bg-primary flex h-8 items-center ml-2 overflow-hidden p-2 rounded-md text-white'>
-								Connect
-							</button>
-						</div>
-					</div>
-				</div>
+				<CardView
+					avatar={{
+						imgSrc: user?.userProfile?.profileImage,
+						name: user.fullName || '',
+						alt: user.username || user.fullName || '',
+						size: 'lg',
+					}}
+					item={{
+						title: user.fullName || '',
+						metaTitle: user.username || '',
+					}}
+					renderActions={() => {
+						return <Button className='mt-4'>Connect</Button>;
+					}}
+				/>
 			) : (
 				<p>No User</p>
 			)}

@@ -1,1 +1,6 @@
-export { CURRENT_USER_QUERY, GET_USER, USER_CONNECTIONS_SUMMARY } from './resolver';
+export {
+	CURRENT_USER_QUERY,
+	GET_USER,
+	USER_CONNECTIONS_SUMMARY,
+	GET_MUTUAL_USERS,
+} from './resolver';

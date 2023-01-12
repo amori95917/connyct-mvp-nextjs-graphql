@@ -1,7 +1,5 @@
 import { Button } from '@/ui-elements/atoms/button';
-import { useState } from 'react';
-import { Avatar } from '../avatar';
-import { List } from '../list';
+import { ListView } from '../view/list-view';
 
 type StaffProps = {
 	item: any;
@@ -16,33 +14,18 @@ const Staff = (props: StaffProps) => {
 	};
 	return (
 		<>
-			<List className='pb-6'>
-				<div className='flex space-between w-full'>
-					<div className='flex flex-1'>
-						<div className='h-16 overflow-hidden relative rounded-full w-16'>
-							<List.Avatar>
-								<Avatar imgSrc={''} name={item.fullName} alt={item.fullName} />
-							</List.Avatar>
-						</div>
-						<div className='flex flex-col'>
-							<List.Title>
-								<p className='font-bold'> {item.fullName}</p>
-							</List.Title>
-							<List.Meta>
-								<span className='text-slate-400'>{item.username}</span>
-							</List.Meta>
-						</div>
-					</div>
-
-					{item.role === 'STAFF' && (
-						<List.Actions>
-							<div className=''>
-								<Button onClick={handleMessagePopup}>Message</Button>
-							</div>
-						</List.Actions>
-					)}
-				</div>
-			</List>
+			<div className='pb-4'>
+				<ListView
+					data={{
+						title: item.fullName,
+						metaTitle: item.username,
+						avatar: item.userProfile?.profileImage || '',
+					}}
+					renderActions={() => {
+						return <>{item.role === 'STAFF' && <Button onClick={handleMessagePopup}>Message</Button>}</>;
+					}}
+				/>
+			</div>
 		</>
 	);
 };

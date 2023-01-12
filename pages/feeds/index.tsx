@@ -3,6 +3,7 @@ import { FollowedBrandFeeds } from '@/shared-components/followed-brand-feeds';
 import { HeaderLayout } from '@/shared-components/layouts';
 import RecommendedBrandsCard from '@/shared-components/recommended-brands-card/RecommendedBrandsCard';
 import { UserProfileCard } from '@/shared-components/user-profile-card';
+import { EvangelistsWidget } from '@/shared-components/widgets/evangelists';
 
 const FeedsPage = () => {
 	return (
@@ -36,6 +37,7 @@ const FeedsPage = () => {
 											<div className='flex items-center'>
 												<span className='font-bold text-lg text-primary'>Evangelists you may know</span>
 											</div>
+											<EvangelistsWidget />
 										</div>
 									</section>
 								</section>
