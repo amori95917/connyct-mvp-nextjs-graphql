@@ -23,9 +23,17 @@ const MyConnectionsWidget = () => {
 								<span>Recommended Brands</span>
 							</li>
 						</Link>
+						{/* Followers */}
 						<Link href={'/my-connects/connycted-evangelists'}>
 							<li className='flex justify-between p-4 hover:bg-gray-100'>
-								<span>Connected Evangelists</span>
+								<span>Followers</span>
+								<span>{summary.connectedEvangelists || 0}</span>
+							</li>
+						</Link>
+						{/* I am Following to */}
+						<Link href={'/my-connects/my-followings'}>
+							<li className='flex justify-between p-4 hover:bg-gray-100'>
+								<span>My Following</span>
 								<span>{summary.connectedEvangelists || 0}</span>
 							</li>
 						</Link>

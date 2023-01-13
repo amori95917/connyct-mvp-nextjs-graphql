@@ -1,16 +1,15 @@
-import { Avatar } from '@/shared-components/avatar';
 import { ListView } from '@/shared-components/view/list-view';
 import { Button } from '@/ui-elements/atoms/button';
 
-type ConnectedEvangelistProps = {
-	follower: any;
+type MyFollowingProps = {
+	following: any;
 };
-const ConnectedEvangelist = (props: ConnectedEvangelistProps) => {
-	const { follower } = props;
-	const handleFollow = (followerId: string) => {
+const MyFollowing = (props: MyFollowingProps) => {
+	const { following } = props;
+	const handleFollow = (followingId: string) => {
 		console.log('Follow');
 	};
-	const handleUnfollow = (followerId: string) => {
+	const handleUnfollow = (followingId: string) => {
 		console.log('unfollow');
 	};
 	return (
@@ -18,21 +17,21 @@ const ConnectedEvangelist = (props: ConnectedEvangelistProps) => {
 			<div className='flex items-center justify-between mt-5 w-full'>
 				<ListView
 					data={{
-						title: follower.fullName,
-						metaTitle: follower.username,
-						avatar: follower.userProfile?.profileImage || '',
+						title: following.fullName,
+						metaTitle: following.username,
+						avatar: following.userProfile?.profileImage || '',
 					}}
 					renderActions={() => {
 						return (
 							<>
 								<div className='flex justify-end w-full'>
 									<Button
-										onClick={() => handleUnfollow(follower.id || '')}
+										onClick={() => handleUnfollow(following.id || '')}
 										className='bg-gray-300 cursor-pointer flex flex-col h-10 items-center mr-4 py-2 rounded-md text-white w-28 hover:font-bold hover:shadow-xl'>
 										Unfollow
 									</Button>
 									<Button
-										onClick={() => handleFollow(follower.id || '')}
+										onClick={() => handleFollow(following.id || '')}
 										className='bg-primary cursor-pointer flex flex-col h-10 items-center py-2 rounded-md text-white w-28 hover:font-bold hover:shadow-xl'>
 										Follow
 									</Button>
@@ -46,4 +45,4 @@ const ConnectedEvangelist = (props: ConnectedEvangelistProps) => {
 	);
 };
 
-export default ConnectedEvangelist;
+export default MyFollowing;

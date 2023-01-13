@@ -3,4 +3,8 @@ export {
 	GET_USER,
 	USER_CONNECTIONS_SUMMARY,
 	GET_MUTUAL_USERS,
+	GET_USER_FOLLOWERS,
+	GET_USER_FOLLOWING,
 } from './resolver';
+
+export { FOLLOW_USER, UNFOLLOW_USER } from './mutation';

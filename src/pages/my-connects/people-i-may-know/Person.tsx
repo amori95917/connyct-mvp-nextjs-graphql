@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { User, Maybe } from '@/generated/graphql';
 import { Button } from '@/ui-elements/atoms/button';
 import { CardView } from '@/shared-components/view/card-view';
+import { useMutation } from '@apollo/client';
+import { FOLLOW_USER } from '@/graphql/user';
 
 type PersonProps = {
 	user: Maybe<User> | undefined;
@@ -10,6 +12,17 @@ type PersonProps = {
 
 const Person = (props: PersonProps) => {
 	const { user } = props;
+	const [followUserToUser, { data, loading: submitting }] = useMutation(FOLLOW_USER);
+	const handleConnect = async () => {
+		console.log('userId', user.id);
+		await followUserToUser({
+			variables: {
+				data: {
+					followedToID: user.id,
+				},
+			},
+		});
+	};
 	return (
 		<>
 			{user ? (
@@ -25,7 +38,11 @@ const Person = (props: PersonProps) => {
 						metaTitle: user.username || '',
 					}}
 					renderActions={() => {
-						return <Button className='mt-4'>Connect</Button>;
+						return (
+							<Button className='mt-4' onClick={handleConnect}>
+								Connect
+							</Button>
+						);
 					}}
 				/>
 			) : (

@@ -145,15 +145,87 @@ export const GET_MUTUAL_USERS = gql`
 	}
 `;
 
-export const GET_MUTUAL_USERS_BY_COMPANY_ID = gql`
-	query mutualUsers(
+// export const GET_MUTUAL_USERS_BY_COMPANY_ID = gql`
+// 	query mutualUsers(
+// 		$before: String
+// 		$after: String
+// 		$first: Float
+// 		$last: Float
+// 		$order: OrderListUsers
+// 	) {
+// 		mutualUsers(before: $before, after: $after, first: $first, last: $last, order: $order) {
+// 			edges {
+// 				cursor
+// 				node {
+// 					id
+// 					createdAt
+// 					updatedAt
+// 					fullName
+// 					username
+// 					email
+// 					isValid
+// 					userProfile {
+// 						id
+// 						profileImage
+// 					}
+// 				}
+// 			}
+// 			pageInfo {
+// 				startCursor
+// 				endCursor
+// 				hasNextPage
+// 				hasPreviousPage
+// 			}
+// 			totalCount
+// 		}
+// 	}
+// `;
+
+export const GET_USER_FOLLOWERS = gql`
+	query userFollowers(
 		$before: String
 		$after: String
 		$first: Float
 		$last: Float
 		$order: OrderListUsers
 	) {
-		mutualUsers(before: $before, after: $after, first: $first, last: $last, order: $order) {
+		userFollowers(before: $before, after: $after, first: $first, last: $last, order: $order) {
+			edges {
+				cursor
+				node {
+					id
+					createdAt
+					updatedAt
+					fullName
+					username
+					email
+					isValid
+					userProfile {
+						id
+						profileImage
+					}
+				}
+			}
+			pageInfo {
+				startCursor
+				endCursor
+				hasNextPage
+				hasPreviousPage
+			}
+			totalCount
+		}
+	}
+`;
+
+export const GET_USER_FOLLOWING = gql`
+	query userFollowing(
+		$before: String
+		$after: String
+		$first: Float
+		$last: Float
+		$order: OrderListUsers
+	) {
+		userFollowing(before: $before, after: $after, first: $first, last: $last, order: $order) {
 			edges {
 				cursor
 				node {

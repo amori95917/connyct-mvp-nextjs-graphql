@@ -1774,6 +1774,39 @@ export type MutationPayload = {
   errors?: Maybe<Array<UserError>>;
 };
 
+export type MutualUser = {
+  __typename?: 'MutualUser';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  fullName?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['ID']>;
+  isValid?: Maybe<Scalars['Boolean']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  userProfile?: Maybe<UserProfile>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type MutualUserEdge = {
+  __typename?: 'MutualUserEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<MutualUser>;
+};
+
+export type MutualUserPageInfo = {
+  __typename?: 'MutualUserPageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+export type MutualUserPaginated = {
+  __typename?: 'MutualUserPaginated';
+  edges?: Maybe<Array<MutualUserEdge>>;
+  pageInfo?: Maybe<MutualUserPageInfo>;
+  totalCount?: Maybe<Scalars['Float']>;
+};
+
 export type Otp = {
   __typename?: 'OTP';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -2234,6 +2267,7 @@ export type Query = {
   listCommentByReactionType: CommunityPostCommentReactionPaginationPayload;
   listUsers: UserPaginated;
   me: User;
+  mutualUsers: MutualUserPaginated;
   postsByCompanyId: PostPagination;
   productCategories: Array<ProductCategory>;
   productFindAll: FindProductPayload;
@@ -2489,6 +2523,15 @@ export type QueryListUsersArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   filter?: InputMaybe<FilterListUsers>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  order?: InputMaybe<OrderListUsers>;
+};
+
+
+export type QueryMutualUsersArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   order?: InputMaybe<OrderListUsers>;
