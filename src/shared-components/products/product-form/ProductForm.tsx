@@ -10,6 +10,8 @@ import { CategoryInput } from '../commons/category-input';
 import Image from 'next/image';
 import ProductImages from './ProductImages';
 import { MasonryGallery } from '@/shared-components/masonry-gallery';
+import { useMutation } from '@apollo/client';
+import { CREATE_PRODUCT } from '@/graphql/product';
 
 type Attributes = {
 	id: string;
@@ -91,6 +93,7 @@ const ProductSetup = (props: ProductSetupProps) => {
 	} = useForm<ProductFormFields>({
 		defaultValues: initialValues ?? {},
 	});
+	const [createProduct, { loading: submitting, data }] = useMutation(CREATE_PRODUCT);
 	const { fields, append, remove } = useFieldArray({
 		control, // control props comes from useForm (optional: if you are using FormContext)
 		name: 'variations', // unique name for your Field Array
@@ -105,12 +108,24 @@ const ProductSetup = (props: ProductSetupProps) => {
 	// 	name: 'attributes', // unique name for your Field Array
 	// });
 
-	const onSubmit = handleSubmit(data => {
+	const onSubmit = handleSubmit(async data => {
 		console.log('submitting...');
-		console.log('data', data);
+		console.log('data', companySlug, data);
+		await createProduct({
+			variables: {
+				companyId: companySlug,
+				input: {
+					productName: data.name,
+					categoryId: data.category.id,
+					description: data.description,
+					sku: parseFloat(data.inventory.sku),
+					price: parseFloat(data.pricing.price),
+					comparePrice: parseFloat(data.pricing.comparePrice),
+					costPrice: parseFloat(data.pricing.costPrice),
+				},
+			},
+		});
 	});
-
-	console.log('cat', watch('category'));
 
 	// const hasVariants = watch('hasVariants');
 	return (
